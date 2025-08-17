@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UltraSpaceFightApplication {
+public class MainApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UltraSpaceFightApplication.class, args);
+		SpringApplication.run(MainApplication.class, args);
 
 		// Testing output example;
 		System.out.println("Ultra Space Fight application started successfully!");
