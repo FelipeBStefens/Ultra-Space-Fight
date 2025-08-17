@@ -10,6 +10,6 @@ public class MainApplication {
 		SpringApplication.run(MainApplication.class, args);
 
 		// Testing output example;
-		System.out.println("Ultra Space Fight application started successfully!");
+		System.out.println("Ultra Space Fight application started successfully!!");
 	}
 }
