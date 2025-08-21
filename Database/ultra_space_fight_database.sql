@@ -55,7 +55,8 @@ CREATE TABLE data_achievements(
     score_match INT NOT NULL DEFAULT 0,
     defeated_enemies INT NOT NULL DEFAULT 0,
     defeated_elite INT NOT NULL DEFAULT 0,
-    
+    defeated_boss INT NOT NULL DEFAULT 0,
+
     -- Checking values of the Columns;
     CHECK (score > 0 AND score_match > 0 AND 
 		defeated_enemies > 0 AND defeated_elite > 0),
