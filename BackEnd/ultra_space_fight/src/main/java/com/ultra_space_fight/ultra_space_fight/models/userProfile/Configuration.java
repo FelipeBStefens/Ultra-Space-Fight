@@ -1,20 +1,22 @@
 // Declaring the package of the Configuration class;
 package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
+import java.math.BigDecimal;
+
 // Declaring the Configuration class;
 public class Configuration {
     
     // Attributes of the Configuration class;
     private long idConfiguration;
     private String language;
-    private float soundtrack;
-    private float soundEffects;
+    private BigDecimal soundtrack;
+    private BigDecimal soundEffects;
 
     // Relation with User class;
     private User user;
 
     // Constructor of the Configuration class;
-    public Configuration(String language, float soundtrack, float soundEffects, User user) {
+    public Configuration(String language, BigDecimal soundtrack, BigDecimal soundEffects, User user) {
         
         // Initializing the attributes of the Configuration class;
         this.language = language;
@@ -28,8 +30,8 @@ public class Configuration {
 
         // Initializing the attributes of the Configuration class;
         this.language = "English"; 
-        this.soundtrack = 0.3f;
-        this.soundEffects = 0.5f;
+        this.soundtrack = new BigDecimal("0.3");
+        this.soundEffects = new BigDecimal("0.5");
         this.user = user;
     }
 
@@ -52,20 +54,20 @@ public class Configuration {
     }
 
     // Getter and Setter of the soundtrack;
-    public float getSoundtrack() {
+    public BigDecimal getSoundtrack() {
         return soundtrack;
     }
 
-    public void setSoundtrack(float soundtrack) {
+    public void setSoundtrack(BigDecimal soundtrack) {
         this.soundtrack = soundtrack;
     }
 
     // Getter and Setter of the soundEffects;
-    public float getSoundEffects() {
+    public BigDecimal getSoundEffects() {
         return soundEffects;
     }
 
-    public void setSoundEffects(float soundEffects) {
+    public void setSoundEffects(BigDecimal soundEffects) {
         this.soundEffects = soundEffects;
     }
 

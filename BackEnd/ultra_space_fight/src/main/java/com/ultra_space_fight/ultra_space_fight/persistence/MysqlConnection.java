@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class MysqlConnection {
     
     // The attribute Database connection;
-    public static Connection connection;
+    private static Connection connection;
 
     // Open the connection in the Database;
     public static void openConnection() {
@@ -47,5 +47,9 @@ public class MysqlConnection {
             // Printing the Exception Message;
             System.out.println(e.getMessage());
         }
+    }
+
+    public static Connection getConnection() {
+        return connection;
     }
 }

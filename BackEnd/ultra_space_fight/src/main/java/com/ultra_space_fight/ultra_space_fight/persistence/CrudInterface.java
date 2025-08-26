@@ -11,13 +11,13 @@ public interface CrudInterface<T> {
     public void create(T entity);
 
     // Method to delete a register from the Database by its id;
-    public void delete(int idEntity);
+    public void delete(long idEntity);
 
     // Method to update an existing register in the Database;
     public void update(T entity);
 
     // Method to read a register from the Database by its id;
-    public T read(int idEntity);
+    public T read(long idEntity);
 
     // Method to read all registers from the Database by its id;
     public List<T> readAll();
