@@ -7,27 +7,27 @@ import org.springframework.stereotype.Component;
 public class ConstantsDatabase {
     
     @Value("${spring.datasource.username}")
-    private static String user;
+    private String user;
 
     @Value("${spring.datasource.password}")
-    private static String password;
+    private String password;
 
     @Value("${spring.datasource.url}")
-    private static String address;
+    private String address;
 
     @Value("${spring.datasource.driver-class-name}")
-    private static String driverClass;
+    private String driverClass;
 
-    public static String getUser() {
+    public String getUser() {
         return user;
     }
-    public static String getPassword() {
+    public String getPassword() {
         return password;
     }
-    public static String getAddress() {
+    public String getAddress() {
         return address;
     }
-    public static String getDriverClass() {
+    public String getDriverClass() {
         return driverClass;
     }
 }

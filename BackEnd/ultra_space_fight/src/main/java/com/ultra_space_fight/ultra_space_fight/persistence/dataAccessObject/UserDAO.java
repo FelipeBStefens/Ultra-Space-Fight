@@ -23,7 +23,7 @@ public class UserDAO implements CrudInterface<User> {
 
     private final String SQL_UPDATE = """
         UPDATE users
-        SET name_user = ?, email = ?, passaword = ?, cash = ?, selected_spaceship = ?
+        SET name_user = ?, email = ?, password_user = ?, cash = ?, selected_spaceship = ?
         WHERE id_user = ?;    
         """;
 

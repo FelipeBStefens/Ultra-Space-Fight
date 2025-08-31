@@ -60,8 +60,8 @@ CREATE TABLE data_achievements(
     defeated_boss INT NOT NULL DEFAULT 0,
 
     -- Checking values of the Columns;
-    CHECK (score > 0 AND score_match > 0 AND 
-		defeated_enemies > 0 AND defeated_elite > 0),
+    CHECK (score >= 0 AND score_match >= 0 AND 
+		defeated_enemies >= 0 AND defeated_elite >= 0),
 	
     -- Declaring the Primary Key and Foreign Key;
     PRIMARY KEY (id_data),
