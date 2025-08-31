@@ -1,29 +1,33 @@
-// Declaring the package of the Constants Database class;
 package com.ultra_space_fight.ultra_space_fight.persistence;
 
-// Declaring the ConstantsDatabase class;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class ConstantsDatabase {
     
-    // The Host configuration of the Database, on an Aiven Cloud;
-    private static final String HOST = 
-        "mysql-ultra-space-fight-ultra-space-fight-db.h.aivencloud.com";
+    @Value("${spring.datasource.username}")
+    private static String user;
 
-    // The Port of the Database, to connect on an Aiven Cloud;
-    private static final String PORT = "10676";
+    @Value("${spring.datasource.password}")
+    private static String password;
 
-    // The Database Name;
-    private static final String DATABASE_NAME = "ultra_space_fight";
-    
-    // The User administration;
-    public static final String USER = "avnadmin";
+    @Value("${spring.datasource.url}")
+    private static String address;
 
-    // The Password administration;
-    public static final String PASSWORD = "AVNS_TWz1YzqCtJqLv0LP0R9";
+    @Value("${spring.datasource.driver-class-name}")
+    private static String driverClass;
 
-    // The URL address to connect with the Aiven Cloud;
-    public static final String ADDRESS = 
-        "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE_NAME + "?sslMode=REQUIRED";
-
-    // The Driver Class name;
-    public static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
+    public static String getUser() {
+        return user;
+    }
+    public static String getPassword() {
+        return password;
+    }
+    public static String getAddress() {
+        return address;
+    }
+    public static String getDriverClass() {
+        return driverClass;
+    }
 }

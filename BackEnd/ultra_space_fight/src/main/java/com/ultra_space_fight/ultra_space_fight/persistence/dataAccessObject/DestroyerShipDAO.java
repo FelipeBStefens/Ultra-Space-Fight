@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.DestroyerShip;
+import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
 import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
@@ -28,11 +29,14 @@ public class DestroyerShipDAO implements CrudInterface<DestroyerShip> {
         """;
 
     private final String SQL_READ = """
-        SELECT * FROM destroyer_ship WHERE id_ship = ?;    
+        SELECT * 
+        FROM (users u INNER JOIN destroyer_ship d ON u.id_user = d.id_user)
+        WHERE id_ship = ?;    
         """;
 
     private final String SQL_READ_ALL = """
-        SELECT * FROM destroyer_ship;    
+        SELECT * 
+        FROM (users u INNER JOIN destroyer_ship d ON u.id_user = d.id_user);    
         """;
 
     @Override
@@ -118,10 +122,12 @@ public class DestroyerShipDAO implements CrudInterface<DestroyerShip> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                UserDAO userDAO = new UserDAO();
+                
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
 
-                destroyerShip = new DestroyerShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"),
-                userDAO.read(resultSet.getLong("id_user")));
+                destroyerShip = new DestroyerShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
                 destroyerShip.setIdShip(resultSet.getLong("id_ship"));
             }
         }
@@ -148,10 +154,11 @@ public class DestroyerShipDAO implements CrudInterface<DestroyerShip> {
 
             while (resultSet.next()) {
                 
-                UserDAO userDAO = new UserDAO();
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
 
-                DestroyerShip destroyerShip = new DestroyerShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"),
-                userDAO.read(resultSet.getLong("id_user")));
+                DestroyerShip destroyerShip = new DestroyerShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
                 destroyerShip.setIdShip(resultSet.getLong("id_ship"));
                 allDestroyerShip.add(destroyerShip);
             }

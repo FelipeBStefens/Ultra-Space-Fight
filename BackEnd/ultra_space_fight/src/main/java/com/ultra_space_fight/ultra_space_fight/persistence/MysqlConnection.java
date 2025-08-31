@@ -19,9 +19,9 @@ public class MysqlConnection {
         try {
 
             // Getting the connection with the Drive Manager;
-            Class.forName(ConstantsDatabase.DRIVER_CLASS);
-            connection = DriverManager.getConnection(ConstantsDatabase.ADDRESS, 
-                ConstantsDatabase.USER, ConstantsDatabase.PASSWORD);
+            Class.forName(ConstantsDatabase.getDriverClass());
+            connection = DriverManager.getConnection(ConstantsDatabase.getAddress(), 
+                ConstantsDatabase.getUser(), ConstantsDatabase.getPassword());
             
         }
         catch (ClassNotFoundException | SQLException e) {

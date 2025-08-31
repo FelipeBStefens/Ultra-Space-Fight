@@ -13,8 +13,8 @@ import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 public class UserDAO implements CrudInterface<User> {
 
     private final String SQL_CREATE = """
-        INSERT INTO users (id_user, name_user, email, passaword, cash)
-        VALUES (NULL, ?, ?, ?, ?);
+        INSERT INTO users (id_user, name_user, email, password_user, cash, selected_spaceship)
+        VALUES (NULL, ?, ?, ?, ?, ?);
         """; 
     
     private final String SQL_DELETE = """
@@ -23,7 +23,7 @@ public class UserDAO implements CrudInterface<User> {
 
     private final String SQL_UPDATE = """
         UPDATE users
-        SET name_user = ?, email = ?, passaword = ?, cash = ?
+        SET name_user = ?, email = ?, passaword = ?, cash = ?, selected_spaceship = ?
         WHERE id_user = ?;    
         """;
 
@@ -48,6 +48,7 @@ public class UserDAO implements CrudInterface<User> {
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setInt(4, user.getCash());
+            preparedStatement.setString(5, user.getSelectedSpaceship());
 
             preparedStatement.executeUpdate();
         }
@@ -93,7 +94,8 @@ public class UserDAO implements CrudInterface<User> {
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setInt(4, user.getCash());
-            preparedStatement.setLong(5, user.getIdUser());
+            preparedStatement.setString(5, user.getSelectedSpaceship());
+            preparedStatement.setLong(6, user.getIdUser());
 
             preparedStatement.executeUpdate();
         }
@@ -120,7 +122,7 @@ public class UserDAO implements CrudInterface<User> {
 
             if (resultSet.next()) {
                 user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("passaword"), resultSet.getInt("cash"));
+                resultSet.getString("passaword"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 user.setIdUser(resultSet.getLong("id_user"));
             }
         }
@@ -148,7 +150,7 @@ public class UserDAO implements CrudInterface<User> {
             while (resultSet.next()) {
                 
                 User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("passaword"), resultSet.getInt("cash"));
+                resultSet.getString("passaword"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 user.setIdUser(resultSet.getLong("id_user"));
                 
                 allUsers.add(user);

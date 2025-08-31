@@ -10,15 +10,17 @@ public class User {
     private String email;
     private String password;
     private int cash;
+    private String selectedSpaceship;
 
     // Constructor of the User class;
-    public User(String username, String email, String password, int cash) {
+    public User(String username, String email, String password, int cash, String selectedSpaceship) {
 
         // Initializing the attributes of the User class;
         this.username = username;
         this.email = email;
         this.password = password;
         this.cash = cash;
+        this.selectedSpaceship = selectedSpaceship;
     }
 
     // Constructor with default value;
@@ -74,5 +76,13 @@ public class User {
 
     public void setCash(int cash) {
         this.cash = cash;
+    }
+
+    public String getSelectedSpaceship() {
+        return selectedSpaceship;
+    }
+
+    public void setSelectedSpaceship(String selectedSpaceship) {
+        this.selectedSpaceship = selectedSpaceship;
     }
 }

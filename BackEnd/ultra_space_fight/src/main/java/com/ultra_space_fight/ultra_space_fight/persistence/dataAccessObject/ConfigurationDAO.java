@@ -9,6 +9,7 @@ import java.util.List;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
 import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
+import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 
 public class ConfigurationDAO implements CrudInterface<Configuration> {
 
@@ -28,11 +29,14 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         """;
 
     private final String SQL_READ = """
-        SELECT * FROM configurations WHERE id_configuration = ?;    
+        SELECT * 
+        FROM (users u INNER JOIN configurations c ON u.id_user = c.id_user) 
+        WHERE id_configuration = ?;    
         """;
 
     private final String SQL_READ_ALL = """
-        SELECT * FROM configurations;    
+        SELECT * 
+        FROM (users u INNER JOIN configurations c ON u.id_user = c.id_user);    
         """;
 
     @Override
@@ -118,10 +122,14 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                UserDAO userDAO = new UserDAO();
+                
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
+                
                 configuration = 
                     new Configuration(resultSet.getString("language_user"), resultSet.getBigDecimal("soundtrack"), 
-                    resultSet.getBigDecimal("sound_effects"), userDAO.read(resultSet.getLong("id_user")));
+                    resultSet.getBigDecimal("sound_effects"), user);
                 configuration.setIdConfiguration(id);
             }
             
@@ -148,11 +156,16 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                UserDAO userDAO = new UserDAO();
+                
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
+
                 Configuration configuration = 
                     new Configuration(resultSet.getString("language_user"), resultSet.getBigDecimal("soundtrack"), 
-                    resultSet.getBigDecimal("sound_effects"), userDAO.read(resultSet.getLong("id_user")));
+                    resultSet.getBigDecimal("sound_effects"), user);
                 configuration.setIdConfiguration(resultSet.getLong("id_configuration"));
+
                 allConfigurations.add(configuration);
             }
         }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
+import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
 import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
@@ -28,11 +29,14 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         """;
 
     private final String SQL_READ = """
-        SELECT * FROM data_achievements WHERE id_data = ?;    
+        SELECT * 
+        FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user) 
+        WHERE id_data = ?;    
         """;
 
     private final String SQL_READ_ALL = """
-        SELECT * FROM data_achievements;    
+        SELECT * 
+        FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user);    
         """;
 
     @Override
@@ -122,11 +126,13 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                UserDAO userDAO = new UserDAO();
+                
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
 
                 dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
-                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"),
-                userDAO.read(resultSet.getLong("id_user")));
+                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
                 dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
             }
         }
@@ -153,11 +159,12 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
             while (resultSet.next()) {
                 
-                UserDAO userDAO = new UserDAO();
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
 
                 DataAchievements dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
-                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"),
-                userDAO.read(resultSet.getLong("id_user")));
+                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
                 dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
 
                 allDataAchievements.add(dataAchievements);

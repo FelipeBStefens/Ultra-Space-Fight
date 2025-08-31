@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.SpeedShip;
+import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
 import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
@@ -28,11 +29,14 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
         """;
 
     private final String SQL_READ = """
-        SELECT * FROM speed_ship WHERE id_ship = ?;    
+        SELECT * 
+        FROM (users u INNER JOIN speed_ship s ON u.id_user = s.id_user) 
+        WHERE id_ship = ?;    
         """;
 
     private final String SQL_READ_ALL = """
-        SELECT * FROM speed_ship;    
+        SELECT * 
+        FROM (users u INNER JOIN speed_ship s ON u.id_user = s.id_user);    
         """;
 
     @Override
@@ -118,10 +122,12 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                UserDAO userDAO = new UserDAO();
+                
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
 
-                speedShip = new SpeedShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"),
-                userDAO.read(resultSet.getLong("id_user")));
+                speedShip = new SpeedShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
                 speedShip.setIdShip(resultSet.getLong("id_ship"));
             }
         }
@@ -148,10 +154,11 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
 
             while (resultSet.next()) {
                 
-                UserDAO userDAO = new UserDAO();
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
+                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                user.setIdUser(resultSet.getLong("id_user"));
 
-                SpeedShip speedShip = new SpeedShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"),
-                userDAO.read(resultSet.getLong("id_user")));
+                SpeedShip speedShip = new SpeedShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
                 speedShip.setIdShip(resultSet.getLong("id_ship"));
                 allSpeedShip.add(speedShip);
             }
