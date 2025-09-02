@@ -14,10 +14,12 @@ CREATE TABLE users (
 	id_user BIGINT NOT NULL AUTO_INCREMENT,
     name_user VARCHAR(15) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
-    passaword VARCHAR(15) NOT NULL,
+    password_user VARCHAR(15) NOT NULL,
     cash INT NOT NULL DEFAULT 0,
-    
+    selected_spaceship VARCHAR(255) NOT NULL DEFAULT 'standart_ship',
+
     -- Checking values of the Columns;
+    CHECK(selected_spaceship IN ('standart_ship', 'speed_ship', 'destroyer_ship', 'freighter_ship', 'elite_ship'))
     CHECK(email LIKE '%@gmail.com'),
     CHECK(cash >= 0),
     
@@ -55,10 +57,11 @@ CREATE TABLE data_achievements(
     score_match INT NOT NULL DEFAULT 0,
     defeated_enemies INT NOT NULL DEFAULT 0,
     defeated_elite INT NOT NULL DEFAULT 0,
-    
+    defeated_boss INT NOT NULL DEFAULT 0,
+
     -- Checking values of the Columns;
-    CHECK (score > 0 AND score_match > 0 AND 
-		defeated_enemies > 0 AND defeated_elite > 0),
+    CHECK (score >= 0 AND score_match >= 0 AND 
+		defeated_enemies >= 0 AND defeated_elite >= 0),
 	
     -- Declaring the Primary Key and Foreign Key;
     PRIMARY KEY (id_data),

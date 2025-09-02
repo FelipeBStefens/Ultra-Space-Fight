@@ -1,33 +1,46 @@
 // Declaring the package of the User class;
-package com.ultra_space_fight.ultra_space_fight.models;
+package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
 // Declaring the User class;
 public class User {
 
     // Attributes of the User class;
-    private long id;
+    private long idUser;
     private String username;
     private String email;
     private String password;
     private int cash;
+    private String selectedSpaceship;
 
-    // Constructors of the User class;
-    public User(String username, String email, String password, int cash) {
+    // Constructor of the User class;
+    public User(String username, String email, String password, int cash, String selectedSpaceship) {
 
         // Initializing the attributes of the User class;
         this.username = username;
         this.email = email;
         this.password = password;
         this.cash = cash;
+        this.selectedSpaceship = selectedSpaceship;
     }
 
-    // Getter and Setter of the id;
-    public long getId() {
-        return id;
+    // Constructor with default value;
+    public User(String username, String email, String password) {
+        
+        // Initializing the attributes of the User class;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.cash = 0; 
+        this.selectedSpaceship = "standart_ship";
     }
 
-    public void setId(long id) {
-        this.id = id;
+    // Getter and Setter of the idUser;
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     // Getter and Setter of the username;
@@ -64,5 +77,14 @@ public class User {
 
     public void setCash(int cash) {
         this.cash = cash;
+    }
+
+    // Getter and Setter of the selectedSpaceship;
+    public String getSelectedSpaceship() {
+        return selectedSpaceship;
+    }
+
+    public void setSelectedSpaceship(String selectedSpaceship) {
+        this.selectedSpaceship = selectedSpaceship;
     }
 }
