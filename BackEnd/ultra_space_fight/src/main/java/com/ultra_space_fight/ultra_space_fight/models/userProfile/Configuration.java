@@ -1,6 +1,7 @@
 // Declaring the package of the Configuration class;
 package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
+// Imports of the BigDecimal type;
 import java.math.BigDecimal;
 
 // Declaring the Configuration class;

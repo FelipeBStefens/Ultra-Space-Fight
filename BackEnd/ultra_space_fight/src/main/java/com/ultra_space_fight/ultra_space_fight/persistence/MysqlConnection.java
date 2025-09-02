@@ -10,14 +10,15 @@ import java.sql.SQLException;
 public class MysqlConnection {
     
     // The attribute Database connection;
-    private static Connection connection;
+    private Connection connection;
 
     // Open the connection in the Database;
-    public static void openConnection() {
+    public void openConnection() {
 
         // Try-Catch to handle Execptions;
         try {
 
+            // Initializing the ConstantsDatabase class to get the constants;
             ConstantsDatabase constantsDatabase = new ConstantsDatabase();
 
             // Getting the connection with the Drive Manager;
@@ -34,7 +35,7 @@ public class MysqlConnection {
     }
 
     // Close the connection in the Database;
-    public static void closeConnection() {
+    public void closeConnection() {
 
         // Try-Catch to handle Execptions;
         try {
@@ -51,7 +52,8 @@ public class MysqlConnection {
         }
     }
 
-    public static Connection getConnection() {
+    // Method to get the Database Connection;
+    public Connection getConnection() {
         return connection;
     }
 }

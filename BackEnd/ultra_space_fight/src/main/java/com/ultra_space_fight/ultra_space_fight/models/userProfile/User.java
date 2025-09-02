@@ -31,6 +31,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.cash = 0; 
+        this.selectedSpaceship = "standart_ship";
     }
 
     // Getter and Setter of the idUser;
@@ -78,6 +79,7 @@ public class User {
         this.cash = cash;
     }
 
+    // Getter and Setter of the selectedSpaceship;
     public String getSelectedSpaceship() {
         return selectedSpaceship;
     }
