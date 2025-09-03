@@ -1,4 +1,4 @@
-package com.ultra_space_fight.ultra_space_fight.application;
+package com.ultra_space_fight.ultra_space_fight;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
