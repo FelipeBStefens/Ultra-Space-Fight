@@ -1,0 +1,54 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-image: url('../Assets/Images/ImagemInicial.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.titleName {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.enterButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 50px;
+    height: 100%;
+}
+
+.button {
+  display: inline-block;
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 25px 100px;
+  border-radius: 8px;
+  text-decoration: none; 
+
+  transition: transform 0.3s ease;
+}
+
+.button:hover {
+  background: #787879;
+   transform: scale(1.1);
+}
+
+#ultraSpaceFight {
+    font-size: 100px;
+    color: white;
+}
