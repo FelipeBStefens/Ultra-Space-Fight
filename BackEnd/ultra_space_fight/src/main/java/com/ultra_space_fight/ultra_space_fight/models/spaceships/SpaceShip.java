@@ -1,8 +1,21 @@
 // Declaring the package of the SpaceShip class;
 package com.ultra_space_fight.ultra_space_fight.models.spaceships;
 
-// Importing the User class from the userProfile package;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
+
+@JsonTypeInfo(
+  use = JsonTypeInfo.Id.NAME, 
+  include = JsonTypeInfo.As.PROPERTY, 
+  property = "type")
+
+@JsonSubTypes({
+  @JsonSubTypes.Type(value = StandartShip.class, name = "standartShip"),
+  @JsonSubTypes.Type(value = SpeedShip.class, name = "speedShip"),
+  @JsonSubTypes.Type(value = DestroyerShip.class, name = "destroyerShip"),
+  @JsonSubTypes.Type(value = FreighterShip.class, name = "freighterShip"),
+  @JsonSubTypes.Type(value = EliteShip.class, name = "eliteShip")})
 
 // Declaring the SpaceShip class as an abstract class;
 public abstract class SpaceShip {
@@ -15,6 +28,8 @@ public abstract class SpaceShip {
 
     // Relation with User class;
     private User user;
+
+    public SpaceShip() {};
 
     // Constructor of the SpaceShip class;
     public SpaceShip(int life, int speed, int damage, User user) {

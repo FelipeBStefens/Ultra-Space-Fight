@@ -16,6 +16,8 @@ public class Configuration {
     // Relation with User class;
     private User user;
 
+    public Configuration() {};
+    
     // Constructor of the Configuration class;
     public Configuration(String language, BigDecimal soundtrack, BigDecimal soundEffects, User user) {
         

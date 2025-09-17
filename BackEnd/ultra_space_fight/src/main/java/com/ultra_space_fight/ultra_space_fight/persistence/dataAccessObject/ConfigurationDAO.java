@@ -8,26 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
 import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
 // Declaring the ConfigurationDAO Class implementing the CrudInterface;
-// the generic value is Configuration; 
+// the generic value is Configuration;
+@Repository 
 public class ConfigurationDAO implements CrudInterface<Configuration> {
 
     // MySQL Connection variable, final because doesn't change;
     private final MysqlConnection MY_SQL_CONNECTION;
 
-    // Constructor of the class initialyzing the MySQL Connection;
-    public ConfigurationDAO() {
-        MY_SQL_CONNECTION = new MysqlConnection();
-    }
-
     // Constructor of the class when there is already a Connection;
-    public ConfigurationDAO(MysqlConnection mySqlConnection) {
-        MY_SQL_CONNECTION = mySqlConnection;
+    public ConfigurationDAO(MysqlConnection MY_SQL_CONNECTION) {
+        this.MY_SQL_CONNECTION = MY_SQL_CONNECTION;
     }
     
     // SQL code insert a value;
@@ -59,6 +57,11 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
     private final String SQL_READ_ALL = """
         SELECT * 
         FROM (users u INNER JOIN configurations c ON u.id_user = c.id_user);    
+        """;
+
+    private final String SQL_DELETE_BY_USER_ID = """
+        DELETE FROM configurations
+        WHERE id_user = ?;    
         """;
 
     // Method that create a new Configuration in the database;
@@ -276,4 +279,35 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         // Returning the list;
         return allConfigurations;
     }  
+
+    // Method that delete a Configuration in the database by id;
+    public void deleteByUser(long id) {
+       
+        // Try-Catch to handle Execptions;
+        try {
+
+            // Opening a Connection with the Database;
+            MY_SQL_CONNECTION.openConnection();
+
+            // Preparing a new Statement;
+            PreparedStatement preparedStatement = 
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE_BY_USER_ID);
+            
+            // Setting the values of the Statement;
+            preparedStatement.setLong(1, id);
+
+            // Executing the Statement;
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+
+            // Printing the Exception Message;
+            System.out.println(e.getMessage());
+        }
+        finally {
+
+            // Closing a Connection with the Database;
+            MY_SQL_CONNECTION.closeConnection();
+        }
+    }
 }

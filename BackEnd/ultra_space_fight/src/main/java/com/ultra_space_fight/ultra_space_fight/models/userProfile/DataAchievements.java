@@ -15,6 +15,8 @@ public class DataAchievements {
     // Relation with User class;
     private User user;
 
+    public DataAchievements() {};
+
     // Constructor of the DataAchievements class;
     public DataAchievements(int score, int scoreMatch, int defeatedEnemies, int defeatedElite, int defeatedBoss, User user) {
         

@@ -6,11 +6,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
 // Declaring the MysqlConnection class;
+@Component
 public class MysqlConnection {
     
     // The attribute Database connection;
     private Connection connection;
+
+    private final ConstantsDatabase CONSTANTS_DATABASE;
+
+    public MysqlConnection(ConstantsDatabase CONSTANTS_DATABASE) {
+        this.CONSTANTS_DATABASE = CONSTANTS_DATABASE;
+    }
 
     // Open the connection in the Database;
     public void openConnection() {
@@ -18,14 +27,10 @@ public class MysqlConnection {
         // Try-Catch to handle Execptions;
         try {
 
-            // Initializing the ConstantsDatabase class to get the constants;
-            ConstantsDatabase constantsDatabase = new ConstantsDatabase();
-
             // Getting the connection with the Drive Manager;
-            Class.forName(constantsDatabase.getDriverClass());
-            connection = DriverManager.getConnection(constantsDatabase.getAddress(), 
-                constantsDatabase.getUser(), constantsDatabase.getPassword());
-            
+            Class.forName(CONSTANTS_DATABASE.getDriverClass());
+            connection = DriverManager.getConnection(CONSTANTS_DATABASE.getAddress(), 
+                CONSTANTS_DATABASE.getUser(), CONSTANTS_DATABASE.getPassword());
         }
         catch (ClassNotFoundException | SQLException e) {
 
