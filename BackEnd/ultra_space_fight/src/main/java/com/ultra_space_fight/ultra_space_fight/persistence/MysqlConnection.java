@@ -15,8 +15,10 @@ public class MysqlConnection {
     // The attribute Database connection;
     private Connection connection;
 
+    // Constants of the Database;
     private final ConstantsDatabase CONSTANTS_DATABASE;
 
+    // Auto Wired the ConstantsDatabase class;
     public MysqlConnection(ConstantsDatabase CONSTANTS_DATABASE) {
         this.CONSTANTS_DATABASE = CONSTANTS_DATABASE;
     }

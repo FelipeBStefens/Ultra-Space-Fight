@@ -1,16 +1,21 @@
+// Package;
 package com.ultra_space_fight.ultra_space_fight;
 
-import io.github.cdimascio.dotenv.Dotenv;
+// Imports;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 
-import java.util.HashMap;
-import java.util.Map;
+import io.github.cdimascio.dotenv.Dotenv;
 
+// Dotenv Initializer Class;
 public class DotenvInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
+    // Initialize env value Method;
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
         ConfigurableEnvironment environment = applicationContext.getEnvironment();

@@ -26,7 +26,7 @@ import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 @Repository
 public class UserDAO implements CrudInterface<User> {
 
-    // MySQL Connection variable, final because doesn't change;
+    // The attribute MysqlConnection and DAOs;
     private final MysqlConnection MY_SQL_CONNECTION;
     private final ConfigurationDAO CONFIGURATION_DAO;
     private final DataAchievementDAO DATA_ACHIEVEMENT_DAO;
@@ -36,6 +36,7 @@ public class UserDAO implements CrudInterface<User> {
     private final FreighterShipDAO FREIGHTER_SHIP_DAO;
     private final EliteShipDAO ELITE_SHIP_DAO;
 
+    // Auto Wired the DAOs and MysqlConnection class;
     public UserDAO(MysqlConnection MY_SQL_CONNECTION,
                    ConfigurationDAO CONFIGURATION_DAO,
                    DataAchievementDAO DATA_ACHIEVEMENT_DAO,
@@ -54,6 +55,7 @@ public class UserDAO implements CrudInterface<User> {
         this.FREIGHTER_SHIP_DAO = FREIGHTER_SHIP_DAO;
         this.ELITE_SHIP_DAO = ELITE_SHIP_DAO;
     }
+
     // SQL code insert a value;
     private final String SQL_CREATE = """
         INSERT INTO users (id_user, name_user, email, password_user, cash, selected_spaceship)
@@ -343,45 +345,71 @@ public class UserDAO implements CrudInterface<User> {
     // Method that create a new User;
     // It creates all the others dependencies in the database;
     public void createNewUser(User user) {
+
+        // Try-Catch to handle Execptions;
         try {
+
+            // Opening a Connection with the Database;
             MY_SQL_CONNECTION.openConnection();
+
+            // Setting the connection with false auto commit;
             MY_SQL_CONNECTION.getConnection().setAutoCommit(false); 
             
+            // Create a new User;
             create(user);
             user.setIdUser(getUserId(user.getEmail(), user.getPassword())); 
 
+            // Create a new Configuration;
             Configuration configuration = new Configuration(user);
             CONFIGURATION_DAO.create(configuration); 
-
+            
+            // Create a new DataAchievements;;
             DataAchievements dataAchievements = new DataAchievements(user);
             DATA_ACHIEVEMENT_DAO.create(dataAchievements); 
 
+            // Create a new StandatShip;
             StandartShip standartShip = new StandartShip(user);
             STANDART_SHIP_DAO.create(standartShip); 
 
+            // Create a new SpeedShip;
             SpeedShip speedShip = new SpeedShip(user);
             SPEED_SHIP_DAO.create(speedShip); 
 
+            // Create a new DestroyerShip;
             DestroyerShip destroyerShip = new DestroyerShip(user);
             DESTROYER_SHIP_DAO.create(destroyerShip); 
 
+            // Create a new FreighterShip;
             FreighterShip freighterShip = new FreighterShip(user);
             FREIGHTER_SHIP_DAO.create(freighterShip);
 
+            // Create a new EliteShip;
             EliteShip eliteShip = new EliteShip(user);
             ELITE_SHIP_DAO.create(eliteShip); 
+
+            // Committing the transaction;
             MY_SQL_CONNECTION.getConnection().commit(); 
         } 
         catch (SQLException e) {
+
+            // Try-Catch to handle Execptions;
             try {
+
+                // Doing a rollback in case of error;
                 MY_SQL_CONNECTION.getConnection().rollback(); 
             } 
             catch (SQLException x) {
+
+                // Printing the Exception Message;
                 System.out.println(x.getMessage());
             }
+
+            // Printing the Exception Message;
             System.out.println(e.getMessage());
         }
         finally {
+
+            // Closing a Connection with the Database;
             MY_SQL_CONNECTION.closeConnection();
         }
     }
@@ -389,31 +417,63 @@ public class UserDAO implements CrudInterface<User> {
     // Method that delete a User by user id;
     // It deletes all the others dependencies in the database;
     public void deleteAll(long userId) {
+
+        // Try-Catch to handle Execptions;
         try {
+
+            // Opening a Connection with the Database;
             MY_SQL_CONNECTION.openConnection();
+
+            // Setting the connection with false auto commit;
             MY_SQL_CONNECTION.getConnection().setAutoCommit(false);
             
+            // Delete the Confguration;
             CONFIGURATION_DAO.deleteByUser(userId); 
+
+            // Delete the DataAchievements;
             DATA_ACHIEVEMENT_DAO.deleteByUser(userId); 
+
+            // Delete the StandartShip;
             STANDART_SHIP_DAO.deleteByUser(userId); 
+
+            // Delete the SpeedShip;
             SPEED_SHIP_DAO.deleteByUser(userId); 
+
+            // Delete the DestroyerShip;
             DESTROYER_SHIP_DAO.deleteByUser(userId); 
+
+            // Delete the FreighterShip;
             FREIGHTER_SHIP_DAO.deleteByUser(userId); 
+
+            // Delete the EliteShip;
             ELITE_SHIP_DAO.deleteByUser(userId); 
+
+            // Delete the User;
             delete(userId); 
 
+            // Committing the transaction;
             MY_SQL_CONNECTION.getConnection().commit();
         } 
         catch (SQLException e) {
+
+            // Try-Catch to handle Execptions;
             try {
+
+                // Doing a rollback in case of error;
                 MY_SQL_CONNECTION.getConnection().rollback(); 
             } 
             catch (SQLException x) {
+
+                // Printing the Exception Message;
                 System.out.println(x.getMessage());
             }
+
+            // Printing the Exception Message;
             System.out.println(e.getMessage());
         } 
         finally { 
+
+            // Closing a Connection with the Database;
             MY_SQL_CONNECTION.closeConnection();
         }
     }
