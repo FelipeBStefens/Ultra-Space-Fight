@@ -1,0 +1,114 @@
+@import url('style.css');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: flex-start; 
+  flex-direction: column;      
+  align-items: flex-start; 
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    width: 100%;
+}
+
+#loginText {
+  position: absolute;
+  top: -10px;
+  right: 50px;
+  font-size: 250px;
+  font-family: var(--pixel-font);
+  color: var(--button-color);
+}
+
+#forms {
+    background-color: hsl(219, 96%, 70%); 
+    padding: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+
+    margin-left: 200px;
+    margin-top: 300px;          
+    height: calc(100vh - 300px); 
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.inputContainer {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.inputContainer .input {
+    width: 100%;
+    padding: 20px 15px 10px 15px; 
+    border-radius: 8px;
+    border: 2px solid #f48be2;
+    font-size: 16px;
+    font-family: var(--pixel-font);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inputContainer .textInput {
+    position: absolute;
+    left: 15px;
+    top: 20px; 
+    font-weight: bold;
+    color: #000000;
+    pointer-events: none;
+    font-size: 20px; 
+    font-family: var(--pixel-font);
+    transition: 0.3s ease all;
+    background-color: transparent;
+}
+
+.inputContainer .input:focus + .textInput,
+.inputContainer .input:not(:placeholder-shown) + .textInput {
+    top: -8px;        
+    left: 10px;
+    font-size: 23px;  
+    font-family: var(--pixel-font);
+    color: #000000;
+    background-color:hsl(219, 96%, 70%);
+    padding: 0 5px;
+}
+
+#button {
+    width: var(--button-width);
+    padding: var(--button-padding);
+    border-radius: var(--button-radius);
+    background-color: var(--button-color);
+    color: var(--text-color);
+    font-size: var(--button-font-size);
+    font-family: var(--pixel-font);
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+#button:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.2);
+}

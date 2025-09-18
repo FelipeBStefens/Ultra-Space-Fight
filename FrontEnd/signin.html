@@ -3,28 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="Style\styleIndex.css">
+        <link rel="stylesheet" href="Style\styleSignin.css">
         <title>Sign In</title>
     </head>
     <body>
         <div id="container">
-            <img id="logo" src="Assets/Images/logo_ultra_space_fight.svg" alt="Ultra Space Fight Logo">
+            <h1 id="loginText">SIGN IN</h1>
 
             <div id="forms">
-                <form id="login-form" action="#" method="POST">
+                <form action="#" method="POST">
                     
-                    <label for="username">Username:</label>
-                    <input type="username" id="username" name="username" placeholder="Digite seu username" required>
+                    <div class="inputContainer">
+                        <input class="input" type="text" id="username" name="username" placeholder=" " required>
+                        <label class="textInput" for="username">Username</label>
+                    </div>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+                    <div class="inputContainer">
+                        <input class="input" type="email" id="email" name="email" placeholder=" " required>
+                        <label class="textInput" for="email">Email</label>
+                    </div>
 
-                    
-                    <label for="password">Senha:</label>
-                    <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                    <div class="inputContainer">
+                        <input class="input" type="password" id="password" name="password" placeholder=" " required>
+                        <label class="textInput" for="password">Password</label>
+                    </div>
 
-                    
-                    <button type="submit">Entrar</button> 
+                    <button type="submit" id="button">SIGN IN</button> 
                 </form>   
             </div>
         </div>

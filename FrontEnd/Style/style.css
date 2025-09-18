@@ -1,9 +1,15 @@
+@font-face {
+    font-family: 'PixelifySans';
+    src: url('../Assets/Fonts/PixelifySans-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; 
+    font-style: normal;
+}
 
 :root {
   
-  --button-color: #013d2b;
-  --button-hover-color: #012901;
-  --text-color: #ffffff;
+  --button-color: #e867e8;
+  --button-hover-color: #5f1370;
+  --text-color: #000000;
 
   --button-padding: 20px 40px;
   --button-radius: 10px;
@@ -11,4 +17,6 @@
   --button-width: 220px;
 
   --background-image: url('../Assets/Images/initial_background.svg');
+
+  --pixel-font: 'PixelifySans', arial, sans-serif;
 }
