@@ -15,7 +15,14 @@ public class DataAchievements {
     // Relation with User class;
     private User user;
 
-    public DataAchievements() {};
+    public DataAchievements() {
+
+        this.score = 0;
+        this.scoreMatch = 0;
+        this.defeatedEnemies = 0;
+        this.defeatedElite = 0;
+        this.defeatedBoss = 0;
+    };
 
     // Constructor of the DataAchievements class;
     public DataAchievements(int score, int scoreMatch, int defeatedEnemies, int defeatedElite, int defeatedBoss, User user) {

@@ -1,9 +1,6 @@
 // Package;
 package com.ultra_space_fight.ultra_space_fight.controller;
 
-// Imports;
-import java.util.List;
-
 // Interface of the HTTP Protocol methods
 public interface ProtocolInterface<T> {
     
@@ -21,7 +18,4 @@ public interface ProtocolInterface<T> {
 
     // Get with an ID path;
     T getById(long id);
-
-    // Get returning all values;
-    List<T> getAll();
 }

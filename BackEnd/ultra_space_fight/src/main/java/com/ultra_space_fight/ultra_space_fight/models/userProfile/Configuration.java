@@ -16,7 +16,12 @@ public class Configuration {
     // Relation with User class;
     private User user;
 
-    public Configuration() {};
+    public Configuration() {
+
+        this.language = "English"; 
+        this.soundtrack = new BigDecimal("0.3");
+        this.soundEffects = new BigDecimal("0.5");
+    };
     
     // Constructor of the Configuration class;
     public Configuration(String language, BigDecimal soundtrack, BigDecimal soundEffects, User user) {

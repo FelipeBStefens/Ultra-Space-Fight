@@ -41,6 +41,14 @@ public abstract class SpaceShip {
         this.user = user;
     }
 
+    public SpaceShip(int life, int speed, int damage) {
+        
+        // Initializing the attributes of the SpaceShip class;
+        this.life = life;
+        this.speed = speed;
+        this.damage = damage;
+    }
+
     // Getter and Setter of the idShip;
     public long getIdShip() {
         return idShip;
