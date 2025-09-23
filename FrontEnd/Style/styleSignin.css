@@ -1,114 +1,193 @@
+/* File of the sign in page style */
+
+/* Import variables */
 @import url('style.css');
 
+/* Configuring to all HTML Tags */ 
 * {
+
+    /* Deleting the Margin and Padding */ 
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* The Body of the HTML */
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background-image: var(--background-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 
-  display: flex;
-  justify-content: flex-start; 
-  flex-direction: column;      
-  align-items: flex-start; 
+    /* Setting it to be in all the page */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+
+    /* Hidden all the parts that overflow the page */
+    overflow: hidden;
+
+    /* Putting and configuring the Background image */
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    justify-content: flex-start; 
+    flex-direction: column;      
+    align-items: flex-start; 
 }
 
+/* The Container Div */
 #container {
+
+    /* The Width in all the page */
+    width: 100%;
+
+    /* Using FlexBox to configure the position */
     display: flex;
     flex-direction: column;
     align-items: flex-start; 
-    width: 100%;
 }
 
-#loginText {
-  position: absolute;
-  top: -10px;
-  right: 50px;
-  font-size: 250px;
-  font-family: var(--pixel-font);
-  color: var(--button-color);
+/* The Sign In Text */
+#signinText {
+
+    /* Defining the Color */
+    color: var(--button-color);
+
+    /* The size and family of the Font */ 
+    font-size: 250px;
+    font-family: var(--pixel-font);
+    
+    /* Defining the position of the Text */
+    position: absolute;
+    top: -10px;
+    right: 50px;
 }
 
+/* The Forms to input values */
 #forms {
-    background-color: hsl(219, 96%, 70%); 
+
+    /* Defining the Color */
+    background-color: var(--container-color); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    /* Configure the Padding and Border Radius */
     padding: 40px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+    
+    /* The Width, Height and Margins */
     width: 350px;
-
+    height: calc(100vh - 300px);
     margin-left: 200px;
     margin-top: 300px;          
-    height: calc(100vh - 300px); 
-
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    /* Using FlexBox to configure the position */
+    display: flex;
+    flex-direction: column;
 }
 
+/* The Divs of each Input */
 .inputContainer {
+
+    /* The Position */
     position: relative;
-    width: 100%;
     margin-bottom: 25px;
+
+    /* The Width */
+    width: 100%;
 }
 
+/* The Input value appearence */
 .inputContainer .input {
-    width: 100%;
-    padding: 20px 15px 10px 15px; 
-    border-radius: 8px;
-    border: 2px solid #f48be2;
+    
+    /* The size and family of the Font */ 
     font-size: 16px;
     font-family: var(--pixel-font);
+
+    /* Configure the Padding and Border */
+    padding: 20px 15px 10px 15px; 
+    border-radius: 8px;
+    border: 2px solid var(--text-color);
     outline: none;
+
+    /* The width */
+    width: 100%;
+
+    /* The transition to Animation */
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* The Label Text of the Input */
 .inputContainer .textInput {
+    
+    /* Defining the Color */
+    color: #000000;
+    background-color: transparent;
+
+    /* The size and family of the Font */ 
+    font-size: 20px; 
+    font-family: var(--pixel-font);
+    font-weight: bold;
+
+    /* Configure the Position */
     position: absolute;
     left: 15px;
     top: 20px; 
-    font-weight: bold;
-    color: #000000;
+    
+    /* The transition to Animation */
     pointer-events: none;
-    font-size: 20px; 
-    font-family: var(--pixel-font);
     transition: 0.3s ease all;
-    background-color: transparent;
 }
 
+/* The Animation of the Input */
 .inputContainer .input:focus + .textInput,
 .inputContainer .input:not(:placeholder-shown) + .textInput {
-    top: -8px;        
-    left: 10px;
+
+    /* Defining the Color */
+    color: #000000;
+    background-color:var(--container-color);
+
+    /* The size and family of the Font */ 
     font-size: 23px;  
     font-family: var(--pixel-font);
-    color: #000000;
-    background-color:hsl(219, 96%, 70%);
+
+    /* Configure the Position and Padding */
     padding: 0 5px;
+    top: -8px;        
+    left: 10px;
 }
 
+/* The Button to send the informations */
 #button {
-    width: var(--button-width);
-    padding: var(--button-padding);
-    border-radius: var(--button-radius);
+
+    /* Defining the Color */
     background-color: var(--button-color);
     color: var(--text-color);
+
+    /* The size and family of the Font */
     font-size: var(--button-font-size);
     font-family: var(--pixel-font);
+
+    /* Configure the Padding and Border Radius */
+    padding: var(--button-padding);
+    border-radius: var(--button-radius);
+
+    /* The Width and Position */ 
+    width: var(--button-width);
+    margin-top: 15px;
+    
+    /* Transition in case of Hover */
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
-    margin-top: 15px;
 }
 
+/* Configuration of the button in case of Hover */
 #button:hover {
+
+    /* Altering the Background Color */
     background-color: var(--button-hover-color);
+
+    /* Scaling the button it's value times 1.2 */
     transform: scale(1.2);
 }

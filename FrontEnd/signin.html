@@ -1,33 +1,69 @@
+<!-- Identify it's a HTML -->
 <!DOCTYPE html>
+
+<!-- HTML file -->
 <html lang="en">
+
+    <!-- Head of the HTML file -->
     <head>
+
+        <!-- Meta configurations -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Link to CSS file -->
         <link rel="stylesheet" href="Style\styleSignin.css">
+        
+        <!-- Title of the HTML file -->
         <title>Sign In</title>
     </head>
-    <body>
-        <div id="container">
-            <h1 id="loginText">SIGN IN</h1>
 
+    <!-- Body of the HTML file -->
+    <body>
+
+        <!-- A Div with all the informations on the file -->
+        <div id="container">
+
+            <!-- The text to identify it's a Sign In -->
+            <h1 id="signinText">SIGN IN</h1>
+
+            <!-- A Div with the forms -->
             <div id="forms">
+
+                <!-- The Forms -->
                 <form action="#" method="POST">
                     
+                    <!-- A Div with a Input -->
                     <div class="inputContainer">
+
+                        <!-- Input value -->
                         <input class="input" type="text" id="username" name="username" placeholder=" " required>
+                        
+                        <!-- Text Username -->
                         <label class="textInput" for="username">Username</label>
                     </div>
 
+                    <!-- A Div with a Input -->
                     <div class="inputContainer">
+
+                        <!-- Input value -->
                         <input class="input" type="email" id="email" name="email" placeholder=" " required>
+                        
+                        <!-- Text E-Mail -->
                         <label class="textInput" for="email">Email</label>
                     </div>
 
+                    <!-- A Div with a Input -->
                     <div class="inputContainer">
+
+                        <!-- Input value -->
                         <input class="input" type="password" id="password" name="password" placeholder=" " required>
+                        
+                        <!-- Text Password -->
                         <label class="textInput" for="password">Password</label>
                     </div>
 
+                    <!-- A Button to submit the values -->
                     <button type="submit" id="button">SIGN IN</button> 
                 </form>   
             </div>

@@ -12,7 +12,7 @@ public class MainApplication {
 	// Main Method;
 	public static void main(String[] args) {
 		
-		// Satrting the Spring Boot with env values;
+		// Starting the Spring Boot with env values;
 		new SpringApplicationBuilder(MainApplication.class)
             .initializers(new DotenvInitializer())
             .run(args);
