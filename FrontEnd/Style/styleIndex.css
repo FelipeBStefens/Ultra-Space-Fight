@@ -30,6 +30,9 @@ body {
 /* Logo Image of the game */
 #logo {
 
+  /* Image Pixelization */
+  image-rendering: pixelated;
+
   /* Configuring the position of the Image */ 
   position: absolute;
   top: 0px;

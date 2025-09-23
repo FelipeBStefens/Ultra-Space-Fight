@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Style\styleConfiguration.css">
+        <title>Configurations</title>
+    </head>
+    <body>
+        
+        <div class="container">
+
+            <h1>Configurations</h1>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="New Username">
+        
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="New Password">
+        
+            <label for="language">language</label>
+            <select id="language" name="language">
+                <option value="pt">Portuguese</option>
+                <option value="en">English</option>
+            </select>
+
+            <div class="sliderContainer">
+                <label for="soundtrack">
+                    <img src="Assets\Icons\volume.png" alt="volume" class="icon">
+                    Soundtrack
+                </label>
+                <input type="range" id="soundtrack" name="soundtrack" min="0" max="1" step="0.1">
+            </div>
+
+            <div class="sliderContainer">
+                <label for="soundEffects">
+                    <img src="Assets\Icons\volume.png" alt="volume" class="icon">
+                    Sound-Effects
+                </label>
+                <input type="range" id="soundEffects" name="soundEffects" min="0" max="1" step="0.1">
+            </div>
+
+            <div class="buttons">
+                <button id="save">Save new Configurations</button>
+                <button id="logout">Log Out Account</button>
+                <button id="delete">Delete Account</button>
+            </div>
+        </div>
+    </body>
+</html>

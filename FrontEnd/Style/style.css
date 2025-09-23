@@ -42,6 +42,7 @@
 
   /* Background image resource */
   --background-image: url('../Assets/Images/initial_background.svg');
+  --repeat-background-image: url('../Assets/Images/repeat_background.png')
 
   /* Font family for pixelated style */
   --pixel-font: 'PixelifySans', arial, sans-serif;
