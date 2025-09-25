@@ -42,7 +42,9 @@
 
   /* Background image resource */
   --background-image: url('../Assets/Images/initial_background.svg');
-  --repeat-background-image: url('../Assets/Images/repeat_background.png')
+  --repeat-background-image: url('../Assets/Images/repeat_background.png');
+  --gameplay-background-image: url('../Assets/Images/gameplay_background.png');
+  --trophies-background-image: url('../Assets/Images/trophies_background.png');
 
   /* Font family for pixelated style */
   --pixel-font: 'PixelifySans', arial, sans-serif;
