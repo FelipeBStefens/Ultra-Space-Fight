@@ -1,7 +1,7 @@
 /* File of the initial page style */
 
 /* Import variables */
-@import url('style.css');
+@import url('../style.css');
 
 /* The Body of the HTML */
 body {

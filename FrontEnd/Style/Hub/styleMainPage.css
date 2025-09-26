@@ -1,0 +1,82 @@
+@import url('../style.css');
+
+body {
+
+  /* Setting it to be in all the page */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+
+  /* Hidden all the parts that overflow the page */
+  overflow: hidden;
+
+  /* Putting and configuring the Background image */ 
+  background-image: var(--main-page-background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Using FlexBox to configure the position */
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start;
+}
+
+a {
+    position: absolute;
+    padding: var(--button-padding);
+    background: var(--button-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: var(--button-radius);
+    font-size: var(--button-font-size);
+    font-family: var(--pixel-font);
+    transition: background 0.5s;
+}
+
+a:hover {
+    background: var(--button-hover-color);
+    transform: scale(1.5);
+}
+
+/* Canto superior esquerdo */
+#ranking {
+    top: 60px;
+    left: 80px;
+}
+
+/* Dois botões canto superior direito */
+#configurations {
+    top: 60px;
+    right: 60px;
+}
+
+#rules {
+    top: 180px; 
+    right: 60px;
+}
+
+    /* Canto inferior esquerdo */
+#achievements {
+    bottom: 60px;
+    left: 80px;
+}
+
+/* Canto inferior direito */
+#spaceships {
+    bottom: 60px;
+    right: 80px;
+}
+
+/* Centro um pouco abaixo */
+#gameplay {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#gameplay:hover {
+    background: var(--button-hover-color);
+    transform: translate(-50%, -50%) scale(1.5);
+}

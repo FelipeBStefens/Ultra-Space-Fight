@@ -1,0 +1,91 @@
+<!-- Identify it's a HTML -->
+<!DOCTYPE html>
+
+<!-- HTML file -->
+<html lang="en">
+
+  <!-- Head of the HTML file -->
+  <head>
+
+    <!-- Meta configurations -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="..\..\Style\Hub\styleSpaceship.css">
+     
+    <!-- Title of the HTML file -->
+    <title>Spaceships</title>
+  </head>
+
+  <!-- Body of the HTML file -->
+  <body>
+
+    <!-- A Div with all the Spaceships -->
+    <div class="spaceships">
+
+      <!-- A button to go Left -->
+      <button class="button left" id="leftButton">◀</button>
+
+      <!-- A Div viewport with all the Spaceships -->
+      <div class="viewport">
+
+        <!-- A Div container with all the Spaceships -->
+        <div class="container" id="container">
+                    
+          <!-- Div to each Spaceships -->
+          <div class="spaceship" data-index="0" data-value="Valor do 1"></div>
+          <div class="spaceship" data-index="1" data-value="Valor do 2"></div>
+          <div class="spaceship" data-index="2" data-value="Valor do 3"></div>
+        </div>
+      </div>
+
+      <!-- A button to go Right -->
+      <button class="button right" id="rightButton">▶</button>
+    </div>
+
+    <!-- A Div with all the Informations -->
+    <div class="info-box">
+
+      <!-- A button to Select the Spaceship -->
+      <button id="actionButton">Select Spaceship</button>
+  
+      <!-- A Div with all the status -->
+      <div class="status" id="status">
+
+        <!-- A Div with a specific stat -->
+        <div class="stat">
+
+          <!-- A Span with the life value -->
+          <span>Life <span class="stat-value" id="lifeValue"></span></span>
+          
+          <!-- A button to upgrade the life -->
+          <button class="upgrade-button" data-stat="life">Upgrade</button>
+        </div>
+
+        <!-- A Div with a specific stat -->
+        <div class="stat">
+
+          <!-- A Span with the speed value -->
+          <span>Speed <span class="stat-value" id="speedValue"></span></span>
+          
+          <!-- A button to upgrade the speed -->
+          <button class="upgrade-button" data-stat="speed">Upgrade</button>
+        </div>
+
+        <!-- A Div with a specific stat -->
+        <div class="stat">
+
+          <!-- A Span with the damage value -->
+          <span>Damage <span class="stat-value" id="damageValue"></span></span>
+          
+          <!-- A button to upgrade the damage -->
+          <button class="upgrade-button" data-stat="damage">Upgrade</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The script to complement the design -->
+    <script src="../../Script/scriptSpaceship.js"></script>
+  </body>
+</html>

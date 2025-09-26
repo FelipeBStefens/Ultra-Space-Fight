@@ -1,4 +1,4 @@
-@import url('style.css');
+@import url('../style.css');
 
 :root {
     --achievement-size: 300px;           
@@ -7,9 +7,6 @@
     --achievement-gap: 140px;     
     
     --blocked-color: #274360;
-    --bronze-color: #cd7f32;
-    --silver-color: #c0c0c0;
-    --gold-color: #d3af37;
 }
 
 * {

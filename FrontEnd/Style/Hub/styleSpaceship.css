@@ -1,0 +1,242 @@
+@import url('../style.css');
+
+:root {
+    --spaceship-size: 300px;           
+    --spaceship-size-active: 400px;    
+    --button-size: 80px;           
+    --spaceship-gap: 140px;     
+    --blocked-color: #274360;
+}
+
+* {
+    box-sizing:border-box;
+}
+
+html, body {
+    height:100%;
+}
+
+body{
+    margin:0;
+    font-family: var(--pixel-font);
+    background: var(--spaceships-background-image);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction: column; /* Agora permite carrossel em cima e info-box embaixo */
+    padding:32px;
+}
+
+.spaceships{
+    width:1000px;
+    max-width:100%;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow: visible;
+    height: calc(var(--spaceship-size-active) + 60px);
+}
+
+.button {
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width: var(--button-size);
+    height: var(--button-size);
+    border-radius:20px;
+    border:none;
+    background: rgba(105, 156, 252, 0.6);
+    color:#f8fafc;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    transition:all 180ms ease;
+    backdrop-filter: blur(4px);
+    z-index:10;
+    font-size:2rem;
+}
+
+.button.left {
+    left:6px;
+}
+
+.button.right {
+    right:6px;
+}
+
+.button:hover {
+    transform:translateY(-50%) scale(1.08); 
+    background: rgba(105, 156, 252, 0.4);
+}
+
+.button:active {
+    transform:translateY(-50%) scale(.98);
+}
+
+.viewport {
+    width:100%;
+    height:100%;
+    position:relative;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.spaceship {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--spaceship-size);
+    height: var(--spaceship-size);
+    border-radius: 20px; /* quadrado com cantos levemente arredondados */
+    background: var(--blocked-color);
+    box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:28px;
+    user-select:none;
+    opacity:0.5;
+    z-index:1;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
+}
+
+.spaceship.active {
+    width: var(--spaceship-size-active);
+    height: var(--spaceship-size-active);
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity:1;
+    z-index:5;
+    font-size:36px;
+}
+
+.spaceship.left {
+    transform: translate(calc(-50% - var(--spaceship-gap)), -50%) scale(0.95);
+    opacity:0.7;
+    z-index:2;
+}
+
+.spaceship.right{
+    transform: translate(calc(-50% + var(--spaceship-gap)), -50%) scale(0.95);
+    opacity:0.7;
+    z-index:2;
+}
+
+.info-box {
+    
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;  /* centraliza verticalmente */
+  margin-top: 20px;
+  padding: 15px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: white;
+  width: 900px;      /* largura do container */
+  max-width: 95%;
+  gap: 50px;         /* espaço entre botão e stats */
+}
+
+#actionButton {
+    font-family: var(--pixel-font);
+    font-size: 35px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  width: 200px;      /* largura fixa do botão de nave */
+  text-align: center;
+}
+
+#actionButton:disabled {
+  background: var(--button-color);
+  cursor: not-allowed;
+}
+
+#actionButton:hover:not(:disabled) {
+  background: #0056b3; /* cor que você quiser */
+  transform: scale(1.05);
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;  /* ocupa o restante do espaço */
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #262626;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.stat span {
+  font-size: 30px;
+}
+
+.upgrade-button {
+  margin-left: 10px;
+  padding: 0 10px;           /* padding horizontal */
+  height: 40px;              /* altura fixa */
+  background: #28a745;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-family: var(--pixel-font);
+  font-size: 30px;           /* pode aumentar sem mudar a altura */
+  font-weight: bold;
+  display: flex;             /* centraliza o texto */
+  align-items: center;       /* vertical */
+  justify-content: center;   /* horizontal */
+  transition: transform 0.15s ease; /* animação no hover */
+}
+
+
+.upgrade-button:hover {
+  background: #218838;
+  transform: scale(1.1);  /* aumenta levemente no hover */
+}
+
+.info-box button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #699cfc;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+@media (max-width:640px){
+    :root {
+        --spaceship-size:140px;
+        --spaceship-size-active:200px;
+        --spaceship-gap:40px;
+        --button-size:60px;
+    }
+    .spaceships {
+        width:100%;
+    }
+    .button {
+        font-size:1.5rem;
+    }
+    .info-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

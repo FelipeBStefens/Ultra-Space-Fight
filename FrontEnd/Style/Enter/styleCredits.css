@@ -1,7 +1,7 @@
 /* File of the credits page style */
 
 /* Import variables */
-@import url('style.css');
+@import url('../style.css');
 
 /* The Body of the HTML */
 body {

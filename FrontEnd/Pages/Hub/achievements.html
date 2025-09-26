@@ -1,24 +1,39 @@
+<!-- Identify it's a HTML -->
 <!DOCTYPE html>
 
+<!-- HTML file -->
 <html lang="pt-BR">
 
+  <!-- Head of the HTML file -->
   <head>
+
+    <!-- Meta configurations -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="Style\styleAchievements.css">
+    
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="..\..\Style\Hub\styleAchievements.css">
+    
+    <!-- Title of the HTML file -->
     <title>Achievements</title>
   </head>
 
+  <!-- Body of the HTML file -->
   <body>
 
+    <!-- A Div with all the informations on the file -->
     <div class="achievements">
 
+      <!-- A button to go Left -->
       <button class="button left" id="leftButton">◀</button>
 
+      <!-- A Div viewport with all the Achievements -->
       <div class="viewport">
 
+        <!-- A Div container with all the Achievements -->
         <div class="container" id="container">
 
+          <!-- Div to each Achievements -->
           <div class="achievement" data-index="0"></div>
           <div class="achievement" data-index="1"></div>
           <div class="achievement" data-index="2"></div>
@@ -28,9 +43,11 @@
         </div>
       </div>
 
+      <!-- A button to go Right -->
       <button class="button right" id="rightButton">▶</button>
     </div>
 
-    <script src="Script/scriptAchievements.js"></script>
+    <!-- The script to complement the design -->
+    <script src="..\..\Script\scriptAchievements.js"></script>
   </body>
 </html>

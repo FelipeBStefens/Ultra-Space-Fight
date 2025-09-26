@@ -1,7 +1,7 @@
 /* File of the login page style */
 
 /* Import variables */
-@import url('style.css');
+@import url('../style.css');
 
 /* Configuring to all HTML Tags */ 
 * {

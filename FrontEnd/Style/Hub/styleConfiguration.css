@@ -1,4 +1,4 @@
-@import url('style.css');
+@import url('../style.css');
 
 /* The Body of the HTML */
 body {
@@ -13,7 +13,7 @@ body {
     overflow: hidden;
 
     /* Putting and configuring the Background image */ 
-    background-image: var(--repeat-background-image);
+    background-image: var(--controls-background-image);
     background-size: cover;
     background-position: center;
     background-repeat: repeat-y;
