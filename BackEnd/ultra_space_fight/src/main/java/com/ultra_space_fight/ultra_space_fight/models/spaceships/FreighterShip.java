@@ -7,6 +7,10 @@ import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 // Declaring the StandartShip class extending the SpaceShip class;
 public class FreighterShip extends SpaceShip {
     
+    public FreighterShip() {
+        super(20, 2, 5);
+    };
+    
     // Constructor of the FreighterShip class;
     public FreighterShip(int life, int speed, int damage, User user) {
         super(life, speed, damage, user);

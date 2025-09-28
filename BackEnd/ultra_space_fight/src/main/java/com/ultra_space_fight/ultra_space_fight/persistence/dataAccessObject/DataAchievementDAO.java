@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
@@ -15,19 +17,15 @@ import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
 // Declaring the DataAchievementsDAO Class implementing the CrudInterface;
 // the generic value is DataAchievements;
+@Repository
 public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // MySQL Connection variable, final because doesn't change;
     private final MysqlConnection MY_SQL_CONNECTION;
 
-    // Constructor of the class initialyzing the MySQL Connection;
-    public DataAchievementDAO() {
-        MY_SQL_CONNECTION = new MysqlConnection();
-    }
-
     // Constructor of the class when there is already a Connection;
-    public DataAchievementDAO(MysqlConnection mySqlConnection) {
-        MY_SQL_CONNECTION = mySqlConnection;
+    public DataAchievementDAO(MysqlConnection MY_SQL_CONNECTION) {
+        this.MY_SQL_CONNECTION = MY_SQL_CONNECTION;
     }
 
     // SQL code insert a value;
@@ -75,6 +73,11 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user)
         ORDER BY d.score_match DESC
         LIMIT 10;
+        """;
+
+    private final String SQL_DELETE_BY_USER_ID = """
+        DELETE FROM data_achievements
+        WHERE id_user = ?;    
         """;
 
     // Method that create a new DataAchievements in the database;
@@ -389,5 +392,36 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
         // Returning the list;
         return topUsersMatch;
+    }
+
+    // Method that delete a DataAchievement in the database by id;
+    public void deleteByUser(long id) {
+       
+        // Try-Catch to handle Execptions;
+        try {
+
+            // Opening a Connection with the Database;
+            MY_SQL_CONNECTION.openConnection();
+
+            // Preparing a new Statement;
+            PreparedStatement preparedStatement = 
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE_BY_USER_ID);
+            
+            // Setting the values of the Statement;
+            preparedStatement.setLong(1, id);
+
+            // Executing the Statement;
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+
+            // Printing the Exception Message;
+            System.out.println(e.getMessage());
+        }
+        finally {
+
+            // Closing a Connection with the Database;
+            MY_SQL_CONNECTION.closeConnection();
+        }
     }
 }
