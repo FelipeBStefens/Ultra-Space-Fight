@@ -17,7 +17,18 @@
 
 /* CSS variables */
 :root {
-  
+
+  /* Background images resources */
+  --background-image: url('../../Assets/Images/initial_background.svg');
+  --controls-background-image: url('../../Assets/Images/controls_background.png');
+  --gameplay-background-image: url('../../Assets/Images/gameplay_background.png');
+  --trophies-background-image: url('../../Assets/Images/trophies_background.png');
+  --spaceships-background-image: url('../../Assets/Images/spaceships_background.png');
+  --main-page-background-image: url('../../Assets/Images/main_page_background.png');
+
+  /* Font family for pixelated style */
+  --pixel-font: 'PixelifySans', arial, sans-serif;
+
   /* Colors of the buttons */
   --button-color: #e867e8;
   --button-hover-color: #5f1370;
@@ -34,24 +45,14 @@
   --link-color: #4da6ff;
   --link-hover-color: #80c0ff;
 
+  /* Colors of the podium */
+  --gold-color: linear-gradient(90deg, #FFD700, #FFF3B0);
+  --silver-color: linear-gradient(90deg, #C0C0C0, #E5E5E5);
+  --bronze-color: linear-gradient(90deg, #CD7F32, #E8B07A);
+
   /* Button styles configurations */
   --button-padding: 20px 40px;
   --button-radius: 10px;
   --button-font-size: 30px;
   --button-width: 220px;
-
-  /* Background image resource */
-  --background-image: url('../../Assets/Images/initial_background.svg');
-  --controls-background-image: url('../../Assets/Images/controls_background.png');
-  --gameplay-background-image: url('../../Assets/Images/gameplay_background.png');
-  --trophies-background-image: url('../../Assets/Images/trophies_background.png');
-  --spaceships-background-image: url('../../Assets/Images/spaceships_background.png');
-  --main-page-background-image: url('../../Assets/Images/main_page_background.png');
-
-  /* Font family for pixelated style */
-  --pixel-font: 'PixelifySans', arial, sans-serif;
-
-  --gold-color: linear-gradient(90deg, #FFD700, #FFF3B0);
-  --silver-color: linear-gradient(90deg, #C0C0C0, #E5E5E5);
-  --bronze-color: linear-gradient(90deg, #CD7F32, #E8B07A);
 }

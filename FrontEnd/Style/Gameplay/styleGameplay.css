@@ -1,186 +1,301 @@
+/* File of the Gameplay page style */
+
+/* Import variables */
 @import url('../style.css');
 
 /* The Body of the HTML */
 body {
-  
-  /* Setting it to be in all the page */
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
 
-  /* Hidden all the parts that overflow the page */
-  overflow: hidden;
+    /* Setting it to be in all the page */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
 
-  /* Putting and configuring the Background image */ 
-  background-image: var(--gameplay-background-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+    /* Hidden all the parts that overflow the page */
+    overflow: hidden;
 
-  /* Using FlexBox to configure the position */
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+    /* Putting and configuring the Background image */ 
+    background-image: var(--gameplay-background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-
+/* The button to pause the Game */
 #pauseButton {
-  position: fixed;
-  top: 10px;
-  left: 10px;
 
-  width: 60px;
-  height: 60px;
+    /* Defining the Color */
+    background: #e53935;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    border: none;
 
-  margin-top: 15px;
-  margin-left: 15px;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    /* Defining the Position */
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
+    z-index: 1000;
+        
+    /* Defining the Width and Height */
+    width: 60px;
+    height: 60px;
 
-  background: #e53935;
-  border: none;
-  border-radius: 6px;
+    /* Defining the Border Radius */
+    border-radius: 6px;
 
-  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-  cursor: pointer;
-  z-index: 1000;
+    /* Using FlexBox to configure the position */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
 }
 
-#icon {
-  width: 60%;       
-  height: 60%;      
-  object-fit: contain;
-  display: block;
-}
-
+/* Aditional configurations of the button */
 #pauseButton::before,
 #pauseButton::after {
-  content: none;
-  display: block;
 
-  width: 5px;        
-  height: 18px;      
-  background: #e53935; 
-  border-radius: 2px;
+    /* Setting the content to none */
+    content: none;
+
+    /* Defining the Color */
+    background: #e53935; 
+    
+    /* Defining the Width, Height and Border Radius */
+    width: 5px;        
+    height: 18px;      
+    border-radius: 2px;
+
+    /* Using blocks to configure the position */
+    display: block;
 }
 
+/* Configuration of the button in case of Hover */
 #pauseButton:hover {
 
-  /* Altering the Background Color */
-  background-color: var(#f00e0b);
+    /* Altering the Background Color */
+    background-color: var(#f00e0b);
 
-  /* Scaling the button it's value times 1.2 */
-  transform: scale(1.2);
+    /* Scaling the button it's value times 1.2 */
+    transform: scale(1.2);
 }
 
-/* Tela escura de pause */
+/* Pause icon Image */
+#icon {
+
+    /* Defining the Width and Height  */
+    width: 60%;       
+    height: 60%;  
+  
+    /* Using blocks to configure the position */
+    object-fit: contain;
+    display: block;
+}
+
+/* black screen when paused */
 #pauseScreen {
+
+    /* Altering the Background Color */
+    background-color: rgba(0,0,0,0.7);
+
+    /* Defining the Position */
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2000;
+
+    /* Defining the Width and Height */
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
+
+    /* Using FlexBox to configure the position */
     display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 2000;
+    align-items: center;  
 }
 
-/* Container central interativo */
+/* Pause Container */
 #pauseContent {
+
+    /* Defining the Color */
     background-color: var(--dark-container-color);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    
+    /* Configure the Padding, Border and Gap */
     padding: 40px 50px;
     border-radius: 12px;
+    gap: 20px;
+
+    /* Configure the width */
+    min-width: 320px;
+
+    /* Using FlexBox to configure the position */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    min-width: 320px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-/* Título central */
+/* Central title */
 #pauseTitle {
+
+    /* Defining the Color */
+    color: var(--light-text-color);
+
+    /* The size, family and weight of the Font */ 
+    font-family: var(--pixel-font);
     font-size: 120px;
     font-weight: bold;
-    font-family: var(--pixel-font);
-    color: var(--light-text-color);
+    
+    /* Defining the Margin */
     margin-bottom: 10px;
 }
 
-/* Botões da tela de pause */
+/* Buttons of the Pause screen  */
 .pauseButton {
-    padding: 12px 24px;
+
+    /* Defining the Color */
+    color: var(--light-text-color);
+
+    /* The size and family of the Font */
+    font-family: var(--pixel-font);
     font-size: 25px;
+
+    /* Configure the Padding and Border Radius */
+    padding: 12px 24px;
     border-radius: 8px;
     border: none;
-    cursor: pointer;
-    color: var(--light-text-color);
-    font-family: var(--pixel-font);
+
+    /* Defining the Width and Height */
     width: 250px;
     height: 60px;
+    
+    /* Transition in case of Hover */
+    cursor: pointer;
     transition: background 0.2s, transform 0.2s;
 }
 
+/* The resume button */
 #resumeButton {
+
+    /* Defining the Color */
     background-color: #39813b;
 }
 
+/* Configuration of the button in case of Hover */
 #resumeButton:hover {
+
+    /* Altering the Background Color */
     background-color: #265728;
+
+    /* Scaling the button it's value times 1.05 */
     transform: scale(1.05);
 }
 
+/* The exit button */
 #exitButton {
+
+    /* Defining the Color */
     background-color: #e53935;
 }
 
+/* Configuration of the button in case of Hover */
 #exitButton:hover {
+
+    /* Altering the Background Color */
     background-color: #f00e0b;
+
+    /* Scaling the button it's value times 1.05 */
     transform: scale(1.05);
 }
 
+/* The Labels */
+label {
+
+    /* Defining the Color */
+    color: var(--light-text-color);
+
+    /* The size and family of the Font */
+    font-family: var(--pixel-font);
+    font-size: 25px;
+    
+    /* Defining the Margin bottom */
+    margin-bottom: 4px;
+
+    /* Align it on FlexBox */
+    align-self: flex-start;
+}
+
+/* Defining the Slider */
 input[type="range"] {
+
+    /* remove the appearence of the Web Site */
     -webkit-appearance: none;
+
+    /* Defining the background Color */
+    background: #444;
+
+    /* Defining the Width and Height */ 
     width: 100%;
     height: 28px;
+
+    /* Defining the Border Radius */
     border-radius: 5px;
-    background: #444;
     outline: none;
 }
 
+/* Styling the button on the Web Sites */
 input[type="range"]::-webkit-slider-thumb {
+
+    /* remove the appearence of the Web Site */
     -webkit-appearance: none;
+
+    /* Defining the background Color */
+    background: var(--button-color);
+
+    /* Defining the Width and Height */
     width: 42px;
     height: 42px;
+
+    /* Defining the Border Radius */
     border-radius: 50%;
-    background: var(--button-color);
+    
+    /* Transition in case of Hover */
     cursor: pointer;
     transition: 0.3s;
 }
 
+/* Styling the button on the Fire Fox */
 input[type="range"]::-moz-range-thumb {
+    
+    /* Defining the background Color */
+    background: var(--button-color);
+
+    /* Defining the Width and Height */
     width: 20px;
     height: 20px;
+
+    /* Defining the Border Radius */
     border-radius: 50%;
-    background: var(--button-color);
+    
+    /* Putting the cursor to pointer */
     cursor: pointer;
 }
 
+/* Configuration of the slider in case of Hover */
 input[type="range"]::-webkit-slider-thumb:hover {
+    
+    /* Defining the background Color */
     background: var(--button-hover-color);
+    
+    /* Scaling the button it's value times 1.05 */
     transform: scale(1.05); 
-}
-
-label {
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 4px;
-    align-self: flex-start;
 }

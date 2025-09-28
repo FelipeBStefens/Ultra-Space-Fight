@@ -1,82 +1,118 @@
+/* File of the Main page style */
+
+/* Import variables */
 @import url('../style.css');
 
+/* The Body of the HTML */
 body {
 
-  /* Setting it to be in all the page */
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
+    /* Setting it to be in all the page */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
 
-  /* Hidden all the parts that overflow the page */
-  overflow: hidden;
+    /* Hidden all the parts that overflow the page */
+    overflow: hidden;
 
-  /* Putting and configuring the Background image */ 
-  background-image: var(--main-page-background-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  
-  /* Using FlexBox to configure the position */
-  display: flex;
-  justify-content: center; 
-  align-items: flex-start;
+    /* Putting and configuring the Background image */ 
+    background-image: var(--main-page-background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Using FlexBox to configure the position */
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start;
 }
 
+/* The Hipertext acting like a button */
 a {
-    position: absolute;
-    padding: var(--button-padding);
+
+    /* Defining the Color */
     background: var(--button-color);
     color: var(--text-color);
     text-decoration: none;
-    border-radius: var(--button-radius);
+
+    /* The size and family of the Font */ 
     font-size: var(--button-font-size);
     font-family: var(--pixel-font);
+
+    /* Configure the Padding and Border Radius */
+    position: absolute;
+    padding: var(--button-padding);
+    border-radius: var(--button-radius);
+    
+    /* Transition in case of Hover */
     transition: background 0.5s;
 }
 
+/* Configuration of the Hiperlink in case of Hover */
 a:hover {
+
+    /* Altering the Color */
     background: var(--button-hover-color);
+
+    /* Scaling the button it's value times 1.5 */
     transform: scale(1.5);
 }
 
-/* Canto superior esquerdo */
+/* Ranking Hiperlink */
 #ranking {
+
+    /* Defining the Position */
     top: 60px;
     left: 80px;
 }
 
-/* Dois botões canto superior direito */
+/* Configurations Hiperlink */
 #configurations {
+
+    /* Defining the Position */
     top: 60px;
     right: 60px;
 }
 
+/* Rules Hiperlink */
 #rules {
+
+    /* Defining the Position */
     top: 180px; 
     right: 60px;
 }
 
-    /* Canto inferior esquerdo */
+/* Achievements Hiperlink */
 #achievements {
+
+    /* Defining the Position */
     bottom: 60px;
     left: 80px;
 }
 
-/* Canto inferior direito */
+/* Spaceship Hiperlink */
 #spaceships {
+
+    /* Defining the Position */
     bottom: 60px;
     right: 80px;
 }
 
-/* Centro um pouco abaixo */
+/* Gameplay Hiperlink */
 #gameplay {
+
+    /* Defining the Position */
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+/* Configuration of the Hiperlink in case of Hover */
 #gameplay:hover {
+
+    /* Altering the Background Color */
     background: var(--button-hover-color);
+
+    /* Scaling the button it's value times 1.5 */
     transform: translate(-50%, -50%) scale(1.5);
 }

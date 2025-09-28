@@ -1,242 +1,440 @@
+/* File of the Spaceships page style */
+
+/* Import variables */
 @import url('../style.css');
 
+/* CSS variables */
 :root {
+
+    /* Spaceships configrations */
     --spaceship-size: 300px;           
-    --spaceship-size-active: 400px;    
+    --spaceship-size-active: 400px;  
+    --spaceship-gap: 140px;
+    
+    /* Size of the buttons */
     --button-size: 80px;           
-    --spaceship-gap: 140px;     
+         
+    /* Color when Spaceship is blocked */
     --blocked-color: #274360;
 }
 
+/* Configuring to all HTML Tags */
 * {
+
+    /* Defining the Size of each box */
     box-sizing:border-box;
 }
 
+/* The HTML and Body configurations */
 html, body {
+
+    /* Defining the Height */
     height:100%;
 }
 
+/* The Body of the HTML */
 body{
-    margin:0;
-    font-family: var(--pixel-font);
+
+    /* Defining the Background Color */ 
     background: var(--spaceships-background-image);
+
+    /* Defining the Font Family */
+    font-family: var(--pixel-font);
+
+    /* Defining the margin and padding */
+    margin:0;
+    padding:32px;
+    
+    /* Using FlexBox to configure the position */
     display:flex;
+    flex-direction: column; 
     align-items:center;
     justify-content:center;
-    flex-direction: column; /* Agora permite carrossel em cima e info-box embaixo */
-    padding:32px;
 }
 
+/* The Div with all the Spaceships configurations */
 .spaceships{
+
+    /* Defining the Width and Height */
     width:1000px;
     max-width:100%;
+    height: calc(var(--spaceship-size-active) + 60px);
+    
+    /* Defining the Position */
     position:relative;
+    overflow: visible;
+
+    /* Using FlexBox to configure the position */
     display:flex;
     align-items:center;
     justify-content:center;
-    overflow: visible;
-    height: calc(var(--spaceship-size-active) + 60px);
 }
 
+/* The buttons configurations */
 .button {
+
+    /* Defining the Color */ 
+    background: rgba(105, 156, 252, 0.6);
+    color:#f8fafc;
+    backdrop-filter: blur(4px);
+
+    /* Defining the Font size */
+    font-size:2rem;
+
+    /* Defining the Width and Height */ 
+    width: var(--button-size);
+    height: var(--button-size);
+    
+    /* Defining the Position */
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    width: var(--button-size);
-    height: var(--button-size);
+    z-index:10;
+
+    /* Defining the Border */
     border-radius:20px;
     border:none;
-    background: rgba(105, 156, 252, 0.6);
-    color:#f8fafc;
+    
+    /* Using Grid to display */ 
     display:grid;
     place-items:center;
+
+    /* The transition to Hover */
     cursor:pointer;
     transition:all 180ms ease;
-    backdrop-filter: blur(4px);
-    z-index:10;
-    font-size:2rem;
 }
 
+/* The Left button */
 .button.left {
+
+    /* Defining the position */
     left:6px;
 }
 
+/* The Right button */
 .button.right {
+
+    /* Defining the position */
     right:6px;
 }
 
+/* Configuration of the button in case of Hover */
 .button:hover {
-    transform:translateY(-50%) scale(1.08); 
+
+    /* Altering the Background Color */
     background: rgba(105, 156, 252, 0.4);
+
+    /* Scaling the button it's value times 1.08 */
+    transform:translateY(-50%) scale(1.08); 
 }
 
+/* Configuration of the button if it's clicked */
 .button:active {
-    transform:translateY(-50%) scale(.98);
+
+    /* Scaling the button it's value times 0.98 */
+    transform:translateY(-50%) scale(0.98);
 }
 
+/* The Viewport to all Spaceships */
 .viewport {
+
+    /* Defining the Width and height */
     width:100%;
     height:100%;
+
+    /* Defining the position */
     position:relative;
 }
 
+/* The Container of all Spaceships */
 .container {
-    position: relative;
+
+    /* Defining the Width and height */
     width: 100%;
     height: 100%;
+
+    /* Defining the position */
+    position: relative;
 }
 
+/* A Spaceship */
 .spaceship {
+
+    /* Defining the Color */
+    background: var(--blocked-color);
+    box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+    opacity:0.5;
+
+    /* Defining the Font Size and Weight */
+    font-weight:700;
+    font-size:28px;
+
+    /* Defining the Width and Height */
+    width: var(--spaceship-size);
+    height: var(--spaceship-size);
+    transform: translate(-50%, -50%) scale(0.9);
+
+    /* Defining the Position */
     position: absolute;
     top: 50%;
     left: 50%;
-    width: var(--spaceship-size);
-    height: var(--spaceship-size);
-    border-radius: 20px; /* quadrado com cantos levemente arredondados */
-    background: var(--blocked-color);
-    box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+    z-index:1;
+
+    /* Defining the Border Radius */
+    border-radius: 20px; 
+    user-select:none;
+
+    /* Using FlexBox to configure the position */
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:700;
-    font-size:28px;
-    user-select:none;
-    opacity:0.5;
-    z-index:1;
-    transform: translate(-50%, -50%) scale(0.9);
+    
+    /* Transition in case of Animations */
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
 }
 
+/* The Spaceship that is in front */
 .spaceship.active {
+
+    /* Defining the Font Size */
+    font-size:36px;
+
+    /* Defining the Width and Height */
     width: var(--spaceship-size-active);
     height: var(--spaceship-size-active);
     transform: translate(-50%, -50%) scale(1.05);
+    
+    /* Defining the opacity */
     opacity:1;
     z-index:5;
-    font-size:36px;
 }
 
+/* The Spaceship that is in left */
 .spaceship.left {
+
+    /* Altering the size and position of Spaceship */
     transform: translate(calc(-50% - var(--spaceship-gap)), -50%) scale(0.95);
-    opacity:0.7;
-    z-index:2;
-}
-
-.spaceship.right{
-    transform: translate(calc(-50% + var(--spaceship-gap)), -50%) scale(0.95);
-    opacity:0.7;
-    z-index:2;
-}
-
-.info-box {
     
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;  /* centraliza verticalmente */
-  margin-top: 20px;
-  padding: 15px;
-  border: 2px solid #333;
-  border-radius: 10px;
-  background: #1a1a1a;
-  color: white;
-  width: 900px;      /* largura do container */
-  max-width: 95%;
-  gap: 50px;         /* espaço entre botão e stats */
+    /* Defining the opacity */
+    opacity:0.7;
+    z-index:2;
 }
 
+/* The Achievement that is in right */
+.spaceship.right{
+
+    /* Altering the size and position of Achievement */
+    transform: translate(calc(-50% + var(--spaceship-gap)), -50%) scale(0.95);
+    
+    /* Defining the opacity */
+    opacity:0.7;
+    z-index:2;
+}
+
+/* The Box with the Informations */
+.info-box {
+
+    /* Defining the Color */
+    background: #1a1a1a;
+    color: var(--light-text-color);
+  
+    /* Defining the Padding and Border */
+    padding: 15px;
+    border: 2px solid #333;
+    border-radius: 10px;
+  
+    /* Defining the Width */
+    width: 900px;      
+    max-width: 95%;
+
+    /* Defining the Gap and Margin */
+    gap: 50px;
+    margin-top: 20px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;     
+}
+
+/* The Selected Spaceship button */
 #actionButton {
+
+    /* Defining the Color */
+    background: #007bff;
+    color: var(--light-text-color);
+
+    /* Defining the Family, Size and Weight of the Font */
     font-family: var(--pixel-font);
     font-size: 35px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  background: #007bff;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  width: 200px;      /* largura fixa do botão de nave */
-  text-align: center;
+    font-weight: bold;
+
+    /* Defining the Width */
+    width: 200px; 
+
+    /* Defining the padding and border */ 
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+       
+    /* Align the Text with FlexBox */
+    text-align: center;
+
+    /* Putting the cursor as a Pointer */ 
+    cursor: pointer;
 }
 
+/* The Button when is disabled */
 #actionButton:disabled {
-  background: var(--button-color);
-  cursor: not-allowed;
+
+    /* Defining the Color */
+    background: var(--button-color);
+
+    /* Putting the cursor as a not-allowed */ 
+    cursor: not-allowed;
 }
 
+/* The Button when isn't disabled */
 #actionButton:hover:not(:disabled) {
-  background: #0056b3; /* cor que você quiser */
-  transform: scale(1.05);
+
+    /* Defining the Color */
+    background: #0056b3; 
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.05);
 }
 
+/* The status values Div */
 .status {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex: 1;  /* ocupa o restante do espaço */
+
+    /* Defining the gap */
+    gap: 12px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
 }
 
+/* A stat Div with the value */
 .stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #262626;
-  padding: 8px 12px;
-  border-radius: 6px;
+
+    /* Defining the background */
+    background: #262626;
+
+    /* Defining the Padding and Border Radius */
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+/* The value of the Div */
 .stat span {
-  font-size: 30px;
+    
+    /* Defining the Font Size */
+    font-size: 30px;
 }
 
+/* The button to upgrade the value */
 .upgrade-button {
-  margin-left: 10px;
-  padding: 0 10px;           /* padding horizontal */
-  height: 40px;              /* altura fixa */
-  background: #28a745;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  color: white;
-  font-family: var(--pixel-font);
-  font-size: 30px;           /* pode aumentar sem mudar a altura */
-  font-weight: bold;
-  display: flex;             /* centraliza o texto */
-  align-items: center;       /* vertical */
-  justify-content: center;   /* horizontal */
-  transition: transform 0.15s ease; /* animação no hover */
+
+    /* Defining the Color */
+    background: #28a745;
+    color: var(--light-text-color);
+
+    /* Defining the Family, Size and Weight of the Font */
+    font-family: var(--pixel-font);
+    font-size: 30px;           
+    font-weight: bold;
+
+    /* Defining the Height */
+    height: 40px; 
+
+    /* Defining the Padding, Border and Margin */
+    padding: 0 10px;           
+    border: none;
+    border-radius: 6px;
+    margin-left: 10px;
+    
+    /* Using FlexBox to configure the position */
+    display: flex;             
+    align-items: center;       
+    justify-content: center;   
+
+    /* The transition to Hover */ 
+    cursor: pointer;
+    transition: transform 0.15s ease; 
 }
 
-
+/* Configuration of the button in case of Hover */
 .upgrade-button:hover {
-  background: #218838;
-  transform: scale(1.1);  /* aumenta levemente no hover */
+
+    /* Altering the Color */
+    background: #218838;
+
+    /* Scaling the button it's value times 1.1 */
+    transform: scale(1.1);  
 }
 
+/* Defining the button of the info-box */
 .info-box button {
+
+    /*Defining the Color */
+    background: #699cfc;
+    color: var(--light-text-color);
+
+    /* Defining the Font Weight */
+    font-weight: bold;
+
+    /* Defining the Padding and Border */
     padding: 10px 16px;
     border: none;
     border-radius: 8px;
-    background: #699cfc;
-    color: white;
+    
+    /* Putting the cursor as a pointer */ 
     cursor: pointer;
-    font-weight: bold;
 }
 
+/* Adjustements on small screens */
 @media (max-width:640px){
+
+    /* Defining this variables */
     :root {
+
+        /* Achievements configrations */
         --spaceship-size:140px;
         --spaceship-size-active:200px;
         --spaceship-gap:40px;
+
+        /* Size of the button */
         --button-size:60px;
     }
+
+    /* The Div to all spaceships */
     .spaceships {
+
+        /* Defining a new Width */
         width:100%;
     }
+
+    /* The buttons */
     .button {
+
+        /* Defining a Font Size */
         font-size:1.5rem;
     }
+
+    /* The Info-Box */
     .info-box {
+
+        /* Defining the Direction */
         flex-direction: column;
+
+        /*Defining the Gap */
         gap: 10px;
     }
 }
