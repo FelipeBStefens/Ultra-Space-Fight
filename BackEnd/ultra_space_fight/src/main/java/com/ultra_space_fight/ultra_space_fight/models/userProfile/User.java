@@ -12,6 +12,12 @@ public class User {
     private int cash;
     private String selectedSpaceship;
 
+    public User() {
+
+        this.cash = 0; 
+        this.selectedSpaceship = "standart_ship";
+    };
+
     // Constructor of the User class;
     public User(String username, String email, String password, int cash, String selectedSpaceship) {
 

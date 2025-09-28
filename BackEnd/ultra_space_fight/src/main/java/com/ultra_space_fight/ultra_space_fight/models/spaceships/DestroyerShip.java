@@ -7,6 +7,10 @@ import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 // Declaring the DestroyerShip class extending the SpaceShip class;
 public class DestroyerShip extends SpaceShip {
 
+    public DestroyerShip() {
+        super(5, 5, 10);
+    };
+    
     // Constructor of the DestroyerShip class;
     public DestroyerShip(int life, int speed, int damage, User user) {
         super(life, speed, damage, user);

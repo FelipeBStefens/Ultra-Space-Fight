@@ -1,0 +1,99 @@
+<!-- Identify it's a HTML -->
+<!DOCTYPE html>
+
+<!-- HTML file -->
+<html lang="en">
+
+    <!-- Head of the HTML file -->
+    <head>
+
+        <!-- Meta configurations -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Link to CSS file -->
+        <link rel="stylesheet" href="..\..\Style\Hub\styleConfiguration.css">
+        
+        <!-- Title of the HTML file -->
+        <title>Configurations</title>
+    </head>
+
+    <!-- Body of the HTML file -->
+    <body>
+        
+        <!-- A Div with all the informations on the file -->
+        <div class="container">
+
+            <!-- The text to identify it's a Configuration -->
+            <h1>Configurations</h1>
+
+            <!-- Text Username to identify the input -->
+            <label for="username">Username</label>
+
+            <!-- The Username input -->
+            <input type="text" id="username" name="username" placeholder="New Username">
+        
+            <!-- Text Password to identify the input -->
+            <label for="password">Password</label>
+
+            <!-- Text Password to identify the input -->
+            <input type="password" id="password" name="password" placeholder="New Password">
+        
+            <!-- Text Language to identify the selection -->
+            <label for="language">language</label>
+
+            <!-- Selection to choose the Language -->
+            <select id="language" name="language">
+
+                <!-- Portuguese Language-->
+                <option value="portuguese">Portuguese</option>
+
+                <!-- English Language-->
+                <option value="english">English</option>
+            </select>
+
+            <!-- The Container of the Slider -->
+            <div class="sliderContainer">
+
+                <!-- Text Soundtrack to alter the soundtrack -->
+                <label for="soundtrack">
+
+                    <!-- The Volume icon Image-->
+                    <img src="..\..\Assets\Icons\volume.png" alt="volume" class="icon">
+                    Soundtrack
+                </label>
+
+                <!-- The Soundtrack input -->
+                <input type="range" id="soundtrack" name="soundtrack" min="0" max="1" step="0.01">
+            </div>
+
+            <!-- The Container of the Slider -->
+            <div class="sliderContainer">
+
+                <!-- Text Sound Effects to alter the soundtrack -->
+                <label for="soundEffects">
+
+                    <!-- The Volume icon Image-->
+                    <img src="..\..\Assets\Icons\volume.png" alt="volume" class="icon">
+                    Sound-Effects
+                </label>
+
+                <!-- The Sound Effects input -->
+                <input type="range" id="soundEffects" name="soundEffects" min="0" max="1" step="0.01">
+            </div>
+
+            <!-- The Container of the Buttons -->
+            <div class="buttons">
+
+                <!-- A Button to save the configurations -->
+                <button id="save">Save new Configurations</button>
+
+                <!-- A Button to Log Out the Account -->
+                <button id="logout">Log Out Account</button>
+
+                <!-- A Button to delete the Account -->
+                <button id="delete">Delete Account</button>
+            </div>
+        </div>
+    </body>
+</html>

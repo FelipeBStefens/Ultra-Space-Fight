@@ -24,8 +24,7 @@ public class ConstantsDatabase {
     private String address;
 
     // Driver class of the Java-Database-Connection;
-    @Value("${spring.datasource.driver-class-name}")
-    private String driverClass;
+    private final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 
     // Getter method of the Username;
     public String getUser() {
@@ -44,6 +43,6 @@ public class ConstantsDatabase {
 
     // Getter method of the Driver Class;
     public String getDriverClass() {
-        return driverClass;
+        return DRIVER_CLASS;
     }
 }

@@ -1,0 +1,108 @@
+/* File of the credits page style */
+
+/* Import variables */
+@import url('../style.css');
+
+/* The Body of the HTML */
+body {
+
+  /* Setting it to be in all the page */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+
+  /* Hidden all the parts that overflow the page */
+  overflow: hidden;
+
+  /* Putting and configuring the Background image */ 
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Using FlexBox to configure the position */
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start;
+}
+
+/* The Container class */
+.container {
+
+  /* Configure the color */
+  background-color: var(--dark-container-color);
+  color: var(--light-text-color);   
+  box-shadow: 0 4px 15px rgba(53, 53, 53, 0.6); 
+  
+  /* The size and family of the Font */
+  font-family: var(--pixel-font);  
+  font-size: 25px;
+
+  /* Configure the Padding and Border Radius */ 
+  padding: 30px;
+  border-radius: 10px;
+  
+  /* Configure the Width and Height */
+  width: 400px;       
+  max-width: 90%;    
+  height: 100vh;      
+  overflow-y: auto;   
+
+  /* Using FlexBox to configure the position */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* The credits title text */ 
+h1 {
+
+  /* Configure the color */
+  color: var(--button-color);
+  
+  /* The size and family of the Font */
+  font-family: var(--pixel-font);
+  font-size: 100px;
+
+  /* Aligning it to Center */
+  margin-top: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+/* The Hiperlinks of the Container */
+.container a {
+      
+  /* Not decorating the hiperlink text */
+  text-decoration: none;
+
+  /* Configure the color */
+  color: var(--link-color); 
+
+  /* Aligning it to Center and defining the Gap */
+  align-items: center;
+  gap: 8px;                   
+  
+  /* Configure it with FlexBox */
+  display: inline-flex;
+}
+
+/* The Images of the Hiperlink */
+.container a img {
+
+  /* Definig the Width and Height */
+  width: 27px;   
+  height: 27px;
+}
+
+/* The Hover of the Container */
+.container a:hover {
+
+  /* Configure the color */
+  color: var(--link-hover-color);
+
+  /* Scaling the button it's value times 1.2 */
+  transform: scale(1.2);
+  transition: 0.3s;
+}
