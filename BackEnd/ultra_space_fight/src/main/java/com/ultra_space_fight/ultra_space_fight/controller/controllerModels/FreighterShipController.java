@@ -14,7 +14,7 @@ import com.ultra_space_fight.ultra_space_fight.service.FreighterShipService;
 
 @RestController
 @RequestMapping("/freighterShip")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class FreighterShipController implements ProtocolInterface<FreighterShip> {
 
     private final FreighterShipService freighterShipService;

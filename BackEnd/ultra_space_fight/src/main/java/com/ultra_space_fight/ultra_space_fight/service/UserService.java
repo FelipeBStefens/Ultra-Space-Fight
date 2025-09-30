@@ -33,4 +33,10 @@ public class UserService {
     
         return userDAO.read(id);
     }
+
+    public User getUserLogin(String email, String password) {
+
+        long idUser = userDAO.getUserId(email, password);
+        return userDAO.read(idUser);
+    }
 }

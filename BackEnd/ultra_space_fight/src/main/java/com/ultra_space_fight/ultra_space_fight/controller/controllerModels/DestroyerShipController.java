@@ -14,7 +14,7 @@ import com.ultra_space_fight.ultra_space_fight.service.DestroyerShipService;
 
 @RestController
 @RequestMapping("/destroyerShip")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class DestroyerShipController implements ProtocolInterface<DestroyerShip> {
     
     private final DestroyerShipService destroyerShipService;

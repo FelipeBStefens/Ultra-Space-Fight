@@ -14,7 +14,7 @@ import com.ultra_space_fight.ultra_space_fight.service.ConfigurationService;
 
 @RestController
 @RequestMapping("/configurations")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ConfigurationController implements ProtocolInterface<Configuration> {
     
     private final ConfigurationService configurationService;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ultra_space_fight.ultra_space_fight.controller.ProtocolInterface;
@@ -16,7 +17,7 @@ import com.ultra_space_fight.ultra_space_fight.service.UserService;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserController implements ProtocolInterface<User> {
     
     private final UserService userService;
@@ -59,5 +60,12 @@ public class UserController implements ProtocolInterface<User> {
     public User getById(@PathVariable long id) {
 
         return userService.getUserById(id);
+    }
+
+    @GetMapping("/get/login")
+    public User getUserLogin(@RequestParam String email, 
+        @RequestParam String password) {
+
+        return userService.getUserLogin(email, password);
     }
 }
