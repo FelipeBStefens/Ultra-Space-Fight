@@ -5,10 +5,21 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", async (event) => {
         event.preventDefault(); 
 
+        const username = document.getElementById("username").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        fetch(`http://localhost:8080/user/get/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`) 
+        const newUser = {
+            username: username,
+            email: email,
+            password: password
+        };
+
+        fetch(`http://localhost:8080/user/create?`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser)
+        }) 
         .then(response => response.json())
         .then(data => {
             console.log(data);
