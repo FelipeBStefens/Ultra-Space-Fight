@@ -24,7 +24,7 @@ public class ConfigurationController implements ProtocolInterface<Configuration>
     }
 
     @Override
-    public Configuration post(Configuration configuration) {
+    public Configuration create(Configuration configuration) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class ConfigurationController implements ProtocolInterface<Configuration>
 
     @Override
     @PutMapping("/update/{id}")
-    public Configuration put(@PathVariable long id, 
+    public Configuration update(@PathVariable long id, 
         @RequestBody Configuration configuration) {
         
         configuration.setIdConfiguration(id);
@@ -44,7 +44,7 @@ public class ConfigurationController implements ProtocolInterface<Configuration>
     }
 
     @Override
-    public Configuration patch(long id, Configuration configuration) {
+    public Configuration partialUpdate(long id, Configuration configuration) {
         return null;
     }
 

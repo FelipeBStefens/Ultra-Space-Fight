@@ -24,7 +24,7 @@ public class DataAchievementController implements ProtocolInterface<DataAchievem
     }
 
     @Override
-    public DataAchievements post(DataAchievements dataAchievements) {
+    public DataAchievements create(DataAchievements dataAchievements) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class DataAchievementController implements ProtocolInterface<DataAchievem
 
     @Override
     @PutMapping("/update/{id}")
-    public DataAchievements put(@PathVariable long id, 
+    public DataAchievements update(@PathVariable long id, 
         @RequestBody DataAchievements dataAchievements) {
         
         dataAchievements.setIdDataAchievements(id);
@@ -44,7 +44,7 @@ public class DataAchievementController implements ProtocolInterface<DataAchievem
     }
 
     @Override
-    public DataAchievements patch(long id, DataAchievements dataAchievements) {
+    public DataAchievements partialUpdate(long id, DataAchievements dataAchievements) {
         return null;
     }
 

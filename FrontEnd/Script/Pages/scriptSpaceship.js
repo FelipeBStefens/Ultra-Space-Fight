@@ -3,11 +3,11 @@
 
   // Selecting all Divs that are Spaceships;
   const spaceships = 
-    document.querySelectorAll('.spaceship');
+    document.querySelectorAll(".spaceship");
 
   // The Button to the Selected Spaceship;
   const actionButton = 
-    document.getElementById('actionButton');
+    document.getElementById("actionButton");
 
   // All the Spaceship values;
   const ships = [
@@ -31,13 +31,13 @@
     spaceships.forEach((spaceship, i) => {
       
       // Removing that classes on the Div, if it has;
-      spaceship.classList.remove('active', 'left', 'right');
+      spaceship.classList.remove("active", "left", "right");
       
       // Conditional expressions;
       if(i === active) {
 
         // Adding a new class on that Div; 
-        spaceship.classList.add('active');
+        spaceship.classList.add("active");
 
         // Shows the life of that Spaceship;
         document.getElementById("lifeValue")
@@ -83,19 +83,19 @@
       else if(i < active) {
 
         // Adding a new class on that Div; 
-        spaceship.classList.add('left');
+        spaceship.classList.add("left");
       }
       else if(i > active) {
 
         // Adding a new class on that Div; 
-        spaceship.classList.add('right');
+        spaceship.classList.add("right");
       }
     });
   }
 
   // Add an Event Listener on the left button; 
-  document.getElementById('leftButton')
-    .addEventListener('click', () => {
+  document.getElementById("leftButton")
+    .addEventListener("click", () => {
     
     // If the active is greater than 0;
     if(active > 0) {
@@ -109,8 +109,8 @@
   });
 
   // Add an Event Listener on the right button; 
-  document.getElementById('rightButton')
-    .addEventListener('click', () => {
+  document.getElementById("rightButton")
+    .addEventListener("click", () => {
 
     // If the active is less than the bigger index;
     if(active < spaceships.length - 1) {
@@ -130,10 +130,10 @@
   };
 
   // Loop Selecting all Upgrade Buttons;
-  document.querySelectorAll('.upgrade-button').forEach(button => {
+  document.querySelectorAll(".upgrade-button").forEach(button => {
 
     // Add an Event Listener on the upgrade button;
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
 
       // Getting the specific Stat value;
       const stat = statMap[button.dataset.stat];

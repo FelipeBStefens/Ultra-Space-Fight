@@ -24,7 +24,7 @@ public class StandartShipController implements ProtocolInterface<StandartShip> {
     }
 
     @Override
-    public StandartShip post(StandartShip standartShip) {
+    public StandartShip create(StandartShip standartShip) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class StandartShipController implements ProtocolInterface<StandartShip> {
 
     @Override
     @PutMapping("/update/{id}")
-    public StandartShip put(@PathVariable long id, 
+    public StandartShip update(@PathVariable long id, 
         @RequestBody StandartShip standartShip) {
     
         standartShip.setIdShip(id);
@@ -44,7 +44,7 @@ public class StandartShipController implements ProtocolInterface<StandartShip> {
     }
 
     @Override
-    public StandartShip patch(long id, StandartShip standartShip) {
+    public StandartShip partialUpdate(long id, StandartShip standartShip) {
         return null;
     }
 

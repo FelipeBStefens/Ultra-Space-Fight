@@ -1,111 +1,111 @@
 // Getting the Pause button;
-const pauseButton = document.getElementById('pauseButton');
+const pauseButton = document.getElementById("pauseButton");
 
 // Add an Event Listener on the pause button; 
-pauseButton.addEventListener('click', () => {
+pauseButton.addEventListener("click", () => {
 
     // Ending if gets that id;
-    if (document.getElementById('pauseScreen')) {
+    if (document.getElementById("pauseScreen")) {
         return;
     }
 
     // Creating an Element of the pause Screen;
-    const pauseScreen = document.createElement('div');
+    const pauseScreen = document.createElement("div");
     
     // Setting a new Id;
-    pauseScreen.id = 'pauseScreen';
+    pauseScreen.id = "pauseScreen";
 
     // Creating an Container of the pause configurations;
-    const pauseContent = document.createElement('div');
+    const pauseContent = document.createElement("div");
     
     // Setting a new Id;
-    pauseContent.id = 'pauseContent';
+    pauseContent.id = "pauseContent";
 
     // Creating a Title to the Pause Container;
-    const pauseTitle = document.createElement('div');
+    const pauseTitle = document.createElement("div");
     
     // Setting a new Id;
-    pauseTitle.id = 'pauseTitle';
+    pauseTitle.id = "pauseTitle";
 
     // Setting the Text value;
-    pauseTitle.textContent = 'Pause';
+    pauseTitle.textContent = "Pause";
 
     // Creating a Resume button;
-    const resumeButton = document.createElement('button');
+    const resumeButton = document.createElement("button");
     
     // Setting a new Id;
-    resumeButton.id = 'resumeButton';
+    resumeButton.id = "resumeButton";
 
     // Setting a new Class;
-    resumeButton.className = 'pauseButton';
+    resumeButton.className = "pauseButton";
 
     // Setting the Text value;
-    resumeButton.textContent = 'Resume';
+    resumeButton.textContent = "Resume";
 
     // Add an Event Listener on the resume button; 
-    resumeButton.addEventListener('click', () => {
+    resumeButton.addEventListener("click", () => {
         
         // Remove the Pause Screen;
-        pauseScreen.remove()
+        pauseScreen.remove();
     });
 
     // Creating a new Slider Label Element;
-    const soundLabel = document.createElement('label');
+    const soundLabel = document.createElement("label");
     
     // Setting the Text value;
-    soundLabel.textContent = 'Sound-Effects';
+    soundLabel.textContent = "Sound-Effects";
 
     // Creating a new Slider Input Element;
-    const soundSlider = document.createElement('input');
+    const soundSlider = document.createElement("input");
 
     // Setting the type to Range;
-    soundSlider.type = 'range';
+    soundSlider.type = "range";
 
     // Setting the min, max and step value; 
-    soundSlider.min = '0';
-    soundSlider.max = '1';
-    soundSlider.step = '0.01'
+    soundSlider.min = "0";
+    soundSlider.max = "1";
+    soundSlider.step = "0.01"
 
     // Setting the actual value;
-    soundSlider.value = '0.5';
+    soundSlider.value = "0.5";
     
     // Setting a new Class;
-    soundSlider.className = 'pauseSlider';
+    soundSlider.className = "pauseSlider";
 
     // Creating a new Slider Label Element;
-    const musicLabel = document.createElement('label');
+    const musicLabel = document.createElement("label");
 
     // Setting the Text value;
-    musicLabel.textContent = 'Soundtrack';
+    musicLabel.textContent = "Soundtrack";
 
     // Creating a new Slider Input Element;
-    const musicSlider = document.createElement('input');
+    const musicSlider = document.createElement("input");
 
     // Setting the type to Range;
-    musicSlider.type = 'range';
+    musicSlider.type = "range";
 
     // Setting the min, max and step value; 
-    musicSlider.min = '0';
-    musicSlider.max = '1';
-    musicSlider.step = '0.01';
+    musicSlider.min = "0";
+    musicSlider.max = "1";
+    musicSlider.step = "0.01";
 
     // Setting the actual value;
-    musicSlider.value = '0.5';
+    musicSlider.value = "0.5";
 
     // Setting a new Class;
-    musicSlider.className = 'pauseSlider';
+    musicSlider.className = "pauseSlider";
 
     // Creating an Exit button;
-    const exitButton = document.createElement('button');
+    const exitButton = document.createElement("button");
     
     // Setting a new Id;
-    exitButton.id = 'exitButton';
+    exitButton.id = "exitButton";
 
     // Setting a new Class;
-    exitButton.className = 'pauseButton';
+    exitButton.className = "pauseButton";
 
     // Setting the Text value;
-    exitButton.textContent = 'Sair da partida';
+    exitButton.textContent = "Sair da partida";
 
     // Append all objects to the Pause Container; 
     pauseContent.appendChild(pauseTitle);

@@ -24,7 +24,7 @@ public class SpeedShipController implements ProtocolInterface<SpeedShip> {
     }
 
     @Override
-    public SpeedShip post(SpeedShip speedShip) {
+    public SpeedShip create(SpeedShip speedShip) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class SpeedShipController implements ProtocolInterface<SpeedShip> {
 
     @Override
     @PutMapping("/update/{id}")
-    public SpeedShip put(@PathVariable long id, 
+    public SpeedShip update(@PathVariable long id, 
         @RequestBody SpeedShip speedShip) {
         
         speedShip.setIdShip(id);
@@ -44,7 +44,7 @@ public class SpeedShipController implements ProtocolInterface<SpeedShip> {
     }
 
     @Override
-    public SpeedShip patch(long id, SpeedShip speedShip) {
+    public SpeedShip partialUpdate(long id, SpeedShip speedShip) {
         return null;
     }
 

@@ -6,7 +6,7 @@
 
   // Selecting all Divs that are Achievements;
   const achievements = 
-    document.querySelectorAll('.achievement');
+    document.querySelectorAll(".achievement");
   
   // functions to update the active achievement; 
   function update() {
@@ -16,30 +16,30 @@
 
       // Removing that classes on the Div, if it has;
       achievement.classList
-        .remove('active', 'left', 'right');
+        .remove("active", "left", "right");
       
       // Conditional expressions;
       if (i === active) {
 
         // Adding a new class on that Div; 
-        achievement.classList.add('active');
+        achievement.classList.add("active");
       }
       else if (i < active) {
 
         // Adding a new class on that Div;
-        achievement.classList.add('left');
+        achievement.classList.add("left");
       }
       else if (i > active) {
 
         // Adding a new class on that Div;
-        achievement.classList.add('right');
+        achievement.classList.add("right");
       } 
     });
   }
 
   // Add an Event Listener on the left button; 
-  document.getElementById('leftButton')
-    .addEventListener('click', () => {
+  document.getElementById("leftButton")
+    .addEventListener("click", () => {
 
     // If the active is greater than 0;
     if(active > 0) {
@@ -53,8 +53,8 @@
   });
 
   // Add an Event Listener on the right button;
-  document.getElementById('rightButton').
-    addEventListener('click', () => {
+  document.getElementById("rightButton").
+    addEventListener("click", () => {
 
     // If the active is less than the bigger index;
     if(active < achievements.length - 1) {

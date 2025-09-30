@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            sessionStorage.setItem("user", JSON.stringify(data));
             window.location.replace("../../Pages/Hub/mainPage.html");
         })
         .catch(error => console.error(error));

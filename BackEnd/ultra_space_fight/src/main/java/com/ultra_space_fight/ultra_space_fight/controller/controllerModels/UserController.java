@@ -28,7 +28,7 @@ public class UserController implements ProtocolInterface<User> {
 
     @Override
     @PostMapping("/create")
-    public User post(@RequestBody User user) {
+    public User create(@RequestBody User user) {
 
         userService.createUser(user);
         return user;
@@ -44,14 +44,14 @@ public class UserController implements ProtocolInterface<User> {
 
     @Override
     @PutMapping("/update/{id}")
-    public User put(@PathVariable long id, @RequestBody User user) {
+    public User update(@PathVariable long id, @RequestBody User user) {
         user.setIdUser(id);
         userService.updateUser(user);
         return user;
     }
 
     @Override
-    public User patch(long id, User user) {
+    public User partialUpdate(long id, User user) {
         return user;
     }
 

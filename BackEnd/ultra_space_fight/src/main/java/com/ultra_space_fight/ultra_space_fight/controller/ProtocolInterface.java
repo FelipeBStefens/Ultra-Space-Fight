@@ -5,16 +5,16 @@ package com.ultra_space_fight.ultra_space_fight.controller;
 public interface ProtocolInterface<T> {
     
     // Post;
-    T post(T entity);
+    T create(T entity);
 
     // Delete;
     boolean delete(long id);
 
     // Put;
-    T put(long id, T entity);
+    T update(long id, T entity);
 
     // Patch;
-    T patch(long id, T entity);
+    T partialUpdate(long id, T entity);
 
     // Get with an ID path;
     T getById(long id);

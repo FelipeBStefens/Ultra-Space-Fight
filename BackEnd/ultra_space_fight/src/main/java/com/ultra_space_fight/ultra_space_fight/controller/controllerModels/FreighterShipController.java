@@ -24,7 +24,7 @@ public class FreighterShipController implements ProtocolInterface<FreighterShip>
     }
 
     @Override
-    public FreighterShip post(FreighterShip freighterShip) {
+    public FreighterShip create(FreighterShip freighterShip) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class FreighterShipController implements ProtocolInterface<FreighterShip>
 
     @Override
     @PutMapping("/update/{id}")
-    public FreighterShip put(@PathVariable long id, 
+    public FreighterShip update(@PathVariable long id, 
         @RequestBody FreighterShip freighterShip) {
         
         freighterShip.setIdShip(id);
@@ -44,7 +44,7 @@ public class FreighterShipController implements ProtocolInterface<FreighterShip>
     }
 
     @Override
-    public FreighterShip patch(long id, FreighterShip freighterShip) {
+    public FreighterShip partialUpdate(long id, FreighterShip freighterShip) {
         return null;
     }
 

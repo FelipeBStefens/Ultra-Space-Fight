@@ -24,7 +24,7 @@ public class DestroyerShipController implements ProtocolInterface<DestroyerShip>
     }
 
     @Override
-    public DestroyerShip post(DestroyerShip destroyerShip) {
+    public DestroyerShip create(DestroyerShip destroyerShip) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class DestroyerShipController implements ProtocolInterface<DestroyerShip>
 
     @Override
     @PutMapping("/update/{id}")
-    public DestroyerShip put(@PathVariable long id, 
+    public DestroyerShip update(@PathVariable long id, 
         @RequestBody DestroyerShip destroyerShip) {
         
         destroyerShip.setIdShip(id);
@@ -44,7 +44,7 @@ public class DestroyerShipController implements ProtocolInterface<DestroyerShip>
     }
 
     @Override
-    public DestroyerShip patch(long id, DestroyerShip destroyerShip) {
+    public DestroyerShip partialUpdate(long id, DestroyerShip destroyerShip) {
         return null;
     }
 

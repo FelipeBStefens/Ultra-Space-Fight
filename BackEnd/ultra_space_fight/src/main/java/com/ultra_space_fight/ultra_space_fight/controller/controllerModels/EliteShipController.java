@@ -24,7 +24,7 @@ public class EliteShipController implements ProtocolInterface<EliteShip>{
     }
 
     @Override
-    public EliteShip post(EliteShip eliteShip) {
+    public EliteShip create(EliteShip eliteShip) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class EliteShipController implements ProtocolInterface<EliteShip>{
 
     @Override
     @PutMapping("/update/{id}")
-    public EliteShip put(@PathVariable long id, 
+    public EliteShip update(@PathVariable long id, 
         @RequestBody EliteShip eliteShip) {
         
         eliteShip.setIdShip(id);
@@ -44,7 +44,7 @@ public class EliteShipController implements ProtocolInterface<EliteShip>{
     }
 
     @Override
-    public EliteShip patch(long id, EliteShip eliteShip) {
+    public EliteShip partialUpdate(long id, EliteShip eliteShip) {
         return null;
     }
 
