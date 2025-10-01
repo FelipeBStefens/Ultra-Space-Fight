@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
@@ -36,21 +37,21 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
     
     // SQL code delete a value;
     private final String SQL_DELETE = """
-        DELETE FROM elite_ship WHERE id_ship = ?;    
+        DELETE FROM elite_ship WHERE id_user = ?;    
         """;
 
     // SQL code update a value;
     private final String SQL_UPDATE = """
         UPDATE elite_ship
         SET life = ?, speed = ?, damage = ?
-        WHERE id_ship = ?;    
+        WHERE id_user = ?;    
         """;
 
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
         FROM (users u INNER JOIN elite_ship e ON u.id_user = e.id_user) 
-        WHERE id_ship = ?;    
+        WHERE u.id_user = ?;    
         """;
 
     // SQL code read all values;
@@ -59,14 +60,9 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         FROM (users u INNER JOIN elite_ship e ON u.id_user = e.id_user);    
         """;
 
-    private final String SQL_DELETE_BY_USER_ID = """
-        DELETE FROM elite_ship
-        WHERE id_user = ?;    
-        """;
-
     // Method that create a new EliteShip in the database;
     @Override
-    public void create(EliteShip eliteShip) {
+    public void create(EliteShip eliteShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -76,7 +72,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
 
             // Preparing a new Statement;
             PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE);
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             
             // Setting the values of the Statement;
             preparedStatement.setLong(1, eliteShip.getUser().getIdUser());
@@ -86,11 +82,16 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                eliteShip.setIdShip(resultSet.getLong(1));
+            }
         }
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -101,7 +102,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
 
     // Method that delete a EliteShip in the database by id;
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws SQLException {
        
         // Try-Catch to handle Execptions;
         try {
@@ -122,7 +123,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -133,7 +134,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
 
     // Method that update a EliteShip in the database;
     @Override
-    public void update(EliteShip eliteShip) {
+    public void update(EliteShip eliteShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -149,7 +150,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
             preparedStatement.setInt(1, eliteShip.getLife());
             preparedStatement.setInt(2, eliteShip.getSpeed());
             preparedStatement.setInt(3, eliteShip.getDamage());
-            preparedStatement.setLong(4, eliteShip.getIdShip());
+            preparedStatement.setLong(4, eliteShip.getUser().getIdUser());
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
@@ -157,7 +158,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -168,7 +169,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
 
     // Method that read a EliteShip in the database by id;
     @Override
-    public EliteShip read(long id) {
+    public EliteShip read(long id) throws SQLException {
 
         // Declaring a new EliteShip;
         EliteShip eliteShip = null;
@@ -197,7 +198,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
                 resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 
                 // Setting the id of that user;
-                user.setIdUser(resultSet.getLong("id_user"));
+                user.setIdUser(id);
 
                 // Creating a new eliteShip;
                 eliteShip = new EliteShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
@@ -209,7 +210,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -223,7 +224,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
 
     // Method that read all EliteShip in the database;
     @Override
-    public List<EliteShip> readAll() {
+    public List<EliteShip> readAll() throws SQLException {
         
         // Declaring a new list;
         ArrayList<EliteShip> allEliteShip = new ArrayList<>();
@@ -264,7 +265,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -274,36 +275,5 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
 
         // Returning the list;
         return allEliteShip;
-    }
-
-    // Method that delete a EliteShip in the database by id;
-    public void deleteByUser(long id) {
-       
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE_BY_USER_ID);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            System.out.println(e.getMessage());
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
     }
 }

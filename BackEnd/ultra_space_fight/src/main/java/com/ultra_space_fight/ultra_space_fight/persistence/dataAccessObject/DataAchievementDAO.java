@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
@@ -36,21 +37,21 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     
     // SQL code delete a value;
     private final String SQL_DELETE = """
-        DELETE FROM data_achievements WHERE id_data = ?;    
+        DELETE FROM data_achievements WHERE id_user = ?;    
         """;
 
     // SQL code update a value;
     private final String SQL_UPDATE = """
         UPDATE data_achievements
         SET score = ?, score_match = ?, defeated_enemies = ?, defeated_elite = ?, defeated_boss = ?
-        WHERE id_data = ?;    
+        WHERE id_user = ?;    
         """;
 
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
         FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user) 
-        WHERE id_data = ?;    
+        WHERE u.id_user = ?;    
         """;
 
     // SQL code read all values;
@@ -75,14 +76,9 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         LIMIT 10;
         """;
 
-    private final String SQL_DELETE_BY_USER_ID = """
-        DELETE FROM data_achievements
-        WHERE id_user = ?;    
-        """;
-
     // Method that create a new DataAchievements in the database;
     @Override
-    public void create(DataAchievements dataAchievements) {
+    public void create(DataAchievements dataAchievements) throws SQLException{
         
         // Try-Catch to handle Execptions;
         try {
@@ -92,7 +88,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
             // Preparing a new Statement;
             PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE);
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             
             // Setting the values of the Statement;
             preparedStatement.setLong(1, dataAchievements.getUser().getIdUser());
@@ -104,11 +100,16 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                dataAchievements.setIdDataAchievements(resultSet.getLong(1));
+            }
         }
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -119,7 +120,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // Method that delete a DataAchievement in the database by id;
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws SQLException {
        
         // Try-Catch to handle Execptions;
         try {
@@ -140,7 +141,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -151,7 +152,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // Method that update a DataAchievement in the database;
     @Override
-    public void update(DataAchievements DataAchievements) {
+    public void update(DataAchievements DataAchievements) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -169,7 +170,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
             preparedStatement.setInt(3, DataAchievements.getDefeatedEnemies());
             preparedStatement.setInt(4, DataAchievements.getDefeatedElite());
             preparedStatement.setInt(5, DataAchievements.getDefeatedBoss());
-            preparedStatement.setLong(6, DataAchievements.getIdDataAchievements());
+            preparedStatement.setLong(6, DataAchievements.getUser().getIdUser());
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
@@ -177,7 +178,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -188,7 +189,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // Method that read a DataAchievement in the database by id;
     @Override
-    public DataAchievements read(long id) {
+    public DataAchievements read(long id) throws SQLException {
 
         // Declaring a new DataAchievement;
         DataAchievements dataAchievements = null;
@@ -217,7 +218,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
                 resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 
                 // Setting the id of that user;
-                user.setIdUser(resultSet.getLong("id_user"));
+                user.setIdUser(id);
 
                 // Creating a new dataAchievement;
                 dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
@@ -230,7 +231,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -244,7 +245,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // Method that read all DataAchievements in the database;
     @Override
-    public List<DataAchievements> readAll() {
+    public List<DataAchievements> readAll() throws SQLException {
         
         // Declaring a new list;
         ArrayList<DataAchievements> allDataAchievements = new ArrayList<>();
@@ -286,7 +287,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -299,7 +300,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     }
 
     // Method that selects the 10 users with greatest score;
-    public List<User> selectTopUsersByScore() {
+    public List<User> selectTopUsersByScore() throws SQLException {
         
         // Declaring the list of the 10 users;
         ArrayList<User> topUsers = new ArrayList<>();
@@ -334,7 +335,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -347,7 +348,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     }
 
     // Method that selects the 10 users with greatest score in a match;
-    public List<User> selectTopUsersByScoreMatch() {
+    public List<User> selectTopUsersByScoreMatch() throws SQLException {
         
         // Declaring the list of the 10 users;
         ArrayList<User> topUsersMatch = new ArrayList<>();
@@ -382,7 +383,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -392,36 +393,5 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
         // Returning the list;
         return topUsersMatch;
-    }
-
-    // Method that delete a DataAchievement in the database by id;
-    public void deleteByUser(long id) {
-       
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE_BY_USER_ID);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            System.out.println(e.getMessage());
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
     }
 }

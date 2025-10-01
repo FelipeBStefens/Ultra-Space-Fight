@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
@@ -36,21 +37,22 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
     
     // SQL code delete a value;
     private final String SQL_DELETE = """
-        DELETE FROM speed_ship WHERE id_ship = ?;    
+        DELETE FROM speed_ship 
+        WHERE id_user = ?;    
         """;
 
     // SQL code update a value;
     private final String SQL_UPDATE = """
         UPDATE speed_ship
         SET life = ?, speed = ?, damage = ?
-        WHERE id_ship = ?;    
+        WHERE id_user = ?;    
         """;
 
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
         FROM (users u INNER JOIN speed_ship s ON u.id_user = s.id_user) 
-        WHERE id_ship = ?;    
+        WHERE u.id_user = ?;    
         """;
 
     // SQL code read all values;
@@ -59,14 +61,9 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
         FROM (users u INNER JOIN speed_ship s ON u.id_user = s.id_user);    
         """;
 
-    private final String SQL_DELETE_BY_USER_ID = """
-        DELETE FROM speed_ship
-        WHERE id_user = ?;    
-        """;
-
     // Method that create a new SpeedShip in the database;
     @Override
-    public void create(SpeedShip speedShip) {
+    public void create(SpeedShip speedShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -76,7 +73,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
 
             // Preparing a new Statement;
             PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE);
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             
             // Setting the values of the Statement;
             preparedStatement.setLong(1, speedShip.getUser().getIdUser());
@@ -86,11 +83,16 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                speedShip.setIdShip(resultSet.getLong(1));
+            }
         }
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -101,7 +103,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
 
     // Method that delete a SpeedShip in the database by id;
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws SQLException {
        
         // Try-Catch to handle Execptions;
         try {
@@ -122,7 +124,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -133,7 +135,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
 
     // Method that update a SpeedShip in the database;
     @Override
-    public void update(SpeedShip speedShip) {
+    public void update(SpeedShip speedShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -149,7 +151,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
             preparedStatement.setInt(1, speedShip.getLife());
             preparedStatement.setInt(2, speedShip.getSpeed());
             preparedStatement.setInt(3, speedShip.getDamage());
-            preparedStatement.setLong(4, speedShip.getIdShip());
+            preparedStatement.setLong(4, speedShip.getUser().getIdUser());
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
@@ -157,7 +159,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -168,7 +170,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
 
     // Method that read a SpeedShip in the database by id;
     @Override
-    public SpeedShip read(long id) {
+    public SpeedShip read(long id) throws SQLException {
 
         // Declaring a new speedShip;
         SpeedShip speedShip = null;
@@ -197,7 +199,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
                 resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 
                 // Setting the id of that user;
-                user.setIdUser(resultSet.getLong("id_user"));
+                user.setIdUser(id);
 
                 // Creating a new speedShip;
                 speedShip = new SpeedShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
@@ -209,7 +211,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -223,7 +225,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
 
     // Method that read all SpeedShip in the database;
     @Override
-    public List<SpeedShip> readAll() {
+    public List<SpeedShip> readAll() throws SQLException {
         
         // Declaring a new list;
         ArrayList<SpeedShip> allSpeedShip = new ArrayList<>();
@@ -264,7 +266,7 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -275,35 +277,4 @@ public class SpeedShipDAO implements CrudInterface<SpeedShip> {
         // Returning the list;
         return allSpeedShip;
     }  
-
-    // Method that delete a SpeedShip in the database by id;
-    public void deleteByUser(long id) {
-       
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE_BY_USER_ID);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            System.out.println(e.getMessage());
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
-    }
 }

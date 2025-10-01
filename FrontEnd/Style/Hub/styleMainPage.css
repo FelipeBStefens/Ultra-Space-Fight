@@ -27,6 +27,26 @@ body {
     align-items: flex-start;
 }
 
+
+h1 {
+    margin: 0;
+    position: absolute;
+    font-family: var(--pixel-font);
+    font-size: 100px;
+    color: white;
+    left: 50px;
+}
+
+#scoreMatch {
+
+    top: 10px;
+}
+
+#score {
+
+    top: 100px; 
+}
+
 /* The Hipertext acting like a button */
 a {
 
@@ -62,7 +82,7 @@ a:hover {
 #ranking {
 
     /* Defining the Position */
-    top: 60px;
+    top: 240px;
     left: 80px;
 }
 
