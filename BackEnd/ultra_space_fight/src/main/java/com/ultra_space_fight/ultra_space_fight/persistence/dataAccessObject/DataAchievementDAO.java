@@ -5,9 +5,9 @@ package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
@@ -50,20 +50,20 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
-        FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user) 
-        WHERE u.id_user = ?;    
+        FROM (users u INNER JOIN data_achievements d USING(id_user)) 
+        WHERE id_user = ?;    
         """;
 
     // SQL code read all values;
     private final String SQL_READ_ALL = """
         SELECT * 
-        FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user);    
+        FROM (users u INNER JOIN data_achievements d USING(id_user));    
         """;
 
     // SQL code select top 10 users by score;
     private final String SELECT_USERS_BY_SCORE = """
         SELECT *
-        FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user)
+        FROM users u INNER JOIN data_achievements d USING(id_user)
         ORDER BY d.score DESC
         LIMIT 10;
         """;
@@ -71,7 +71,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     // SQL code select top 10 users by score of a specific match;
     private final String SELECT_USERS_BY_SCORE_MATCH = """
         SELECT *
-        FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user)
+        FROM users u INNER JOIN data_achievements d USING(id_user)
         ORDER BY d.score_match DESC
         LIMIT 10;
         """;
@@ -321,16 +321,16 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
             // Seeing all the possibilities;
             while (resultSet.next()) {
 
-                // Creating a new user;
                 User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
                 resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
+
                 // Setting the id of that user;
+                
                 user.setIdUser(resultSet.getLong("id_user"));
                 
                 DataAchievements dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
                 resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
-                
+
                 // Setting the id of that dataAchievement;
                 dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
 

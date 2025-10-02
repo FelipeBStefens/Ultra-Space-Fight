@@ -5,9 +5,9 @@ package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
@@ -51,14 +51,14 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
-        FROM (users u INNER JOIN standart_ship s ON u.id_user = s.id_user) 
-        WHERE u.id_user = ?;    
+        FROM (users u INNER JOIN standart_ship s USING(id_user)) 
+        WHERE id_user = ?;    
         """;
 
     // SQL code read all values;
     private final String SQL_READ_ALL = """
         SELECT * 
-        FROM (users u INNER JOIN standart_ship s ON u.id_user = s.id_user);    
+        FROM (users u INNER JOIN standart_ship s USING(id_user));    
         """;
 
     // Method that create a new StandartShip in the database;

@@ -28,91 +28,94 @@ async function getRankingScoreMatch() {
 
 document.addEventListener("DOMContentLoaded", () => {
   
-  // Example list with total Score;
-  const totalRanking = getRankingScore();
+  (async () => {
 
-  // Example list with Score in a match;
-  const matchRanking = getRankingScoreMatch();
+    // Example list with total Score;
+    const totalRanking = await getRankingScore();
 
-  // The Button to access the Total Ranking;
-  const totalButton = document.getElementById("totalButton");
+    // Example list with Score in a match;
+    const matchRanking = await getRankingScoreMatch();
 
-  // The Button to access the Match Ranking;
-  const matchButton = document.getElementById("matchButton");
+    // The Button to access the Total Ranking;
+    const totalButton = document.getElementById("totalButton");
 
-  // The Ranking List Div to put the values;
-  const rankingList = document.getElementById("ranking-list");
+    // The Button to access the Match Ranking;
+    const matchButton = document.getElementById("matchButton");
 
-  // Function to update the List;
-  function updateList(data) {
+    // The Ranking List Div to put the values;
+    const rankingList = document.getElementById("ranking-list");
 
-    // Restart the HTML inside the List;
-    rankingList.innerHTML = "";
+    // Function to update the List;
+    function updateList(data, scoreField) {
 
-    // For loop in each item of the data;
-    data.forEach((item, index) => {
+      // Restart the HTML inside the List;
+      rankingList.innerHTML = "";
 
-      // Creating a new Div Element;
-      const div = document.createElement("div");
+      // For loop in each item of the data;
+      data.forEach((item, index) => {
 
-      // Add the class item to the Ranking;
-      div.classList.add("ranking-item");
+        // Creating a new Div Element;
+        const div = document.createElement("div");
 
-      // Conditional expressions;
-      if (index === 0) {
+        // Add the class item to the Ranking;
+        div.classList.add("ranking-item");
 
-        // Add a gold class on the first item;
-        div.classList.add("gold");
-      }
-      else if (index === 1) {
+        // Conditional expressions;
+        if (index === 0) {
 
-        // Add a silver class on the first item;
-        div.classList.add("silver");
-      }
-      else if (index === 2) {
+          // Add a gold class on the first item;
+          div.classList.add("gold");
+        }
+        else if (index === 1) {
 
-        // Add a bronze class on the first item;
-        div.classList.add("bronze");
-      }
+          // Add a silver class on the first item;
+          div.classList.add("silver");
+        }
+        else if (index === 2) {
 
-      // Add HTML Spans on that Div;
-      div.innerHTML = `
-        <span class="ranking-position">#${index + 1}</span>
-        <span class="ranking-user">${item.username}</span>
-        <span class="ranking-score">${item.score}</span>
-      `;
+          // Add a bronze class on the first item;
+          div.classList.add("bronze");
+        }
 
-      // Append that Div to the List of the Rankings;
-      rankingList.appendChild(div);
+        // Add HTML Spans on that Div;
+        div.innerHTML = `
+          <span class="ranking-position">#${index + 1}</span>
+          <span class="ranking-user">${item.username}</span>
+          <span class="ranking-score">${item[scoreField]}</span>
+        `;
+
+        // Append that Div to the List of the Rankings;
+        rankingList.appendChild(div);
+      });
+    }
+
+    // Add an Event Listener on the Total Button; 
+    totalButton.addEventListener("click", () => {
+
+      // Add a new class on the Total Button;
+      totalButton.classList.add("active");
+
+      // Remove the class on the Match Button;
+      matchButton.classList.remove("active");
+
+      // Update the Ranking; 
+      updateList(totalRanking, "score");
     });
-  }
 
-  // Add an Event Listener on the Total Button; 
-  totalButton.addEventListener("click", () => {
+    // Add an Event Listener on the Match Button; 
+    matchButton.addEventListener("click", () => {
 
-    // Add a new class on the Total Button;
-    totalButton.classList.add("active");
+      // Add a new class on the Match Button;
+      matchButton.classList.add("active");
 
-    // Remove the class on the Match Button;
-    matchButton.classList.remove("active");
+      // Remove the class on the Total Button;
+      totalButton.classList.remove("active");
 
-    // Update the Ranking; 
-    updateList(totalRanking);
-  });
-
-  // Add an Event Listener on the Match Button; 
-  matchButton.addEventListener("click", () => {
-
-    // Add a new class on the Match Button;
-    matchButton.classList.add("active");
-
-    // Remove the class on the Total Button;
-    totalButton.classList.remove("active");
+      // Update the Ranking;
+      updateList(matchRanking, "scoreMatch");
+    });
 
     // Update the Ranking;
-    updateList(matchRanking);
-  });
-
-  // Update the Ranking;
-  updateList(totalRanking);
+    updateList(totalRanking, "score");
+  })()
 });

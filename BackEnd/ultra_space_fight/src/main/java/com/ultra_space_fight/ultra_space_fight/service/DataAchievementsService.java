@@ -2,7 +2,6 @@ package com.ultra_space_fight.ultra_space_fight.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -48,11 +47,9 @@ public class DataAchievementsService {
 
         ArrayList<RankingScoreTDO> listRankingScoreTDO = new ArrayList<>();
         try {
-            List<DataAchievements> listDataAchievements = 
-                dataAchievementDAO.selectTopUsersByScore();
             
             ArrayList<DataAchievements> arrayListDataAchievementses =
-                new ArrayList<>(listDataAchievements);
+                new ArrayList<>(dataAchievementDAO.selectTopUsersByScore());
             
             for (DataAchievements dataAchievement : arrayListDataAchievementses) {
                 
@@ -72,11 +69,9 @@ public class DataAchievementsService {
 
         ArrayList<RankingScoreMatchTDO> listRankingScoreMatchTDO = new ArrayList<>();
         try {
-            List<DataAchievements> listDataAchievements = 
-                dataAchievementDAO.selectTopUsersByScore();
             
             ArrayList<DataAchievements> arrayListDataAchievementses =
-                new ArrayList<>(listDataAchievements);
+                new ArrayList<>(dataAchievementDAO.selectTopUsersByScore());
             
             for (DataAchievements dataAchievement : arrayListDataAchievementses) {
                 
