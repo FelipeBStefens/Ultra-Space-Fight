@@ -1,6 +1,8 @@
 package com.ultra_space_fight.ultra_space_fight.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,8 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievem
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.DataAchievementDAO;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
 
 @Service
@@ -38,5 +42,53 @@ public class DataAchievementsService {
             throw new DatabaseConnectionException(e);
         }
         return scoreTDO;
+    }
+
+    public ArrayList<RankingScoreTDO> getRankingList() {
+
+        ArrayList<RankingScoreTDO> listRankingScoreTDO = new ArrayList<>();
+        try {
+            List<DataAchievements> listDataAchievements = 
+                dataAchievementDAO.selectTopUsersByScore();
+            
+            ArrayList<DataAchievements> arrayListDataAchievementses =
+                new ArrayList<>(listDataAchievements);
+            
+            for (DataAchievements dataAchievement : arrayListDataAchievementses) {
+                
+                RankingScoreTDO rankingScoreTDO = new RankingScoreTDO(
+                    dataAchievement.getScore(), dataAchievement.getUser().getUsername());
+                
+                listRankingScoreTDO.add(rankingScoreTDO);
+            } 
+        }
+        catch (SQLException e) {
+            throw new DatabaseConnectionException(e);
+        }
+        return listRankingScoreTDO;
+    }
+
+    public ArrayList<RankingScoreMatchTDO> getRankingMatchList() {
+
+        ArrayList<RankingScoreMatchTDO> listRankingScoreMatchTDO = new ArrayList<>();
+        try {
+            List<DataAchievements> listDataAchievements = 
+                dataAchievementDAO.selectTopUsersByScore();
+            
+            ArrayList<DataAchievements> arrayListDataAchievementses =
+                new ArrayList<>(listDataAchievements);
+            
+            for (DataAchievements dataAchievement : arrayListDataAchievementses) {
+                
+                RankingScoreMatchTDO rankingScoreTDO = new RankingScoreMatchTDO(
+                    dataAchievement.getScoreMatch(), dataAchievement.getUser().getUsername());
+                
+                listRankingScoreMatchTDO.add(rankingScoreTDO);
+            } 
+        }
+        catch (SQLException e) {
+            throw new DatabaseConnectionException(e);
+        }
+        return listRankingScoreMatchTDO;
     }
 }

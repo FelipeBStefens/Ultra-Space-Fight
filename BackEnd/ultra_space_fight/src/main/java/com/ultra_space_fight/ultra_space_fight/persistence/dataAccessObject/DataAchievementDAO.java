@@ -62,7 +62,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // SQL code select top 10 users by score;
     private final String SELECT_USERS_BY_SCORE = """
-        SELECT id_user
+        SELECT *
         FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user)
         ORDER BY d.score DESC
         LIMIT 10;
@@ -70,7 +70,7 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // SQL code select top 10 users by score of a specific match;
     private final String SELECT_USERS_BY_SCORE_MATCH = """
-        SELECT id_user
+        SELECT *
         FROM (users u INNER JOIN data_achievements d ON u.id_user = d.id_user)
         ORDER BY d.score_match DESC
         LIMIT 10;
@@ -300,10 +300,10 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     }
 
     // Method that selects the 10 users with greatest score;
-    public List<User> selectTopUsersByScore() throws SQLException {
+    public List<DataAchievements> selectTopUsersByScore() throws SQLException {
         
         // Declaring the list of the 10 users;
-        ArrayList<User> topUsers = new ArrayList<>();
+        ArrayList<DataAchievements> topUsers = new ArrayList<>();
 
         // Try-Catch to handle Execptions;
         try {
@@ -328,8 +328,14 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
                 // Setting the id of that user;
                 user.setIdUser(resultSet.getLong("id_user"));
                 
+                DataAchievements dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
+                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
+                
+                // Setting the id of that dataAchievement;
+                dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
+
                 // Adding the User in the list;
-                topUsers.add(user);
+                topUsers.add(dataAchievements);
             }
         }
         catch (SQLException e) {
@@ -348,10 +354,10 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     }
 
     // Method that selects the 10 users with greatest score in a match;
-    public List<User> selectTopUsersByScoreMatch() throws SQLException {
+    public List<DataAchievements> selectTopUsersByScoreMatch() throws SQLException {
         
         // Declaring the list of the 10 users;
-        ArrayList<User> topUsersMatch = new ArrayList<>();
+        ArrayList<DataAchievements> topUsersMatch = new ArrayList<>();
 
         // Try-Catch to handle Execptions;
         try {
@@ -376,8 +382,14 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
                 // Setting the id of that user;
                 user.setIdUser(resultSet.getLong("id_user"));
                 
+                DataAchievements dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
+                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
+                
+                // Setting the id of that dataAchievement;
+                dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
+
                 // Adding the User in the list;
-                topUsersMatch.add(user);
+                topUsersMatch.add(dataAchievements);
             }
         }
         catch (SQLException e) {
