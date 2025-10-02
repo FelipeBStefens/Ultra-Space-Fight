@@ -1,7 +1,18 @@
 
-const user = sessionStorage.getItem("user");
-const scoreText = document.getElementById("score");
-const scoreMatch = document.getElementById("scoreMatch");
+document.addEventListener("DOMContentLoaded", () => {
 
-scoreText.textContent = "score: 1233";
-scoreMatch.textContent = "score match: 234";
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const scoreText = document.getElementById("score");
+    const scoreMatch = document.getElementById("scoreMatch");
+
+
+    fetch(`http://localhost:8080/data/achievement/get/score/${user.idUser}`) 
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            scoreText.textContent = `score: ${data.score}`;
+            scoreMatch.textContent = `score match: ${data.scoreMatch}`;
+        })
+        .catch(error => console.error(error));
+});

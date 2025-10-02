@@ -3,17 +3,13 @@ package com.ultra_space_fight.ultra_space_fight.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.service.UserService;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.UserResponseTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.UserSendTDO;
@@ -32,10 +28,19 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<UserResponseTDO> create(@RequestBody UserSendTDO userSendTDO) {
 
-        UserResponseTDO response = userService.createUser(userSendTDO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        UserResponseTDO userResponseTDO = userService.createUser(userSendTDO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseTDO);
     }
 
+    @GetMapping("/get/login")
+    public ResponseEntity<UserResponseTDO> getUserLogin(
+        @RequestParam String email, @RequestParam String password) {
+        
+
+        UserResponseTDO userResponseTDO = userService.getUserLogin(email, password);
+        return ResponseEntity.status(HttpStatus.OK).body(userResponseTDO);
+    }
+    
     /*
     @DeleteMapping("/delete/{id}")
     public boolean delete(@PathVariable long id) {
@@ -55,13 +60,6 @@ public class UserController {
     public User getById(@PathVariable long id) {
 
         return userService.getUserById(id);
-    }
-
-    @GetMapping("/get/login")
-    public User getUserLogin(@RequestParam String email, 
-        @RequestParam String password) {
-
-        return userService.getUserLogin(email, password);
     }
     */
 }

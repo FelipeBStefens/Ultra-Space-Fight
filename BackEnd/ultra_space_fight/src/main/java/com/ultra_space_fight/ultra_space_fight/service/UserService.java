@@ -4,7 +4,8 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
 
-import com.ultra_space_fight.ultra_space_fight.exception.userExceptions.UserNotCreatedException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.DestroyerShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.EliteShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.FreighterShip;
@@ -75,8 +76,28 @@ public class UserService {
             eliteShipDAO.create(eliteShip);
         }
         catch (SQLException e) {
-            throw new UserNotCreatedException(e);
+            throw new DatabaseConnectionException(e);
         }
         return new UserResponseTDO(user.getIdUser(), user.getSelectedSpaceship());
+    }
+
+
+    public UserResponseTDO getUserLogin(String email, String password) {
+
+        UserResponseTDO userResponseTDO = null;
+
+        try {
+            User user = userDAO.getUser(email, password);
+            
+            if (user == null) {
+                throw new UserNotFoundException();
+            }
+            userResponseTDO = new UserResponseTDO(
+                user.getIdUser(), user.getSelectedSpaceship()); 
+        }
+        catch (SQLException e) {
+            throw new DatabaseConnectionException(e);
+        }
+        return userResponseTDO;
     }
 }

@@ -61,7 +61,7 @@ public class UserDAO implements CrudInterface<User> {
 
     // SQL code get user id by email and password;
     private final String SQL_GET_ID = """
-        SELECT id_user 
+        SELECT * 
         FROM users 
         WHERE email = ? AND password_user = ?;
         """;

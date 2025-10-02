@@ -1,12 +1,12 @@
 package com.ultra_space_fight.ultra_space_fight.exception;
 
-public class GlobalException {
+public class ModelException {
     
     private final int status;
     private final String error;
     private final String message;
 
-    public GlobalException(int status, String error, String message) {
+    public ModelException(int status, String error, String message) {
         this.status = status;
         this.error = error;
         this.message = message;
