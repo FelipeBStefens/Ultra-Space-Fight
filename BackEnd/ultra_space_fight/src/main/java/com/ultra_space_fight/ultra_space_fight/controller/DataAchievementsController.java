@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ultra_space_fight.ultra_space_fight.service.DataAchievementsService;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
@@ -49,5 +50,14 @@ class DataAchievementsController {
             dataAchievementsService.getRankingMatchList();
         
         return ResponseEntity.status(HttpStatus.OK).body(listRanking);
+    }
+
+    @GetMapping("/get/achievements/{id}")
+    public ResponseEntity<AchievementsTDO> getAchievementValues(@PathVariable long id) {
+
+        AchievementsTDO achievementsTDO = 
+            dataAchievementsService.getAchievements(id);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(achievementsTDO);
     }
 }

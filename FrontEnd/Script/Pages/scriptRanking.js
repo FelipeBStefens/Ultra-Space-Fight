@@ -7,7 +7,7 @@ async function getRankingScore() {
         const ranking = await response.json(); 
         return ranking;
     } catch (error) {
-        console.error("Erro no fetch:", error);
+        console.error(error);
         return [];
     }
 }

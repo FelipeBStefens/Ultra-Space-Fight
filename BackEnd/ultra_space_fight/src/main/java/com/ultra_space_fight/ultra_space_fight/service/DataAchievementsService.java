@@ -9,6 +9,7 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievem
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.DataAchievementDAO;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
@@ -85,5 +86,28 @@ public class DataAchievementsService {
             throw new DatabaseConnectionException(e);
         }
         return listRankingScoreMatchTDO;
+    }
+
+    public AchievementsTDO getAchievements(long id) {
+
+        AchievementsTDO achievementsTDO = null;
+
+        try {
+            DataAchievements dataAchievements = 
+                dataAchievementDAO.read(id);
+
+            if (dataAchievements == null) {
+                throw new DataAchievementNotFoundException();
+            }
+
+            achievementsTDO = new AchievementsTDO(
+                dataAchievements.getScore(), dataAchievements.getScoreMatch(),
+                dataAchievements.getDefeatedEnemies(), dataAchievements.getDefeatedElite(), 
+                dataAchievements.getDefeatedBoss());
+        }
+        catch (SQLException e) {
+            throw new DatabaseConnectionException(e);
+        }
+        return achievementsTDO;
     }
 }

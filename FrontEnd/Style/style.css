@@ -47,7 +47,7 @@
 
   /* Colors of the podium */
   --gold-color: linear-gradient(90deg, #FFD700, #FFF3B0);
-  --silver-color: linear-gradient(90deg, #C0C0C0, #E5E5E5);
+  --silver-color: linear-gradient(90deg, #7d7d7d, #b5b5b5, #e0e0e0);
   --bronze-color: linear-gradient(90deg, #CD7F32, #E8B07A);
 
   /* Button styles configurations */
