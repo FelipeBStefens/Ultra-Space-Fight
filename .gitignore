@@ -5,6 +5,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .env
+piskel/
 
 # Spring Tool Suite
 .apt_generated

@@ -55,4 +55,10 @@
   --button-radius: 10px;
   --button-font-size: 30px;
   --button-width: 220px;
+
+  --standart-ship-image: url('../../Assets/PixelArts/Spaceships/StandartShip.png');
+  --speed-ship-image: url('../../Assets/PixelArts/Spaceships/SpeedShip.png');
+  --destroyer-ship-image: url('../../Assets/PixelArts/Spaceships/DestroyerShip.png');
+  --freighter-ship-image: url('../../Assets/PixelArts/Spaceships/FreighterShip.png');
+  --elite-ship-image: url('../../Assets/PixelArts/Spaceships/EliteShip.png');
 }

@@ -161,7 +161,10 @@ body{
 .spaceship {
 
     /* Defining the Color */
-    background: var(--blocked-color);
+    background-color: var(--blocked-color);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     box-shadow: 0 12px 30px rgba(2,6,23,0.6);
     opacity:0.5;
 
@@ -229,6 +232,31 @@ body{
     /* Defining the opacity */
     opacity:0.7;
     z-index:2;
+}
+
+#standartShip {
+
+    background-image: var(--standart-ship-image);
+}
+
+#speedShip {
+
+    background-image: var(--speed-ship-image);
+}
+
+#destroyerShip {
+
+    background-image: var(--destroyer-ship-image);
+}
+
+#freighterShip {
+
+    background-image: var(--freighter-ship-image);
+}
+
+#eliteShip {
+
+    background-image: var(--elite-ship-image);
 }
 
 /* The Box with the Informations */
