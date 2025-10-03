@@ -19,6 +19,11 @@ async function getAchievement(id) {
   let active = 0;
 
   const user = JSON.parse(sessionStorage.getItem("user"));
+  
+  if (!user) {     
+    window.location.href = "../../index.html";
+  }
+
   const achievementValues = await getAchievement(user.idUser);
 
   const root = getComputedStyle(document.documentElement);

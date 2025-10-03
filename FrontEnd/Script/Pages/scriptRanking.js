@@ -30,6 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
   (async () => {
 
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (!user) {     
+      window.location.href = "../../index.html";
+    }
+
     // Example list with total Score;
     const totalRanking = await getRankingScore();
 

@@ -100,4 +100,21 @@ public class UserService {
         }
         return userResponseTDO;
     }
+
+    public void deleteUser(long id) {
+
+        try {
+            configurationDAO.delete(id);
+            dataAchievementDAO.delete(id);
+            standartShipDAO.delete(id);
+            speedShipDAO.delete(id);
+            destroyerShipDAO.delete(id);
+            freighterShipDAO.delete(id);
+            eliteShipDAO.delete(id);
+            userDAO.delete(id);
+        }
+        catch (SQLException e) {
+            throw new DatabaseConnectionException(e);
+        }
+    }
 }

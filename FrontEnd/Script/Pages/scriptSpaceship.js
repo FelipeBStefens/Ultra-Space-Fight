@@ -1,6 +1,11 @@
 // Function Expression, to initialize when the page start;
 (function(){
 
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  if (!user) {     
+      window.location.href = "../../index.html";
+  }
+
   // Selecting all Divs that are Spaceships;
   const spaceships = 
     document.querySelectorAll(".spaceship");
