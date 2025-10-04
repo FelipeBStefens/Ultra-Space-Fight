@@ -234,6 +234,25 @@ body{
     z-index:2;
 }
 
+.spaceship.blocked {
+  filter: grayscale(100%) brightness(40%);
+  position: relative;
+}
+
+.spaceship.blocked::after {
+  content: "LOCKED";
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 12px;
+  border-radius: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 #standartShip {
 
     background-image: var(--standart-ship-image);
