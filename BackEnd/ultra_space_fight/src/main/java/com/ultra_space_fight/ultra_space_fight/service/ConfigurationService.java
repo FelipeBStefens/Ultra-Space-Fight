@@ -49,4 +49,23 @@ public class ConfigurationService {
         }
         return soundTDO;
     }
+    
+    public SoundTDO updateSounds(SoundTDO soundTDO, long id) {
+
+        SoundTDO newSoundTDO = null; 
+        try {
+            Configuration configuration = configurationDAO.read(id);
+
+            configuration.setSoundtrack(soundTDO.getSoundtrack());
+            configuration.setSoundEffects(soundTDO.getSoundEffects());
+
+            configurationDAO.update(configuration);
+
+            newSoundTDO = new SoundTDO(soundTDO.getSoundtrack(), soundTDO.getSoundEffects());
+        }
+        catch (SQLException e) {
+            throw new DatabaseConnectionException(e);
+        }
+        return newSoundTDO;
+    }
 }

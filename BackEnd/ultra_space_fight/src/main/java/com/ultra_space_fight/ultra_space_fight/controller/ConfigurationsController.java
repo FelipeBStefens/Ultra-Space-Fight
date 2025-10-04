@@ -31,4 +31,12 @@ public class ConfigurationsController {
         SoundTDO soundTDO = configurationService.updateConfigurations(configurationsTDO, id);
         return ResponseEntity.status(HttpStatus.OK).body(soundTDO);
     }
+
+    @PutMapping("/update/sound/{id}")
+    public ResponseEntity<SoundTDO> updateSounds(@PathVariable long id, @RequestBody SoundTDO soundTDO) {
+
+        SoundTDO newSoundTDO = configurationService.updateSounds(soundTDO, id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(newSoundTDO);
+    }
 }

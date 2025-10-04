@@ -1,6 +1,12 @@
 // Getting the Pause button;
 const pauseButton = document.getElementById("pauseButton");
 
+const user = JSON.parse(sessionStorage.getItem("user"));
+
+if (!user) {     
+    window.location.href = "../../index.html";
+}
+
 // Add an Event Listener on the pause button; 
 pauseButton.addEventListener("click", () => {
 
@@ -95,9 +101,47 @@ pauseButton.addEventListener("click", () => {
     // Setting a new Class;
     musicSlider.className = "pauseSlider";
 
+
+    // Criando um botão de salvar sons
+    const saveSoundsButton = document.createElement("button");
+
+    // Configurando id, classe e texto
+    saveSoundsButton.id = "saveSoundsButton";
+    saveSoundsButton.className = "pauseButton";
+    saveSoundsButton.textContent = "Save Sounds";
+
+    // Adicionando um Event Listener para salvar os valores dos sliders
+    saveSoundsButton.addEventListener("click", async () => {
+
+        const body = {
+            soundtrack: soundSlider.valueAsNumber, 
+            soundEffects: musicSlider.valueAsNumber         
+        };
+
+        try {
+            const response = await fetch(`http://localhost:8080/configuration/update/sound/${String(user.idUser)}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+
+            if (!response.ok) throw new Error(response.status);
+
+            const result = await response.json();
+            console.log("✅ Volumes salvos no servidor:", result);
+
+        } catch (error) {
+            console.error("❌ Erro ao salvar volumes no servidor:", error);
+        }
+    });
+
     // Creating an Exit button;
     const exitButton = document.createElement("button");
     
+    exitButton.addEventListener("click", () => {
+        window.location.replace("../../Pages/Hub/mainPage.html");
+    });
+
     // Setting a new Id;
     exitButton.id = "exitButton";
 
@@ -114,6 +158,7 @@ pauseButton.addEventListener("click", () => {
     pauseContent.appendChild(soundSlider);
     pauseContent.appendChild(musicLabel);
     pauseContent.appendChild(musicSlider);
+    pauseContent.appendChild(saveSoundsButton);
     pauseContent.appendChild(exitButton);
 
     // Append the Pause Container to the Pause Screen;

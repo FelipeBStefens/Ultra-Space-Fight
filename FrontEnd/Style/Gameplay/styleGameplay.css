@@ -200,6 +200,25 @@ body {
     transform: scale(1.05);
 }
 
+#saveSoundsButton {
+
+    /* Altering the Background Color */
+    background-color: var(--button-color);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.05);
+}
+
+/* Configuration of the button in case of Hover */
+#saveSoundsButton:hover {
+
+    /* Altering the Background Color */
+    background-color: var(--button-hover-color);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.05);
+}
+
 /* The exit button */
 #exitButton {
 
