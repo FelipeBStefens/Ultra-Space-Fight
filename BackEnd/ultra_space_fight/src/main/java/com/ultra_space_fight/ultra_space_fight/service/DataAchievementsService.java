@@ -12,7 +12,6 @@ import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.Data
 import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
 
 @Service
 public class DataAchievementsService {
@@ -21,27 +20,6 @@ public class DataAchievementsService {
     
     public DataAchievementsService(DataAchievementDAO dataAchievementDAO) {
         this.dataAchievementDAO = dataAchievementDAO;
-    }
-
-    public ScoreTDO getScore(long id) {
-
-        ScoreTDO scoreTDO = null;
-        try {
-            
-            DataAchievements dataAchievement = 
-                dataAchievementDAO.read(id);
-            
-            if (dataAchievement == null) {
-                throw new DataAchievementNotFoundException();
-            }
-
-            scoreTDO = new ScoreTDO(dataAchievement.getScore(),
-                dataAchievement.getScoreMatch());
-        }
-        catch (SQLException e) {
-            throw new DatabaseConnectionException(e);
-        }
-        return scoreTDO;
     }
 
     public ArrayList<RankingScoreTDO> getRankingList() {

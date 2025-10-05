@@ -78,7 +78,8 @@ public class UserService {
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
         }
-        return new UserResponseTDO(user.getIdUser(), user.getSelectedSpaceship());
+        return new UserResponseTDO(user.getIdUser(), user.getSelectedSpaceship(),
+            dataAchievements.getScore(), dataAchievements.getScoreMatch());
     }
 
 
@@ -87,13 +88,16 @@ public class UserService {
         UserResponseTDO userResponseTDO = null;
 
         try {
+
             User user = userDAO.getUser(email, password);
-            
             if (user == null) {
                 throw new UserNotFoundException();
             }
+            DataAchievements dataAchievements = dataAchievementDAO.read(user.getIdUser());
+
             userResponseTDO = new UserResponseTDO(
-                user.getIdUser(), user.getSelectedSpaceship()); 
+                user.getIdUser(), user.getSelectedSpaceship(), 
+                dataAchievements.getScore(), dataAchievements.getScoreMatch()); 
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);

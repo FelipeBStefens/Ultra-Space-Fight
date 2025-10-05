@@ -24,17 +24,21 @@ body {
     /* Hidden all the parts that overflow the page */
     overflow: hidden;
 
-    /* Putting and configuring the Background image */
-    background-image: var(--background-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
     /* Using FlexBox to configure the position */
     display: flex;
     justify-content: flex-start; 
     flex-direction: column;      
     align-items: flex-start; 
+}
+
+#video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
 /* The Container Div */
@@ -78,9 +82,9 @@ body {
 
     /* The Width, Height and Margins */
     width: 350px;
-    height: calc(100vh - 350px); 
+    height: calc(100vh - 220px); 
     margin-left: 200px;
-    margin-top: 350px;   
+    margin-top: 250px;   
     
     /* Using FlexBox to configure the position */
     display: flex;
@@ -175,7 +179,7 @@ body {
 
     /* The Width and Position */ 
     width: var(--button-width);
-    margin-top: 15px;
+    margin-top: 100px;
     
     /* Transition in case of Hover */
     cursor: pointer;
@@ -190,4 +194,56 @@ body {
 
     /* Scaling the button it's value times 1.2 */
     transform: scale(1.2);
+}
+
+.error-message {
+  color: red;
+  font-family: var(--pixel-font);
+  font-size: 14px;
+  margin-top: 5px;
+  height: 20px;
+  display: block;
+  visibility: hidden;
+}
+
+.inputContainer.error .error-message {
+  visibility: visible;
+}
+
+#button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: gray;
+  transform: none !important;
+}
+
+#button.loading {
+  position: relative;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Spinner dentro do botão */
+#button.loading::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Desativa hover quando botão desativado */
+#button:disabled:hover {
+  transform: none;
+  background-color: gray;
 }

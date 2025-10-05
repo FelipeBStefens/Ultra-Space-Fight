@@ -14,7 +14,6 @@ import com.ultra_space_fight.ultra_space_fight.service.DataAchievementsService;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
 
 @RestController
 @RequestMapping("/data/achievement")
@@ -25,13 +24,6 @@ class DataAchievementsController {
 
     public DataAchievementsController(DataAchievementsService dataAchievementsService) {
         this.dataAchievementsService = dataAchievementsService;
-    }
-
-    @GetMapping("/get/score/{id}")
-    public ResponseEntity<ScoreTDO> getScores(@PathVariable long id) {
-        
-        ScoreTDO scoreTDO = dataAchievementsService.getScore(id);
-        return ResponseEntity.status(HttpStatus.OK).body(scoreTDO);
     }
 
     @GetMapping("/get/ranking/score")

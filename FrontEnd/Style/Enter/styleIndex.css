@@ -15,16 +15,20 @@ body {
   /* Hidden all the parts that overflow the page */
   overflow: hidden;
 
-  /* Putting and configuring the Background image */ 
-  background-image: var(--background-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
   /* Using FlexBox to configure the position */
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+#video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
 /* Logo Image of the game */
@@ -39,7 +43,7 @@ body {
   right: -70px;
 
   /* Configure the Width and Height of the Image */
-  width: 800px;
+  width: 1000px;
   height: auto;
 }
 

@@ -19,7 +19,6 @@
 :root {
 
   /* Background images resources */
-  --background-image: url('../../Assets/Images/initial_background.svg');
   --controls-background-image: url('../../Assets/Images/controls_background.png');
   --gameplay-background-image: url('../../Assets/Images/gameplay_background.png');
   --trophies-background-image: url('../../Assets/Images/trophies_background.png');

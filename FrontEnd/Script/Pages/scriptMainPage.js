@@ -8,16 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const scoreText = document.getElementById("score");
-    const scoreMatch = document.getElementById("scoreMatch");
+    const scoreMatchText = document.getElementById("scoreMatch");
 
-
-    fetch(`http://localhost:8080/data/achievement/get/score/${user.idUser}`) 
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-
-            scoreText.textContent = `score: ${data.score}`;
-            scoreMatch.textContent = `score match: ${data.scoreMatch}`;
-        })
-        .catch(error => console.error(error));
+    scoreText.textContent = `Score: ${user.score}`;
+    scoreMatchText.textContent = `Score Match: ${user.scoreMatch}`;
 });
