@@ -84,6 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        if (window.parent && window.parent.playGameMusic) {
+            window.parent.playGameMusic();
+        }
+        
         // Desativa o botão e mostra estado de carregamento
         button.disabled = true;
         button.innerHTML = "Loading..."; // ou "Enviando..."
@@ -110,9 +114,20 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(data);
 
             sessionStorage.setItem("user", JSON.stringify(data));
-            window.location.replace("../../Pages/Hub/mainPage.html");
+            
+            if (window.parent && window.parent.playAudio) {
+                console.log("Tentando chamar playAudio() no elemento pai..."); // <-- ADICIONE ESTA LINHA
+                window.parent.playAudio();
+            } else {
+                console.error("ERRO GRAVE: window.parent.playAudio não existe. iFrame ou função não está carregada no Pai."); // <-- ADICIONE ESTA LINHA
+            }
 
-        } catch (error) {
+            // NOVO CÓDIGO AQUI: Chama a função do PAI para redirecionar o iframe
+            if (window.parent && window.parent.navigateToGame) {
+                window.parent.navigateToGame("Pages/Hub/mainPage.html");
+            }
+        } 
+        catch (error) {
             console.error("Erro ao criar usuário:", error);
 
             // Reativa o botão e mostra erro

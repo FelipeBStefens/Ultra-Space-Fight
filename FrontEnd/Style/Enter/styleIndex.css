@@ -1,100 +1,30 @@
-/* File of the initial page style */
-
-/* Import variables */
-@import url('../style.css');
-
-/* The Body of the HTML */
-body {
-  
-  /* Setting it to be in all the page */
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
-
-  /* Hidden all the parts that overflow the page */
-  overflow: hidden;
-
-  /* Using FlexBox to configure the position */
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+body { 
+    margin: 0; 
+    padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh; 
+    overflow: hidden; 
+    background-color: #1a1a1a;
+    color: #f0f0f0;
 }
 
-#video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
+#music-player-container {
+    position: absolute;
+    top: -50px; 
+    left: 0;
+    width: 10px; 
+    height: 10px;
+    overflow: hidden; 
 }
 
-/* Logo Image of the game */
-#logo {
-
-  /* Image Pixelization */
-  image-rendering: pixelated;
-
-  /* Configuring the position of the Image */ 
-  position: absolute;
-  top: 0px;
-  right: -70px;
-
-  /* Configure the Width and Height of the Image */
-  width: 1000px;
-  height: auto;
+#background-audio {
+    display: none; 
 }
 
-/* Buttons of the HTML */
-#buttons {
-
-  /* Using FlexBox to configure the position */
-  display: flex;
-  flex-direction: column;
-
-  /* Configure the Gap and Padding */
-  gap: 35px;
-  padding-top: 350px;
-  padding-left: 150px;
-}
-
-/* Hiperlink of the button */ 
-#buttons a {
-
-  /* Not decorating the hiperlink text */
-  text-decoration: none;
-
-  /* Defining the color of the Hiperlinks */
-  background-color: var(--button-color);
-  color: var(--text-color);
-
-  /* The size and family of the Font */ 
-  font-size: var(--button-font-size);
-  font-family: var(--pixel-font);
-
-  /* Configure the Padding and Border Radius */ 
-  padding: var(--button-padding);
-  border-radius: var(--button-radius);
-  
-  /* Alligning the text and width */
-  text-align: center;
-  width: var(--button-width);
-
-  /* Display all inside in inline of the block */
-  display: inline-block;
-
-  /* Transition in case of Hover */
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-/* Configuration of the button and Hiperlink in case of Hover */
-#buttons a:hover {
-
-  /* Altering the Background Color */
-  background-color: var(--button-hover-color);
-
-  /* Scaling the button it's value times 1.2 */
-  transform: scale(1.2);
+#content-frame {
+    flex-grow: 1; 
+    border: none; 
+    width: 100%;
+    height: 100%; 
 }

@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", async (event) => {
         event.preventDefault();
         if (!validateForm()) return;
-
+        
         // --- Estado de loading no próprio botão ---
         button.disabled = true;
         button.textContent = "Loading...";
@@ -75,9 +75,20 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!data || Object.keys(data).length === 0) throw new Error("Usuário ou senha inválidos");
 
             sessionStorage.setItem("user", JSON.stringify(data));
-            window.location.replace("../../Pages/Hub/mainPage.html");
+            
+            if (window.parent && window.parent.playAudio) {
+                console.log("Tentando chamar playAudio() no elemento pai..."); // <-- ADICIONE ESTA LINHA
+                window.parent.playAudio();
+            } else {
+                console.error("ERRO GRAVE: window.parent.playAudio não existe. iFrame ou função não está carregada no Pai."); // <-- ADICIONE ESTA LINHA
+            }
 
-        } catch (error) {
+            // NOVO CÓDIGO AQUI: Chama a função do PAI para redirecionar o iframe
+            if (window.parent && window.parent.navigateToGame) {
+                window.parent.navigateToGame("Pages/Hub/mainPage.html");
+            }
+        } 
+        catch (error) {
             console.error(error);
 
             // Volta botão ao normal
