@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
 
-    // Cria spans de erro dinamicamente
     [emailInput, passwordInput].forEach(input => {
         const container = input.closest(".inputContainer");
         let span = container.querySelector(".error-message");
@@ -60,38 +59,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     button.addEventListener("click", async (event) => {
         event.preventDefault();
-        if (!validateForm()) return;
-        
-        // --- Estado de loading no próprio botão ---
+        if (!validateForm()) {
+            alert("Invalid Values of the Forms!");
+            return;
+        }
+
         button.disabled = true;
         button.textContent = "Loading...";
         button.classList.add("loading");
 
+        const emailContainer = emailInput.closest(".inputContainer");
+        const passwordContainer = passwordInput.closest(".inputContainer");
+        const emailError = emailContainer.querySelector(".error-message");
+        const passwordError = passwordContainer.querySelector(".error-message");
+
         try {
             const response = await fetch(`http://localhost:8080/user/get/login?email=${encodeURIComponent(emailInput.value)}&password=${encodeURIComponent(passwordInput.value)}`);
-            if (!response.ok) throw new Error("Erro no servidor");
+
+            if (!response.ok) {
+                
+                switch (response.status) {
+                    case 401: 
+                        alert("Incorrect values on the Server!");
+                        break;
+                    case 404: 
+                        passwordContainer.classList.add("error");
+                        passwordError.textContent = "User not found!";
+                        emailContainer.classList.add("error");
+                        emailError.textContent = "User not found!";
+                        break;
+                    case 500:
+                        alert("Server Error, try again lately...");
+                        break;
+                    default: 
+                        alert(`WFT why is this error here? : ${response.status}`);
+                }
+                return; 
+            }
 
             const data = await response.json();
-            if (!data || Object.keys(data).length === 0) throw new Error("Usuário ou senha inválidos");
-
             sessionStorage.setItem("user", JSON.stringify(data));
-            
-            if (window.parent && window.parent.playAudio) {
-                console.log("Tentando chamar playAudio() no elemento pai..."); // <-- ADICIONE ESTA LINHA
-                window.parent.playAudio();
-            } else {
-                console.error("ERRO GRAVE: window.parent.playAudio não existe. iFrame ou função não está carregada no Pai."); // <-- ADICIONE ESTA LINHA
-            }
 
-            // NOVO CÓDIGO AQUI: Chama a função do PAI para redirecionar o iframe
-            if (window.parent && window.parent.navigateToGame) {
-                window.parent.navigateToGame("Pages/Hub/mainPage.html");
-            }
+            if (window.parent?.playAudio) window.parent.playAudio();
+            if (window.parent?.navigateToGame) window.parent.navigateToGame("Pages/Hub/mainPage.html");
+
         } 
         catch (error) {
-            console.error(error);
-
-            // Volta botão ao normal
+            alert("Server or Connection Error, try again lately...");
+        } 
+        finally {
             button.disabled = false;
             button.textContent = "LOG IN";
             button.classList.remove("loading");

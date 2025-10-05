@@ -1,11 +1,15 @@
 package com.ultra_space_fight.ultra_space_fight.service;
 
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserConflictException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserInvalidValuesException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserNotFoundException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserUnauthorizedException;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.DestroyerShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.EliteShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.FreighterShip;
@@ -52,7 +56,36 @@ public class UserService {
         this.eliteShipDAO = eliteShipDAO;
     }
 
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w]+@gmail\\.com$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[\\w]{1,15}$");
+
+    private static boolean isValidEmail(String email) {
+        if (email == null) return false;
+        return EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    private static boolean isValidPassword(String password) {
+        if (password == null) return false;
+        return PASSWORD_PATTERN.matcher(password).matches();
+    }
+
+    private static boolean isValidUsername(String username) {
+        if (username == null) return false;
+        return USERNAME_PATTERN.matcher(username).matches();
+    }
+
     public UserResponseTDO createUser(UserSendTDO userSendTDO) {
+
+        if(!isValidUsername(userSendTDO.getUsername())) {
+            throw new UserInvalidValuesException("Username");
+        }
+        else if(!isValidEmail(userSendTDO.getEmail())) {
+            throw new UserInvalidValuesException("E-Mail");
+        }
+        else if(!isValidPassword(userSendTDO.getPassword())) {
+            throw new UserInvalidValuesException("Password");
+        }
 
         User user = new User(userSendTDO.getUsername(), 
             userSendTDO.getEmail(), userSendTDO.getPassword());
@@ -76,7 +109,7 @@ public class UserService {
             eliteShipDAO.create(eliteShip);
         }
         catch (SQLException e) {
-            throw new DatabaseConnectionException(e);
+            throw new UserConflictException();
         }
         return new UserResponseTDO(user.getIdUser(), user.getSelectedSpaceship(),
             dataAchievements.getScore(), dataAchievements.getScoreMatch());
@@ -85,8 +118,14 @@ public class UserService {
 
     public UserResponseTDO getUserLogin(String email, String password) {
 
-        UserResponseTDO userResponseTDO = null;
+        if(!isValidEmail(email)) {
+            throw new UserUnauthorizedException("E-Mail");
+        }
+        else if(!isValidPassword(password)) {
+            throw new UserUnauthorizedException("Password");
+        }
 
+        UserResponseTDO userResponseTDO = null;
         try {
 
             User user = userDAO.getUser(email, password);

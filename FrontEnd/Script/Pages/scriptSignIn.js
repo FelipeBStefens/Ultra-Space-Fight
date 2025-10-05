@@ -80,17 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
 
         if (!validateForm()) {
-            console.warn("Formulário inválido. Corrija os campos destacados.");
+            alert("Invalid Values of the Forms!");
             return;
         }
 
-        if (window.parent && window.parent.playGameMusic) {
-            window.parent.playGameMusic();
-        }
-        
-        // Desativa o botão e mostra estado de carregamento
         button.disabled = true;
-        button.innerHTML = "Loading..."; // ou "Enviando..."
+        button.innerHTML = "Loading...";
         button.classList.add("loading");
 
         const newUser = {
@@ -98,6 +93,12 @@ document.addEventListener("DOMContentLoaded", () => {
             email: inputs.email.value,
             password: inputs.password.value
         };
+
+        const usernameContainer = inputs.username.closest(".inputContainer");
+        const usernameError = usernameContainer.querySelector(".error-message");
+
+        const emailContainer = inputs.email.closest(".inputContainer");
+        const emailError = emailContainer.querySelector(".error-message");
 
         try {
             const response = await fetch(`http://localhost:8080/user/create`, {
@@ -107,33 +108,52 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!response.ok) {
-                throw new Error("Erro no servidor: " + response.status);
+                
+                switch (response.status) {
+                    case 400: 
+                        alert("Erro 400: Dados inválidos enviados ao servidor");
+                        break;
+                    case 409: 
+                        
+                        emailContainer.classList.add("error");
+                        emailError.textContent = "E-Mail or Username already used!";
+
+                        usernameContainer.classList.add("error");
+                        usernameError.textContent = "E-Mail or Username already used!";
+                        break;
+                    default: 
+                        alert(`WFT why is this error here? : ${response.status}`);
+                }
+
+                button.disabled = false;
+                button.innerHTML = "Sign Up";
+                button.classList.remove("loading");
+            
+                return; 
             }
 
             const data = await response.json();
             console.log(data);
 
             sessionStorage.setItem("user", JSON.stringify(data));
-            
-            if (window.parent && window.parent.playAudio) {
-                console.log("Tentando chamar playAudio() no elemento pai..."); // <-- ADICIONE ESTA LINHA
-                window.parent.playAudio();
-            } else {
-                console.error("ERRO GRAVE: window.parent.playAudio não existe. iFrame ou função não está carregada no Pai."); // <-- ADICIONE ESTA LINHA
-            }
 
-            // NOVO CÓDIGO AQUI: Chama a função do PAI para redirecionar o iframe
-            if (window.parent && window.parent.navigateToGame) {
-                window.parent.navigateToGame("Pages/Hub/mainPage.html");
-            }
+            if (window.parent?.playAudio) window.parent.playAudio();
+            if (window.parent?.navigateToGame) window.parent.navigateToGame("Pages/Hub/mainPage.html");
+
         } 
         catch (error) {
-            console.error("Erro ao criar usuário:", error);
-
-            // Reativa o botão e mostra erro
+            alert("Server or Connection Error, try again lately...");
+        
             button.disabled = false;
-            button.innerHTML = "Tentar novamente";
+            button.innerHTML = "Sign Up";
             button.classList.remove("loading");
+        } 
+        finally {
+            
+            if (!button.disabled) {
+                button.innerHTML = "Sign Up";
+                button.classList.remove("loading");
+            }
         }
     });
 });

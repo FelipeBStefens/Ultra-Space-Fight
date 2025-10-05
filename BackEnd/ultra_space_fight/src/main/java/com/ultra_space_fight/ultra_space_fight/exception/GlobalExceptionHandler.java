@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserConflictException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserInvalidValuesException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserNotFoundException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserUnauthorizedException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,7 +32,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ModelException> userNotFoundException(UserNotFoundException e) {
 
-
         ModelException globalException = new ModelException(
             HttpStatus.NOT_FOUND.value(),
             "The User with that E-Mail and Password could not be found",
@@ -38,6 +40,48 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(globalException);
+    }
+
+    @ExceptionHandler(UserInvalidValuesException.class)
+    public ResponseEntity<ModelException> userValuesInvalid(UserInvalidValuesException e) {
+        
+        ModelException globalException = new ModelException(
+            HttpStatus.BAD_REQUEST.value(),
+            "One of the User values is invalid",
+            e.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(globalException);
+    }
+
+    @ExceptionHandler(UserUnauthorizedException.class)
+    public ResponseEntity<ModelException> userUnhathorized(UserUnauthorizedException e) {
+
+        ModelException globalException = new ModelException(
+            HttpStatus.UNAUTHORIZED.value(),
+            "User Unauthorized to Log In",
+            e.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(globalException);
+    }
+
+    @ExceptionHandler(UserConflictException.class) 
+    public ResponseEntity<ModelException> userConflictValues(UserConflictException e) {
+
+        ModelException globalException = new ModelException(
+            HttpStatus.CONFLICT.value(),
+            "Username or E-Mail already used",
+            e.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(globalException);
     }
 
