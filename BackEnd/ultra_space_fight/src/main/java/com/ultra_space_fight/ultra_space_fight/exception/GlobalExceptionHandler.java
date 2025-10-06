@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserConflictException;
@@ -92,6 +93,20 @@ public class GlobalExceptionHandler {
         ModelException globalException = new ModelException(
             HttpStatus.NOT_FOUND.value(),
             "The Data Achievement could not be found",
+            e.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(globalException);
+    }
+
+    @ExceptionHandler(ConfigurationNotFoundException.class)
+    public ResponseEntity<ModelException> getConfigurationValues(ConfigurationNotFoundException e) {
+
+        ModelException globalException = new ModelException(
+            HttpStatus.NOT_FOUND.value(),
+            "The Configuration could not be found",
             e.getMessage()
         );
 

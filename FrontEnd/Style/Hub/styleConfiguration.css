@@ -320,3 +320,47 @@ input[type="range"]::-webkit-slider-thumb:hover {
     /* Scaling the button it's value times 1.05 */
     transform: scale(1.05);
 }
+
+.buttons button {
+    position: relative; /* necessário para spinner */
+    overflow: hidden;
+    transition: background 0.3s, transform 0.3s; /* evita sobrescrever a animação */
+}
+
+/* Spinner separado do texto */
+.buttons button.loading::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite; /* garante que gira */
+    pointer-events: none;
+}
+
+/* Desativa hover durante loading */
+.buttons button.loading,
+.buttons button.disabled-others {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+    background-color: gray !important; /* todos cinzas */
+    transform: none !important;
+}
+
+/* Desativa hover scale */
+.buttons button.loading:hover,
+.buttons button.disabled-others:hover {
+    transform: none !important;
+}
+
+/* animação do spinner */
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}

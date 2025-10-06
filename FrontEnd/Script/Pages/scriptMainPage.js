@@ -32,6 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return await response.json();
     }
 
+    async function getConfiguration(id) {
+        const response = await fetch(`http://localhost:8080/configuration/get/values/${id}`);
+        return await response.json();
+    }
+
     // -------------------------------
     // Lista completa de botões
     // -------------------------------
@@ -46,7 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: "configurations",
-            fetches: async () => {}
+            fetches: async () => {
+                const configurations = await getConfiguration(user.idUser);
+                sessionStorage.setItem("configurations", JSON.stringify(configurations));
+            }
         },
         {
             id: "rules",

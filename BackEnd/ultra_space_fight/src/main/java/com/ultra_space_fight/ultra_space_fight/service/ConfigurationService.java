@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
 
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
@@ -21,6 +22,23 @@ public class ConfigurationService {
     public ConfigurationService(ConfigurationDAO configurationDAO, UserDAO userDAO) {
         this.configurationDAO = configurationDAO;
         this.userDAO = userDAO;
+    }
+
+    public ConfigurationsTDO getConfigurations(long id) {
+
+        ConfigurationsTDO configurationsTDO = new ConfigurationsTDO();
+
+        try {
+            Configuration configuration = configurationDAO.read(id);
+
+            configurationsTDO.setLanguage(configuration.getLanguage());
+            configurationsTDO.setUsername(configuration.getUser().getUsername());
+            configurationsTDO.setPassword(configuration.getUser().getPassword());
+        } 
+        catch (SQLException e) {
+            throw new ConfigurationNotFoundException();
+        }
+        return configurationsTDO;
     }
 
     public SoundTDO updateConfigurations(
