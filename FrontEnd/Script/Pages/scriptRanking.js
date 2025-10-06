@@ -1,31 +1,3 @@
-async function getRankingScore() {
-    try {
-        const response = await fetch("http://localhost:8080/data/achievement/get/ranking/score");
-        if (!response.ok) {
-            throw new Error("");
-        }
-        const ranking = await response.json(); 
-        return ranking;
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
-
-async function getRankingScoreMatch() {
-    try {
-        const response = await fetch("http://localhost:8080/data/achievement/get/ranking/score/match");
-        if (!response.ok) {
-            throw new Error("");
-        }
-        const ranking = await response.json(); 
-        return ranking;
-    } catch (error) {
-        console.error("Erro no fetch:", error);
-        return [];
-    }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   
   (async () => {
@@ -35,11 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "../../index.html";
     }
 
+    const rankings = JSON.parse(sessionStorage.getItem("rankings"));
+
     // Example list with total Score;
-    const totalRanking = await getRankingScore();
+    const totalRanking = rankings.scoreRanking;
 
     // Example list with Score in a match;
-    const matchRanking = await getRankingScoreMatch();
+    const matchRanking = rankings.scoreMatchRanking;
 
     // The Button to access the Total Ranking;
     const totalButton = document.getElementById("totalButton");

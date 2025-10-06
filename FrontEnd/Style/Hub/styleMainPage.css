@@ -48,25 +48,51 @@ h1 {
 }
 
 /* The Hipertext acting like a button */
+/* Botão base */
 a {
-
-    /* Defining the Color */
-    background: var(--button-color);
-    color: var(--text-color);
-    text-decoration: none;
-
-    /* The size and family of the Font */ 
-    font-size: var(--button-font-size);
-    font-family: var(--pixel-font);
-
-    /* Configure the Padding and Border Radius */
-    position: absolute;
-    padding: var(--button-padding);
-    border-radius: var(--button-radius);
-    
-    /* Transition in case of Hover */
-    transition: background 0.5s;
+  background: var(--button-color);
+  color: var(--text-color);
+  text-decoration: none;
+  font-family: var(--pixel-font);
+  border-radius: var(--button-radius);
+  transition: background 0.25s;
+  position: absolute;
+  width: 280px;          /* maior largura */
+  height: 80px;          /* maior altura */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
+
+/* Conteúdo escalável */
+a .btn-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;       /* aumente ou ajuste conforme necessário */
+  transition: transform 0.25s;
+  transform-origin: center center;
+}
+
+/* Spinner separado do texto */
+a .btn-spinner {
+  display: none;          /* invisível por padrão */
+  width: 18px;
+  height: 18px;
+  border: 2px solid #222;
+  border-top-color: transparent;
+  border-radius: 50%;
+  margin-left: 8px;       /* separa do texto */
+  animation: spin 0.8s linear infinite;
+}
+
+/* hover escala apenas o conteúdo */
+a:hover .btn-inner {
+  transform: scale(1.3);
+}
+
 
 /* Configuration of the Hiperlink in case of Hover */
 a:hover {
@@ -118,13 +144,15 @@ a:hover {
     right: 80px;
 }
 
-/* Gameplay Hiperlink */
 #gameplay {
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* mantemos no <a> */
+}
 
-    /* Defining the Position */
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* #gameplay hover */
+#gameplay:hover .btn-inner {
+  transform: scale(1.5);
 }
 
 /* Configuration of the Hiperlink in case of Hover */
@@ -135,4 +163,46 @@ a:hover {
 
     /* Scaling the button it's value times 1.5 */
     transform: translate(-50%, -50%) scale(1.5);
+}
+
+
+a.disabled-others {
+  background-color: gray !important;
+  color: #444 !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  /* NÃO mexer em transform/position */
+}
+
+a.loading {
+  pointer-events: none;
+  opacity: 0.8;
+  background-color: gray;
+  color: #222;
+}
+
+/* spinner */
+a.loading::after {
+  content: "";
+  position: absolute;       /* relativo ao <a> */
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border: 2px solid #222;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Desativa hover e animação durante loading */
+a.loading:hover {
+  transform: none;
+  background-color: gray;
+}
+
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
 }

@@ -1,16 +1,3 @@
-async function getAchievement(id) {
-    try {
-        const response = await fetch(`http://localhost:8080/data/achievement/get/achievements/${id}`);
-        if (!response.ok) {
-            throw new Error("");
-        }
-        const achievement = await response.json(); 
-        return achievement;
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
 
 // Function Expression, to initialize when the page start;
 (async function(){
@@ -24,7 +11,7 @@ async function getAchievement(id) {
     window.location.href = "../../index.html";
   }
 
-  const achievementValues = await getAchievement(user.idUser);
+  const achievementValues = JSON.parse(sessionStorage.getItem("achievements"));
 
   const root = getComputedStyle(document.documentElement);
 

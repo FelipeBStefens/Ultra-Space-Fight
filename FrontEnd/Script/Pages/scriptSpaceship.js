@@ -1,17 +1,3 @@
-async function fetchSpaceships(id) {
-  try {
-    const response = await fetch(`http://localhost:8080/spaceship/get/spaceships/${id}`);
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return await response.json();
-  } 
-  catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
 async function updateSpaceship(spaceship, values, id) {
   try {
 
@@ -76,7 +62,7 @@ const spaceshipRequirements = {
   const actionButton = 
     document.getElementById("actionButton");
 
-  const data = await fetchSpaceships(user.idUser);
+  const data = JSON.parse(sessionStorage.getItem("spaceships"));
 
   // All the Spaceship values;
   const ships = [

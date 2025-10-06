@@ -112,7 +112,8 @@ public class UserService {
             throw new UserConflictException();
         }
         return new UserResponseTDO(user.getIdUser(), user.getSelectedSpaceship(),
-            dataAchievements.getScore(), dataAchievements.getScoreMatch());
+            dataAchievements.getScore(), dataAchievements.getScoreMatch(),
+            configuration.getSoundtrack(), configuration.getSoundEffects());
     }
 
 
@@ -133,10 +134,12 @@ public class UserService {
                 throw new UserNotFoundException();
             }
             DataAchievements dataAchievements = dataAchievementDAO.read(user.getIdUser());
+            Configuration configuration = configurationDAO.read(user.getIdUser());
 
             userResponseTDO = new UserResponseTDO(
                 user.getIdUser(), user.getSelectedSpaceship(), 
-                dataAchievements.getScore(), dataAchievements.getScoreMatch()); 
+                dataAchievements.getScore(), dataAchievements.getScoreMatch(),
+                configuration.getSoundtrack(), configuration.getSoundEffects()); 
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
