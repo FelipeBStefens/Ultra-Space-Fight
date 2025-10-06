@@ -24,6 +24,7 @@
   --trophies-background-image: url('../../Assets/Images/trophies_background.png');
   --spaceships-background-image: url('../../Assets/Images/spaceships_background.png');
   --main-page-background-image: url('../../Assets/Images/main_page_background.png');
+  --locked-image: url('../../Assets/Icons/blocked.png');
 
   /* Font family for pixelated style */
   --pixel-font: 'PixelifySans', arial, sans-serif;
