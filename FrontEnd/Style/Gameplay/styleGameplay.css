@@ -16,7 +16,6 @@ body {
     overflow: hidden;
 
     /* Putting and configuring the Background image */ 
-    background-image: var(--gameplay-background-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -25,6 +24,16 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
 /* The button to pause the Game */
