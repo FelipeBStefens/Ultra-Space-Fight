@@ -105,7 +105,10 @@ pauseButton.addEventListener("click", () => {
 
     exitButton.addEventListener("click", () => {
         setDisabledAll(true, exitButton);
-        setTimeout(() => window.location.replace("../../Pages/Hub/mainPage.html"), 150);
+        setTimeout(() => {
+            if (window.parent?.playAudio) window.parent.playAudio();
+            window.location.replace("../../Pages/Hub/mainPage.html"), 150
+        });
     });
 
     // Append elementos

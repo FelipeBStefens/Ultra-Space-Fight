@@ -4,6 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../../index.html";
     }
 
+    document.getElementById('gameplay').addEventListener('click', function(event) {
+        event.preventDefault(); 
+
+        if (window.parent?.stopAudio) window.parent.stopAudio();
+
+        if (window.parent?.navigateToGame)
+            window.parent.navigateToGame('Pages/Gameplay/gameplay.html');
+    });
+
     const scoreText = document.getElementById("score");
     const scoreMatchText = document.getElementById("scoreMatch");
     scoreText.textContent = `Score: ${user.score}`;

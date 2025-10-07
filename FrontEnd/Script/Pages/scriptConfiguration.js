@@ -177,9 +177,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutButton = document.getElementById("logout");
     logoutButton.addEventListener("click", () => {
         setDisabledAll(true, logoutButton);
-
+        
         setTimeout(() => {
             sessionStorage.clear();
+            if (window.parent?.stopAudio) window.parent.stopAudio();
             window.location.href = "../../index.html";
         }, 500);
     });
@@ -200,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return; 
             }
             sessionStorage.clear();
+            if (window.parent?.stopAudio) window.parent.stopAudio();
             window.location.href = "../../index.html";
 
         } catch (err) {
