@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementNotFoundException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementUnauthorizedException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.RankingException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.DataAchievementDAO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
@@ -39,7 +41,7 @@ public class DataAchievementsService {
             } 
         }
         catch (SQLException e) {
-            throw new DatabaseConnectionException(e);
+            throw new RankingException();
         }
         return listRankingScoreTDO;
     }
@@ -61,12 +63,16 @@ public class DataAchievementsService {
             } 
         }
         catch (SQLException e) {
-            throw new DatabaseConnectionException(e);
+            throw new RankingException();
         }
         return listRankingScoreMatchTDO;
     }
 
     public AchievementsTDO getAchievements(long id) {
+
+        if (id <= 0) {
+            throw new DataAchievementUnauthorizedException("ID");
+        }
 
         AchievementsTDO achievementsTDO = null;
 

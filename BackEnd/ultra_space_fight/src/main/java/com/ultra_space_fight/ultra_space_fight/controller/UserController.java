@@ -38,7 +38,6 @@ public class UserController {
     public ResponseEntity<UserResponseTDO> getUserLogin(
         @RequestParam String email, @RequestParam String password) {
         
-
         UserResponseTDO userResponseTDO = userService.getUserLogin(email, password);
         return ResponseEntity.status(HttpStatus.OK).body(userResponseTDO);
     }

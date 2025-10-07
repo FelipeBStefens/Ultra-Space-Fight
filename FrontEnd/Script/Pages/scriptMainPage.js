@@ -13,28 +13,121 @@ document.addEventListener("DOMContentLoaded", () => {
     // Funções de fetch específicas
     // -------------------------------
     async function getRankingScore() {
-        const response = await fetch("http://localhost:8080/data/achievement/get/ranking/score");
-        return await response.json();
+        try {
+            const response = await fetch("http://localhost:8080/data/achievement/get/ranking/score");
+            if (!response.ok) {
+                switch (response.status) {
+                    case 500:
+                        alert("Server error while fetching ranking score.");
+                        break;
+                    default:
+                        alert(`Unexpected error: ${response.status}`);
+                }
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            alert("Connection error while fetching ranking score.");
+            return null;
+        }
     }
 
     async function getRankingScoreMatch() {
-        const response = await fetch("http://localhost:8080/data/achievement/get/ranking/score/match");
-        return await response.json();
+        try {
+            const response = await fetch("http://localhost:8080/data/achievement/get/ranking/score/match");
+            if (!response.ok) {
+                switch (response.status) {
+                    case 500:
+                        alert("Server error while fetching ranking score match.");
+                        break;
+                    default:
+                        alert(`Unexpected error: ${response.status}`);
+                }
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            alert("Connection error while fetching ranking score match.");
+            return null;
+        }
     }
 
     async function getAchievement(id) {
-        const response = await fetch(`http://localhost:8080/data/achievement/get/achievements/${id}`);
-        return await response.json();
+        try {
+            const response = await fetch(`http://localhost:8080/data/achievement/get/achievements/${id}`);
+            if (!response.ok) {
+                switch (response.status) {
+                    case 401:
+                        alert("Achievements ID unauthorized!");
+                        break;
+                    case 404:
+                        alert("Achievements not found!");
+                        break;
+                    case 500:
+                        alert("Server error while fetching achievements.");
+                        break;
+                    default:
+                        alert(`Unexpected error: ${response.status}`);
+                }
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            alert("Connection error while fetching achievements.");
+            return null;
+        }
     }
 
     async function fetchSpaceships(id) {
-        const response = await fetch(`http://localhost:8080/spaceship/get/spaceships/${id}`);
-        return await response.json();
+        try {
+            const response = await fetch(`http://localhost:8080/spaceship/get/spaceships/${id}`);
+            if (!response.ok) {
+                switch (response.status) {
+                    case 401:
+                        alert("Spaceships ID unauthorized!");
+                        break;
+                    case 404:
+                        alert("Spaceships not found!");
+                        break;
+                    case 500:
+                        alert("Server error while fetching spaceships.");
+                        break;
+                    default:
+                        alert(`Unexpected error: ${response.status}`);
+                }
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            alert("Connection error while fetching spaceships.");
+            return null;
+        }
     }
 
     async function getConfiguration(id) {
-        const response = await fetch(`http://localhost:8080/configuration/get/values/${id}`);
-        return await response.json();
+        try {
+            const response = await fetch(`http://localhost:8080/configuration/get/values/${id}`);
+            if (!response.ok) {
+                switch (response.status) {
+                    case 401:
+                        alert("Configuration ID unauthorized!");
+                        break;
+                    case 404:
+                        alert("Configuration not found!");
+                        break;
+                    case 500:
+                        alert("Server error while fetching configuration.");
+                        break;
+                    default:
+                        alert(`Unexpected error: ${response.status}`);
+                }
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            alert("Connection error while fetching configuration.");
+            return null;
+        }
     }
 
     // -------------------------------

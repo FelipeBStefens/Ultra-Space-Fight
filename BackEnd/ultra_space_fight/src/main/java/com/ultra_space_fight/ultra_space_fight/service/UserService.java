@@ -149,7 +149,16 @@ public class UserService {
 
     public void deleteUser(long id) {
 
+        if (id <= 0) {
+            throw new UserInvalidValuesException("ID");
+        }
+
         try {
+
+            if (userDAO.read(id) == null) {
+                throw new UserNotFoundException();
+            }
+
             configurationDAO.delete(id);
             dataAchievementDAO.delete(id);
             standartShipDAO.delete(id);

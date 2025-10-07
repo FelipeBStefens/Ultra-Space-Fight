@@ -3,7 +3,6 @@ package com.ultra_space_fight.ultra_space_fight.transferObjects;
 public class SpaceshipsTDO {
     
     private int cash;
-    private int score;
     private SpaceshipValuesTDO standartShip;
     private SpaceshipValuesTDO speedShip;
     private SpaceshipValuesTDO destroyerShip;
@@ -12,9 +11,8 @@ public class SpaceshipsTDO {
 
     public SpaceshipsTDO() {}
 
-    public SpaceshipsTDO(int cash, int score, SpaceshipValuesTDO standartShip, SpaceshipValuesTDO speedShip, SpaceshipValuesTDO destroyerShip, SpaceshipValuesTDO freighterShip, SpaceshipValuesTDO eliteShip) {
+    public SpaceshipsTDO(int cash, SpaceshipValuesTDO standartShip, SpaceshipValuesTDO speedShip, SpaceshipValuesTDO destroyerShip, SpaceshipValuesTDO freighterShip, SpaceshipValuesTDO eliteShip) {
         this.cash = cash;
-        this.score = score;
         this.destroyerShip = destroyerShip;
         this.eliteShip = eliteShip;
         this.freighterShip = freighterShip;
@@ -68,13 +66,5 @@ public class SpaceshipsTDO {
 
     public void setEliteShip(SpaceshipValuesTDO eliteShip) {
         this.eliteShip = eliteShip;
-    }
-
-    public int getscore() {
-        return score;
-    }
-
-    public void setscore(int score) {
-        this.score = score;
     }
 }

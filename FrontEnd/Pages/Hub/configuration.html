@@ -28,17 +28,19 @@
             <h1>Configurations</h1>
 
             <!-- Text Username to identify the input -->
-            <label for="username">Username</label>
+            <div class="inputContainer">
+                <label for="username" class="textInput">Username</label>
+                <input type="text" id="username" class="input" placeholder=" " />
+                <span class="error-message"></span>
+            </div>
 
-            <!-- The Username input -->
-            <input type="text" id="username" name="username" placeholder="New Username">
+            <div class="inputContainer">
+                <label for="password" class="textInput">Password</label>
+                <input type="password" id="password" class="input" placeholder=" " />
+                <span class="error-message"></span>
+            </div>
         
-            <!-- Text Password to identify the input -->
-            <label for="password">Password</label>
 
-            <!-- Text Password to identify the input -->
-            <input type="password" id="password" name="password" placeholder="New Password">
-        
             <!-- Text Language to identify the selection -->
             <label for="language">language</label>
 

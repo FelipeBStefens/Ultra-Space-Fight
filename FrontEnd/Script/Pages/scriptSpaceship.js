@@ -2,39 +2,69 @@
 // ===== SPACESHIP.JS FINAL ======
 // ===============================
 async function updateSpaceship(spaceship, values, id) {
-  try {
-    const response = await fetch(`http://localhost:8080/spaceship/update/${spaceship}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values)
-    });
+    try {
+        const response = await fetch(`http://localhost:8080/spaceship/update/${spaceship}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values)
+        });
 
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+        if (!response.ok) {
+            switch(response.status) {
+                case 400:
+                    alert("Erro 400: Dados inválidos enviados ao servidor.");
+                    break;
+                case 404:
+                    alert(`Erro 404: Nave ${spaceship} não encontrada.`);
+                    break;
+                case 409:
+                    alert("Erro 409: Conflito detectado ao atualizar a nave.");
+                    break;
+                default:
+                    alert(`Erro inesperado: ${response.status}`);
+            }
+            return null;
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Falha na conexão com o servidor:", error);
+        alert("Falha na conexão com o servidor.");
+        return null;
+    }
 }
 
 async function updateSelectedSpaceship(spaceship, id) {
-  try {
-    const response = await fetch(`http://localhost:8080/spaceship/update/selected/spaceship/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: spaceship
-    });
+    try {
+        const response = await fetch(`http://localhost:8080/spaceship/update/selected/spaceship/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ spaceship }) // Certifique-se de enviar como JSON
+        });
 
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return await response.text();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+        if (!response.ok) {
+            switch(response.status) {
+                case 400:
+                    alert("Erro 400: Dados inválidos enviados ao servidor.");
+                    break;
+                case 404:
+                    alert("Erro 404: Usuário ou nave não encontrados.");
+                    break;
+                case 409:
+                    alert("Erro 409: Conflito ao selecionar a nave.");
+                    break;
+                default:
+                    alert(`Erro inesperado: ${response.status}`);
+            }
+            return null;
+        }
+
+        return await response.text();
+    } catch (error) {
+        console.error("Falha na conexão com o servidor:", error);
+        alert("Falha na conexão com o servidor.");
+        return null;
+    }
 }
 
 // ================================
@@ -64,7 +94,6 @@ const maxStats = {
 
 function setLoadingState(isLoading, activeButton = null, isGray = false, selectedShipIndex = null) {
   const allButtons = document.querySelectorAll("button");
-  const actionButton = document.getElementById("actionButton");
 
   if (isLoading) {
     // 1. Desabilita todos e adiciona 'disabled-others'
@@ -161,7 +190,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
 
       const currentShip = ships[i];
       const requiredScore = spaceshipRequirements[currentShip.name];
-      const isLocked = data.score < requiredScore;
+      const isLocked = user.score < requiredScore;
 
       if (i === active) {
         spaceship.classList.add("active");
@@ -232,7 +261,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
     document.querySelectorAll(".upgrade-button").forEach(button => {
         const currentShip = ships[active];
         const requiredScore = spaceshipRequirements[currentShip.name];
-        const isLocked = data.score < requiredScore;
+        const isLocked = user.score < requiredScore;
         const stat = statMap[button.dataset.stat];
         
         // 1. CHECAGEM DE LIMITE MÁXIMO
@@ -270,7 +299,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
       
       const currentShip = ships[active];
       const requiredScore = spaceshipRequirements[currentShip.name];
-      const userScore = data.score;
+      const userScore = user.score;
       
       // ✅ CORREÇÃO 1: Define 'stat' antes de usá-lo
       const stat = statMap[button.dataset.stat];
@@ -341,14 +370,11 @@ function updateCashDisplay(newCashValue, coinText, data) {
         console.error(err);
         alert("Falha na conexão com o servidor.");
         
-        // Reverte o incremento em caso de falha total de conexão
         ships[active][stat] -= 1; 
         update();
       } finally {
         setLoadingState(false);
         
-        // ✅ CORREÇÃO 3: Chama update() novamente para garantir que o estado visual 
-        // final (MAXED) seja aplicado após o fim do loading.
         update(); 
       }
     });
