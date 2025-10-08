@@ -15,11 +15,6 @@ body {
     /* Hidden all the parts that overflow the page */
     overflow: hidden;
 
-    /* Putting and configuring the Background image */ 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
     /* Using FlexBox to configure the position */
     display: flex;
     justify-content: flex-start;
@@ -40,9 +35,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0; 
+    z-index: 10; 
+    pointer-events: none;  
 }
 
 /* The button to pause the Game */

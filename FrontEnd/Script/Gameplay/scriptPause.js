@@ -1,10 +1,13 @@
 const pauseButton = document.getElementById("pauseButton");
+/*
 const user = JSON.parse(localStorage.getItem("user"));
 if (!user) window.location.href = "../../enter.html";
+*/
 
 pauseButton.addEventListener("click", () => {
     if (document.getElementById("pauseScreen")) return;
-
+    
+    console.log("Pause button clicked ✅");
     const pauseScreen = document.createElement("div");
     pauseScreen.id = "pauseScreen";
 

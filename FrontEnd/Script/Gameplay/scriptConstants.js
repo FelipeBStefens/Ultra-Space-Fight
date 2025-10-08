@@ -1,0 +1,1 @@
+export const PATH_STANDART_SHIP_IMAGE = "../../Assets/PixelArts/Spaceships/StandartShip.png";
