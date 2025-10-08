@@ -1,44 +1,25 @@
-<!-- Identify it's a HTML -->
 <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Space Fight</title>
+    <link rel="stylesheet" href="Style/Enter/styleIndex.css">
+</head>
+<body>
 
-<!-- HTML file -->
-<html lang="en">
+    <div id="music-player-container">
+        <audio id="background-audio" loop>
+            <source src="Assets/Audios/initial_audio.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
-    <!-- Head of the HTML file -->
-    <head>
+    <iframe 
+        id="content-frame" 
+        name="main_content" 
+        src="Pages/Enter/enter.html">
+    </iframe>
 
-        <!-- Meta configurations -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- Link to CSS file -->
-        <link rel="stylesheet" href="Style\Enter\styleIndex.css">
-        
-        <!-- Title of the HTML file -->
-        <title>Ultra Space Fight</title>
-    </head>
-
-    <!-- Body of the HTML file -->
-    <body>
-
-        <!-- A Div with all the informations on the file -->
-        <div id="container">
-
-            <!-- The Logo Image -->
-            <img id="logo" src="Assets/Images/logo_ultra_space_fight.png" alt="Ultra Space Fight Logo">
-
-            <!-- A Div with all the hiperlink buttons -->
-            <div id="buttons">
-
-                <!-- Sign In hiperlink -->
-                <a href="Pages/Enter/signin.html">Sign In</a>
-
-                <!-- Log In hiperlink -->
-                <a href="Pages/Enter/login.html">Log In</a>
-
-                <!-- Credits hiperlink -->
-                <a href="Pages/Enter/credits.html">Credits</a>
-            </div>
-        </div>
-    </body>
+    <script src="Script/Pages/scriptIndex.js"></script>
+</body>
 </html>

@@ -5,6 +5,7 @@ package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,37 +37,32 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
     
     // SQL code delete a value;
     private final String SQL_DELETE = """
-        DELETE FROM freighter_ship WHERE id_ship = ?;    
+        DELETE FROM freighter_ship WHERE id_user = ?;    
         """;
 
     // SQL code update a value;
     private final String SQL_UPDATE = """
         UPDATE freighter_ship
         SET life = ?, speed = ?, damage = ?
-        WHERE id_ship = ?;    
+        WHERE id_user = ?;    
         """;
 
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
-        FROM (users u INNER JOIN freighter_ship f ON u.id_user = f.id_user) 
-        WHERE id_ship = ?;    
+        FROM (users u INNER JOIN freighter_ship f USING(id_user)) 
+        WHERE id_user = ?;    
         """;
 
     // SQL code read all values;
     private final String SQL_READ_ALL = """
         SELECT * 
-        FROM (users u INNER JOIN freighter_ship f ON u.id_user = f.id_user);    
-        """;
-
-    private final String SQL_DELETE_BY_USER_ID = """
-        DELETE FROM freighter_ship
-        WHERE id_user = ?;    
+        FROM (users u INNER JOIN freighter_ship f USING(id_user));    
         """;
 
     // Method that create a new FreighterShip in the database;
     @Override
-    public void create(FreighterShip freighterShip) {
+    public void create(FreighterShip freighterShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -76,7 +72,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
 
             // Preparing a new Statement;
             PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE);
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             
             // Setting the values of the Statement;
             preparedStatement.setLong(1, freighterShip.getUser().getIdUser());
@@ -86,11 +82,16 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                freighterShip.setIdShip(resultSet.getLong(1));
+            }
         }
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -101,7 +102,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
 
     // Method that delete a FreighterShip in the database by id;
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws SQLException {
        
         // Try-Catch to handle Execptions;
         try {
@@ -122,7 +123,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -133,7 +134,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
 
     // Method that update a FreighterShip in the database;
     @Override
-    public void update(FreighterShip freighterShip) {
+    public void update(FreighterShip freighterShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -149,7 +150,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
             preparedStatement.setInt(1, freighterShip.getLife());
             preparedStatement.setInt(2, freighterShip.getSpeed());
             preparedStatement.setInt(3, freighterShip.getDamage());
-            preparedStatement.setLong(4, freighterShip.getIdShip());
+            preparedStatement.setLong(4, freighterShip.getUser().getIdUser());
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
@@ -157,7 +158,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -168,7 +169,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
 
     // Method that read a FreighterShip in the database by id;
     @Override
-    public FreighterShip read(long id) {
+    public FreighterShip read(long id) throws SQLException {
 
         // Declaring a new FreighterShip;
         FreighterShip freighterShip = null;
@@ -197,7 +198,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
                 resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 
                 // Setting the id of that user;
-                user.setIdUser(resultSet.getLong("id_user"));
+                user.setIdUser(id);
 
                 // Creating a new freighterShip;
                 freighterShip = new FreighterShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
@@ -209,7 +210,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -223,7 +224,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
 
     // Method that read all FreighterShip in the database;
     @Override
-    public List<FreighterShip> readAll() {
+    public List<FreighterShip> readAll() throws SQLException {
         
         // Declaring a new list;
         ArrayList<FreighterShip> allFreighterShip = new ArrayList<>();
@@ -264,7 +265,7 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -274,36 +275,5 @@ public class FreighterShipDAO implements CrudInterface<FreighterShip> {
 
         // Returning the list;
         return allFreighterShip;
-    }
-
-    // Method that delete a FreighterShip in the database by id;
-    public void deleteByUser(long id) {
-       
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE_BY_USER_ID);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            System.out.println(e.getMessage());
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
     }
 }

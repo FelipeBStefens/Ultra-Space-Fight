@@ -7,16 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
-import com.ultra_space_fight.ultra_space_fight.models.spaceships.DestroyerShip;
-import com.ultra_space_fight.ultra_space_fight.models.spaceships.EliteShip;
-import com.ultra_space_fight.ultra_space_fight.models.spaceships.FreighterShip;
-import com.ultra_space_fight.ultra_space_fight.models.spaceships.SpeedShip;
-import com.ultra_space_fight.ultra_space_fight.models.spaceships.StandartShip;
-import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
-import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
 import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
@@ -28,32 +22,10 @@ public class UserDAO implements CrudInterface<User> {
 
     // The attribute MysqlConnection and DAOs;
     private final MysqlConnection MY_SQL_CONNECTION;
-    private final ConfigurationDAO CONFIGURATION_DAO;
-    private final DataAchievementDAO DATA_ACHIEVEMENT_DAO;
-    private final StandartShipDAO STANDART_SHIP_DAO;
-    private final SpeedShipDAO SPEED_SHIP_DAO;
-    private final DestroyerShipDAO DESTROYER_SHIP_DAO;
-    private final FreighterShipDAO FREIGHTER_SHIP_DAO;
-    private final EliteShipDAO ELITE_SHIP_DAO;
 
     // Auto Wired the DAOs and MysqlConnection class;
-    public UserDAO(MysqlConnection MY_SQL_CONNECTION,
-                   ConfigurationDAO CONFIGURATION_DAO,
-                   DataAchievementDAO DATA_ACHIEVEMENT_DAO,
-                   StandartShipDAO STANDART_SHIP_DAO,
-                   SpeedShipDAO SPEED_SHIP_DAO,
-                   DestroyerShipDAO DESTROYER_SHIP_DAO,
-                   FreighterShipDAO FREIGHTER_SHIP_DAO,
-                   EliteShipDAO ELITE_SHIP_DAO) {
-        
+    public UserDAO(MysqlConnection MY_SQL_CONNECTION) {
         this.MY_SQL_CONNECTION = MY_SQL_CONNECTION;
-        this.CONFIGURATION_DAO = CONFIGURATION_DAO;
-        this.DATA_ACHIEVEMENT_DAO = DATA_ACHIEVEMENT_DAO;
-        this.STANDART_SHIP_DAO = STANDART_SHIP_DAO;
-        this.SPEED_SHIP_DAO = SPEED_SHIP_DAO;
-        this.DESTROYER_SHIP_DAO = DESTROYER_SHIP_DAO;
-        this.FREIGHTER_SHIP_DAO = FREIGHTER_SHIP_DAO;
-        this.ELITE_SHIP_DAO = ELITE_SHIP_DAO;
     }
 
     // SQL code insert a value;
@@ -89,15 +61,15 @@ public class UserDAO implements CrudInterface<User> {
 
     // SQL code get user id by email and password;
     private final String SQL_GET_ID = """
-        SELECT id_user 
+        SELECT * 
         FROM users 
         WHERE email = ? AND password_user = ?;
         """;
 
     // Method that create a new User in the database;
     @Override
-    public void create(User user) {
-        
+    public void create(User user) throws SQLException {
+
         // Try-Catch to handle Execptions;
         try {
 
@@ -106,7 +78,7 @@ public class UserDAO implements CrudInterface<User> {
 
             // Preparing a new Statement;
             PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE);
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             
             // Setting the values of the Statement;
             preparedStatement.setString(1, user.getUsername());
@@ -117,11 +89,16 @@ public class UserDAO implements CrudInterface<User> {
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                user.setIdUser(resultSet.getLong(1));
+            }
         }
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -132,7 +109,7 @@ public class UserDAO implements CrudInterface<User> {
 
     // Method that delete a User in the database by id;
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws SQLException {
        
         // Try-Catch to handle Execptions;
         try {
@@ -153,7 +130,7 @@ public class UserDAO implements CrudInterface<User> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -164,7 +141,7 @@ public class UserDAO implements CrudInterface<User> {
 
     // Method that update a User in the database;
     @Override
-    public void update(User user) {
+    public void update(User user) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -190,7 +167,7 @@ public class UserDAO implements CrudInterface<User> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -201,7 +178,7 @@ public class UserDAO implements CrudInterface<User> {
 
     // Method that read a User in the database by id;
     @Override
-    public User read(long id) {
+    public User read(long id) throws SQLException {
 
         // Declaring a new user;
         User user = null;
@@ -227,7 +204,7 @@ public class UserDAO implements CrudInterface<User> {
                 
                 // Creating a new user;
                 user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                    resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 
                 // Setting the id of that user;
                 user.setIdUser(resultSet.getLong("id_user"));
@@ -236,7 +213,7 @@ public class UserDAO implements CrudInterface<User> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -250,7 +227,7 @@ public class UserDAO implements CrudInterface<User> {
 
     // Method that read all Users in the database;
     @Override
-    public List<User> readAll() {
+    public List<User> readAll() throws SQLException {
         
         // Declaring a new list;
         ArrayList<User> allUsers = new ArrayList<>();
@@ -285,7 +262,7 @@ public class UserDAO implements CrudInterface<User> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -298,10 +275,10 @@ public class UserDAO implements CrudInterface<User> {
     }  
 
     // Method that get the user id by email and password;
-    public long getUserId(String email, String password) {
+    public User getUser(String email, String password) throws SQLException {
 
         // Declaring the id of the user, if it doesn't found, return -1;
-        long id = -1;
+        User user = null; 
 
         // Try-Catch to handle Execptions;
         try {
@@ -323,14 +300,16 @@ public class UserDAO implements CrudInterface<User> {
             // Seeing all the possibilities;
             if (resultSet.next()) {
 
-                // Getting the id of that user;
-                id = resultSet.getLong("id_user");
+                user = new User(resultSet.getString("name_user"), email, password, 
+                    resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+            
+                user.setIdUser(resultSet.getLong("id_user"));
             }
         }
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -339,142 +318,6 @@ public class UserDAO implements CrudInterface<User> {
         }
 
         // Returning the if of the user;
-        return id;
-    }
-
-    // Method that create a new User;
-    // It creates all the others dependencies in the database;
-    public void createNewUser(User user) {
-
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Setting the connection with false auto commit;
-            MY_SQL_CONNECTION.getConnection().setAutoCommit(false); 
-            
-            // Create a new User;
-            create(user);
-            user.setIdUser(getUserId(user.getEmail(), user.getPassword())); 
-
-            // Create a new Configuration;
-            Configuration configuration = new Configuration(user);
-            CONFIGURATION_DAO.create(configuration); 
-            
-            // Create a new DataAchievements;;
-            DataAchievements dataAchievements = new DataAchievements(user);
-            DATA_ACHIEVEMENT_DAO.create(dataAchievements); 
-
-            // Create a new StandatShip;
-            StandartShip standartShip = new StandartShip(user);
-            STANDART_SHIP_DAO.create(standartShip); 
-
-            // Create a new SpeedShip;
-            SpeedShip speedShip = new SpeedShip(user);
-            SPEED_SHIP_DAO.create(speedShip); 
-
-            // Create a new DestroyerShip;
-            DestroyerShip destroyerShip = new DestroyerShip(user);
-            DESTROYER_SHIP_DAO.create(destroyerShip); 
-
-            // Create a new FreighterShip;
-            FreighterShip freighterShip = new FreighterShip(user);
-            FREIGHTER_SHIP_DAO.create(freighterShip);
-
-            // Create a new EliteShip;
-            EliteShip eliteShip = new EliteShip(user);
-            ELITE_SHIP_DAO.create(eliteShip); 
-
-            // Committing the transaction;
-            MY_SQL_CONNECTION.getConnection().commit(); 
-        } 
-        catch (SQLException e) {
-
-            // Try-Catch to handle Execptions;
-            try {
-
-                // Doing a rollback in case of error;
-                MY_SQL_CONNECTION.getConnection().rollback(); 
-            } 
-            catch (SQLException x) {
-
-                // Printing the Exception Message;
-                System.out.println(x.getMessage());
-            }
-
-            // Printing the Exception Message;
-            System.out.println(e.getMessage());
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
-    }
-
-    // Method that delete a User by user id;
-    // It deletes all the others dependencies in the database;
-    public void deleteAll(long userId) {
-
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Setting the connection with false auto commit;
-            MY_SQL_CONNECTION.getConnection().setAutoCommit(false);
-            
-            // Delete the Confguration;
-            CONFIGURATION_DAO.deleteByUser(userId); 
-
-            // Delete the DataAchievements;
-            DATA_ACHIEVEMENT_DAO.deleteByUser(userId); 
-
-            // Delete the StandartShip;
-            STANDART_SHIP_DAO.deleteByUser(userId); 
-
-            // Delete the SpeedShip;
-            SPEED_SHIP_DAO.deleteByUser(userId); 
-
-            // Delete the DestroyerShip;
-            DESTROYER_SHIP_DAO.deleteByUser(userId); 
-
-            // Delete the FreighterShip;
-            FREIGHTER_SHIP_DAO.deleteByUser(userId); 
-
-            // Delete the EliteShip;
-            ELITE_SHIP_DAO.deleteByUser(userId); 
-
-            // Delete the User;
-            delete(userId); 
-
-            // Committing the transaction;
-            MY_SQL_CONNECTION.getConnection().commit();
-        } 
-        catch (SQLException e) {
-
-            // Try-Catch to handle Execptions;
-            try {
-
-                // Doing a rollback in case of error;
-                MY_SQL_CONNECTION.getConnection().rollback(); 
-            } 
-            catch (SQLException x) {
-
-                // Printing the Exception Message;
-                System.out.println(x.getMessage());
-            }
-
-            // Printing the Exception Message;
-            System.out.println(e.getMessage());
-        } 
-        finally { 
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
+        return user;
     }
 }

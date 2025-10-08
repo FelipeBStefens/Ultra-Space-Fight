@@ -16,7 +16,6 @@ body {
     overflow: hidden;
 
     /* Putting and configuring the Background image */ 
-    background-image: var(--gameplay-background-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -25,6 +24,16 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
 /* The button to pause the Game */
@@ -133,7 +142,7 @@ body {
     /* Configure the Padding, Border and Gap */
     padding: 40px 50px;
     border-radius: 12px;
-    gap: 20px;
+    gap: 40px;
 
     /* Configure the width */
     min-width: 320px;
@@ -197,7 +206,26 @@ body {
     background-color: #265728;
 
     /* Scaling the button it's value times 1.05 */
+    transform: scale(1.5);
+}
+
+#saveSoundsButton {
+
+    /* Altering the Background Color */
+    background-color: var(--button-color);
+
+    /* Scaling the button it's value times 1.05 */
     transform: scale(1.05);
+}
+
+/* Configuration of the button in case of Hover */
+#saveSoundsButton:hover {
+
+    /* Altering the Background Color */
+    background-color: var(--button-hover-color);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.5);
 }
 
 /* The exit button */
@@ -214,7 +242,7 @@ body {
     background-color: #f00e0b;
 
     /* Scaling the button it's value times 1.05 */
-    transform: scale(1.05);
+    transform: scale(1.5);
 }
 
 /* The Labels */
@@ -298,4 +326,64 @@ input[type="range"]::-webkit-slider-thumb:hover {
     
     /* Scaling the button it's value times 1.05 */
     transform: scale(1.05); 
+}
+
+/* ========================== */
+/* PAUSE BUTTONS & LOADING    */
+/* ========================== */
+.pauseButton {
+    position: relative; /* necessário para o spinner ficar dentro do botão */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* espaço para o spinner à direita */
+}
+
+/* Loading / Disabled */
+.pauseButton.loading,
+.pauseButton.disabled-others {
+    background-color: gray !important;
+    color: #444 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
+}
+
+/* Spinner dentro do botão */
+.pauseButton.loading::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* Corrige o giro do spinner */
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* ========================== */
+/* SLIDERS DESATIVADOS        */
+/* ========================== */
+.pauseSlider:disabled {
+    background-color: #666 !important;
+    cursor: not-allowed;
+}
+
+.pauseSlider:disabled::-webkit-slider-thumb {
+    background-color: #888 !important;
+    cursor: not-allowed;
+}
+
+.pauseSlider:disabled::-moz-range-thumb {
+    background-color: #888 !important;
+    cursor: not-allowed;
 }

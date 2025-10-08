@@ -5,6 +5,7 @@ package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,37 +37,32 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
     
     // SQL code delete a value;
     private final String SQL_DELETE = """
-        DELETE FROM configurations WHERE id_configuration = ?;    
+        DELETE FROM configurations WHERE id_user = ?;    
         """;
 
     // SQL code update a value;
     private final String SQL_UPDATE = """
         UPDATE configurations
         SET language_user = ?, soundtrack = ?, sound_effects = ?
-        WHERE id_configuration = ?;    
+        WHERE id_user = ?;    
         """;
 
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
-        FROM (users u INNER JOIN configurations c ON u.id_user = c.id_user) 
-        WHERE id_configuration = ?;    
+        FROM (users u INNER JOIN configurations c USING(id_user)) 
+        WHERE id_user = ?;    
         """;
 
     // SQL code read all values;
     private final String SQL_READ_ALL = """
         SELECT * 
-        FROM (users u INNER JOIN configurations c ON u.id_user = c.id_user);    
-        """;
-
-    private final String SQL_DELETE_BY_USER_ID = """
-        DELETE FROM configurations
-        WHERE id_user = ?;    
+        FROM (users u INNER JOIN configurations c USING(id_user));    
         """;
 
     // Method that create a new Configuration in the database;
     @Override
-    public void create(Configuration configuration) {
+    public void create(Configuration configuration) throws SQLException{
         
         // Try-Catch to handle Execptions;
         try {
@@ -76,7 +72,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
 
             // Preparing a new Statement;
             PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE);
+                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             
             // Setting the values of the Statement;
             preparedStatement.setLong(1, configuration.getUser().getIdUser());
@@ -84,13 +80,18 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
             preparedStatement.setBigDecimal(3, configuration.getSoundtrack());
             preparedStatement.setBigDecimal(4, configuration.getSoundEffects());
 
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                configuration.setIdConfiguration(resultSet.getLong(1));
+            }
+
             // Executing the Statement;
             preparedStatement.executeUpdate();
         }
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -101,7 +102,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
 
     // Method that delete a Configuration in the database by id;
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws SQLException {
        
         // Try-Catch to handle Execptions;
         try {
@@ -122,7 +123,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -133,7 +134,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
 
     // Method that update a Configuration in the database;
     @Override
-    public void update(Configuration configuration) {
+    public void update(Configuration configuration) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try {
@@ -149,7 +150,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
             preparedStatement.setString(1, configuration.getLanguage());
             preparedStatement.setBigDecimal(2, configuration.getSoundtrack());
             preparedStatement.setBigDecimal(3, configuration.getSoundEffects());
-            preparedStatement.setLong(4, configuration.getIdConfiguration());
+            preparedStatement.setLong(4, configuration.getUser().getIdUser());
 
             // Executing the Statement;
             preparedStatement.executeUpdate();
@@ -157,7 +158,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -168,7 +169,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
 
     // Method that read a Configuration in the database by id;
     @Override
-    public Configuration read(long id) {
+    public Configuration read(long id) throws SQLException {
 
         // Declaring a new Configuration;
         Configuration configuration = null;
@@ -197,7 +198,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
                 resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 
                 // Setting the id of that user;
-                user.setIdUser(resultSet.getLong("id_user"));
+                user.setIdUser(id);
                 
                 // Creating a new configuration;
                 configuration = 
@@ -211,7 +212,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -225,7 +226,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
 
     // Method that read all Configurations in the database;
     @Override
-    public List<Configuration> readAll() {
+    public List<Configuration> readAll() throws SQLException {
         
         // Declaring a new list;
         ArrayList<Configuration> allConfigurations = new ArrayList<>();
@@ -268,7 +269,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         catch (SQLException e) {
 
             // Printing the Exception Message;
-            System.out.println(e.getMessage());
+            throw e;
         }
         finally {
 
@@ -279,35 +280,4 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         // Returning the list;
         return allConfigurations;
     }  
-
-    // Method that delete a Configuration in the database by id;
-    public void deleteByUser(long id) {
-       
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE_BY_USER_ID);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            System.out.println(e.getMessage());
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
-    }
 }
