@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.clear();
             if (window.parent?.stopAudio) window.parent.stopAudio();
 
-            window.location.href = "../../index.html";
+            window.location.href = "../../Pages/Hub/enter.html";
         }, 500);
     });
 
@@ -208,8 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             localStorage.clear();
             if (window.parent?.stopAudio) window.parent.stopAudio();
-            window.location.href = "../../index.html";
-
+            window.location.href = "../../Pages/Hub/enter.html";
         } catch (err) {
             console.error(err);
             alert("Erro ao deletar usuário!");
