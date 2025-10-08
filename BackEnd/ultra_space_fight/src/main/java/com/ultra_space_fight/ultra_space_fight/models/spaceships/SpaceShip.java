@@ -21,13 +21,13 @@ import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 public abstract class SpaceShip {
     
     // Attributes of the SpaceShip class;
-    private long idShip;
-    private int life;
-    private int speed;
-    private int damage;
+    protected long idShip;
+    protected int life;
+    protected int speed;
+    protected int damage;
 
     // Relation with User class;
-    private User user;
+    protected User user;
 
     public SpaceShip() {};
 

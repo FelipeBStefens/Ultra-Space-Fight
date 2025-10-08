@@ -24,17 +24,21 @@ body {
     /* Hidden all the parts that overflow the page */
     overflow: hidden;
 
-    /* Putting and configuring the Background image */
-    background-image: var(--background-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
     /* Using FlexBox to configure the position */
     display: flex;
     justify-content: flex-start; 
     flex-direction: column;      
     align-items: flex-start; 
+}
+
+#video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
 /* The Container Div */
@@ -78,9 +82,9 @@ body {
     
     /* The Width, Height and Margins */
     width: 350px;
-    height: calc(100vh - 300px);
+    height: calc(100vh - 220px);
     margin-left: 200px;
-    margin-top: 300px;          
+    margin-top: 250px;          
     
     /* Using FlexBox to configure the position */
     display: flex;
@@ -190,4 +194,68 @@ body {
 
     /* Scaling the button it's value times 1.2 */
     transform: scale(1.2);
+}
+
+.error-message {
+  color: red;
+  font-family: var(--pixel-font);
+  font-size: 14px;
+  margin-top: 5px;
+  height: 25px;        
+  display: block;      
+  visibility: hidden;  
+}
+
+/* Quando há erro, apenas torna visível */
+.inputContainer.error .error-message {
+  visibility: visible;
+}
+
+
+/* Estilo visual de erro nos inputs */
+.inputContainer.error .input {
+  border-color: red !important;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}
+
+/* Botão desativado */
+#button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: gray;
+  transform: none !important;
+}
+
+/* Remover o hover quando desativado */
+#button:disabled:hover {
+  background-color: gray;
+  transform: none;
+}
+
+/* Botão em estado de carregamento */
+#button.loading {
+  position: relative;
+  pointer-events: none; /* impede qualquer clique extra */
+}
+
+/* Spinner (pequeno círculo animado) */
+#button.loading::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Animação do spinner */
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }

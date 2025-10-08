@@ -21,6 +21,11 @@
   <!-- Body of the HTML file -->
   <body>
 
+    <div id="coin-counter">
+        <img src="../../Assets/Icons/cash.png" alt="Coin Icon" class="coin-icon-img">
+        <span id="coin-value" class="stat-value"></span>
+    </div>
+
     <!-- A Div with all the Spaceships -->
     <div class="spaceships">
 
@@ -34,11 +39,11 @@
         <div class="container" id="container">
                     
           <!-- Div to each Spaceships -->
-          <div class="spaceship" data-index="0"></div>
-          <div class="spaceship" data-index="1"></div>
-          <div class="spaceship" data-index="2"></div>
-          <div class="spaceship" data-index="3"></div>
-          <div class="spaceship" data-index="4"></div>
+          <div class="spaceship" id="standartShip" data-index="0"></div>
+          <div class="spaceship" id="speedShip" data-index="1"></div>
+          <div class="spaceship" id="destroyerShip" data-index="2"></div>
+          <div class="spaceship" id="freighterShip" data-index="3"></div>
+          <div class="spaceship" id="eliteShip" data-index="4"></div>
         </div>
       </div>
 
@@ -52,6 +57,22 @@
       <!-- A button to Select the Spaceship -->
       <button id="actionButton">Select Spaceship</button>
   
+      <div id="upgrade-cost-display" style="
+        display: flex; 
+        align-items: center; 
+        font-size: 30px; 
+        color: #f8fafc; 
+        gap: 10px; 
+        margin: 10px 0;
+        justify-content: center;
+        text-align: center;
+        ">
+        
+        <img src="../../Assets/Icons/cash.png" alt="Cost Icon" style="height: 40px; width: auto; vertical-align: middle;">
+        
+        <span id="cost-value"></span>
+      </div>
+
       <!-- A Div with all the status -->
       <div class="status" id="status">
 

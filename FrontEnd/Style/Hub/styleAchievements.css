@@ -184,11 +184,39 @@ body{
     user-select:none;
 
     /* Use Display Grid to alter the postion */
-    display:grid;
-    place-items:center;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     
     /* Transition in case of Animations */
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
+}
+
+.achievement img {
+    /* Ajuste o tamanho da imagem para caber no círculo */
+    width: 60%; 
+    height: auto;
+    max-height: 60%;
+}
+
+.achievement-text {
+    font-size: 1.4rem;
+    margin-top: 10px;
+    padding: 0 10px;
+    color: #f8fafc;
+    /* Oculta o texto por padrão (Bloqueado) */
+    display: none; 
+}
+
+.achievement.unlocked .achievement-text {
+    display: block; /* O texto aparece */
+}
+
+.achievement.active .achievement-text,
+.achievement.unlocked .achievement-text {
+    display: block; /* O texto aparece */
 }
 
 /* The Achievement that is in front */

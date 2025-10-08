@@ -14,17 +14,21 @@ body {
 
   /* Hidden all the parts that overflow the page */
   overflow: hidden;
-
-  /* Putting and configuring the Background image */ 
-  background-image: var(--background-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   
   /* Using FlexBox to configure the position */
   display: flex;
   justify-content: center; 
   align-items: flex-start;
+}
+
+#video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
 /* The Container class */
