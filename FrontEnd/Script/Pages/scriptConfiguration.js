@@ -186,8 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             localStorage.clear();
             if (window.parent?.stopAudio) window.parent.stopAudio();
-
-            window.location.href = "../../Pages/Hub/enter.html";
+            if (window.parent?.navigateToGame) window.parent.navigateToGame("../../Pages/Hub/enter.html");
         }, 500);
     });
 
@@ -208,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             localStorage.clear();
             if (window.parent?.stopAudio) window.parent.stopAudio();
-            window.location.href = "../../Pages/Hub/enter.html";
+            if (window.parent?.navigateToGame) window.parent.navigateToGame("../../Pages/Hub/enter.html");
         } catch (err) {
             console.error(err);
             alert("Erro ao deletar usuário!");
