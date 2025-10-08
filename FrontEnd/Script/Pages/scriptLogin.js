@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             console.log(data);
-            sessionStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("user", JSON.stringify(data));
 
             if (window.parent?.playAudio) window.parent.playAudio();
             if (window.parent?.setAudioVolume) window.parent.setAudioVolume(data.soundtrack);

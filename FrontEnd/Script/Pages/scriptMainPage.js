@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-        window.location.href = "../../index.html";
+        window.location.href = "../../enter.html";
     }
 
     document.getElementById('gameplay').addEventListener('click', function(event) {
@@ -148,14 +148,14 @@ document.addEventListener("DOMContentLoaded", () => {
             fetches: async () => {
                 const scoreRanking = await getRankingScore();
                 const scoreMatchRanking = await getRankingScoreMatch();
-                sessionStorage.setItem("rankings", JSON.stringify({ scoreRanking, scoreMatchRanking }));
+                localStorage.setItem("rankings", JSON.stringify({ scoreRanking, scoreMatchRanking }));
             }
         },
         {
             id: "configurations",
             fetches: async () => {
                 const configurations = await getConfiguration(user.idUser);
-                sessionStorage.setItem("configurations", JSON.stringify(configurations));
+                localStorage.setItem("configurations", JSON.stringify(configurations));
             }
         },
         {
@@ -166,14 +166,14 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "achievements",
             fetches: async () => {
                 const achievements = await getAchievement(user.idUser);
-                sessionStorage.setItem("achievements", JSON.stringify(achievements));
+                localStorage.setItem("achievements", JSON.stringify(achievements));
             }
         },
         {
             id: "spaceships",
             fetches: async () => {
                 const spaceships = await fetchSpaceships(user.idUser);
-                sessionStorage.setItem("spaceships", JSON.stringify(spaceships));
+                localStorage.setItem("spaceships", JSON.stringify(spaceships));
             }
         },
         {

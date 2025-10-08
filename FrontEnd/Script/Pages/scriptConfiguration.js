@@ -31,9 +31,9 @@ function handleHttpError(response, inputMap = {}) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    const configuration = JSON.parse(sessionStorage.getItem("configurations"));
-    if (!user) window.location.href = "../../index.html";
+    const user = JSON.parse(localStorage.getItem("user"));
+    const configuration = JSON.parse(localStorage.getItem("configurations"));
+    if (!user) window.location.href = "../../enter.html";
 
     const inputs = ["username", "password", "language", "soundtrack", "soundEffects"];
     const buttons = ["save", "logout", "delete"];
@@ -161,9 +161,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const result = await response.json();
+            user.soundtrack = result.soundtrack;
+            user.soundEffects = result.soundEffects;
+            localStorage.setItem("user", JSON.stringify(user));
+            if (window.parent?.setAudioVolume) window.parent.setAudioVolume(user.soundtrack);
+            
             console.log("Configurações salvas com sucesso:", result);
-
-        } catch (err) {
+        } 
+        catch (err) {
             console.error(err);
             alert("Erro ao salvar configurações!");
         } finally {
@@ -179,8 +184,9 @@ document.addEventListener("DOMContentLoaded", () => {
         setDisabledAll(true, logoutButton);
         
         setTimeout(() => {
-            sessionStorage.clear();
+            localStorage.clear();
             if (window.parent?.stopAudio) window.parent.stopAudio();
+
             window.location.href = "../../index.html";
         }, 500);
     });
@@ -200,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })) {
                 return; 
             }
-            sessionStorage.clear();
+            localStorage.clear();
             if (window.parent?.stopAudio) window.parent.stopAudio();
             window.location.href = "../../index.html";
 

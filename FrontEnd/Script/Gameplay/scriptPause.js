@@ -1,6 +1,6 @@
 const pauseButton = document.getElementById("pauseButton");
-const user = JSON.parse(sessionStorage.getItem("user"));
-if (!user) window.location.href = "../../index.html";
+const user = JSON.parse(localStorage.getItem("user"));
+if (!user) window.location.href = "../../enter.html";
 
 pauseButton.addEventListener("click", () => {
     if (document.getElementById("pauseScreen")) return;
@@ -95,7 +95,14 @@ pauseButton.addEventListener("click", () => {
                 body: JSON.stringify(body)
             });
             if (!response.ok) throw new Error(response.status);
-            await response.json();
+            const result = await response.json();
+
+            user.soundtrack = result.soundtrack;
+            user.soundEffects = result.soundEffects;
+            localStorage.setItem("user", JSON.stringify(user));
+            if (window.parent?.setAudioVolume) window.parent.setAudioVolume(user.soundtrack);
+
+            console.log("Configurações salvas com sucesso:", result);
         } catch (err) {
             console.error(err);
         } finally {

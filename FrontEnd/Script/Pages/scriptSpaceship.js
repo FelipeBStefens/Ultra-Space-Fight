@@ -143,7 +143,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
     if (data && coinText) {
         // Atualiza o objeto user
         data.cash = newCashValue;
-        sessionStorage.setItem("spaceships", JSON.stringify(data));
+        localStorage.setItem("spaceships", JSON.stringify(data));
         
         // Atualiza o display na tela
         coinText.textContent = newCashValue;
@@ -154,11 +154,11 @@ function updateCashDisplay(newCashValue, coinText, data) {
 // Inicialização automática
 // ================================
 (async function () {
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
-    window.location.href = "../../index.html";
+    window.location.href = "../../enter.html";
   }
-  const data = JSON.parse(sessionStorage.getItem("spaceships"));
+  const data = JSON.parse(localStorage.getItem("spaceships"));
 
   const spaceships = document.querySelectorAll(".spaceship");
   const actionButton = document.getElementById("actionButton");
@@ -225,7 +225,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
               try {
                 selected = i;
                 user.selectedSpaceship = ships[i].name;
-                sessionStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("user", JSON.stringify(user));
 
                 const result = await updateSelectedSpaceship(ships[i].name, user.idUser);
                 if (result) {

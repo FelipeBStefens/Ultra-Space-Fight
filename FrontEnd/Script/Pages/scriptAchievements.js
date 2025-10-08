@@ -17,13 +17,13 @@
   // ----------------------------------------------------
   // 2. Verificação de Usuário e Dados de Conquistas
   // ----------------------------------------------------
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
   
   if (!user) {     
-    window.location.href = "../../index.html";
+    window.location.href = "../../enter.html";
   }
 
-  const achievementValues = JSON.parse(sessionStorage.getItem("achievements"));
+  const achievementValues = JSON.parse(localStorage.getItem("achievements"));
 
   const root = getComputedStyle(document.documentElement);
 

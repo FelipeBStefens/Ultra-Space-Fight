@@ -2,12 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   
   (async () => {
 
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {     
-      window.location.href = "../../index.html";
+      window.location.href = "../../enter.html";
     }
 
-    const rankings = JSON.parse(sessionStorage.getItem("rankings"));
+    const rankings = JSON.parse(localStorage.getItem("rankings"));
 
     // Example list with total Score;
     const totalRanking = rankings.scoreRanking;
