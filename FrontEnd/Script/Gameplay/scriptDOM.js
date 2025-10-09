@@ -1,8 +1,15 @@
+import StandartShip from "../Models/Spaceships/scriptStandartShip.js";
+import SpeedShip from "../Models/Spaceships/scriptSpeedShip.js";
+import DestroyerShip from "../Models/Spaceships/scriptDestroyerShip.js";
+import FreighterShip from "../Models/Spaceships/scriptFreighterShip.js";
+import EliteShip from "../Models/Spaceships/scriptEliteShip.js";
+
 const scoreContainer = document.getElementById("scoreMatchContainer");
 const cashContainer = document.getElementById("cashAmount");
 const lifeContainer = document.getElementById("lifeContainer");
 
 const user = JSON.parse(localStorage.getItem("user"));
+const selectedSpaceship = user.selectedSpaceship;
 let score = 0;
 let cash = 0;
 let life = user.spaceshipValues.life; 
@@ -42,7 +49,7 @@ function gameOver() {
 
     fetchUpdateScoreCash(user.idUser, values);
 
-    if (document.getElementById("gameOverScreen")) return;
+    if (document.getElementById("pauseScreen")) return;
 
     const gameOverScreen = document.createElement("div");
     gameOverScreen.id = "pauseScreen"; 
@@ -105,6 +112,25 @@ async function fetchUpdateScoreCash(id, scoreCash) {
         console.error("Falha na conexão com o servidor:", error);
         alert("Falha na conexão com o servidor.");
         return null;
+    }
+}
+
+export function getSelectedSpaceship(canvas) {
+
+    if (selectedSpaceship === "standart_ship") {
+        return new StandartShip(canvas);
+    }
+    else if (selectedSpaceship === "speed_ship") {
+        return new SpeedShip(canvas);
+    }
+    else if (selectedSpaceship === "destroyer_ship") {
+        return new DestroyerShip(canvas);
+    }
+    else if (selectedSpaceship === "freighter_ship") {
+        return new FreighterShip(canvas);
+    }
+    else if (selectedSpaceship === "elite_ship") {
+        return new EliteShip(canvas);
     }
 }
 

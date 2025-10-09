@@ -1,7 +1,4 @@
-import { PATH_STANDART_SHIP_IMAGE } from "../Gameplay/scriptConstants.js";
-import Bullet from "./scriptBullet.js";
-
-class Player {
+class Spaceship {
 
     width;
     height;
@@ -10,8 +7,7 @@ class Player {
     image;
     angle;  
 
-    constructor(canvas, speed) {
-        this.speed = speed;
+    constructor(canvas) {
         this.width = 140;
         this.height = 140;
         this.position = {
@@ -19,7 +15,6 @@ class Player {
             y: canvas.height / 2 - this.height / 2
         };
         this.angle = 0; // <── começa sem rotação
-        this.image = this.getImage(PATH_STANDART_SHIP_IMAGE);
     }
 
     getImage(path) {
@@ -65,17 +60,7 @@ class Player {
         this.angle += Math.PI / 180 * 5; // 5 graus
     }
 
-    shoot(bulletsArray, bulletImage) {
-        const cx = this.position.x + this.width / 2;
-        const cy = this.position.y + this.height / 2;
-        const frontOffset = this.height / 2; // distância do centro até a ponta
-        const bulletX = cx + frontOffset * Math.cos(this.angle - Math.PI / 2);
-        const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
-        const bulletSpeed = 10;
-
-        const bullet = new Bullet(bulletX, bulletY, this.angle, bulletSpeed, bulletImage);
-        bulletsArray.push(bullet);
-    }
+    shoot(bulletsArray) {}
 }
 
-export default Player;
+export default Spaceship;

@@ -39,7 +39,7 @@ async function updateSelectedSpaceship(spaceship, id) {
         const response = await fetch(`http://localhost:8080/spaceship/update/selected/spaceship/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ spaceship }) // Certifique-se de enviar como JSON
+            body: JSON.stringify(spaceship) // Certifique-se de enviar como JSON
         });
 
         if (!response.ok) {
@@ -217,13 +217,6 @@ function updateCashDisplay(newCashValue, coinText, data) {
                                 if (result) {
                                     console.log(`✅ Nave selecionada: ${ships[i].name}`);
                                     
-                                    const values = {
-                                        life: ships[i].life,
-                                        speed: ships[i].speed,
-                                        damage: ships[i].damage
-                                    }
-                                    user.spaceshipValues = values;
-                                    localStorage.setItem("user", JSON.stringify(user));
                                     actionButton.textContent = "Selected Spaceship";
                                     actionButton.disabled = true;
                                     update();
@@ -314,13 +307,15 @@ function updateCashDisplay(newCashValue, coinText, data) {
 
                 update();
 
+                const values = {
+                    life: ships[active].life,
+                    speed: ships[active].speed,
+                    damage: ships[active].damage
+                };
+
                 const body = {
                     cash: cost,
-                    spaceshipValuesTDO: {
-                        life: ships[active].life,
-                        speed: ships[active].speed,
-                        damage: ships[active].damage
-                    }
+                    spaceshipValuesTDO: values
                 };
 
                 const result = await updateSpaceship(ships[active].name, body, user.idUser);
@@ -328,10 +323,14 @@ function updateCashDisplay(newCashValue, coinText, data) {
                 if (result && result.cash !== undefined) {
                     console.log(`✅ Nave ${ships[active].name} atualizada. Novo Cash: ${result.cash}`);
                     updateCashDisplay(result.cash, coinValueText, data);
-                } else if (result && result.cash === undefined) {
+                    user.spaceshipValues = values;
+                    localStorage.setItem("user", JSON.stringify(user));
+                } 
+                else if (result && result.cash === undefined) {
                     console.error("❌ Resposta do servidor não contém o novo valor de cash.");
                     alert("Upgrade realizado, mas o saldo não foi atualizado. Recarregue a página.");
-                } else {
+                } 
+                else {
                     console.error("❌ Erro ao atualizar a nave no servidor");
                     alert("Erro ao atualizar a nave!");
                     ships[active][stat] -= 1;

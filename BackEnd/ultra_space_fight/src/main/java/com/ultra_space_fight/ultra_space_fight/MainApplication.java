@@ -8,7 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 // Main Application Class;
 @SpringBootApplication
 public class MainApplication {
-
+	
 	// Main Method;
 	public static void main(String[] args) {
 		

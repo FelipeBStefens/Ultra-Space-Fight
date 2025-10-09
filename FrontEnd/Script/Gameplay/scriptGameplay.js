@@ -1,15 +1,14 @@
-import Player from "../Models/scriptPlayer.js";
+import { getSelectedSpaceship } from "./scriptDOM.js";;
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const speed = 5;
 
 contex.imageSmoothingEnabled = false;
 
-const player = new Player(canvas, speed);
+const player = getSelectedSpaceship(canvas);;
 
 const keys = {
     left: false,
@@ -21,9 +20,7 @@ const keys = {
     space: false
 };
 
-const bullets = [];
-const bulletImage = new Image();
-bulletImage.src = "../../Assets/PixelArts/shit.png";
+let bullets = [];
 
 const gameLoop = () => {
     contex.clearRect(0, 0, canvas.width, canvas.height);
@@ -47,15 +44,17 @@ const gameLoop = () => {
         player.rotateRight();
     }
 
-    bullets.forEach((b, i) => {
+    // Atualiza e desenha todas as balas
+    bullets.forEach(b => {
         b.update();
         b.draw(contex);
-
-        if (b.position.x < 0 || b.position.x > canvas.width ||
-            b.position.y < 0 || b.position.y > canvas.height) {
-            bullets.splice(i, 1);
-        }
     });
+
+    // Remove balas que saíram da tela de forma segura
+    bullets = bullets.filter(b => 
+        b.position.x >= 0 && b.position.x <= canvas.width &&
+        b.position.y >= 0 && b.position.y <= canvas.height
+    );
 
     player.draw(contex);
     requestAnimationFrame(gameLoop);
@@ -86,7 +85,7 @@ window.addEventListener("keydown", (event) => {
     }
     if (key === " ") {
         keys.space = true;
-        player.shoot(bullets, bulletImage);
+        player.shoot(bullets);
     }
 });
 
