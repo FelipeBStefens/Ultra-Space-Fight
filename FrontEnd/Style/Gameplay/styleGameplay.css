@@ -39,6 +39,51 @@ body {
     pointer-events: none;  
 }
 
+#scoreMatchContainer {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    font-family: var(--pixel-font);
+    font-size: 35px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px #000;
+    z-index: 100;
+}
+
+#cashContainer {
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    color: #fff;
+    font-family: var(--pixel-font);
+    font-size: 35px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px #000;
+    z-index: 100;
+}
+
+#cashContainer img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Vidas no canto superior direito */
+#lifeContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+}
+
+/* Estilo das imagens de coração */
+#lifeContainer img {
+    width: 50px;
+    height: 50px;
+}
+
 /* The button to pause the Game */
 #pauseButton {
 
@@ -389,4 +434,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .pauseSlider:disabled::-moz-range-thumb {
     background-color: #888 !important;
     cursor: not-allowed;
+}
+
+#pauseTitle {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.3; }
 }

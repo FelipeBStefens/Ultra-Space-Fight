@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +16,8 @@ import com.ultra_space_fight.ultra_space_fight.service.DataAchievementsService;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreCashTDO;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
 
 @RestController
 @RequestMapping("/data/achievement")
@@ -51,5 +55,15 @@ class DataAchievementsController {
             dataAchievementsService.getAchievements(id);
         
         return ResponseEntity.status(HttpStatus.OK).body(achievementsTDO);
+    }
+
+    @PutMapping("/update/score/cash/{id}") 
+    public ResponseEntity<ScoreTDO> updateScoreCash(
+        @PathVariable long id, @RequestBody ScoreCashTDO scoreCashTDO) {
+        
+        ScoreTDO scoreTDO = 
+            dataAchievementsService.updateScoreCash(id, scoreCashTDO);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(scoreTDO);
     }
 }

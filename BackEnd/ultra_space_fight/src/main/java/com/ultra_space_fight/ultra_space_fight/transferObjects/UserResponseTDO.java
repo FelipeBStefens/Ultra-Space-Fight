@@ -6,6 +6,7 @@ public class UserResponseTDO {
     
     private long idUser;
     private String selectedSpaceship;
+    private SpaceshipValuesTDO spaceshipValues;
     private int score;
     private int scoreMatch;
     private BigDecimal soundtrack;
@@ -13,10 +14,11 @@ public class UserResponseTDO {
 
     public UserResponseTDO() {}
 
-    public UserResponseTDO(long idUser, String selectedSpaceship,
+    public UserResponseTDO(long idUser, String selectedSpaceship, SpaceshipValuesTDO spaceshipValues,
         int score, int scoreMatch, BigDecimal soundtrack, BigDecimal soundEffects) {
         this.idUser = idUser;
         this.selectedSpaceship = selectedSpaceship;
+        this.spaceshipValues = spaceshipValues;
         this.score = score;
         this.scoreMatch = scoreMatch;
         this.soundtrack = soundtrack;
@@ -70,5 +72,13 @@ public class UserResponseTDO {
 
     public void setSoundEffects(BigDecimal soundEffects) {
         this.soundEffects = soundEffects;
+    }
+
+    public SpaceshipValuesTDO getSpaceshipValues() {
+        return spaceshipValues;
+    }
+
+    public void setSpaceshipValues(SpaceshipValuesTDO spaceshipValues) {
+        this.spaceshipValues = spaceshipValues;
     }
 }

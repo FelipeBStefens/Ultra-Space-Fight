@@ -32,10 +32,18 @@
             <img src="..\..\Assets\Icons\pause.png" alt="icon pause" id="icon"/>
         </button>
 
+        <div id="lifeContainer"></div>
+        <div id="scoreMatchContainer"></div>
+        <div id="cashContainer">
+            <img src="..\..\Assets\Icons\cash.png" alt="Icon Cash"/>
+            <span id="cashAmount"></span>
+        </div>
+
         <canvas id="gameCanvas"></canvas>
 
         <!-- The script to Pause the game -->
         <script type="module" src="..\..\Script\Gameplay\scriptPause.js"></script>
+        <script type="module" src="..\..\Script\Gameplay\scriptDOM.js"></script>
         <script type="module" src="..\..\Script\Gameplay\scriptGameplay.js"></script>
     </body>
 </html>
