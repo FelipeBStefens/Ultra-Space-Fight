@@ -217,6 +217,14 @@ function updateCashDisplay(newCashValue, coinText, data) {
                                 if (result) {
                                     console.log(`✅ Nave selecionada: ${ships[i].name}`);
                                     
+                                    const values = {
+                                        life: ships[i].life,
+                                        speed: ships[i].speed,
+                                        damage: ships[i].damage
+                                    };
+                                    user.spaceshipValues = values;
+                                    localStorage.setItem("user", JSON.stringify(user)); 
+                                    
                                     actionButton.textContent = "Selected Spaceship";
                                     actionButton.disabled = true;
                                     update();

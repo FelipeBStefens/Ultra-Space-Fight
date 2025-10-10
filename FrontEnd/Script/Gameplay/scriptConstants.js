@@ -4,4 +4,9 @@ export const PATH_DESTROYER_SHIP_IMAGE = "../../Assets/PixelArts/Spaceships/Dest
 export const PATH_FREIGHTER_SHIP_IMAGE = "../../Assets/PixelArts/Spaceships/FreighterShip.png";
 export const PATH_ELITE_SHIP_IMAGE = "../../Assets/PixelArts/Spaceships/EliteShip.png";
 
+export const PATH_SCOUT_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/ScoutEnemy.png";
+export const PATH_SOLDIER_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/SoldierEnemy.png";
+export const PATH_TANK_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/TankEnemy.png";
+export const PATH_ELITE_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/EliteEnemy.png";
+
 export const PATH_BULLET_IMAGE = "../../Assets/PixelArts/shit.png";

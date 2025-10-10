@@ -1,4 +1,5 @@
-import { getSelectedSpaceship } from "./scriptDOM.js";;
+import { getSelectedSpaceship } from "./scriptDOM.js";
+import SoldierEnemy from "../Models/Enemies/scriptSoldierEnemy.js";
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -8,7 +9,7 @@ canvas.height = window.innerHeight;
 
 contex.imageSmoothingEnabled = false;
 
-const player = getSelectedSpaceship(canvas);;
+const player = getSelectedSpaceship(canvas);
 
 const keys = {
     left: false,
@@ -20,7 +21,11 @@ const keys = {
     space: false
 };
 
+let enemies = [];
 let bullets = [];
+
+let enemy = new SoldierEnemy({x: 200, y: 300});
+enemies.push(enemy);
 
 const gameLoop = () => {
     contex.clearRect(0, 0, canvas.width, canvas.height);
@@ -48,6 +53,11 @@ const gameLoop = () => {
     bullets.forEach(b => {
         b.update();
         b.draw(contex);
+    });
+
+    enemies.forEach(e => {
+        e.update(player, bullets, canvas);
+        e.draw(contex);
     });
 
     // Remove balas que saíram da tela de forma segura
