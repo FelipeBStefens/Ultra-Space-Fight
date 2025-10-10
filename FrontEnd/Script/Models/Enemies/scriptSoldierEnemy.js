@@ -6,6 +6,8 @@ class SoldierEnemy extends Enemy{
     
     minDistance = 400;
     maxDistance = 700;
+    lastShotTime = 0;     
+    shootCooldown = 1000;
 
     constructor(position) {
         super(position);
@@ -48,21 +50,26 @@ class SoldierEnemy extends Enemy{
             this.position.y += normalizedDx * lateralFactor;
         }
 
-        if (dist <= this.maxDistance) {
-
-            const cx = this.position.x + this.width / 2;
-            const cy = this.position.y + this.height / 2;
-            const frontOffset = this.height / 2; // distância do centro até a ponta
-            const bulletX = cx + frontOffset * Math.cos(this.angle - Math.PI / 2);
-            const bulletY = cy + frontOffset * Math.sin(this.angle - Math.PI / 2);
-            const bulletSpeed = 10;
-            
-            const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed);
-            bulletsArray.push(frontBullet);
+        const now = Date.now();
+        if (dist <= this.maxDistance && now - this.lastShotTime >= this.shootCooldown) {
+            this.shoot(bulletsArray);
+            this.lastShotTime = now;
         }
 
         this.position.x = Math.max(0, Math.min(canvas.width - this.width, this.position.x));
         this.position.y = Math.max(0, Math.min(canvas.height - this.height, this.position.y));
+    }
+
+    shoot(bulletsArray) {
+        const cx = this.position.x + this.width / 2;
+        const cy = this.position.y + this.height / 2;
+        const frontOffset = this.height / 2;
+        const bulletX = cx + frontOffset * Math.cos(this.angle - Math.PI / 2);
+        const bulletY = cy + frontOffset * Math.sin(this.angle - Math.PI / 2);
+        const bulletSpeed = 10;
+
+        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed);
+        bulletsArray.push(frontBullet);
     }
 }
 

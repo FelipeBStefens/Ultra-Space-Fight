@@ -1,5 +1,5 @@
 import { getSelectedSpaceship } from "./scriptDOM.js";
-import SoldierEnemy from "../Models/Enemies/scriptSoldierEnemy.js";
+import EliteEnemy from "../Models/Enemies/scriptEliteEnemy.js";
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -24,7 +24,7 @@ const keys = {
 let enemies = [];
 let bullets = [];
 
-let enemy = new SoldierEnemy({x: 200, y: 300});
+let enemy = new EliteEnemy({x: 200, y: 300});
 enemies.push(enemy);
 
 const gameLoop = () => {
