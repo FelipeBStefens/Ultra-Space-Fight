@@ -1,39 +1,15 @@
-class Spaceship {
+import GameObject from "../scriptGameObject";
 
-    width;
-    height;
-    position; 
-    speed;
-    image;
-    angle;  
+class Spaceship extends GameObject { 
 
     constructor(canvas) {
-        this.width = 140;
-        this.height = 140;
-        this.position = {
-            x: canvas.width / 2 - this.width / 2, 
-            y: canvas.height / 2 - this.height / 2
+
+        const position = {
+            x: canvas.width / 2 - width / 2, 
+            y: canvas.height / 2 - height / 2
         };
-        this.angle = 0; // <── começa sem rotação
-    }
-
-    getImage(path) {
-        const image = new Image();
-        image.src = path;
-        return image;
-    }
-
-    draw(context) {
-        context.save();
-
-        // Move o ponto de origem para o centro do player
-        context.translate(this.position.x + this.width / 2, this.position.y + this.height / 2);
-        // Rotaciona o contexto temporariamente
-        context.rotate(this.angle);
-        // Desenha a imagem no novo sistema rotacionado
-        context.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
-
-        context.restore();
+        
+        super(position, 140, 140, 0, "spaceship");
     }
 
     moveLeft() {
