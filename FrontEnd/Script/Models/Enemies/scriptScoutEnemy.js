@@ -11,7 +11,7 @@ class ScoutEnemy extends Enemy{
         this.image = this.getImage(PATH_SCOUT_ENEMY_IMAGE);
     }
 
-    update(player) {
+    update(player, bulletsArray, canvas) {
 
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;

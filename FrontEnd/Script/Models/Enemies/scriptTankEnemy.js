@@ -15,7 +15,7 @@ class TankEnemy extends Enemy{
         this.image = this.getImage(PATH_TANK_ENEMY_IMAGE);
     }
 
-    update(player, bulletsArray) {
+    update(player, bulletsArray, canvas) {
 
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;

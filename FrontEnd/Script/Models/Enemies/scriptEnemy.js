@@ -58,7 +58,7 @@ class Enemy {
         this.angle += Math.PI / 180 * 5; // 5 graus
     }
 
-    update(player) {}
+    update(player, bulletsArray, canvas) {}
 }
 
 export default Enemy;

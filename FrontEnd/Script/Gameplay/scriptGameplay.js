@@ -1,5 +1,5 @@
 import { getSelectedSpaceship } from "./scriptDOM.js";
-import EliteEnemy from "../Models/Enemies/scriptEliteEnemy.js";
+import EnemySpawner from "./scriptSpawner.js";
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -24,11 +24,12 @@ const keys = {
 let enemies = [];
 let bullets = [];
 
-let enemy = new EliteEnemy({x: 200, y: 300});
-enemies.push(enemy);
+let spawner = new EnemySpawner(canvas, enemies, player);
 
 const gameLoop = () => {
     contex.clearRect(0, 0, canvas.width, canvas.height);
+    
+    spawner.update();
     
     if (keys.left && player.position.x > 0) {
         player.moveLeft();
