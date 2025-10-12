@@ -16,13 +16,13 @@ let life = user.spaceshipValues.life;
 
 const heartImage = "../../Assets/Icons/heart.png"; 
 
-function updateScore(newScore) {
-    score = newScore;
+export function updateScore(newScore) {
+    score += newScore;
     scoreContainer.textContent = `Score Match : ${score}`;
 }
 
-function updateCash(newCash) {
-    cash = newCash;
+export function updateCash(newCash) {
+    cash += newCash;
     cashContainer.textContent = cash;
 }
 
@@ -40,14 +40,15 @@ export function updateLife() {
     }
 }
 
+export function getDamage() {
+    return user.spaceshipValues.damage;
+}
+
 function gameOver() {
-    
     const values = {
         score: score,
         cash: cash
     };
-
-    fetchUpdateScoreCash(user.idUser, values);
 
     if (document.getElementById("pauseScreen")) return;
 
@@ -66,15 +67,35 @@ function gameOver() {
     continueButton.className = "pauseButton";
     continueButton.textContent = "Continue";
 
-    continueButton.addEventListener("click", () => {
-        if (window.parent?.playAudio) window.parent.playAudio();
-        window.location.replace("../../Pages/Hub/mainPage.html");
+    continueButton.addEventListener("click", async () => {
+        // desativa o botão visualmente
+        continueButton.disabled = true;
+        continueButton.classList.add("loading");
+        continueButton.textContent = "Saving...";
+
+        // pausa o som se quiser evitar ruídos
+        if (window.parent?.pauseAudio) window.parent.pauseAudio();
+
+        try {
+            await fetchUpdateScoreCash(user.idUser, values);
+            console.log("Pontuação salva, voltando ao menu...");
+            if (window.parent?.playAudio) window.parent.playAudio();
+            window.location.replace("../../Pages/Hub/mainPage.html");
+        } catch (error) {
+            console.error("Erro ao salvar score:", error);
+            alert("Erro ao salvar dados. Tente novamente.");
+        } finally {
+            continueButton.disabled = false;
+            continueButton.classList.remove("loading");
+            continueButton.textContent = "Continue";
+        }
     });
 
     gameOverContent.append(gameOverTitle, continueButton);
     gameOverScreen.appendChild(gameOverContent);
     document.body.appendChild(gameOverScreen);
 }
+
 
 async function fetchUpdateScoreCash(id, scoreCash) {
     try {

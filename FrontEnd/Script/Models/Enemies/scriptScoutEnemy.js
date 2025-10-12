@@ -8,6 +8,9 @@ class ScoutEnemy extends Enemy{
     constructor(position) {
         super(position);
         this.speed = 5;
+        this.life = 20;
+        this.cash = 5;
+        this.score = 10;
         this.image = this.getImage(PATH_SCOUT_ENEMY_IMAGE);
     }
 

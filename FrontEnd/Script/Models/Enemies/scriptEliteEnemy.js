@@ -12,6 +12,9 @@ class EliteEnemy extends Enemy {
     constructor(position) {
         super(position);
         this.speed = 5;
+        this.life = 50;
+        this.cash = 20;
+        this.score = 40;
         this.image = this.getImage(PATH_ELITE_ENEMY_IMAGE);
     }
 

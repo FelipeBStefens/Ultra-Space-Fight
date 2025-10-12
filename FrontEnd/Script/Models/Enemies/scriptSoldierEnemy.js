@@ -12,6 +12,9 @@ class SoldierEnemy extends Enemy{
     constructor(position) {
         super(position);
         this.speed = 5;
+        this.life = 15;
+        this.cash = 10;
+        this.score = 20;
         this.image = this.getImage(PATH_SOLDIER_ENEMY_IMAGE);
     }
 

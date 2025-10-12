@@ -12,6 +12,9 @@ class TankEnemy extends Enemy{
     constructor(position) {
         super(position);
         this.speed = 5;
+        this.life = 70;
+        this.cash = 15;
+        this.score = 30;
         this.image = this.getImage(PATH_TANK_ENEMY_IMAGE);
     }
 

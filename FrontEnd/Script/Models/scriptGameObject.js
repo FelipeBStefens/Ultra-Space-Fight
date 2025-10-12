@@ -1,4 +1,4 @@
-import {updateLife} from "../Gameplay/scriptDOM.js";
+import {updateLife, getDamage} from "../Gameplay/scriptDOM.js";
 
 class GameObject {
 
@@ -39,7 +39,7 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
 
-                //updateLife();
+                updateLife();
                 if (gameObject.type === "enemy") {
                     this.applyPush(gameObject, 0.5);
                 }
@@ -52,8 +52,7 @@ class GameObject {
             case "enemy":
 
                 if (gameObject.type === "bullet") {
-                    gameObject.active = false;
-                    
+                    this.updateLife(getDamage());
                 }
                 else if (gameObject.type === "enemy") {
                     this.applyPush(gameObject, 0.5);

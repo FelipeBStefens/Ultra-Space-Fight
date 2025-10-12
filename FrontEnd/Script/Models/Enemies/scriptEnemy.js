@@ -1,6 +1,11 @@
 import GameObject from "../scriptGameObject.js"; 
+import { updateScore, updateCash } from "../../Gameplay/scriptDOM.js";
 
 class Enemy extends GameObject { 
+
+    life;
+    cash;
+    score;
 
     constructor(position) {
 
@@ -30,6 +35,15 @@ class Enemy extends GameObject {
 
     rotateRight() {
         this.angle += Math.PI / 180 * 5; // 5 graus
+    }
+
+    updateLife(damage) {
+        this.life -= damage;
+        if (this.life <= 0) {
+            this.active = false;
+            updateScore(this.score);
+            updateCash(this.cash);
+        }
     }
 
     update(player, bulletsArray, canvas) {}
