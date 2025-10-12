@@ -68,7 +68,7 @@ class SoldierEnemy extends Enemy{
         const bulletY = cy + frontOffset * Math.sin(this.angle - Math.PI / 2);
         const bulletSpeed = 10;
 
-        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed);
+        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "enemy");
         bulletsArray.push(frontBullet);
     }
 }

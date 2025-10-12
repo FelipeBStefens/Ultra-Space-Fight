@@ -10,9 +10,8 @@ class GameObject {
     type;
     active;
 
-    constructor(position, width, height, angle, type) {
+    constructor(width, height, angle, type) {
 
-        this.position = position;
         this.width = width;
         this.height = height;
         this.angle = angle;
@@ -39,13 +38,13 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
                 if (gameObject.type === "enemy" || gameObject.type === "bullet") {
-                    this.active = false; // exemplo: player morreu
+                    
                     console.log("Player colidiu com", gameObject.type);
                 }
                 break;
             case "enemy":
                 if (gameObject.type === "bullet") {
-                    this.active = false; // inimigo destruído
+                    
                     console.log("Enemy atingido por bala");
                 }
                 break;

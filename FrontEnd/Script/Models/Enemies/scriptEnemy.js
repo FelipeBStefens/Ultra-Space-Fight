@@ -1,10 +1,11 @@
-import GameObject from "../scriptGameObject"; 
+import GameObject from "../scriptGameObject.js"; 
 
 class Enemy extends GameObject { 
 
     constructor(position) {
 
-        super(position, 140, 140, 0, "enemy");
+        super(140, 140, 0, "enemy");
+        this.position = position;
     }
 
     moveLeft() {

@@ -1,5 +1,6 @@
 import { getSelectedSpaceship } from "./scriptDOM.js";
 import EnemySpawner from "./scriptSpawner.js";
+import CollisionManager from "./scriptCollisionManager.js";
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -24,6 +25,7 @@ const keys = {
 let enemies = [];
 let bullets = [];
 
+let collisionManager = new CollisionManager([]); 
 let spawner = new EnemySpawner(canvas, enemies, player);
 
 const gameLoop = () => {
@@ -50,7 +52,6 @@ const gameLoop = () => {
         player.rotateRight();
     }
 
-    // Atualiza e desenha todas as balas
     bullets.forEach(b => {
         b.update();
         b.draw(contex);
@@ -61,14 +62,33 @@ const gameLoop = () => {
         e.draw(contex);
     });
 
-    // Remove balas que saíram da tela de forma segura
-    bullets = bullets.filter(b => 
-        b.position.x >= 0 && b.position.x <= canvas.width &&
-        b.position.y >= 0 && b.position.y <= canvas.height
-    );
+    collisionManager.entities = [player, ...enemies, ...bullets];
+    collisionManager.update();
 
+    for (let i = bullets.length - 1; i >= 0; i--) {
+        const b = bullets[i];
+        if (!b.active ||
+            b.position.x < 0 || b.position.x > canvas.width ||
+            b.position.y < 0 || b.position.y > canvas.height) {
+            bullets.splice(i, 1);
+        }
+    }
+
+    for (let i = enemies.length - 1; i >= 0; i--) {
+        if (!enemies[i].active) enemies.splice(i, 1);
+    }
+
+    [ player, ...enemies, ...bullets ].forEach(obj => drawCollisionCircle(contex, obj));
+    
     player.draw(contex);
     requestAnimationFrame(gameLoop);
+}
+
+function drawCollisionCircle(ctx, obj) {
+  ctx.beginPath();
+  ctx.arc(obj.position.x + obj.width / 2, obj.position.y + obj.height / 2, obj.width / 2, 0, Math.PI * 2);
+  ctx.strokeStyle = "rgba(255, 0, 0, 1)";
+  ctx.stroke();
 }
 
 gameLoop();

@@ -2,8 +2,8 @@ import Bullet from "./scriptBullet.js";
 
 class RightBullet extends Bullet{
 
-    constructor(x, y, angle, speed) {
-        super(x, y, angle, speed);
+    constructor(x, y, angle, speed, owner) {
+        super(x, y, angle, speed, owner);
     }
     
     update() {

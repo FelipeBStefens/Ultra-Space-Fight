@@ -1,15 +1,15 @@
-import GameObject from "../scriptGameObject";
+import GameObject from "../scriptGameObject.js";
 
 class Spaceship extends GameObject { 
 
     constructor(canvas) {
 
-        const position = {
-            x: canvas.width / 2 - width / 2, 
-            y: canvas.height / 2 - height / 2
+        super(140, 140, 0, "spaceship");
+
+        this.position = {
+            x: canvas.width / 2 - this.width / 2, 
+            y: canvas.height / 2 - this.height / 2
         };
-        
-        super(position, 140, 140, 0, "spaceship");
     }
 
     moveLeft() {

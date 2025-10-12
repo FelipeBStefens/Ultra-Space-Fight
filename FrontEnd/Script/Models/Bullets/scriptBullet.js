@@ -3,11 +3,15 @@ import GameObject from "../scriptGameObject.js";
 
 class Bullet extends GameObject {
     
-    constructor(x, y, angle, speed) {
+    owner;
 
-        super({ x, y }, 20, 50, angle, "bullet");
+    constructor(x, y, angle, speed, owner) {
+
+        super(20, 50, angle, "bullet");
+        this.position = { x, y };
         this.speed = speed;
         this.image = this.getImage(PATH_BULLET_IMAGE);
+        this.owner = owner;
     }
 
     setLength(width, height) {

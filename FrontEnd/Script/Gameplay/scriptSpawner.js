@@ -26,6 +26,7 @@ class EnemySpawner {
         if (now - this.lastSpawnTime >= this.spawnInterval) {
             this.spawnEnemy();
             this.lastSpawnTime = now;
+            console.log("New enemy");
         }
     }
 
@@ -53,6 +54,7 @@ class EnemySpawner {
 
         // Adiciona ao array
         this.enemies.push(enemy);
+        console.log("Enemy spawned");
     }
 
     getRandomEnemyType() {

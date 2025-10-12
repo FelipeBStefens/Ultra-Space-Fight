@@ -20,9 +20,9 @@ class DestroyerShip extends Spaceship {
         const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
         const bulletSpeed = 10;
         
-        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed);
-        const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed);
-        const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed);
+        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
 
         bulletsArray.push(frontBullet, leftBullet, rightBullet);
     }

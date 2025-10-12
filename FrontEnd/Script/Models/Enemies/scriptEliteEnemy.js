@@ -77,7 +77,7 @@ class EliteEnemy extends Enemy {
                 + frontOffset * Math.sin(this.angle - Math.PI / 2)
                 + s * sideOffset * Math.sin(this.angle);
 
-            const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10);
+            const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "enemy");
             frontBullet.setLength(40, 100); 
             bulletsArray.push(frontBullet);
         }
