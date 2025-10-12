@@ -18,6 +18,9 @@ class GameObject {
         this.angle = angle;
         this.type = type;
         this.active = true;
+        this.vx = 0; // velocity x (used for repulsion impulses)
+        this.vy = 0; // velocity y
+        this.mass = 1; // default mass (can be overridden by subclasses)
     }
 
     getImage(path) {
@@ -39,28 +42,17 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
 
-                updateLife();
-                if (gameObject.type === "enemy") {
-                    this.applyPush(gameObject, 0.5);
-                }
-                else if (gameObject.type === "bullet") {
+                //updateLife();
+                if (gameObject.type === "bullet") {
                     gameObject.active = false;
                 }
-                
                 break;
 
             case "enemy":
 
                 if (gameObject.type === "bullet") {
                     this.updateLife(getDamage());
-                }
-                else if (gameObject.type === "enemy") {
-                    this.applyPush(gameObject, 0.5);
-                }
-                else if (gameObject.type === "spaceship") {
-                    this.applyPush(gameObject, 0.5);
-                }
-                
+                } 
                 break;
 
             case "bullet":
@@ -68,30 +60,6 @@ class GameObject {
                 this.active = false;
                 break;
         }
-    }
-
-    applyPush(gameObject, pushFactor = 0.5) {
-        const dx = this.position.x - gameObject.position.x;
-        const dy = this.position.y - gameObject.position.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist === 0) return; // evita divisão por zero
-
-        const rA = this.width / 2;
-        const rB = gameObject.width / 2;
-
-        const overlap = rA + rB - dist;
-
-        
-        const nx = dx / dist;
-        const ny = dy / dist;
-
-        // Aplica empurrão
-        this.position.x += nx * overlap * pushFactor;
-        this.position.y += ny * overlap * pushFactor;
-
-        gameObject.position.x -= nx * overlap * (1 - pushFactor);
-        gameObject.position.y -= ny * overlap * (1 - pushFactor);
     }
 }
 

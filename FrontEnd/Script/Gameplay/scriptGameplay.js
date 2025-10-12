@@ -65,6 +65,48 @@ const gameLoop = () => {
     collisionManager.entities = [player, ...enemies, ...bullets];
     collisionManager.update();
 
+    // Integrate repulsion velocities for player and enemies (simple impulse integration + damping)
+    const integrateEntities = [player, ...enemies];
+    integrateEntities.forEach(ent => {
+        if (ent.vx || ent.vy) {
+            // apply small movement from impulse
+            ent.position.x += ent.vx;
+            ent.position.y += ent.vy;
+
+            // damping - reduce velocity gradually (lower damping => bouncier)
+            ent.vx *= 0.75;
+            ent.vy *= 0.75;
+
+            // clamp tiny velocities to zero
+            if (Math.abs(ent.vx) < 0.01) ent.vx = 0;
+            if (Math.abs(ent.vy) < 0.01) ent.vy = 0;
+            
+            // Prevent entities (especially the player) from leaving the canvas due to impulses
+            const minX = 0;
+            const minY = 0;
+            const maxX = canvas.width - ent.width;
+            const maxY = canvas.height - ent.height;
+
+            // clamp X
+            if (ent.position.x < minX) {
+                ent.position.x = minX;
+                if (ent.vx < 0) ent.vx = 0; // stop outward velocity
+            } else if (ent.position.x > maxX) {
+                ent.position.x = maxX;
+                if (ent.vx > 0) ent.vx = 0;
+            }
+
+            // clamp Y
+            if (ent.position.y < minY) {
+                ent.position.y = minY;
+                if (ent.vy < 0) ent.vy = 0;
+            } else if (ent.position.y > maxY) {
+                ent.position.y = maxY;
+                if (ent.vy > 0) ent.vy = 0;
+            }
+        }
+    });
+
     for (let i = bullets.length - 1; i >= 0; i--) {
         const b = bullets[i];
         if (!b.active ||
