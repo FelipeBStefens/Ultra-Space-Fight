@@ -26,8 +26,8 @@ function updateCash(newCash) {
     cashContainer.textContent = cash;
 }
 
-function updateLife(newLife) {
-    life = newLife;
+export function updateLife() {
+    life--;
     lifeContainer.innerHTML = ""; 
     for (let i = 0; i < life; i++) {
         const img = document.createElement("img");

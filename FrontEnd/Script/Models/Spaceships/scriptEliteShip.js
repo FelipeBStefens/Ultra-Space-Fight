@@ -20,12 +20,12 @@ class EliteShip extends Spaceship {
         const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
         const bulletSpeed = 10;
 
-        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
-        frontBullet.setLength(40, 100);
-        const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
-        leftBullet.setLength(40, 100);
-        const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
-        rightBullet.setLength(40, 100);
+    const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+    frontBullet.setLength(40, 100);
+    const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+    leftBullet.setLength(40, 100);
+    const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+    rightBullet.setLength(40, 100);
         
         bulletsArray.push(frontBullet, leftBullet, rightBullet);
     }

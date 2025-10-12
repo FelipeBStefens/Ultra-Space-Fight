@@ -19,8 +19,8 @@ class SpeedShip extends Spaceship {
         const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
         const bulletSpeed = 10;
         
-        const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
-        const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+    const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+    const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
 
         bulletsArray.push(leftBullet, rightBullet);
     }

@@ -18,7 +18,7 @@ class StandartShip extends Spaceship {
         const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
         const bulletSpeed = 10;
         
-        const bullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+    const bullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
         bulletsArray.push(bullet);
     }
 }

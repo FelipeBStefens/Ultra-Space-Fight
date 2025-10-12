@@ -28,7 +28,7 @@ class FreighterShip extends Spaceship {
                 + frontOffset * Math.sin(this.angle - Math.PI / 2)
                 + s * sideOffset * Math.sin(this.angle);
 
-            const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "spaceship");
+        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "spaceship");
             frontBullet.setLength(40, 100); 
             bulletsArray.push(frontBullet);
         }
