@@ -3,6 +3,7 @@ import { showBossLifeBar, updateBossLifeBar, hideBossLifeBar } from "../../Gamep
 
 class Boss extends GameObject {
 
+    maxLife;
     life;
     cash;
     score;
@@ -14,6 +15,7 @@ class Boss extends GameObject {
         this.position = {x, y};
         this.name = name;
         this.life = life;
+        this.maxLife = life;
         this.cash = cash;
         this.score = score;
 

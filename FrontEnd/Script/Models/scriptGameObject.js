@@ -62,7 +62,7 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
 
-                updateLife();
+                //updateLife();
                 if (gameObject.type === "bullet") {
                     gameObject.active = false;
                 }
@@ -78,6 +78,12 @@ class GameObject {
             case "bullet":
                 
                 this.active = false;
+                break;
+            case "boss":
+
+                if (gameObject.type === "bullet") {
+                    this.updateLife(getDamage());
+                }
                 break;
         }
     }

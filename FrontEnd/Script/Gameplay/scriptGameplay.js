@@ -29,9 +29,9 @@ let enemies = [];
 let bullets = [];
 
 let collisionManager = new CollisionManager([]); 
-//let spawner = new EnemySpawner(canvas, enemies, player);
+let spawner = new EnemySpawner(canvas, enemies, player);
 
-let spaceDreadnought = new SpaceDreadnought(canvas, 10, 10, 10); 
+let spaceDreadnought = new SpaceDreadnought(canvas, 10, 10, 10, spawner); 
 
 const gameLoop = () => {
     contex.clearRect(0, 0, canvas.width, canvas.height);
@@ -68,7 +68,10 @@ const gameLoop = () => {
         e.draw(contex);
     });
 
-    collisionManager.entities = [player, ...enemies, ...bullets];
+    spaceDreadnought.draw(contex);
+    spaceDreadnought.update(player, bullets);
+
+    collisionManager.entities = [player, spaceDreadnought,  ...enemies, ...bullets];
     collisionManager.update();
 
     // Integrate repulsion velocities for player and enemies (simple impulse integration + damping)
@@ -125,9 +128,6 @@ const gameLoop = () => {
     for (let i = enemies.length - 1; i >= 0; i--) {
         if (!enemies[i].active) enemies.splice(i, 1);
     }
-
-    spaceDreadnought.draw(contex);
-    spaceDreadnought.shoot(player, bullets);
 
     [ player, ...enemies, ...bullets ].forEach(obj => drawCollisionCircle(contex, obj));
     

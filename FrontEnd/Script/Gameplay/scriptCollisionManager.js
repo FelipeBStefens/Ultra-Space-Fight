@@ -1,4 +1,7 @@
 
+// Small extra padding for boss ellipse collision axes — helps collisions at canvas edges/corners
+const BOSS_ELLIPSE_PADDING_X = 60; // increases 'a' (horizontal semi-axis)
+
 class CollisionManager {
 
     entities;
@@ -9,28 +12,43 @@ class CollisionManager {
 
     update() {
         for (let i = 0; i < this.entities.length; i++) {
-            const A = this.entities[i];
-            if (!A.active) continue;
+          const A = this.entities[i];
+          if (!A.active) continue;
 
-            for (let j = i + 1; j < this.entities.length; j++) {
+          for (let j = i + 1; j < this.entities.length; j++) {
               const B = this.entities[j];
               if (!B.active) continue;
 
-              if (this.shouldCheck(A, B) && this.isColliding(A, B)) {
-                A.onCollision(B);
-                B.onCollision(A);
+              if (!this.shouldCheck(A, B)) continue;
 
-                // Resolve physical repulsion once (avoid double-applying push from both onCollision calls)
-                if ((A.type === "spaceship" && B.type === "enemy") || (A.type === "enemy" && B.type === "spaceship")) {
-                  // spaceship <-> enemy: strong repulsion, spaceship gets more of the push (p=0.7)
-                  this.resolveRepel(A, B, 0.7, 1.0);
-                } else if (A.type === "enemy" && B.type === "enemy") {
-                  // enemy <-> enemy: weaker repulsion so they don't fly apart so much (p=0.5 symmetric)
-                  this.resolveRepel(A, B, 0.5, 0.35);
-                }
+              let colliding = false;
+
+              if (A.type === "boss" && (B.type === "spaceship" || B.type === "enemy" || (B.type === "bullet" && B.owner === "spaceship"))) {
+                  colliding = this.isCollidingEllipseCircle(A, B);
+              } else if (B.type === "boss" && (A.type === "spaceship" || A.type === "enemy" || (A.type === "bullet" && A.owner === "spaceship"))) {
+                  colliding = this.isCollidingEllipseCircle(B, A);
+              } else {
+                  // fallback para colisão circular existente
+                  colliding = this.isColliding(A, B);
               }
-            }
-        }
+
+              if (colliding) {
+                  A.onCollision(B);
+                  B.onCollision(A);
+
+                  // repulsão física normal (opcional)
+                  if (A.type === "boss") {
+                    this.resolveRepel(A, B, 0, 0.02);  
+                  }
+                  else if (B.type === "boss") {
+                    this.resolveRepel(B, A, 0, 0.02);   
+                  }
+                  else {
+                    this.resolveRepel(A, B, 0.5, 0.35);
+                  }
+              }
+          }
+      }
     }
 
   // Resolve symmetric repulsion between two overlapping circular objects.
@@ -108,6 +126,9 @@ class CollisionManager {
     const t1 = A.type;
     const t2 = B.type;
 
+    if (t1 === "boss" && (t2 === "spaceship" || t2 === "enemy" || (t2 === "bullet" && B.owner === "spaceship"))) return true;
+    if (t2 === "boss" && (t1 === "spaceship" || t1 === "enemy" || (t1 === "bullet" && A.owner === "spaceship"))) return true;
+
     // bullet (from spaceship) hits enemy
     if (t1 === "bullet" && t2 === "enemy") return A.owner === "spaceship";
     if (t2 === "bullet" && t1 === "enemy") return B.owner === "spaceship";
@@ -143,6 +164,35 @@ class CollisionManager {
     const colliding = distance < radiusA + radiusB;
     if (colliding) console.debug(`Collision detected between ${A.type} and ${B.type}`);
     return colliding;
+  }
+
+  isCollidingEllipseCircle(boss, circle) {
+    // Centro da elipse (Boss)
+    const cx = boss.position.x + boss.width / 2;
+    const cy = boss.position.y + boss.height / 2;
+
+  // Semi-eixos da elipse (with padding)
+  const a = boss.width / 2 + BOSS_ELLIPSE_PADDING_X;
+  const b = boss.height / 2;
+
+    // Centro do círculo
+    const ox = circle.position.x + circle.width / 2;
+    const oy = circle.position.y + circle.height / 2;
+
+    // Vetor do centro da elipse para o círculo
+    const dx = ox - cx;
+    const dy = oy - cy;
+
+    // Coordenadas normalizadas
+    const nx = dx / a;
+    const ny = dy / b;
+
+    // Colisão ocorre se o ponto normalizado está dentro da unidade + raio do círculo
+    // Aproximação: radius do círculo em relação ao menor eixo da elipse
+    const r = Math.max(circle.width, circle.height) / 2;
+    const radiusNormalized = r / Math.min(a, b);
+
+    return (nx * nx + ny * ny) <= (1 + radiusNormalized) ** 2;
   }
 }
 
