@@ -6,8 +6,8 @@ class FreighterShip extends Spaceship {
 
     constructor(canvas) {
         super(canvas);
-        this.speed = 5;
-        this.image = this.getImage(PATH_FREIGHTER_SHIP_IMAGE);
+    this.speed = 5;
+    this.imagePath = PATH_FREIGHTER_SHIP_IMAGE;
     }
 
     shoot(bulletsArray) {

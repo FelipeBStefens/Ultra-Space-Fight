@@ -15,7 +15,7 @@ class SoldierEnemy extends Enemy{
         this.life = 15;
         this.cash = 10;
         this.score = 20;
-        this.image = this.getImage(PATH_SOLDIER_ENEMY_IMAGE);
+    this.imagePath = PATH_SOLDIER_ENEMY_IMAGE;
     }
 
     update(player, bulletsArray, canvas) {
@@ -71,7 +71,7 @@ class SoldierEnemy extends Enemy{
         const bulletY = cy + frontOffset * Math.sin(this.angle - Math.PI / 2);
         const bulletSpeed = 10;
 
-    const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "enemy");
+        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "enemy");
         bulletsArray.push(frontBullet);
     }
 }

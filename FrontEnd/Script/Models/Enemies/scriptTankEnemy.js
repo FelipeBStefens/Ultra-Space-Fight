@@ -15,7 +15,7 @@ class TankEnemy extends Enemy{
         this.life = 70;
         this.cash = 15;
         this.score = 30;
-        this.image = this.getImage(PATH_TANK_ENEMY_IMAGE);
+    this.imagePath = PATH_TANK_ENEMY_IMAGE;
     }
 
     update(player, bulletsArray, canvas) {

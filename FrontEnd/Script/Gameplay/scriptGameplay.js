@@ -1,6 +1,9 @@
 import { getSelectedSpaceship } from "./scriptDOM.js";
 import EnemySpawner from "./scriptSpawner.js";
 import CollisionManager from "./scriptCollisionManager.js";
+import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
+import AssetLoader from "./scriptAssetLoader.js";
+import * as PATHS from "./scriptConstants.js";
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -26,13 +29,16 @@ let enemies = [];
 let bullets = [];
 
 let collisionManager = new CollisionManager([]); 
-let spawner = new EnemySpawner(canvas, enemies, player);
+//let spawner = new EnemySpawner(canvas, enemies, player);
+
+let spaceDreadnought = new SpaceDreadnought(canvas, 10, 10, 10); 
 
 const gameLoop = () => {
     contex.clearRect(0, 0, canvas.width, canvas.height);
-    
-    spawner.update();
-    
+
+    //spawner.update();
+
+
     if (keys.left && player.position.x > 0) {
         player.moveLeft();
     }
@@ -120,6 +126,9 @@ const gameLoop = () => {
         if (!enemies[i].active) enemies.splice(i, 1);
     }
 
+    spaceDreadnought.draw(contex);
+    spaceDreadnought.shoot(player, bullets);
+
     [ player, ...enemies, ...bullets ].forEach(obj => drawCollisionCircle(contex, obj));
     
     player.draw(contex);
@@ -133,7 +142,33 @@ function drawCollisionCircle(ctx, obj) {
   ctx.stroke();
 }
 
-gameLoop();
+// Build assets list from known constants and start after preload
+const assets = [
+    PATHS.PATH_STANDART_SHIP_IMAGE,
+    PATHS.PATH_SPEED_SHIP_IMAGE,
+    PATHS.PATH_DESTROYER_SHIP_IMAGE,
+    PATHS.PATH_FREIGHTER_SHIP_IMAGE,
+    PATHS.PATH_ELITE_SHIP_IMAGE,
+    PATHS.PATH_SCOUT_ENEMY_IMAGE,
+    PATHS.PATH_SOLDIER_ENEMY_IMAGE,
+    PATHS.PATH_TANK_ENEMY_IMAGE,
+    PATHS.PATH_ELITE_ENEMY_IMAGE,
+    PATHS.PATH_SPACE_DREADNOUGHT_IMAGE,
+    PATHS.PATH_BATTLE_CRUISER_IMAGE,
+    PATHS.PATH_BULLET_IMAGE
+].filter(Boolean);
+
+AssetLoader.preload(Array.from(new Set(assets)), (progress) => {
+    // optional: show loading progress if you have a UI element
+    // console.log(`Loading assets: ${(progress * 100).toFixed(0)}%`);
+}).then(() => {
+    console.log("✅ Todos os assets carregados!");
+    gameLoop();
+}).catch(err => {
+    console.error("Falha ao pré-carregar assets:", err);
+    // still start the loop to allow fallback visuals
+    gameLoop();
+});
 
 window.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase();

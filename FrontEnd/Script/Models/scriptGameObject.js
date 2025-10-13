@@ -1,4 +1,5 @@
 import {updateLife, getDamage} from "../Gameplay/scriptDOM.js";
+import AssetLoader from "../Gameplay/scriptAssetLoader.js";
 
 class GameObject {
 
@@ -8,6 +9,7 @@ class GameObject {
     angle;
     speed;
     image;
+    imagePath;
     type;
     active;
     vx;
@@ -21,6 +23,7 @@ class GameObject {
         this.angle = angle;
         this.type = type;
         this.active = true;
+        this.imagePath = null;
         this.vx = 0; // velocity x (used for repulsion impulses)
         this.vy = 0; // velocity y
         this.mass = 1; // default mass (can be overridden by subclasses)
@@ -37,7 +40,21 @@ class GameObject {
         context.save();
         context.translate(this.position.x + this.width / 2, this.position.y + this.height / 2);
         context.rotate(this.angle);
-        context.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+
+        // Lazy-resolve the image from the AssetLoader if available
+        if (!this.image && this.imagePath) {
+            const loaded = AssetLoader.get(this.imagePath);
+            if (loaded) this.image = loaded;
+        }
+
+        if (this.image && this.image.complete) {
+            context.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+        } else {
+            // Fallback visual if image isn't loaded: simple rectangle (preserves orientation)
+            context.fillStyle = "#fff";
+            context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+        }
+
         context.restore();
     }
 

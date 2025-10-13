@@ -8,8 +8,8 @@ class DestroyerShip extends Spaceship {
 
     constructor(canvas) {
         super(canvas);
-        this.speed = 5;
-        this.image = this.getImage(PATH_DESTROYER_SHIP_IMAGE);
+    this.speed = 5;
+    this.imagePath = PATH_DESTROYER_SHIP_IMAGE;
     }
 
     shoot(bulletsArray) {

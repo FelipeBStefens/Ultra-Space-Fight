@@ -11,7 +11,7 @@ class ScoutEnemy extends Enemy{
         this.life = 20;
         this.cash = 5;
         this.score = 10;
-        this.image = this.getImage(PATH_SCOUT_ENEMY_IMAGE);
+    this.imagePath = PATH_SCOUT_ENEMY_IMAGE;
     }
 
     update(player, bulletsArray, canvas) {

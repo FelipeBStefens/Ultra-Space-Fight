@@ -10,7 +10,7 @@ class Bullet extends GameObject {
         super(20, 50, angle, "bullet");
         this.position = { x, y };
         this.speed = speed;
-        this.image = this.getImage(PATH_BULLET_IMAGE);
+        this.imagePath = PATH_BULLET_IMAGE;
         this.owner = owner;
     }
 

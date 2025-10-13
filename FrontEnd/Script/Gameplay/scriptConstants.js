@@ -9,7 +9,7 @@ export const PATH_SOLDIER_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/SoldierE
 export const PATH_TANK_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/TankEnemy.png";
 export const PATH_ELITE_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/EliteEnemy.png";
 
-export const PATH_SPACE_DREADNOUGHT_IMAGE = "../../Asstes/PixelArts/Boss/SpaceDreadnought.png";
+export const PATH_SPACE_DREADNOUGHT_IMAGE = "../../Assets/PixelArts/Boss/SpaceDreadnought.png";
 export const PATH_BATTLE_CRUISER_IMAGE = "../../Assets/PixelArts/Boss/BattleCruiser.png";
 
 export const PATH_BULLET_IMAGE = "../../Assets/PixelArts/shit.png";
