@@ -13,6 +13,10 @@ const selectedSpaceship = user.selectedSpaceship;
 let score = 0;
 let cash = 0;
 let life = user.spaceshipValues.life; 
+let bossMaxLife = 0;
+let bossLifeContainer = null;
+let bossLifeFill = null;
+let bossLifeText = null;
 
 const heartImage = "../../Assets/Icons/heart.png"; 
 
@@ -153,6 +157,45 @@ export function getSelectedSpaceship(canvas) {
     else if (selectedSpaceship === "elite_ship") {
         return new EliteShip(canvas);
     }
+}
+
+export function showBossLifeBar(bossName, maxLife) {
+    // evita recriar se já existe
+    if (!bossLifeContainer) {
+        bossLifeContainer = document.createElement("div");
+        bossLifeContainer.id = "bossLifeContainer";
+
+        bossLifeFill = document.createElement("div");
+        bossLifeFill.id = "bossLifeFill";
+
+        bossLifeText = document.createElement("div");
+        bossLifeText.id = "bossLifeText";
+
+        bossLifeContainer.append(bossLifeFill, bossLifeText);
+        document.body.appendChild(bossLifeContainer);
+    }
+
+    bossMaxLife = maxLife;
+    bossLifeFill.style.width = "100%";
+    bossLifeText.textContent = `${bossName.toUpperCase()}`;
+    bossLifeContainer.style.display = "block";
+}
+
+export function updateBossLifeBar(currentLife) {
+    if (!bossLifeContainer || bossMaxLife <= 0) return;
+
+    const percent = Math.max(0, (currentLife / bossMaxLife) * 100);
+    bossLifeFill.style.width = `${percent}%`;
+
+    // Muda a cor gradualmente (verde → amarelo → vermelho)
+    const red = Math.min(255, 255 - percent * 1.5);
+    const green = Math.min(255, percent * 2.5);
+    bossLifeFill.style.backgroundColor = `rgb(${red}, ${green}, 0)`;
+}
+
+export function hideBossLifeBar() {
+    if (!bossLifeContainer) return;
+    bossLifeContainer.style.display = "none";
 }
 
 updateScore(score);

@@ -444,3 +444,38 @@ input[type="range"]::-webkit-slider-thumb:hover {
     0%, 50%, 100% { opacity: 1; }
     25%, 75% { opacity: 0.3; }
 }
+
+#bossLifeContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    height: 35px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background-color: #444; /* fundo cinza escuro */
+    overflow: hidden;
+    z-index: 100;
+    display: none; /* começa invisível */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+}
+
+#bossLifeFill {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    border-radius: 8px 0 0 8px;
+    transition: width 0.3s ease-in-out;
+}
+
+#bossLifeText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--pixel-font);
+    font-size: 22px;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    pointer-events: none;
+}

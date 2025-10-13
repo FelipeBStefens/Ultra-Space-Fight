@@ -10,7 +10,10 @@ class GameObject {
     image;
     type;
     active;
-
+    vx;
+    vy;
+    mass;
+    
     constructor(width, height, angle, type) {
 
         this.width = width;
@@ -42,7 +45,7 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
 
-                //updateLife();
+                updateLife();
                 if (gameObject.type === "bullet") {
                     gameObject.active = false;
                 }
