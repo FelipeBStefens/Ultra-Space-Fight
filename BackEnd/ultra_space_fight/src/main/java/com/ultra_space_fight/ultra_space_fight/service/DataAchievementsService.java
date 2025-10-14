@@ -11,17 +11,22 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConn
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.RankingException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.DataAchievementDAO;
+import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
 import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreCashTDO;
+import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
 
 @Service
 public class DataAchievementsService {
     
+    private final UserDAO userDAO;
     private final DataAchievementDAO dataAchievementDAO;
     
-    public DataAchievementsService(DataAchievementDAO dataAchievementDAO) {
+    public DataAchievementsService(DataAchievementDAO dataAchievementDAO, UserDAO userDAO) {
         this.dataAchievementDAO = dataAchievementDAO;
+        this.userDAO = userDAO;
     }
 
     public ArrayList<RankingScoreTDO> getRankingList() {
@@ -93,5 +98,44 @@ public class DataAchievementsService {
             throw new DatabaseConnectionException(e);
         }
         return achievementsTDO;
+    }
+
+    public ScoreTDO updateScoreCash(long id, ScoreCashTDO scoreCashTDO) {
+
+        if (id <= 0) {
+            throw new DataAchievementUnauthorizedException("ID");
+        }
+        if (scoreCashTDO == null) {
+            throw new DataAchievementUnauthorizedException("ScoreCashTDO");
+        }
+
+        ScoreTDO scoreTDO = null;
+
+        try {
+            DataAchievements dataAchievements = 
+                dataAchievementDAO.read(id);
+
+            if (dataAchievements == null) {
+                throw new DataAchievementNotFoundException();
+            }
+
+            dataAchievements.setScore(dataAchievements.getScore() + scoreCashTDO.getScore());
+            
+            dataAchievements.getUser().setCash(dataAchievements.getUser().getCash() + scoreCashTDO.getCash());
+            
+            if (scoreCashTDO.getScore() > dataAchievements.getScoreMatch()) {
+                dataAchievements.setScoreMatch(scoreCashTDO.getScore());
+            }
+            
+            userDAO.update(dataAchievements.getUser());
+            dataAchievementDAO.update(dataAchievements);
+
+            scoreTDO = new ScoreTDO(
+                dataAchievements.getScore(), dataAchievements.getScoreMatch());
+        }
+        catch (SQLException e) {
+            throw new DatabaseConnectionException(e);
+        }
+        return scoreTDO;
     }
 }

@@ -87,6 +87,7 @@ public class SpaceshipController {
     public ResponseEntity<String> updateSelectedSpaceship(@PathVariable long id, 
         @RequestBody String selectedSpaceship) {
         
+        selectedSpaceship = selectedSpaceship.replace("\"", "");
         String newSelectedSpaceship = spaceshipService.updateSelectedSpaceship(selectedSpaceship, id);
 
         return ResponseEntity.status(HttpStatus.OK).body(newSelectedSpaceship);

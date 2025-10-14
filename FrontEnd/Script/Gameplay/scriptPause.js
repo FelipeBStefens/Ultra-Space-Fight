@@ -1,10 +1,19 @@
+import { gameState } from "./scriptGameplay.js";
+
 const pauseButton = document.getElementById("pauseButton");
+
 const user = JSON.parse(localStorage.getItem("user"));
 if (!user) window.location.href = "../../enter.html";
 
-pauseButton.addEventListener("click", () => {
+if (!pauseButton) {
+    console.warn('pauseButton element not found');
+} else {
+    pauseButton.addEventListener("click", () => {
+
+    gameState.isPaused = true;
     if (document.getElementById("pauseScreen")) return;
 
+    console.log("Pause button clicked ✅");
     const pauseScreen = document.createElement("div");
     pauseScreen.id = "pauseScreen";
 
@@ -45,7 +54,7 @@ pauseButton.addEventListener("click", () => {
     const exitButton = document.createElement("button");
     exitButton.id = "exitButton";
     exitButton.className = "pauseButton";
-    exitButton.textContent = "Sair da partida";
+    exitButton.textContent = "Leave Match";
 
     const allButtons = [resumeButton, saveSoundsButton, exitButton];
     const allInputs = [soundSlider, musicSlider];
@@ -77,7 +86,10 @@ pauseButton.addEventListener("click", () => {
     // EVENT LISTENERS
     resumeButton.addEventListener("click", () => {
         setDisabledAll(true, resumeButton);
-        setTimeout(() => pauseScreen.remove(), 150);
+        setTimeout(() => {
+            pauseScreen.remove();
+            gameState.isPaused = false;
+        }, 150);
     });
 
     saveSoundsButton.addEventListener("click", async () => {
@@ -118,8 +130,9 @@ pauseButton.addEventListener("click", () => {
         });
     });
 
-    // Append elementos
-    pauseContent.append(pauseTitle, resumeButton, soundSlider, musicSlider, saveSoundsButton, exitButton);
-    pauseScreen.appendChild(pauseContent);
-    document.body.appendChild(pauseScreen);
-});
+        // Append elementos
+        pauseContent.append(pauseTitle, resumeButton, soundSlider, musicSlider, saveSoundsButton, exitButton);
+        pauseScreen.appendChild(pauseContent);
+        document.body.appendChild(pauseScreen);
+    });
+}
