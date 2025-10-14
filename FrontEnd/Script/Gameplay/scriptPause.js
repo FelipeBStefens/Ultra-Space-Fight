@@ -54,7 +54,7 @@ if (!pauseButton) {
     const exitButton = document.createElement("button");
     exitButton.id = "exitButton";
     exitButton.className = "pauseButton";
-    exitButton.textContent = "Sair da partida";
+    exitButton.textContent = "Leave Match";
 
     const allButtons = [resumeButton, saveSoundsButton, exitButton];
     const allInputs = [soundSlider, musicSlider];

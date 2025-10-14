@@ -19,7 +19,8 @@ class Boss extends GameObject {
         this.cash = cash;
         this.score = score;
 
-        showBossLifeBar(this.name, this.life);
+        // Boss UI (life bar) will be shown by the gameplay/stage manager when
+        // the boss fight actually starts to avoid lifecycle and ordering issues.
     }
 
     updateLife(damage) {

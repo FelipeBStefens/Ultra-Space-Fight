@@ -7,6 +7,8 @@ import InputManager from "./scriptInputManager.js";
 import gameOver from "./scriptGameOver.js";
 import { values } from "./scriptDOM.js";
 import BattleCruiser from "../Models/Bosses/scriptBattleCruiser.js"; 
+import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
+import { showBossLifeBar, hideBossLifeBar } from "./scriptDOM.js";
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -21,10 +23,22 @@ const player = getSelectedSpaceship(canvas);
 let input = new InputManager();
 let enemies = [];
 let bullets = [];
-let battleCruiser = new BattleCruiser(20, 20, 20, canvas); 
+
+let isBossFight = false; // false = inimigos normais, true = boss
+let currentBoss = null;
+let bosses = [];
+let bossIndex = 0;
+let enemiesDefeated = 0;
+const enemiesToDefeatBeforeBoss = 20;
 
 let collisionManager = new CollisionManager([]); 
-//let spawner = new EnemySpawner(canvas, enemies, player);
+let spawner = new EnemySpawner(canvas, enemies, player);
+
+// create bosses after spawner exists so we can pass it to boss constructors that need it
+bosses = [
+    new BattleCruiser(20, 20, 20, canvas), // Boss 1
+    new SpaceDreadnought(canvas, 30, 30, 30, spawner)  // Boss 2 (needs spawner)
+];
 
 // Auto-fire control
 let autoFireState = {
@@ -85,9 +99,37 @@ const gameLoop = () => {
             autoFireState.nextAutoShot = 0;
         }
 
-        //spawner.update();
-        battleCruiser.update(player, bullets, canvas);
-        battleCruiser.draw(contex);
+        if (isBossFight) {
+
+            if (currentBoss) {
+                currentBoss.update(player, bullets, canvas);
+                currentBoss.draw(contex);
+
+                if (!currentBoss.active) {
+                    isBossFight = false;
+                    bossIndex = (bossIndex + 1) % bosses.length;
+                    // hide boss life bar when fight ends
+                    hideBossLifeBar();
+                    currentBoss = null;
+                    enemiesDefeated = 0;
+                }
+            }
+        } 
+        else {
+
+            spawner.update();
+
+            if (enemiesDefeated >= enemiesToDefeatBeforeBoss) {
+                isBossFight = true;
+                currentBoss = bosses[bossIndex];
+                // show boss life bar for this boss
+                try {
+                    showBossLifeBar(currentBoss.name, currentBoss.maxLife);
+                } catch (e) {
+                    console.warn('Failed to show boss life bar', e);
+                }
+            }
+        }
 
         bullets.forEach(b => {
             b.update();
@@ -99,7 +141,9 @@ const gameLoop = () => {
             e.draw(contex);
         });
 
-        collisionManager.entities = [player, ...enemies, ...bullets];
+        collisionManager.entities = [player, ...enemies];
+        if (currentBoss) collisionManager.entities.push(currentBoss);
+        collisionManager.entities.push(...bullets);
         collisionManager.update();
 
         // Integrate repulsion velocities for player and enemies (simple impulse integration + damping)
@@ -154,7 +198,11 @@ const gameLoop = () => {
         }
 
         for (let i = enemies.length - 1; i >= 0; i--) {
-            if (!enemies[i].active) enemies.splice(i, 1);
+            if (!enemies[i].active) {
+                enemies.splice(i, 1);
+                enemiesDefeated++;
+                console.log("Enemy defeated");
+            }
         }
 
         player.draw(contex);
