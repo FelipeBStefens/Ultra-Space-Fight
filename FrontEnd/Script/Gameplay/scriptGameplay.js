@@ -4,7 +4,8 @@ import CollisionManager from "./scriptCollisionManager.js";
 import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
 import AssetLoader from "./scriptAssetLoader.js";
 import * as PATHS from "./scriptConstants.js";
-
+import InputManager from "./scriptInputManager.js";
+ 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
 
@@ -15,16 +16,7 @@ contex.imageSmoothingEnabled = false;
 
 const player = getSelectedSpaceship(canvas);
 
-const keys = {
-    left: false,
-    right: false,
-    up: false,
-    down: false,
-    rotateLeft: false,
-    rotateRight: false,
-    space: false
-};
-
+let input = new InputManager();
 let enemies = [];
 let bullets = [];
 
@@ -32,30 +24,57 @@ let collisionManager = new CollisionManager([]);
 let spawner = new EnemySpawner(canvas, enemies, player);
 
 let spaceDreadnought = new SpaceDreadnought(canvas, 10, 10, 10, spawner); 
+// Auto-fire control
+let autoFireState = {
+    holding: false,
+    holdStart: 0,
+    lastShot: 0,
+    holdDelay: 300, // ms before continuous fire begins
+    autoFireInterval: 120 // ms between shots when holding
+};
 
 const gameLoop = () => {
     contex.clearRect(0, 0, canvas.width, canvas.height);
 
-    //spawner.update();
+    input.update();
 
+    if (input.keys.left && player.position.x > 0) player.moveLeft();
+    if (input.keys.right && player.position.x < canvas.width - player.width) player.moveRight();
+    if (input.keys.up && player.position.y > 0) player.moveUp();
+    if (input.keys.down && player.position.y < canvas.height - player.height) player.moveDown();
 
-    if (keys.left && player.position.x > 0) {
-        player.moveLeft();
+    // --- Rotação (por botões Q/E ou LB/RB) ---
+    if (input.keys.rotateLeft) player.rotateLeft();
+    if (input.keys.rotateRight) player.rotateRight();
+
+    // --- Tiro (Espaço ou ZR/R2/RT): single on press, continuous when held ---
+    const now = Date.now();
+    if (input.keys.spacePressed) {
+        // immediate single shot on press
+        player.shoot(bullets);
+        autoFireState.holding = true;
+        autoFireState.holdStart = now;
+        autoFireState.lastShot = now;
     }
-    if (keys.right && player.position.x < canvas.width - player.width) {
-        player.moveRight();
-    }
-    if (keys.up && player.position.y > 0) {
-        player.moveUp();
-    }
-    if (keys.down && player.position.y < canvas.height - player.height) {
-        player.moveDown();
-    }
-    if (keys.rotateLeft) {
-        player.rotateLeft();
-    }
-    if (keys.rotateRight) {
-        player.rotateRight();
+
+    if (input.keys.space) {
+        // if still holding and hold delay passed, fire at interval
+        if (autoFireState.holding) {
+            if (now - autoFireState.holdStart >= autoFireState.holdDelay) {
+                if (now - autoFireState.lastShot >= autoFireState.autoFireInterval) {
+                    player.shoot(bullets);
+                    autoFireState.lastShot = now;
+                }
+            }
+        } else {
+            // if space becomes held without edge (rare), initialize holding state
+            autoFireState.holding = true;
+            autoFireState.holdStart = now;
+            autoFireState.lastShot = now;
+        }
+    } else {
+        // released
+        autoFireState.holding = false;
     }
 
     bullets.forEach(b => {
@@ -129,17 +148,8 @@ const gameLoop = () => {
         if (!enemies[i].active) enemies.splice(i, 1);
     }
 
-    [ player, ...enemies, ...bullets ].forEach(obj => drawCollisionCircle(contex, obj));
-    
     player.draw(contex);
     requestAnimationFrame(gameLoop);
-}
-
-function drawCollisionCircle(ctx, obj) {
-  ctx.beginPath();
-  ctx.arc(obj.position.x + obj.width / 2, obj.position.y + obj.height / 2, obj.width / 2, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(255, 0, 0, 1)";
-  ctx.stroke();
 }
 
 // Build assets list from known constants and start after preload
@@ -168,57 +178,4 @@ AssetLoader.preload(Array.from(new Set(assets)), (progress) => {
     console.error("Falha ao pré-carregar assets:", err);
     // still start the loop to allow fallback visuals
     gameLoop();
-});
-
-window.addEventListener("keydown", (event) => {
-    const key = event.key.toLowerCase();
-    
-    if (key === "w") {
-        keys.up = true;
-    }
-    if (key === "s") {
-        keys.down = true;
-    }
-    if (key === "a") {
-        keys.left = true;
-    }
-    if (key === "d") { 
-        keys.right = true;
-    }
-    if (key === "q") {
-        keys.rotateLeft = true;
-    }
-    if (key === "e") {
-        keys.rotateRight = true;
-    }
-    if (key === " ") {
-        keys.space = true;
-        player.shoot(bullets);
-    }
-});
-
-window.addEventListener("keyup", (event) => {
-    const key = event.key.toLowerCase();
-    
-    if (key === "w") {
-        keys.up = false;
-    }
-    if (key === "s") {
-        keys.down = false;
-    }
-    if (key === "a") {
-        keys.left = false;
-    }
-    if (key === "d") { 
-        keys.right = false;
-    }
-    if (key === "q") {
-        keys.rotateLeft = false;
-    }
-    if (key === "e") {
-        keys.rotateRight = false;
-    }
-    if (key === " ") {
-        keys.space = false;
-    }
 });
