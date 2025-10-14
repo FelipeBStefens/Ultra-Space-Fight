@@ -3,6 +3,8 @@
 export default function gameOver(user, values) {
     if (document.getElementById("pauseScreen")) return;
 
+    console.log(values);
+    
     const gameOverScreen = document.createElement("div");
     gameOverScreen.id = "pauseScreen";
 

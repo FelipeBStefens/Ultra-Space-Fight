@@ -18,6 +18,8 @@ class InputManager {
         this.prevShootPressed = false;
         // track keyboard-held space separately so gamepad doesn't latch the held state
         this._keyboardSpaceHeld = false;
+    // temporary marker set on keydown and consumed on update()
+    this._keySpacePressed = false;
 
         // Teclado
         window.addEventListener("keydown", (e) => this._onKeyDown(e));
@@ -71,58 +73,68 @@ class InputManager {
     }
 
     update() {
-        if (this.gamepadIndex === null) return;
+        // Always process keyboard-based pressed/held flags so keyboard shooting works
+        // even when no gamepad is connected.
 
-        const gp = navigator.getGamepads()[this.gamepadIndex];
-        if (!gp) return;
+        let shootPressed = false;
+        let spacePressedFromGamepad = false;
+        let gp = null;
+        const deadZone = 0.2;
 
-        // --- Botões principais
-        const b = gp.buttons;
+        if (this.gamepadIndex !== null) {
+            gp = navigator.getGamepads()[this.gamepadIndex];
+            if (gp) {
+                // --- Botões principais
+                const b = gp.buttons;
 
-        // Gatilho ZR / RT / R2 = índice 7
-        const triggerPressed = b[7] && (b[7].pressed || b[7].value > 0.5);
+                // Gatilho ZR / RT / R2 = índice 7
+                const triggerPressed = b[7] && (b[7].pressed || b[7].value > 0.5);
 
-        // Botão A / X / B (índice 0) também atira
-        const faceButtonPressed = b[0]?.pressed || false;
+                // Botão A / X / B (índice 0) também atira
+                const faceButtonPressed = b[0]?.pressed || false;
 
-        // Ação de tiro
-        // --- Ação de tiro com detecção de "apertou agora" ---
-        const shootPressed = triggerPressed || faceButtonPressed;
+                shootPressed = triggerPressed || faceButtonPressed;
 
-        // Dispara apenas no momento em que o botão é pressionado
-        // Set edge-trigger for gamepad
-        const spacePressedFromGamepad = (shootPressed && !this.prevShootPressed);
-        this.prevShootPressed = shootPressed;
+                // Set edge-trigger for gamepad
+                spacePressedFromGamepad = (shootPressed && !this.prevShootPressed);
+                this.prevShootPressed = shootPressed;
 
-    // Combine keyboard and gamepad pressed events into a single keys.spacePressed that is true
-    // only on the first frame the input is detected.
-    this.keys.spacePressed = !!(this._keySpacePressed || spacePressedFromGamepad);
+                // Rotação: buttons OR right-stick horizontal axis (allow rotation while moving with left stick)
+                const axisRX = gp.axes[2] || 0; // right stick X
+                const rotateLeftFromAxis = axisRX < -deadZone;
+                const rotateRightFromAxis = axisRX > deadZone;
 
-    // After exposing the pressed-once flag, clear the temporary keyboard marker so it is
-    // only seen for a single update cycle.
-    this._keySpacePressed = false;
+                this.keys.rotateLeft = (b[4]?.pressed || false) || rotateLeftFromAxis;
+                this.keys.rotateRight = (b[5]?.pressed || false) || rotateRightFromAxis;
 
-    // Held state: true if keyboard is holding space OR gamepad trigger/button is held
-    const keyboardHeld = !!this._keyboardSpaceHeld;
-    this.keys.space = keyboardHeld || shootPressed;
+                // --- Joystick esquerdo (movimento)
+                const axisX = gp.axes[0] || 0;
+                const axisY = gp.axes[1] || 0;
 
-    // Rotação: buttons OR right-stick horizontal axis (allow rotation while moving with left stick)
-    const axisRX = gp.axes[2] || 0; // right stick X
-    const deadZone = 0.2;
-    const rotateLeftFromAxis = axisRX < -deadZone;
-    const rotateRightFromAxis = axisRX > deadZone;
+                this.keys.left = axisX < -deadZone || b[14]?.pressed;
+                this.keys.right = axisX > deadZone || b[15]?.pressed;
+                this.keys.up = axisY < -deadZone || b[12]?.pressed;
+                this.keys.down = axisY > deadZone || b[13]?.pressed;
+            } else {
+                // no gamepad object available this frame
+                this.prevShootPressed = false;
+            }
+        } else {
+            // no gamepad connected: ensure prevShootPressed reset so edge-detection will work
+            this.prevShootPressed = false;
+        }
 
-    this.keys.rotateLeft = (b[4]?.pressed || false) || rotateLeftFromAxis;
-    this.keys.rotateRight = (b[5]?.pressed || false) || rotateRightFromAxis; // RB / R1 / ZR (short)
+        // Combine keyboard and gamepad pressed events into a single keys.spacePressed that is true
+        // only on the first frame the input is detected.
+        this.keys.spacePressed = !!(this._keySpacePressed || spacePressedFromGamepad);
 
-        // --- Joystick esquerdo (movimento)
-    const axisX = gp.axes[0] || 0;
-    const axisY = gp.axes[1] || 0;
+        // After exposing the pressed-once flag, clear the temporary keyboard marker so it is
+        // only seen for a single update cycle.
+        this._keySpacePressed = false;
 
-    this.keys.left = axisX < -deadZone || b[14]?.pressed;
-    this.keys.right = axisX > deadZone || b[15]?.pressed;
-    this.keys.up = axisY < -deadZone || b[12]?.pressed;
-    this.keys.down = axisY > deadZone || b[13]?.pressed;
+        // Held state: true if keyboard is holding space OR gamepad trigger/button is held
+        const keyboardHeld = !!this._keyboardSpaceHeld;
+        this.keys.space = keyboardHeld || shootPressed;
     }
 }
 

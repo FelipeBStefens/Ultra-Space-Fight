@@ -26,13 +26,13 @@ export let values = {
 }
 
 export function updateScore(newScore) {
-    score += newScore;
-    scoreContainer.textContent = `Score Match : ${score}`;
+    values.score += newScore;
+    scoreContainer.textContent = `Score Match : ${values.score}`;
 }
 
 export function updateCash(newCash) {
-    cash += newCash;
-    cashContainer.textContent = cash;
+    values.cash += newCash;
+    cashContainer.textContent = values.cash;
 }
 
 function renderLife() {

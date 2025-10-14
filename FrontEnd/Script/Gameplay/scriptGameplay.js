@@ -1,7 +1,6 @@
 import { getSelectedSpaceship } from "./scriptDOM.js";
 import EnemySpawner from "./scriptSpawner.js";
 import CollisionManager from "./scriptCollisionManager.js";
-import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
 import AssetLoader from "./scriptAssetLoader.js";
 import * as PATHS from "./scriptConstants.js";
 import InputManager from "./scriptInputManager.js";
@@ -25,7 +24,6 @@ let bullets = [];
 let collisionManager = new CollisionManager([]); 
 let spawner = new EnemySpawner(canvas, enemies, player);
 
-let spaceDreadnought = new SpaceDreadnought(canvas, 10, 10, 10, spawner); 
 // Auto-fire control
 let autoFireState = {
     holding: false,
@@ -86,6 +84,8 @@ const gameLoop = () => {
             autoFireState.holding = false;
         }
 
+        spawner.update();
+        
         bullets.forEach(b => {
             b.update();
             b.draw(contex);
@@ -96,10 +96,7 @@ const gameLoop = () => {
             e.draw(contex);
         });
 
-        spaceDreadnought.draw(contex);
-        spaceDreadnought.update(player, bullets);
-
-        collisionManager.entities = [player, spaceDreadnought,  ...enemies, ...bullets];
+        collisionManager.entities = [player, ...enemies, ...bullets];
         collisionManager.update();
 
         // Integrate repulsion velocities for player and enemies (simple impulse integration + damping)
