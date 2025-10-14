@@ -40,9 +40,12 @@ class InputManager {
             case "q": this.keys.rotateLeft = true; break;
             case "e": this.keys.rotateRight = true; break;
             case " ": 
-                // mark keyboard-held and mark as a pressed-once event
+                // mark keyboard-held; only set the "pressed once" marker when
+                // the key transitions from not-held to held to avoid browser key-repeat
+                if (!this._keyboardSpaceHeld) {
+                    this._keySpacePressed = true; // temporary marker consumed in update()
+                }
                 this._keyboardSpaceHeld = true;
-                this._keySpacePressed = true; // temporary marker consumed in update()
                 break;
         }
     }

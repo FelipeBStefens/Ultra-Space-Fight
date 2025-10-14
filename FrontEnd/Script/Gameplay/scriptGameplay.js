@@ -6,7 +6,8 @@ import * as PATHS from "./scriptConstants.js";
 import InputManager from "./scriptInputManager.js";
 import gameOver from "./scriptGameOver.js";
 import { values } from "./scriptDOM.js";
- 
+import BattleCruiser from "../Models/Bosses/scriptBattleCruiser.js"; 
+
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
 
@@ -20,9 +21,10 @@ const player = getSelectedSpaceship(canvas);
 let input = new InputManager();
 let enemies = [];
 let bullets = [];
+let battleCruiser = new BattleCruiser(20, 20, 20, canvas); 
 
 let collisionManager = new CollisionManager([]); 
-let spawner = new EnemySpawner(canvas, enemies, player);
+//let spawner = new EnemySpawner(canvas, enemies, player);
 
 // Auto-fire control
 let autoFireState = {
@@ -30,7 +32,8 @@ let autoFireState = {
     holdStart: 0,
     lastShot: 0,
     holdDelay: 300, // ms before continuous fire begins
-    autoFireInterval: 120 // ms between shots when holding
+    autoFireInterval: 240, // ms between shots when holding
+    nextAutoShot: 0 // timestamp for next auto shot
 };
 
 export const gameState = {
@@ -60,32 +63,32 @@ const gameLoop = () => {
             // immediate single shot on press
             player.shoot(bullets);
             autoFireState.holding = true;
-            autoFireState.holdStart = now;
-            autoFireState.lastShot = now;
+            // schedule first auto-shot after holdDelay
+            autoFireState.nextAutoShot = now + autoFireState.holdDelay;
         }
 
         if (input.keys.space) {
-            // if still holding and hold delay passed, fire at interval
-            if (autoFireState.holding) {
-                if (now - autoFireState.holdStart >= autoFireState.holdDelay) {
-                    if (now - autoFireState.lastShot >= autoFireState.autoFireInterval) {
-                        player.shoot(bullets);
-                        autoFireState.lastShot = now;
-                    }
+            if (autoFireState.holding && autoFireState.nextAutoShot) {
+                // when time reaches nextAutoShot, fire and schedule next
+                if (now >= autoFireState.nextAutoShot) {
+                    player.shoot(bullets);
+                    autoFireState.nextAutoShot = now + autoFireState.autoFireInterval;
                 }
-            } else {
-                // if space becomes held without edge (rare), initialize holding state
+            } else if (!autoFireState.holding) {
+                // space is held but we didn't see an edge; initialize schedule
                 autoFireState.holding = true;
-                autoFireState.holdStart = now;
-                autoFireState.lastShot = now;
+                autoFireState.nextAutoShot = now + autoFireState.holdDelay;
             }
         } else {
             // released
             autoFireState.holding = false;
+            autoFireState.nextAutoShot = 0;
         }
 
-        spawner.update();
-        
+        //spawner.update();
+        battleCruiser.update(player, bullets, canvas);
+        battleCruiser.draw(contex);
+
         bullets.forEach(b => {
             b.update();
             b.draw(contex);

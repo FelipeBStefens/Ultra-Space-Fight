@@ -55,6 +55,17 @@ class GameObject {
             context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
         }
 
+        context.beginPath();
+        context.ellipse(0, 0, this.width / 2, this.height / 2, 0, 0, 2 * Math.PI);
+        context.strokeStyle = "rgba(0,255,0,0.3)";
+        context.stroke();
+
+        context.beginPath();
+        context.moveTo(0, 0);
+        context.lineTo(0, -this.height / 2);
+        context.strokeStyle = "red";
+        context.stroke();
+
         context.restore();
     }
 
@@ -62,7 +73,8 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
                 // Decrement life; takeLife returns true if life reached zero
-                const died = takeLife();
+                //const died = takeLife();
+                const died = false;
                 if (died) {
                     // Notify the app that the player died; listener (gameplay) will show game over UI
                     try {
