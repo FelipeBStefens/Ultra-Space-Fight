@@ -1,4 +1,4 @@
-import {updateLife, getDamage} from "../Gameplay/scriptDOM.js";
+import { takeLife, getDamage } from "../Gameplay/scriptDOM.js";
 import AssetLoader from "../Gameplay/scriptAssetLoader.js";
 
 class GameObject {
@@ -61,8 +61,16 @@ class GameObject {
     onCollision(gameObject) {
         switch (this.type) {
             case "spaceship":
-
-                //updateLife();
+                // Decrement life; takeLife returns true if life reached zero
+                const died = takeLife();
+                if (died) {
+                    // Notify the app that the player died; listener (gameplay) will show game over UI
+                    try {
+                        window.dispatchEvent(new CustomEvent('playerGameOver'));
+                    } catch (e) {
+                        // ignore if dispatch not supported
+                    }
+                }
                 if (gameObject.type === "bullet") {
                     gameObject.active = false;
                 }
