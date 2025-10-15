@@ -1,7 +1,6 @@
-// Declaring the package of the DestroyerShipDAO class;
 package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
 
-// Imports necessary classes to aply the Data Access Object;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,270 +8,103 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.DestroyerShip;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
-import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
-// Declaring the DestroyerShipDAO Class implementing the CrudInterface;
-// the generic value is DestroyerShip; 
 @Repository
 public class DestroyerShipDAO implements CrudInterface<DestroyerShip> {
-    
-    // MySQL Connection variable, final because doesn't change;
-    private final MysqlConnection MY_SQL_CONNECTION;
 
-    // Constructor of the class when there is already a Connection;
-    public DestroyerShipDAO(MysqlConnection MY_SQL_CONNECTION) {
-        this.MY_SQL_CONNECTION = MY_SQL_CONNECTION;
+    private final DataSource dataSource;
+
+    public DestroyerShipDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    // SQL code insert a value;
-    private final String SQL_CREATE = """
-        INSERT INTO destroyer_ship (id_ship, id_user, life, speed, damage)
-        VALUES (NULL, ?, ?, ?, ?);
-        """; 
-    
-    // SQL code delete a value;
-    private final String SQL_DELETE = """
-        DELETE FROM destroyer_ship WHERE id_user = ?;    
-        """;
+    private static final String SQL_CREATE = "INSERT INTO destroyer_ship (id_ship, id_user, life, speed, damage) VALUES (NULL, ?, ?, ?, ?)";
+    private static final String SQL_DELETE = "DELETE FROM destroyer_ship WHERE id_user = ?";
+    private static final String SQL_UPDATE = "UPDATE destroyer_ship SET life = ?, speed = ?, damage = ? WHERE id_user = ?";
+    private static final String SQL_READ = "SELECT * FROM (users u INNER JOIN destroyer_ship d USING(id_user)) WHERE id_user = ?";
+    private static final String SQL_READ_ALL = "SELECT * FROM (users u INNER JOIN destroyer_ship d USING(id_user))";
 
-    // SQL code update a value;
-    private final String SQL_UPDATE = """
-        UPDATE destroyer_ship
-        SET life = ?, speed = ?, damage = ?
-        WHERE id_user = ?;    
-        """;
-
-    // SQL code read a value;
-    private final String SQL_READ = """
-        SELECT * 
-        FROM (users u INNER JOIN destroyer_ship d USING(id_user))
-        WHERE id_user = ?;    
-        """;
-
-    // SQL code read all values;
-    private final String SQL_READ_ALL = """
-        SELECT * 
-        FROM (users u INNER JOIN destroyer_ship d USING(id_user));    
-        """;
-
-    // Method that create a new DestroyerShip in the database;
     @Override
     public void create(DestroyerShip destroyerShip) throws SQLException {
-        
-        // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
+            ps.setLong(1, destroyerShip.getUser().getIdUser());
+            ps.setInt(2, destroyerShip.getLife());
+            ps.setInt(3, destroyerShip.getSpeed());
+            ps.setInt(4, destroyerShip.getDamage());
 
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, destroyerShip.getUser().getIdUser());
-            preparedStatement.setInt(2, destroyerShip.getLife());
-            preparedStatement.setInt(3, destroyerShip.getSpeed());
-            preparedStatement.setInt(4, destroyerShip.getDamage());
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                destroyerShip.setIdShip(resultSet.getLong(1));
+            ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) destroyerShip.setIdShip(rs.getLong(1));
             }
         }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
     }
 
-    // Method that delete a DestroyerShip in the database by id;
     @Override
     public void delete(long id) throws SQLException {
-       
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
+            ps.setLong(1, id);
+            ps.executeUpdate();
         }
     }
 
-    // Method that update a DestroyerShip in the database;
     @Override
     public void update(DestroyerShip destroyerShip) throws SQLException {
-        
-        // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
+            ps.setInt(1, destroyerShip.getLife());
+            ps.setInt(2, destroyerShip.getSpeed());
+            ps.setInt(3, destroyerShip.getDamage());
+            ps.setLong(4, destroyerShip.getUser().getIdUser());
 
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_UPDATE);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setInt(1, destroyerShip.getLife());
-            preparedStatement.setInt(2, destroyerShip.getSpeed());
-            preparedStatement.setInt(3, destroyerShip.getDamage());
-            preparedStatement.setLong(4, destroyerShip.getUser().getIdUser());
-
-            // Executing the Statement;
-            preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
+            ps.executeUpdate();
         }
     }
 
     @Override
     public DestroyerShip read(long id) throws SQLException {
-
-        // Declaring a new DestroyerShip;
         DestroyerShip destroyerShip = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQL_READ)) {
 
-        // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_READ);
-            
-            // Setting the values of the Statement;
-            preparedStatement.setLong(1, id);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
-            if (resultSet.next()) {
-                
-                // Creating a new user;
-                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
-                // Setting the id of that user;
-                user.setIdUser(id);
-
-                // Creating a new destroyrShip;
-                destroyerShip = new DestroyerShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
-                
-                // Setting the id of that destroyerShip;
-                destroyerShip.setIdShip(resultSet.getLong("id_ship"));
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User(rs.getString("name_user"), rs.getString("email"), rs.getString("password_user"), rs.getInt("cash"), rs.getString("selected_spaceship"));
+                    user.setIdUser(rs.getLong("id_user"));
+                    destroyerShip = new DestroyerShip(rs.getInt("life"), rs.getInt("speed"), rs.getInt("damage"), user);
+                    destroyerShip.setIdShip(rs.getLong("id_ship"));
+                }
             }
         }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
-
-        // Returning the DestroyerShip;
         return destroyerShip;
     }
 
-    // Method that read all DestroyerShip in the database;
     @Override
     public List<DestroyerShip> readAll() throws SQLException {
-        
-        // Declaring a new list;
-        ArrayList<DestroyerShip> allDestroyerShip = new ArrayList<>();
-        
-        // Try-Catch to handle Execptions;
-        try {
+        List<DestroyerShip> all = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL);
+             ResultSet rs = ps.executeQuery()) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_READ_ALL);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
-            while (resultSet.next()) {
-                
-                // Creating a new user;
-                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
-                // Setting the id of that user;
-                user.setIdUser(resultSet.getLong("id_user"));
-
-                // Creating a new destroyerShip;
-                DestroyerShip destroyerShip = new DestroyerShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
-                
-                // Setting the id of that destroyerShip;
-                destroyerShip.setIdShip(resultSet.getLong("id_ship"));
-                
-                // Adding the destroyerShip in the list;
-                allDestroyerShip.add(destroyerShip);
+            while (rs.next()) {
+                User user = new User(rs.getString("name_user"), rs.getString("email"), rs.getString("password_user"), rs.getInt("cash"), rs.getString("selected_spaceship"));
+                user.setIdUser(rs.getLong("id_user"));
+                DestroyerShip ds = new DestroyerShip(rs.getInt("life"), rs.getInt("speed"), rs.getInt("damage"), user);
+                ds.setIdShip(rs.getLong("id_ship"));
+                all.add(ds);
             }
         }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
-
-        // Returning the list;
-        return allDestroyerShip;
+        return all;
     }
 }

@@ -36,8 +36,8 @@ let spawner = new EnemySpawner(canvas, enemies, player);
 
 // create bosses after spawner exists so we can pass it to boss constructors that need it
 bosses = [
-    new BattleCruiser(20, 20, 20, canvas), // Boss 1
-    new SpaceDreadnought(canvas, 30, 30, 30, spawner)  // Boss 2 (needs spawner)
+    new BattleCruiser(200, 20, 20, canvas), // Boss 1
+    new SpaceDreadnought(canvas, 300, 30, 30, spawner)  // Boss 2 (needs spawner)
 ];
 
 // Auto-fire control

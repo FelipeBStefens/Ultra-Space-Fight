@@ -73,8 +73,7 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
                 // Decrement life; takeLife returns true if life reached zero
-                //const died = takeLife();
-                const died = false;
+                const died = takeLife();
                 if (died) {
                     // Notify the app that the player died; listener (gameplay) will show game over UI
                     try {

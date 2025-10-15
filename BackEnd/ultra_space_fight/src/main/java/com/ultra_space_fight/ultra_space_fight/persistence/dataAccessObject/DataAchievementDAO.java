@@ -2,6 +2,7 @@
 package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
 
 // Imports necessary classes to aply the Data Access Object;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,24 +10,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
-import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
 // Declaring the DataAchievementsDAO Class implementing the CrudInterface;
 // the generic value is DataAchievements;
 @Repository
 public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
-    // MySQL Connection variable, final because doesn't change;
-    private final MysqlConnection MY_SQL_CONNECTION;
+    private final DataSource dataSource;
 
-    // Constructor of the class when there is already a Connection;
-    public DataAchievementDAO(MysqlConnection MY_SQL_CONNECTION) {
-        this.MY_SQL_CONNECTION = MY_SQL_CONNECTION;
+    public DataAchievementDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     // SQL code insert a value;
@@ -81,16 +81,9 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     public void create(DataAchievements dataAchievements) throws SQLException{
         
         // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
-            
-            // Setting the values of the Statement;
             preparedStatement.setLong(1, dataAchievements.getUser().getIdUser());
             preparedStatement.setInt(2, dataAchievements.getScore());
             preparedStatement.setInt(3, dataAchievements.getScoreMatch());
@@ -98,23 +91,15 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
             preparedStatement.setInt(5, dataAchievements.getDefeatedElite());
             preparedStatement.setInt(6, dataAchievements.getDefeatedBoss());
 
-            // Executing the Statement;
             preparedStatement.executeUpdate();
 
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                dataAchievements.setIdDataAchievements(resultSet.getLong(1));
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    dataAchievements.setIdDataAchievements(resultSet.getLong(1));
+                }
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
+        } catch (SQLException e) {
             throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
     }
 
@@ -123,30 +108,13 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     public void delete(long id) throws SQLException {
        
         // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE);
-            
-            // Setting the values of the Statement;
             preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
+        } catch (SQLException e) {
             throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
     }
 
@@ -155,16 +123,9 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     public void update(DataAchievements DataAchievements) throws SQLException {
         
         // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_UPDATE);
-            
-            // Setting the values of the Statement;
             preparedStatement.setInt(1, DataAchievements.getScore());
             preparedStatement.setInt(2, DataAchievements.getScoreMatch());
             preparedStatement.setInt(3, DataAchievements.getDefeatedEnemies());
@@ -172,18 +133,9 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
             preparedStatement.setInt(5, DataAchievements.getDefeatedBoss());
             preparedStatement.setLong(6, DataAchievements.getUser().getIdUser());
 
-            // Executing the Statement;
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
+        } catch (SQLException e) {
             throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
     }
 
@@ -195,48 +147,24 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         DataAchievements dataAchievements = null;
 
         // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_READ);
-            
-            // Setting the values of the Statement;
             preparedStatement.setLong(1, id);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Seeing all the possibilities;
-            if (resultSet.next()) {
-                
-                // Creating a new user;
-                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
-                // Setting the id of that user;
-                user.setIdUser(id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = new User(resultSet.getString("name_user"), resultSet.getString("email"),
+                            resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                    user.setIdUser(id);
 
-                // Creating a new dataAchievement;
-                dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
-                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
-                
-                // Setting the id of that dataAchievement;
-                dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
+                    dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
+                            resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
+                    dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
+                }
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
+        } catch (SQLException e) {
             throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
 
         // Returning the DataAchievement;
@@ -251,48 +179,23 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         ArrayList<DataAchievements> allDataAchievements = new ArrayList<>();
         
         // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_READ_ALL);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
             while (resultSet.next()) {
-                
-                // Creating a new user;
-                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
-                // Setting the id of that user;
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"),
+                        resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 user.setIdUser(resultSet.getLong("id_user"));
 
-                // Creating a new dataAchievement;
-                DataAchievements dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
-                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
-                
-                // Setting the id of that dataAchievement;
-                dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
+                DataAchievements da = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
+                        resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
+                da.setIdDataAchievements(resultSet.getLong("id_data"));
 
-                // Adding the dataAchievement in the list; 
-                allDataAchievements.add(dataAchievements);
+                allDataAchievements.add(da);
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
+        } catch (SQLException e) {
             throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
 
         // Returning the list;
@@ -306,47 +209,23 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         ArrayList<DataAchievements> topUsers = new ArrayList<>();
 
         // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_BY_SCORE);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SELECT_USERS_BY_SCORE);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
             while (resultSet.next()) {
-
-                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-
-                // Setting the id of that user;
-                
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"),
+                        resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 user.setIdUser(resultSet.getLong("id_user"));
-                
-                DataAchievements dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
-                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
 
-                // Setting the id of that dataAchievement;
-                dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
+                DataAchievements da = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
+                        resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
+                da.setIdDataAchievements(resultSet.getLong("id_data"));
 
-                // Adding the User in the list;
-                topUsers.add(dataAchievements);
+                topUsers.add(da);
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
+        } catch (SQLException e) {
             throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
 
         // Returning the list;
@@ -360,47 +239,23 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         ArrayList<DataAchievements> topUsersMatch = new ArrayList<>();
 
         // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_BY_SCORE_MATCH);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SELECT_USERS_BY_SCORE_MATCH);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
             while (resultSet.next()) {
-
-                // Creating a new user;
-                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
-                // Setting the id of that user;
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"),
+                        resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 user.setIdUser(resultSet.getLong("id_user"));
-                
-                DataAchievements dataAchievements = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
-                resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
-                
-                // Setting the id of that dataAchievement;
-                dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
 
-                // Adding the User in the list;
-                topUsersMatch.add(dataAchievements);
+                DataAchievements da = new DataAchievements(resultSet.getInt("score"), resultSet.getInt("score_match"),
+                        resultSet.getInt("defeated_enemies"), resultSet.getInt("defeated_elite"), resultSet.getInt("defeated_boss"), user);
+                da.setIdDataAchievements(resultSet.getLong("id_data"));
+
+                topUsersMatch.add(da);
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
+        } catch (SQLException e) {
             throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
 
         // Returning the list;

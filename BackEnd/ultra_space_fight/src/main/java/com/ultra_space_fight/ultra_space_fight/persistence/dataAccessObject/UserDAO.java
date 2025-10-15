@@ -2,18 +2,20 @@
 package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
 
 // Imports necessary classes to aply the Data Access Object;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Statement;
+
+import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
-import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 
 // Declaring the UserDAO Class implementing the CrudInterface;
 // the generic value is User; 
@@ -21,11 +23,11 @@ import com.ultra_space_fight.ultra_space_fight.persistence.MysqlConnection;
 public class UserDAO implements CrudInterface<User> {
 
     // The attribute MysqlConnection and DAOs;
-    private final MysqlConnection MY_SQL_CONNECTION;
+    private final DataSource dataSource;
 
     // Auto Wired the DAOs and MysqlConnection class;
-    public UserDAO(MysqlConnection MY_SQL_CONNECTION) {
-        this.MY_SQL_CONNECTION = MY_SQL_CONNECTION;
+    public UserDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     // SQL code insert a value;
@@ -71,15 +73,10 @@ public class UserDAO implements CrudInterface<User> {
     public void create(User user) throws SQLException {
 
         // Try-Catch to handle Execptions;
-        try {
-
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
+        try (Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
-            
+                connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);){
+
             // Setting the values of the Statement;
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getEmail());
@@ -90,9 +87,10 @@ public class UserDAO implements CrudInterface<User> {
             // Executing the Statement;
             preparedStatement.executeUpdate();
 
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                user.setIdUser(resultSet.getLong(1));
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    user.setIdUser(resultSet.getLong(1));
+                }
             }
         }
         catch (SQLException e) {
@@ -100,60 +98,25 @@ public class UserDAO implements CrudInterface<User> {
             // Printing the Exception Message;
             throw e;
         }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
-        }
     }
 
     // Method that delete a User in the database by id;
     @Override
     public void delete(long id) throws SQLException {
-       
-        // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_DELETE);
-            
-            // Setting the values of the Statement;
             preparedStatement.setLong(1, id);
-
-            // Executing the Statement;
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
     }
 
     // Method that update a User in the database;
     @Override
     public void update(User user) throws SQLException {
-        
-        // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_UPDATE);
-            
-            // Setting the values of the Statement;
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
@@ -161,18 +124,7 @@ public class UserDAO implements CrudInterface<User> {
             preparedStatement.setString(5, user.getSelectedSpaceship());
             preparedStatement.setLong(6, user.getIdUser());
 
-            // Executing the Statement;
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
     }
 
@@ -183,42 +135,17 @@ public class UserDAO implements CrudInterface<User> {
         // Declaring a new user;
         User user = null;
 
-        // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_READ);
-            
-            // Setting the values of the Statement;
             preparedStatement.setLong(1, id);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
-            if (resultSet.next()) {
-                
-                // Creating a new user;
-                user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                    resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
-                // Setting the id of that user;
-                user.setIdUser(resultSet.getLong("id_user"));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User(resultSet.getString("name_user"), resultSet.getString("email"),
+                            resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                    user.setIdUser(resultSet.getLong("id_user"));
+                }
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
 
         // Returning the user;
@@ -232,42 +159,16 @@ public class UserDAO implements CrudInterface<User> {
         // Declaring a new list;
         ArrayList<User> allUsers = new ArrayList<>();
 
-        // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_READ_ALL);
-            
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
             while (resultSet.next()) {
-
-                // Creating a new user;
-                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"), 
-                resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-                
-                // Setting the id of that user;
+                User user = new User(resultSet.getString("name_user"), resultSet.getString("email"),
+                        resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 user.setIdUser(resultSet.getLong("id_user"));
-                
-                // Adding the user in the list; 
                 allUsers.add(user);
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
 
         // Returning the list;
@@ -280,41 +181,19 @@ public class UserDAO implements CrudInterface<User> {
         // Declaring the id of the user, if it doesn't found, return -1;
         User user = null; 
 
-        // Try-Catch to handle Execptions;
-        try {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_ID)) {
 
-            // Opening a Connection with the Database;
-            MY_SQL_CONNECTION.openConnection();
-            
-            // Preparing a new Statement;
-            PreparedStatement preparedStatement = 
-                MY_SQL_CONNECTION.getConnection().prepareStatement(SQL_GET_ID);
-            
-            // Setting the values of the Statement;
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
 
-            // Getting the Set of all Results;
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Seeing all the possibilities;
-            if (resultSet.next()) {
-
-                user = new User(resultSet.getString("name_user"), email, password, 
-                    resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
-            
-                user.setIdUser(resultSet.getLong("id_user"));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User(resultSet.getString("name_user"), email, password,
+                            resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
+                    user.setIdUser(resultSet.getLong("id_user"));
+                }
             }
-        }
-        catch (SQLException e) {
-
-            // Printing the Exception Message;
-            throw e;
-        }
-        finally {
-
-            // Closing a Connection with the Database;
-            MY_SQL_CONNECTION.closeConnection();
         }
 
         // Returning the if of the user;
