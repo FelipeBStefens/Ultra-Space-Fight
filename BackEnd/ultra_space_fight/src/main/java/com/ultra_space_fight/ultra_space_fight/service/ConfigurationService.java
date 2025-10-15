@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.ConfigurationsDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.SoundDTO;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationInvalidValuesException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationUnauthorizedException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserConflictException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.configuration.ConfigurationInvalidValuesException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.configuration.ConfigurationUnauthorizedException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.database.DatabaseConnectionException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.user.UserConflictException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.ConfigurationDAO;

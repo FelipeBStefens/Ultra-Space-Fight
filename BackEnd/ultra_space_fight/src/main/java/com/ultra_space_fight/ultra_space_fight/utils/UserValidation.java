@@ -2,8 +2,8 @@ package com.ultra_space_fight.ultra_space_fight.utils;
 
 import java.util.regex.Pattern;
 
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserInvalidValuesException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserNotFoundException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.user.UserInvalidValuesException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.user.UserNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 
 public class UserValidation {

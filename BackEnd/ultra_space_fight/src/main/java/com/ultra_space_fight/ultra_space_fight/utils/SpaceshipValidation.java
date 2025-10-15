@@ -1,7 +1,7 @@
 package com.ultra_space_fight.ultra_space_fight.utils;
 
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipUpdateDTO;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.SpaceshipInvalidValuesException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.spaceships.SpaceshipInvalidValuesException;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.SpaceShip;
 
 public class SpaceshipValidation {

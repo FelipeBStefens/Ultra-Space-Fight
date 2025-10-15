@@ -1,4 +1,4 @@
-package com.ultra_space_fight.ultra_space_fight.exception.exceptions;
+package com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements;
 
 public class DataAchievementUnauthorizedException extends RuntimeException{
     

@@ -1,8 +1,8 @@
 package com.ultra_space_fight.ultra_space_fight.utils;
 
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementNotFoundException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementUnauthorizedException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.DataAchievementNotFoundException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.DataAchievementUnauthorizedException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 
 public class DataAchievementsValidation {

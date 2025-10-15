@@ -2,8 +2,8 @@ package com.ultra_space_fight.ultra_space_fight.utils;
 
 import java.math.BigDecimal;
 
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationInvalidValuesException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationNotFoundException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.configuration.ConfigurationInvalidValuesException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.configuration.ConfigurationNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
 
 public class ConfigurationValidate {

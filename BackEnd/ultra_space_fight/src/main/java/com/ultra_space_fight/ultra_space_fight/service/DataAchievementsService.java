@@ -10,9 +10,9 @@ import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.Ranki
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreMatchDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreDTO;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementUnauthorizedException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.RankingException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.DataAchievementUnauthorizedException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.RankingException;
+import com.ultra_space_fight.ultra_space_fight.exception.exceptions.database.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.DataAchievementDAO;
 import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.UserDAO;
