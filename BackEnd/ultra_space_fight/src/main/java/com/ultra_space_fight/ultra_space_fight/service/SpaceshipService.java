@@ -9,13 +9,10 @@ import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.Sp
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipsDTO;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.SpaceshipInvalidValuesException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.SpaceshipNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.SpaceshipUnauthorizedException;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.DestroyerShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.EliteShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.FreighterShip;
-import com.ultra_space_fight.ultra_space_fight.models.spaceships.SpaceShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.SpeedShip;
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.StandartShip;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
@@ -26,6 +23,9 @@ import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.Frei
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.SpeedShipDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.StandartShipDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
+import com.ultra_space_fight.ultra_space_fight.utils.IdValidation;
+import com.ultra_space_fight.ultra_space_fight.utils.SpaceshipValidation;
+import com.ultra_space_fight.ultra_space_fight.utils.UserValidation;
 
 @Service
 public class SpaceshipService {
@@ -52,47 +52,16 @@ public class SpaceshipService {
         this.dataAchievementDAO = dataAchievementDAO;
     }
 
-    private boolean validateSpaceship(String selectedSpaceship) {
-
-        String[] validSpaceships = {"standart_ship", "speed_ship", "destroyer_ship", "freighter_ship", "elite_ship"};
-        for (String spaceship : validSpaceships) {
-            if (spaceship.equals(selectedSpaceship)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean validateSpaceshipValues(SpaceshipUpdateDTO spaceshipUpdateTDO, SpaceShip spaceship) {
-
-        if (spaceship.getUser().getCash() - spaceshipUpdateTDO.getCash() < 0) {
-            return false;
-        }
-        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getLife() < 0 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getLife() > 100) {
-            return false;
-        }
-        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getSpeed() < 0 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getSpeed() > 10) {
-            return false;
-        }
-        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getDamage() < 0 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getDamage() > 15) {
-            return false;
-        }
-        return true;
-    }
-
     public SpaceshipsDTO getAllSpaceshipsValues(long id) {
         
-        if (id <= 0) {
-            throw new SpaceshipUnauthorizedException("ID");
-        }
+        IdValidation.validate(id, new SpaceshipUnauthorizedException("ID"));
+
 
         SpaceshipsDTO spaceshipsTDO = null;
 
         try {
             
-            if (userDAO.read(id) == null) {
-                throw new SpaceshipNotFoundException();
-            }
+            UserValidation.verifyUsername(userDAO.read(id));
 
             StandartShip standartShip = standartShipDAO.read(id);
             SpeedShip speedShip = speedShipDAO.read(id);
@@ -126,20 +95,14 @@ public class SpaceshipService {
 
     public String updateSelectedSpaceship(String selectedSpaceship, long id) {
 
-        if (!validateSpaceship(selectedSpaceship)) {
-            throw new SpaceshipInvalidValuesException("Selected Spaceship");
-        }
-        if (id <= 0) {
-            throw new SpaceshipInvalidValuesException("ID");
-        }
+        SpaceshipValidation.validateSpaceship(selectedSpaceship);
+        IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         String newSelectedSpaceship;
         try {
             User user = userDAO.read(id);
 
-            if (user == null) {
-                throw new UserNotFoundException();
-            }
+            UserValidation.verifyUsername(user);
             user.setSelectedSpaceship(selectedSpaceship);
             userDAO.update(user);
 
@@ -155,19 +118,13 @@ public class SpaceshipService {
     public SpaceshipUpdateDTO updateStandartShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
         SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
-        if (id <= 0) {
-            throw new SpaceshipInvalidValuesException("ID");
-        }
+        IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
             StandartShip standartShip = standartShipDAO.read(id);
 
-            if (standartShip == null) {
-                throw new SpaceshipNotFoundException();
-            }
-            if (!validateSpaceshipValues(spaceshipsUpdateTDO, standartShip)) {
-                throw new SpaceshipInvalidValuesException("Spaceship Values or Cash");
-            }
+            SpaceshipValidation.verifySpaceship(standartShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, standartShip);
 
             standartShip.getUser().setCash(standartShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
             userDAO.update(standartShip.getUser());
@@ -191,19 +148,13 @@ public class SpaceshipService {
     public SpaceshipUpdateDTO updateSpeedShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
         SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
-        if (id <= 0) {
-            throw new SpaceshipInvalidValuesException("ID");
-        }
+        IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
             SpeedShip speedShip = speedShipDAO.read(id);
 
-            if (speedShip == null) {
-                throw new SpaceshipNotFoundException();
-            }
-            if (!validateSpaceshipValues(spaceshipsUpdateTDO, speedShip)) {
-                throw new SpaceshipInvalidValuesException("Spaceship Values or Cash");
-            }
+            SpaceshipValidation.verifySpaceship(speedShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, speedShip);
 
             speedShip.getUser().setCash(speedShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
             userDAO.update(speedShip.getUser());
@@ -227,19 +178,13 @@ public class SpaceshipService {
     public SpaceshipUpdateDTO updateDestroyerShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
         SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
-        if (id <= 0) {
-            throw new SpaceshipInvalidValuesException("ID");
-        }
+        IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
             DestroyerShip destroyerShip = destroyerShipDAO.read(id);
 
-            if (destroyerShip == null) {
-                throw new SpaceshipNotFoundException();
-            }
-            if (!validateSpaceshipValues(spaceshipsUpdateTDO, destroyerShip)) {
-                throw new SpaceshipInvalidValuesException("Spaceship Values or Cash");
-            }
+            SpaceshipValidation.verifySpaceship(destroyerShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, destroyerShip);
 
             destroyerShip.getUser().setCash(destroyerShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
             userDAO.update(destroyerShip.getUser());
@@ -263,19 +208,13 @@ public class SpaceshipService {
     public SpaceshipUpdateDTO updateFreighterShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
         SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
-        if (id <= 0) {
-            throw new SpaceshipInvalidValuesException("ID");
-        }
+        IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
             FreighterShip freighterShip = freighterShipDAO.read(id);
 
-            if (freighterShip == null) {
-                throw new SpaceshipNotFoundException();
-            }
-            if (!validateSpaceshipValues(spaceshipsUpdateTDO, freighterShip)) {
-                throw new SpaceshipInvalidValuesException("Spaceship Values or Cash");
-            }
+            SpaceshipValidation.verifySpaceship(freighterShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, freighterShip);
 
             freighterShip.getUser().setCash(freighterShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
             userDAO.update(freighterShip.getUser());
@@ -299,19 +238,13 @@ public class SpaceshipService {
     public SpaceshipUpdateDTO updateEliteShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
         SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
-        if (id <= 0) {
-            throw new SpaceshipInvalidValuesException("ID");
-        }
+        IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
             EliteShip eliteShip = eliteShipDAO.read(id);
 
-            if (eliteShip == null) {
-                throw new SpaceshipNotFoundException();
-            }
-            if (!validateSpaceshipValues(spaceshipsUpdateTDO, eliteShip)) {
-                throw new SpaceshipInvalidValuesException("Spaceship Values or Cash");
-            }
+            SpaceshipValidation.verifySpaceship(eliteShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, eliteShip);
 
             eliteShip.getUser().setCash(eliteShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
             userDAO.update(eliteShip.getUser());

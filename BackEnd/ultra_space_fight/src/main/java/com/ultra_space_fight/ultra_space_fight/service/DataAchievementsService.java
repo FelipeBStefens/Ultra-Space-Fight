@@ -10,13 +10,14 @@ import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.Ranki
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreMatchDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreDTO;
-import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementUnauthorizedException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.RankingException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.DataAchievementDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
+import com.ultra_space_fight.ultra_space_fight.utils.DataAchievementsValidation;
+import com.ultra_space_fight.ultra_space_fight.utils.IdValidation;
 
 @Service
 public class DataAchievementsService {
@@ -75,9 +76,7 @@ public class DataAchievementsService {
 
     public AchievementsDTO getAchievements(long id) {
 
-        if (id <= 0) {
-            throw new DataAchievementUnauthorizedException("ID");
-        }
+        IdValidation.validate(id, new DataAchievementUnauthorizedException("ID"));
 
         AchievementsDTO achievementsTDO = null;
 
@@ -85,9 +84,7 @@ public class DataAchievementsService {
             DataAchievements dataAchievements = 
                 dataAchievementDAO.read(id);
 
-            if (dataAchievements == null) {
-                throw new DataAchievementNotFoundException();
-            }
+            DataAchievementsValidation.verifyDataAchievements(dataAchievements);
 
             achievementsTDO = new AchievementsDTO(
                 dataAchievements.getScore(), dataAchievements.getScoreMatch(),
@@ -102,12 +99,8 @@ public class DataAchievementsService {
 
     public ScoreDTO updateScoreCash(long id, ScoreCashDTO scoreCashTDO) {
 
-        if (id <= 0) {
-            throw new DataAchievementUnauthorizedException("ID");
-        }
-        if (scoreCashTDO == null) {
-            throw new DataAchievementUnauthorizedException("ScoreCashTDO");
-        }
+        IdValidation.validate(id, new DataAchievementUnauthorizedException("ID"));
+        DataAchievementsValidation.verifyScoreCash(scoreCashTDO);
 
         ScoreDTO scoreTDO = null;
 
@@ -115,17 +108,11 @@ public class DataAchievementsService {
             DataAchievements dataAchievements = 
                 dataAchievementDAO.read(id);
 
-            if (dataAchievements == null) {
-                throw new DataAchievementNotFoundException();
-            }
+            DataAchievementsValidation.verifyDataAchievements(dataAchievements);
 
-            dataAchievements.setScore(dataAchievements.getScore() + scoreCashTDO.getScore());
-            
-            dataAchievements.getUser().setCash(dataAchievements.getUser().getCash() + scoreCashTDO.getCash());
-            
-            if (scoreCashTDO.getScore() > dataAchievements.getScoreMatch()) {
-                dataAchievements.setScoreMatch(scoreCashTDO.getScore());
-            }
+            DataAchievementsValidation.updateScore(dataAchievements, scoreCashTDO);            
+            DataAchievementsValidation.updateCash(dataAchievements, scoreCashTDO);
+            DataAchievementsValidation.updateScoreMatch(dataAchievements, scoreCashTDO);
             
             userDAO.update(dataAchievements.getUser());
             dataAchievementDAO.update(dataAchievements);
