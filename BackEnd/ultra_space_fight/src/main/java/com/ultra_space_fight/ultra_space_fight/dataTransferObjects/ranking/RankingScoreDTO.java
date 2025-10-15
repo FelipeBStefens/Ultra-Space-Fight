@@ -1,13 +1,13 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking;
 
-public class RankingScoreTDO {
+public class RankingScoreDTO {
    
     private int score;
     private String username;
     
-    public RankingScoreTDO() {}
+    public RankingScoreDTO() {}
 
-    public RankingScoreTDO(int score, String username) {
+    public RankingScoreDTO(int score, String username) {
         this.score = score;
         this.username = username;
     }

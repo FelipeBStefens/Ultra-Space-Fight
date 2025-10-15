@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.ConfigurationsDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.SoundDTO;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationInvalidValuesException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.ConfigurationUnauthorizedException;
@@ -15,8 +17,6 @@ import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.ConfigurationDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ConfigurationsTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SoundTDO;
 
 @Service
 public class ConfigurationService {
@@ -42,12 +42,12 @@ public class ConfigurationService {
         return USERNAME_PATTERN.matcher(username).matches();
     }
 
-    public ConfigurationsTDO getConfigurations(long id) {
+    public ConfigurationsDTO getConfigurations(long id) {
 
         if (id <= 0) {
             throw new ConfigurationUnauthorizedException("ID");
         }
-        ConfigurationsTDO configurationsTDO = new ConfigurationsTDO();
+        ConfigurationsDTO configurationsTDO = new ConfigurationsDTO();
         try {
             Configuration configuration = configurationDAO.read(id);
 
@@ -65,8 +65,8 @@ public class ConfigurationService {
         return configurationsTDO;
     }
 
-    public SoundTDO updateConfigurations(
-        ConfigurationsTDO configurationsTDO, long id) {
+    public SoundDTO updateConfigurations(
+        ConfigurationsDTO configurationsTDO, long id) {
         
         if (id <= 0) {
             throw new ConfigurationInvalidValuesException("ID");
@@ -88,7 +88,7 @@ public class ConfigurationService {
             throw new ConfigurationInvalidValuesException("Sound Effects");
         }
 
-        SoundTDO soundTDO = null;
+        SoundDTO soundTDO = null;
         try {
 
             Configuration configuration = configurationDAO.read(id);
@@ -108,7 +108,7 @@ public class ConfigurationService {
 
             configurationDAO.update(configuration);
 
-            soundTDO = new SoundTDO(configurationsTDO.getSoundtrack(), 
+            soundTDO = new SoundDTO(configurationsTDO.getSoundtrack(), 
                 configurationsTDO.getSoundEffects());
         }
         catch (SQLException e) {
@@ -117,7 +117,7 @@ public class ConfigurationService {
         return soundTDO;
     }
     
-    public SoundTDO updateSounds(SoundTDO soundTDO, long id) {
+    public SoundDTO updateSounds(SoundDTO soundTDO, long id) {
 
         if (id <= 0) {
             throw new ConfigurationInvalidValuesException("ID");
@@ -130,7 +130,7 @@ public class ConfigurationService {
             throw new ConfigurationInvalidValuesException("Sound Effects");
         }
 
-        SoundTDO newSoundTDO = null; 
+        SoundDTO newSoundTDO = null; 
         try {
             Configuration configuration = configurationDAO.read(id);
             if (configuration == null) {
@@ -142,7 +142,7 @@ public class ConfigurationService {
 
             configurationDAO.update(configuration);
 
-            newSoundTDO = new SoundTDO(soundTDO.getSoundtrack(), soundTDO.getSoundEffects());
+            newSoundTDO = new SoundDTO(soundTDO.getSoundtrack(), soundTDO.getSoundEffects());
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);

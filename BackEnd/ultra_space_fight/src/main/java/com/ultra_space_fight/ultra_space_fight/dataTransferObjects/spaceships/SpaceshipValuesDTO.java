@@ -1,14 +1,14 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships;
 
-public class SpaceshipValuesTDO {
+public class SpaceshipValuesDTO {
     
     private int life;
     private int speed;
     private int damage;
 
-    public SpaceshipValuesTDO() {}
+    public SpaceshipValuesDTO() {}
 
-    public SpaceshipValuesTDO(int life, int speed, int damage) {
+    public SpaceshipValuesDTO(int life, int speed, int damage) {
         this.damage = damage;
         this.life = life;
         this.speed = speed;

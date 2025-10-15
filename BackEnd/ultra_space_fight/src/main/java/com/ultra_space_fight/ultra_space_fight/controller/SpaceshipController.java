@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipUpdateDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipsDTO;
 import com.ultra_space_fight.ultra_space_fight.service.SpaceshipService;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SpaceshipUpdateTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SpaceshipsTDO;
 
 @RestController
 @RequestMapping("/spaceship")
@@ -26,58 +26,58 @@ public class SpaceshipController {
     }
 
     @GetMapping("get/spaceships/{id}")
-    public ResponseEntity<SpaceshipsTDO> getAllSpaceships(@PathVariable long id) {
+    public ResponseEntity<SpaceshipsDTO> getAllSpaceships(@PathVariable long id) {
 
-        SpaceshipsTDO spaceshipsTDO = spaceshipService.getAllSpaceshipsValues(id);
+        SpaceshipsDTO spaceshipsTDO = spaceshipService.getAllSpaceshipsValues(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(spaceshipsTDO);
     }
 
     @PutMapping("update/standart_ship/{id}")
-    public ResponseEntity<SpaceshipUpdateTDO> updateStandartShip(@PathVariable long id, 
-        @RequestBody SpaceshipUpdateTDO spaceshipUpdateTDO) {
+    public ResponseEntity<SpaceshipUpdateDTO> updateStandartShip(@PathVariable long id, 
+        @RequestBody SpaceshipUpdateDTO spaceshipUpdateTDO) {
         
-        SpaceshipUpdateTDO updatedValues = spaceshipService
+        SpaceshipUpdateDTO updatedValues = spaceshipService
             .updateStandartShip(spaceshipUpdateTDO, id);
         
         return ResponseEntity.status(HttpStatus.OK).body(updatedValues);
     }
 
     @PutMapping("update/speed_ship/{id}")
-    public ResponseEntity<SpaceshipUpdateTDO> updateSpeedShip(@PathVariable long id, 
-        @RequestBody SpaceshipUpdateTDO spaceshipUpdateTDO) {
+    public ResponseEntity<SpaceshipUpdateDTO> updateSpeedShip(@PathVariable long id, 
+        @RequestBody SpaceshipUpdateDTO spaceshipUpdateTDO) {
         
-        SpaceshipUpdateTDO updatedValues = spaceshipService
+        SpaceshipUpdateDTO updatedValues = spaceshipService
             .updateSpeedShip(spaceshipUpdateTDO, id);
         
         return ResponseEntity.status(HttpStatus.OK).body(updatedValues);
     }
 
     @PutMapping("update/destroyer_ship/{id}")
-    public ResponseEntity<SpaceshipUpdateTDO> updateDestroyerShip(@PathVariable long id, 
-        @RequestBody SpaceshipUpdateTDO spaceshipUpdateTDO) {
+    public ResponseEntity<SpaceshipUpdateDTO> updateDestroyerShip(@PathVariable long id, 
+        @RequestBody SpaceshipUpdateDTO spaceshipUpdateTDO) {
         
-        SpaceshipUpdateTDO updatedValues = spaceshipService
+        SpaceshipUpdateDTO updatedValues = spaceshipService
             .updateDestroyerShip(spaceshipUpdateTDO, id);
         
         return ResponseEntity.status(HttpStatus.OK).body(updatedValues);
     }
 
     @PutMapping("update/freighter_ship/{id}")
-    public ResponseEntity<SpaceshipUpdateTDO> updateFreighterShip(@PathVariable long id, 
-        @RequestBody SpaceshipUpdateTDO spaceshipUpdateTDO) {
+    public ResponseEntity<SpaceshipUpdateDTO> updateFreighterShip(@PathVariable long id, 
+        @RequestBody SpaceshipUpdateDTO spaceshipUpdateTDO) {
         
-        SpaceshipUpdateTDO updatedValues = spaceshipService
+        SpaceshipUpdateDTO updatedValues = spaceshipService
             .updateFreighterShip(spaceshipUpdateTDO, id);
         
         return ResponseEntity.status(HttpStatus.OK).body(updatedValues);
     }
 
     @PutMapping("update/elite_ship/{id}")
-    public ResponseEntity<SpaceshipUpdateTDO> updateEliteShip(@PathVariable long id, 
-        @RequestBody SpaceshipUpdateTDO spaceshipUpdateTDO) {
+    public ResponseEntity<SpaceshipUpdateDTO> updateEliteShip(@PathVariable long id, 
+        @RequestBody SpaceshipUpdateDTO spaceshipUpdateTDO) {
         
-        SpaceshipUpdateTDO updatedValues = spaceshipService
+        SpaceshipUpdateDTO updatedValues = spaceshipService
             .updateEliteShip(spaceshipUpdateTDO, id);
         
         return ResponseEntity.status(HttpStatus.OK).body(updatedValues);

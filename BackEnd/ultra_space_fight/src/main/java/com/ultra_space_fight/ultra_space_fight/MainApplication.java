@@ -5,6 +5,8 @@ package com.ultra_space_fight.ultra_space_fight;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import com.ultra_space_fight.ultra_space_fight.configuration.DotenvInitializer;
+
 // Main Application Class;
 @SpringBootApplication
 public class MainApplication {

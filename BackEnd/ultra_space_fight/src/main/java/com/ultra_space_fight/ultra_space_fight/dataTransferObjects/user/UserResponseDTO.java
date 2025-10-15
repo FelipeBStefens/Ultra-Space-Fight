@@ -1,20 +1,22 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user;
 
 import java.math.BigDecimal;
 
-public class UserResponseTDO {
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipValuesDTO;
+
+public class UserResponseDTO {
     
     private long idUser;
     private String selectedSpaceship;
-    private SpaceshipValuesTDO spaceshipValues;
+    private SpaceshipValuesDTO spaceshipValues;
     private int score;
     private int scoreMatch;
     private BigDecimal soundtrack;
     private BigDecimal soundEffects;
 
-    public UserResponseTDO() {}
+    public UserResponseDTO() {}
 
-    public UserResponseTDO(long idUser, String selectedSpaceship, SpaceshipValuesTDO spaceshipValues,
+    public UserResponseDTO(long idUser, String selectedSpaceship, SpaceshipValuesDTO spaceshipValues,
         int score, int scoreMatch, BigDecimal soundtrack, BigDecimal soundEffects) {
         this.idUser = idUser;
         this.selectedSpaceship = selectedSpaceship;
@@ -74,11 +76,11 @@ public class UserResponseTDO {
         this.soundEffects = soundEffects;
     }
 
-    public SpaceshipValuesTDO getSpaceshipValues() {
+    public SpaceshipValuesDTO getSpaceshipValues() {
         return spaceshipValues;
     }
 
-    public void setSpaceshipValues(SpaceshipValuesTDO spaceshipValues) {
+    public void setSpaceshipValues(SpaceshipValuesDTO spaceshipValues) {
         this.spaceshipValues = spaceshipValues;
     }
 }

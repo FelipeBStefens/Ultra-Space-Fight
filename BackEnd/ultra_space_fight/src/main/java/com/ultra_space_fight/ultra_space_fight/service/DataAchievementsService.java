@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.AchievementsDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreMatchDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreDTO;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievementUnauthorizedException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
@@ -12,11 +17,6 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.RankingExcep
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.DataAchievementDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreCashTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
 
 @Service
 public class DataAchievementsService {
@@ -29,9 +29,9 @@ public class DataAchievementsService {
         this.userDAO = userDAO;
     }
 
-    public ArrayList<RankingScoreTDO> getRankingList() {
+    public ArrayList<RankingScoreDTO> getRankingList() {
 
-        ArrayList<RankingScoreTDO> listRankingScoreTDO = new ArrayList<>();
+        ArrayList<RankingScoreDTO> listRankingScoreTDO = new ArrayList<>();
         try {
             
             ArrayList<DataAchievements> arrayListDataAchievementses =
@@ -39,7 +39,7 @@ public class DataAchievementsService {
             
             for (DataAchievements dataAchievement : arrayListDataAchievementses) {
                 
-                RankingScoreTDO rankingScoreTDO = new RankingScoreTDO(
+                RankingScoreDTO rankingScoreTDO = new RankingScoreDTO(
                     dataAchievement.getScore(), dataAchievement.getUser().getUsername());
                 
                 listRankingScoreTDO.add(rankingScoreTDO);
@@ -51,9 +51,9 @@ public class DataAchievementsService {
         return listRankingScoreTDO;
     }
 
-    public ArrayList<RankingScoreMatchTDO> getRankingMatchList() {
+    public ArrayList<RankingScoreMatchDTO> getRankingMatchList() {
 
-        ArrayList<RankingScoreMatchTDO> listRankingScoreMatchTDO = new ArrayList<>();
+        ArrayList<RankingScoreMatchDTO> listRankingScoreMatchTDO = new ArrayList<>();
         try {
             
             ArrayList<DataAchievements> arrayListDataAchievementses =
@@ -61,7 +61,7 @@ public class DataAchievementsService {
             
             for (DataAchievements dataAchievement : arrayListDataAchievementses) {
                 
-                RankingScoreMatchTDO rankingScoreTDO = new RankingScoreMatchTDO(
+                RankingScoreMatchDTO rankingScoreTDO = new RankingScoreMatchDTO(
                     dataAchievement.getScoreMatch(), dataAchievement.getUser().getUsername());
                 
                 listRankingScoreMatchTDO.add(rankingScoreTDO);
@@ -73,13 +73,13 @@ public class DataAchievementsService {
         return listRankingScoreMatchTDO;
     }
 
-    public AchievementsTDO getAchievements(long id) {
+    public AchievementsDTO getAchievements(long id) {
 
         if (id <= 0) {
             throw new DataAchievementUnauthorizedException("ID");
         }
 
-        AchievementsTDO achievementsTDO = null;
+        AchievementsDTO achievementsTDO = null;
 
         try {
             DataAchievements dataAchievements = 
@@ -89,7 +89,7 @@ public class DataAchievementsService {
                 throw new DataAchievementNotFoundException();
             }
 
-            achievementsTDO = new AchievementsTDO(
+            achievementsTDO = new AchievementsDTO(
                 dataAchievements.getScore(), dataAchievements.getScoreMatch(),
                 dataAchievements.getDefeatedEnemies(), dataAchievements.getDefeatedElite(), 
                 dataAchievements.getDefeatedBoss());
@@ -100,7 +100,7 @@ public class DataAchievementsService {
         return achievementsTDO;
     }
 
-    public ScoreTDO updateScoreCash(long id, ScoreCashTDO scoreCashTDO) {
+    public ScoreDTO updateScoreCash(long id, ScoreCashDTO scoreCashTDO) {
 
         if (id <= 0) {
             throw new DataAchievementUnauthorizedException("ID");
@@ -109,7 +109,7 @@ public class DataAchievementsService {
             throw new DataAchievementUnauthorizedException("ScoreCashTDO");
         }
 
-        ScoreTDO scoreTDO = null;
+        ScoreDTO scoreTDO = null;
 
         try {
             DataAchievements dataAchievements = 
@@ -130,7 +130,7 @@ public class DataAchievementsService {
             userDAO.update(dataAchievements.getUser());
             dataAchievementDAO.update(dataAchievements);
 
-            scoreTDO = new ScoreTDO(
+            scoreTDO = new ScoreDTO(
                 dataAchievements.getScore(), dataAchievements.getScoreMatch());
         }
         catch (SQLException e) {

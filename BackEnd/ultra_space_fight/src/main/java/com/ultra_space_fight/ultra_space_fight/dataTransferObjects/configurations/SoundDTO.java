@@ -1,13 +1,13 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations;
 
 import java.math.BigDecimal;
 
-public class SoundTDO {
+public class SoundDTO {
     
     private BigDecimal soundtrack;
     private BigDecimal soundEffects;
 
-    public SoundTDO(BigDecimal soundtrack, BigDecimal soundEffects) {
+    public SoundDTO(BigDecimal soundtrack, BigDecimal soundEffects) {
         this.soundtrack = soundtrack;
         this.soundEffects = soundEffects;
     }

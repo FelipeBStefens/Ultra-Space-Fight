@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipValuesDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user.UserResponseDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user.UserSendDTO;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserConflictException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserInvalidValuesException;
@@ -26,9 +29,6 @@ import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.Frei
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.SpeedShipDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.StandartShipDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SpaceshipValuesTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.UserResponseTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.UserSendTDO;
 
 @Service
 public class UserService {
@@ -76,37 +76,37 @@ public class UserService {
         return USERNAME_PATTERN.matcher(username).matches();
     }
 
-    private SpaceshipValuesTDO getSpaceshipValues(String spaceshipType, long id) throws SQLException {
+    private SpaceshipValuesDTO getSpaceshipValues(String spaceshipType, long id) throws SQLException {
 
         if (spaceshipType.equals("standart_ship")) {
             StandartShip standartShip = standartShipDAO.read(id);
-            return new SpaceshipValuesTDO(standartShip.getLife(),
+            return new SpaceshipValuesDTO(standartShip.getLife(),
                 standartShip.getSpeed(), standartShip.getDamage());
         }
         else if (spaceshipType.equals("speed_ship")) {
             SpeedShip speedShip = speedShipDAO.read(id);
-            return new SpaceshipValuesTDO(speedShip.getLife(),
+            return new SpaceshipValuesDTO(speedShip.getLife(),
                 speedShip.getSpeed(), speedShip.getDamage());
         }
         else if (spaceshipType.equals("destroyer_ship")) {
             DestroyerShip destroyerShip = destroyerShipDAO.read(id);
-            return new SpaceshipValuesTDO(destroyerShip.getLife(),
+            return new SpaceshipValuesDTO(destroyerShip.getLife(),
                 destroyerShip.getSpeed(), destroyerShip.getDamage());
         }
         else if (spaceshipType.equals("freighter_ship")) {
             FreighterShip freighterShip = freighterShipDAO.read(id);
-            return new SpaceshipValuesTDO(freighterShip.getLife(),
+            return new SpaceshipValuesDTO(freighterShip.getLife(),
                 freighterShip.getSpeed(), freighterShip.getDamage());
         }
         else if (spaceshipType.equals("elite_ship")) {
             EliteShip eliteShip = eliteShipDAO.read(id);
-            return new SpaceshipValuesTDO(eliteShip.getLife(),
+            return new SpaceshipValuesDTO(eliteShip.getLife(),
                 eliteShip.getSpeed(), eliteShip.getDamage());
         }
         return null;
     }
 
-    public UserResponseTDO createUser(UserSendTDO userSendTDO) {
+    public UserResponseDTO createUser(UserSendDTO userSendTDO) {
 
         if(!isValidUsername(userSendTDO.getUsername())) {
             throw new UserInvalidValuesException("Username");
@@ -129,7 +129,7 @@ public class UserService {
         FreighterShip freighterShip = new FreighterShip(user);
         EliteShip eliteShip = new EliteShip(user);
         
-        SpaceshipValuesTDO spaceshipValues;
+        SpaceshipValuesDTO spaceshipValues;
         try {
             userDAO.create(user);
             configurationDAO.create(configuration);
@@ -145,13 +145,13 @@ public class UserService {
         catch (SQLException e) {
             throw new UserConflictException();
         }
-        return new UserResponseTDO(user.getIdUser(), user.getSelectedSpaceship(), spaceshipValues,
+        return new UserResponseDTO(user.getIdUser(), user.getSelectedSpaceship(), spaceshipValues,
             dataAchievements.getScore(), dataAchievements.getScoreMatch(),
             configuration.getSoundtrack(), configuration.getSoundEffects());
     }
 
 
-    public UserResponseTDO getUserLogin(String email, String password) {
+    public UserResponseDTO getUserLogin(String email, String password) {
 
         if(!isValidEmail(email)) {
             throw new UserUnauthorizedException("E-Mail");
@@ -160,8 +160,8 @@ public class UserService {
             throw new UserUnauthorizedException("Password");
         }
 
-        UserResponseTDO userResponseTDO = null;
-        SpaceshipValuesTDO spaceshipValues;
+        UserResponseDTO userResponseTDO = null;
+        SpaceshipValuesDTO spaceshipValues;
         try {
 
             User user = userDAO.getUser(email, password);
@@ -172,7 +172,7 @@ public class UserService {
             Configuration configuration = configurationDAO.read(user.getIdUser());
             spaceshipValues = getSpaceshipValues(user.getSelectedSpaceship(), user.getIdUser()); 
 
-            userResponseTDO = new UserResponseTDO(
+            userResponseTDO = new UserResponseDTO(
                 user.getIdUser(), user.getSelectedSpaceship(), spaceshipValues,
                 dataAchievements.getScore(), dataAchievements.getScoreMatch(),
                 configuration.getSoundtrack(), configuration.getSoundEffects()); 

@@ -1,6 +1,6 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations;
 
-public class AchievementsTDO {
+public class AchievementsDTO {
     
     private int score;
     private int scoreMatch;
@@ -8,9 +8,9 @@ public class AchievementsTDO {
     private int defeatedElite;
     private int defeatedBoss;
 
-    public AchievementsTDO() {}
+    public AchievementsDTO() {}
 
-    public AchievementsTDO(int score, int scoreMatch, int defeatedEnemies,
+    public AchievementsDTO(int score, int scoreMatch, int defeatedEnemies,
         int defeatedElite, int defeatedBoss) {
         
         this.score = score;

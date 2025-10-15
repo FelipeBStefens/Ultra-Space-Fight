@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.AchievementsDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreMatchDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreDTO;
 import com.ultra_space_fight.ultra_space_fight.service.DataAchievementsService;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.AchievementsTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreMatchTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.RankingScoreTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreCashTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ScoreTDO;
 
 @RestController
 @RequestMapping("/data/achievement")
@@ -31,37 +31,37 @@ class DataAchievementsController {
     }
 
     @GetMapping("/get/ranking/score")
-    public ResponseEntity<List<RankingScoreTDO>> getRankingScore() {
+    public ResponseEntity<List<RankingScoreDTO>> getRankingScore() {
         
-        List<RankingScoreTDO> listRanking = 
+        List<RankingScoreDTO> listRanking = 
             dataAchievementsService.getRankingList();
         
         return ResponseEntity.status(HttpStatus.OK).body(listRanking); 
     }
 
     @GetMapping("/get/ranking/score/match")
-    public ResponseEntity<List<RankingScoreMatchTDO>> getRankingScoreMatch() {
+    public ResponseEntity<List<RankingScoreMatchDTO>> getRankingScoreMatch() {
         
-        List<RankingScoreMatchTDO> listRanking = 
+        List<RankingScoreMatchDTO> listRanking = 
             dataAchievementsService.getRankingMatchList();
         
         return ResponseEntity.status(HttpStatus.OK).body(listRanking);
     }
 
     @GetMapping("/get/achievements/{id}")
-    public ResponseEntity<AchievementsTDO> getAchievementValues(@PathVariable long id) {
+    public ResponseEntity<AchievementsDTO> getAchievementValues(@PathVariable long id) {
 
-        AchievementsTDO achievementsTDO = 
+        AchievementsDTO achievementsTDO = 
             dataAchievementsService.getAchievements(id);
         
         return ResponseEntity.status(HttpStatus.OK).body(achievementsTDO);
     }
 
     @PutMapping("/update/score/cash/{id}") 
-    public ResponseEntity<ScoreTDO> updateScoreCash(
-        @PathVariable long id, @RequestBody ScoreCashTDO scoreCashTDO) {
+    public ResponseEntity<ScoreDTO> updateScoreCash(
+        @PathVariable long id, @RequestBody ScoreCashDTO scoreCashTDO) {
         
-        ScoreTDO scoreTDO = 
+        ScoreDTO scoreTDO = 
             dataAchievementsService.updateScoreCash(id, scoreCashTDO);
         
         return ResponseEntity.status(HttpStatus.OK).body(scoreTDO);

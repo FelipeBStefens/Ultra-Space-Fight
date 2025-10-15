@@ -1,8 +1,8 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations;
 
 import java.math.BigDecimal;
 
-public class ConfigurationsTDO {
+public class ConfigurationsDTO {
     
     private String username;
     private String password;
@@ -10,9 +10,9 @@ public class ConfigurationsTDO {
     private BigDecimal soundtrack;
     private BigDecimal soundEffects;  
 
-    public ConfigurationsTDO() {}
+    public ConfigurationsDTO() {}
 
-    public ConfigurationsTDO(String username, String password, String language,
+    public ConfigurationsDTO(String username, String password, String language,
         BigDecimal soundtrack, BigDecimal soundEffects) {
 
         this.username = username;

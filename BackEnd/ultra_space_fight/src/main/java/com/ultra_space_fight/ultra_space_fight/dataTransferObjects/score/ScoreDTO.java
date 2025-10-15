@@ -1,14 +1,14 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score;
 
-public class ScoreTDO {
+public class ScoreDTO {
     
     private int score;
     private int scoreMatch;
 
-    public ScoreTDO() {
+    public ScoreDTO() {
     }
 
-    public ScoreTDO(int score, int scoreMatch) {
+    public ScoreDTO(int score, int scoreMatch) {
         this.score = score;
         this.scoreMatch = scoreMatch;
     }

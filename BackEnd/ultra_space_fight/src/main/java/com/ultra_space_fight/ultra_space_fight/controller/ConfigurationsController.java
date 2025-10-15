@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.ConfigurationsDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.SoundDTO;
 import com.ultra_space_fight.ultra_space_fight.service.ConfigurationService;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.ConfigurationsTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SoundTDO;
 
 @RestController
 @RequestMapping("/configuration")
@@ -26,24 +26,24 @@ public class ConfigurationsController {
     }
 
     @GetMapping("/get/values/{id}")
-    public ResponseEntity<ConfigurationsTDO> getConfigurationValues(@PathVariable long id) {
+    public ResponseEntity<ConfigurationsDTO> getConfigurationValues(@PathVariable long id) {
 
-        ConfigurationsTDO configurationsTDO = configurationService.getConfigurations(id);
+        ConfigurationsDTO configurationsTDO = configurationService.getConfigurations(id);
         return ResponseEntity.status(HttpStatus.OK).body(configurationsTDO);
     }
 
     @PutMapping("/update/values/{id}")
-    public ResponseEntity<SoundTDO> updateConfigurationValues(
-        @PathVariable long id, @RequestBody ConfigurationsTDO configurationsTDO) {
+    public ResponseEntity<SoundDTO> updateConfigurationValues(
+        @PathVariable long id, @RequestBody ConfigurationsDTO configurationsTDO) {
 
-        SoundTDO soundTDO = configurationService.updateConfigurations(configurationsTDO, id);
+        SoundDTO soundTDO = configurationService.updateConfigurations(configurationsTDO, id);
         return ResponseEntity.status(HttpStatus.OK).body(soundTDO);
     }
 
     @PutMapping("/update/sound/{id}")
-    public ResponseEntity<SoundTDO> updateSounds(@PathVariable long id, @RequestBody SoundTDO soundTDO) {
+    public ResponseEntity<SoundDTO> updateSounds(@PathVariable long id, @RequestBody SoundDTO soundTDO) {
 
-        SoundTDO newSoundTDO = configurationService.updateSounds(soundTDO, id);
+        SoundDTO newSoundTDO = configurationService.updateSounds(soundTDO, id);
 
         return ResponseEntity.status(HttpStatus.OK).body(newSoundTDO);
     }

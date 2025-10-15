@@ -4,6 +4,9 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipUpdateDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipValuesDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipsDTO;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.SpaceshipInvalidValuesException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.SpaceshipNotFoundException;
@@ -23,9 +26,6 @@ import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.Frei
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.SpeedShipDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.StandartShipDAO;
 import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SpaceshipUpdateTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SpaceshipValuesTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.SpaceshipsTDO;
 
 @Service
 public class SpaceshipService {
@@ -63,7 +63,7 @@ public class SpaceshipService {
         return false;
     }
 
-    private boolean validateSpaceshipValues(SpaceshipUpdateTDO spaceshipUpdateTDO, SpaceShip spaceship) {
+    private boolean validateSpaceshipValues(SpaceshipUpdateDTO spaceshipUpdateTDO, SpaceShip spaceship) {
 
         if (spaceship.getUser().getCash() - spaceshipUpdateTDO.getCash() < 0) {
             return false;
@@ -80,13 +80,13 @@ public class SpaceshipService {
         return true;
     }
 
-    public SpaceshipsTDO getAllSpaceshipsValues(long id) {
+    public SpaceshipsDTO getAllSpaceshipsValues(long id) {
         
         if (id <= 0) {
             throw new SpaceshipUnauthorizedException("ID");
         }
 
-        SpaceshipsTDO spaceshipsTDO = null;
+        SpaceshipsDTO spaceshipsTDO = null;
 
         try {
             
@@ -100,22 +100,22 @@ public class SpaceshipService {
             FreighterShip freighterShip = freighterShipDAO.read(id);
             EliteShip eliteShip = eliteShipDAO.read(id);
 
-            SpaceshipValuesTDO standartShipTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO standartShipTDO = new SpaceshipValuesDTO(
                 standartShip.getLife(), standartShip.getSpeed(), standartShip.getDamage());
 
-            SpaceshipValuesTDO speedShipTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO speedShipTDO = new SpaceshipValuesDTO(
                 speedShip.getLife(), speedShip.getSpeed(), speedShip.getDamage());
 
-            SpaceshipValuesTDO destroyerShipTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO destroyerShipTDO = new SpaceshipValuesDTO(
                 destroyerShip.getLife(), destroyerShip.getSpeed(), destroyerShip.getDamage());
 
-            SpaceshipValuesTDO freighterShipTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO freighterShipTDO = new SpaceshipValuesDTO(
                 freighterShip.getLife(), freighterShip.getSpeed(), freighterShip.getDamage());
 
-            SpaceshipValuesTDO eliteShipTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO eliteShipTDO = new SpaceshipValuesDTO(
                 eliteShip.getLife(), eliteShip.getSpeed(), eliteShip.getDamage());
         
-            spaceshipsTDO = new SpaceshipsTDO(standartShip.getUser().getCash(), 
+            spaceshipsTDO = new SpaceshipsDTO(standartShip.getUser().getCash(), 
                 standartShipTDO, speedShipTDO, destroyerShipTDO, freighterShipTDO, eliteShipTDO);
         }
         catch (SQLException e) {
@@ -152,9 +152,9 @@ public class SpaceshipService {
     }
 
 
-    public SpaceshipUpdateTDO updateStandartShip(SpaceshipUpdateTDO spaceshipsUpdateTDO, long id) {
+    public SpaceshipUpdateDTO updateStandartShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
-        SpaceshipUpdateTDO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
         if (id <= 0) {
             throw new SpaceshipInvalidValuesException("ID");
         }
@@ -177,10 +177,10 @@ public class SpaceshipService {
             standartShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
             standartShipDAO.update(standartShip);
 
-            SpaceshipValuesTDO spaceshipValuesTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
                 standartShip.getLife(), standartShip.getSpeed(), standartShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateTDO(standartShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(standartShip.getUser().getCash(), spaceshipValuesTDO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
@@ -188,9 +188,9 @@ public class SpaceshipService {
         return newSpaceshipUpdateTDO;
     }
 
-    public SpaceshipUpdateTDO updateSpeedShip(SpaceshipUpdateTDO spaceshipsUpdateTDO, long id) {
+    public SpaceshipUpdateDTO updateSpeedShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
-        SpaceshipUpdateTDO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
         if (id <= 0) {
             throw new SpaceshipInvalidValuesException("ID");
         }
@@ -213,10 +213,10 @@ public class SpaceshipService {
             speedShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
             speedShipDAO.update(speedShip);
 
-            SpaceshipValuesTDO spaceshipValuesTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
                 speedShip.getLife(), speedShip.getSpeed(), speedShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateTDO(speedShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(speedShip.getUser().getCash(), spaceshipValuesTDO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
@@ -224,9 +224,9 @@ public class SpaceshipService {
         return newSpaceshipUpdateTDO;
     }
 
-    public SpaceshipUpdateTDO updateDestroyerShip(SpaceshipUpdateTDO spaceshipsUpdateTDO, long id) {
+    public SpaceshipUpdateDTO updateDestroyerShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
-        SpaceshipUpdateTDO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
         if (id <= 0) {
             throw new SpaceshipInvalidValuesException("ID");
         }
@@ -249,10 +249,10 @@ public class SpaceshipService {
             destroyerShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
             destroyerShipDAO.update(destroyerShip);
 
-            SpaceshipValuesTDO spaceshipValuesTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
                 destroyerShip.getLife(), destroyerShip.getSpeed(), destroyerShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateTDO(destroyerShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(destroyerShip.getUser().getCash(), spaceshipValuesTDO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
@@ -260,9 +260,9 @@ public class SpaceshipService {
         return newSpaceshipUpdateTDO;
     }
 
-    public SpaceshipUpdateTDO updateFreighterShip(SpaceshipUpdateTDO spaceshipsUpdateTDO, long id) {
+    public SpaceshipUpdateDTO updateFreighterShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
-        SpaceshipUpdateTDO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
         if (id <= 0) {
             throw new SpaceshipInvalidValuesException("ID");
         }
@@ -285,10 +285,10 @@ public class SpaceshipService {
             freighterShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
             freighterShipDAO.update(freighterShip);
 
-            SpaceshipValuesTDO spaceshipValuesTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
                 freighterShip.getLife(), freighterShip.getSpeed(), freighterShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateTDO(freighterShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(freighterShip.getUser().getCash(), spaceshipValuesTDO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
@@ -296,9 +296,9 @@ public class SpaceshipService {
         return newSpaceshipUpdateTDO;
     }
 
-    public SpaceshipUpdateTDO updateEliteShip(SpaceshipUpdateTDO spaceshipsUpdateTDO, long id) {
+    public SpaceshipUpdateDTO updateEliteShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
 
-        SpaceshipUpdateTDO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
         if (id <= 0) {
             throw new SpaceshipInvalidValuesException("ID");
         }
@@ -321,10 +321,10 @@ public class SpaceshipService {
             eliteShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
             eliteShipDAO.update(eliteShip);
 
-            SpaceshipValuesTDO spaceshipValuesTDO = new SpaceshipValuesTDO(
+            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
                 eliteShip.getLife(), eliteShip.getSpeed(), eliteShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateTDO(eliteShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(eliteShip.getUser().getCash(), spaceshipValuesTDO);
         } 
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);

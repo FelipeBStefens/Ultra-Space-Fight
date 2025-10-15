@@ -1,5 +1,5 @@
 // Package;
-package com.ultra_space_fight.ultra_space_fight;
+package com.ultra_space_fight.ultra_space_fight.configuration;
 
 // Imports;
 import java.util.HashMap;

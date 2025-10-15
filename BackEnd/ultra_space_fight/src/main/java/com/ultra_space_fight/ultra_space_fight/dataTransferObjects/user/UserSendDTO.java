@@ -1,6 +1,6 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user;
 
-public class UserSendTDO {
+public class UserSendDTO {
     
     private String username;
 
@@ -8,7 +8,7 @@ public class UserSendTDO {
 
     private String password;
 
-    public UserSendTDO() {}
+    public UserSendDTO() {}
 
     public String getUsername() {
         return username;

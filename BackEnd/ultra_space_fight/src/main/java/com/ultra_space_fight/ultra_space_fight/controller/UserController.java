@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user.UserResponseDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user.UserSendDTO;
 import com.ultra_space_fight.ultra_space_fight.service.UserService;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.UserResponseTDO;
-import com.ultra_space_fight.ultra_space_fight.transferObjects.UserSendTDO;
 
 @RestController
 @RequestMapping("/user")
@@ -28,17 +28,17 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseTDO> create(@RequestBody UserSendTDO userSendTDO) {
+    public ResponseEntity<UserResponseDTO> create(@RequestBody UserSendDTO userSendTDO) {
 
-        UserResponseTDO userResponseTDO = userService.createUser(userSendTDO);
+        UserResponseDTO userResponseTDO = userService.createUser(userSendTDO);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseTDO);
     }
 
     @GetMapping("/get/login")
-    public ResponseEntity<UserResponseTDO> getUserLogin(
+    public ResponseEntity<UserResponseDTO> getUserLogin(
         @RequestParam String email, @RequestParam String password) {
         
-        UserResponseTDO userResponseTDO = userService.getUserLogin(email, password);
+        UserResponseDTO userResponseTDO = userService.getUserLogin(email, password);
         return ResponseEntity.status(HttpStatus.OK).body(userResponseTDO);
     }
     

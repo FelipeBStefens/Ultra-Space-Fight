@@ -1,14 +1,14 @@
-package com.ultra_space_fight.ultra_space_fight.transferObjects;
+package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score;
 
-public class ScoreCashTDO {
+public class ScoreCashDTO {
     
     private int score;
     private int cash;
 
-    public ScoreCashTDO() {
+    public ScoreCashDTO() {
     }
 
-    public ScoreCashTDO(int cash, int score) {
+    public ScoreCashDTO(int cash, int score) {
         this.cash = cash;
         this.score = score;
     }
