@@ -14,8 +14,8 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DataAchievem
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConnectionException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.RankingException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
-import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.DataAchievementDAO;
-import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
+import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.DataAchievementDAO;
+import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.UserDAO;
 import com.ultra_space_fight.ultra_space_fight.utils.DataAchievementsValidation;
 import com.ultra_space_fight.ultra_space_fight.utils.IdValidation;
 

@@ -1,5 +1,5 @@
 // Declaring the package of the CRUD interface;
-package com.ultra_space_fight.ultra_space_fight.persistence;
+package com.ultra_space_fight.ultra_space_fight.repository;
 
 // Importing necessary classes for the interface;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
+package com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ultra_space_fight.ultra_space_fight.models.spaceships.DestroyerShip;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
-import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
+import com.ultra_space_fight.ultra_space_fight.repository.CrudInterface;
 
 @Repository
 public class DestroyerShipDAO implements CrudInterface<DestroyerShip> {

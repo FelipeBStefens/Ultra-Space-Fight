@@ -1,5 +1,5 @@
-// Declaring the package of the EliteShipDAO class;
-package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
+// Declaring the package of the FreighterShipDAO class;
+package com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject;
 
 // Imports necessary classes to aply the Data Access Object;
 import java.sql.Connection;
@@ -14,35 +14,35 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
-import com.ultra_space_fight.ultra_space_fight.models.spaceships.EliteShip;
+import com.ultra_space_fight.ultra_space_fight.models.spaceships.FreighterShip;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
-import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
+import com.ultra_space_fight.ultra_space_fight.repository.CrudInterface;
 
-// Declaring the EliteShipDAO Class implementing the CrudInterface;
-// the generic value is EliteShip; 
+// Declaring the FreighterShipDAO Class implementing the CrudInterface;
+// the generic value is FreighterShip; 
 @Repository
-public class EliteShipDAO implements CrudInterface<EliteShip> {
-    
+public class FreighterShipDAO implements CrudInterface<FreighterShip> {
+
     private final DataSource dataSource;
 
-    public EliteShipDAO(DataSource dataSource) {
+    public FreighterShipDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     // SQL code insert a value;
     private final String SQL_CREATE = """
-        INSERT INTO elite_ship (id_ship, id_user, life, speed, damage)
+        INSERT INTO freighter_ship (id_ship, id_user, life, speed, damage)
         VALUES (NULL, ?, ?, ?, ?);
         """; 
     
     // SQL code delete a value;
     private final String SQL_DELETE = """
-        DELETE FROM elite_ship WHERE id_user = ?;    
+        DELETE FROM freighter_ship WHERE id_user = ?;    
         """;
 
     // SQL code update a value;
     private final String SQL_UPDATE = """
-        UPDATE elite_ship
+        UPDATE freighter_ship
         SET life = ?, speed = ?, damage = ?
         WHERE id_user = ?;    
         """;
@@ -50,34 +50,34 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
     // SQL code read a value;
     private final String SQL_READ = """
         SELECT * 
-        FROM (users u INNER JOIN elite_ship e USING(id_user)) 
+        FROM (users u INNER JOIN freighter_ship f USING(id_user)) 
         WHERE id_user = ?;    
         """;
 
     // SQL code read all values;
     private final String SQL_READ_ALL = """
         SELECT * 
-        FROM (users u INNER JOIN elite_ship e USING(id_user));    
+        FROM (users u INNER JOIN freighter_ship f USING(id_user));    
         """;
 
-    // Method that create a new EliteShip in the database;
+    // Method that create a new FreighterShip in the database;
     @Override
-    public void create(EliteShip eliteShip) throws SQLException {
+    public void create(FreighterShip freighterShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setLong(1, eliteShip.getUser().getIdUser());
-            preparedStatement.setInt(2, eliteShip.getLife());
-            preparedStatement.setInt(3, eliteShip.getSpeed());
-            preparedStatement.setInt(4, eliteShip.getDamage());
+            preparedStatement.setLong(1, freighterShip.getUser().getIdUser());
+            preparedStatement.setInt(2, freighterShip.getLife());
+            preparedStatement.setInt(3, freighterShip.getSpeed());
+            preparedStatement.setInt(4, freighterShip.getDamage());
 
             preparedStatement.executeUpdate();
 
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
-                    eliteShip.setIdShip(resultSet.getLong(1));
+                    freighterShip.setIdShip(resultSet.getLong(1));
                 }
             }
         }
@@ -86,7 +86,7 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         }
     }
 
-    // Method that delete a EliteShip in the database by id;
+    // Method that delete a FreighterShip in the database by id;
     @Override
     public void delete(long id) throws SQLException {
        
@@ -102,18 +102,18 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         }
     }
 
-    // Method that update a EliteShip in the database;
+    // Method that update a FreighterShip in the database;
     @Override
-    public void update(EliteShip eliteShip) throws SQLException {
+    public void update(FreighterShip freighterShip) throws SQLException {
         
         // Try-Catch to handle Execptions;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
 
-            preparedStatement.setInt(1, eliteShip.getLife());
-            preparedStatement.setInt(2, eliteShip.getSpeed());
-            preparedStatement.setInt(3, eliteShip.getDamage());
-            preparedStatement.setLong(4, eliteShip.getUser().getIdUser());
+            preparedStatement.setInt(1, freighterShip.getLife());
+            preparedStatement.setInt(2, freighterShip.getSpeed());
+            preparedStatement.setInt(3, freighterShip.getDamage());
+            preparedStatement.setLong(4, freighterShip.getUser().getIdUser());
 
             preparedStatement.executeUpdate();
         }
@@ -122,12 +122,12 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
         }
     }
 
-    // Method that read a EliteShip in the database by id;
+    // Method that read a FreighterShip in the database by id;
     @Override
-    public EliteShip read(long id) throws SQLException {
+    public FreighterShip read(long id) throws SQLException {
 
-        // Declaring a new EliteShip;
-        EliteShip eliteShip = null;
+        // Declaring a new FreighterShip;
+        FreighterShip freighterShip = null;
 
         // Try-Catch to handle Execptions;
         try (Connection connection = dataSource.getConnection();
@@ -141,8 +141,8 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
                             resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                     user.setIdUser(id);
 
-                    eliteShip = new EliteShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
-                    eliteShip.setIdShip(resultSet.getLong("id_ship"));
+                    freighterShip = new FreighterShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
+                    freighterShip.setIdShip(resultSet.getLong("id_ship"));
                 }
             }
         }
@@ -150,14 +150,16 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
             throw e;
         }
 
-        // Returning the EliteShip;
-        return eliteShip;
+        // Returning the freighterShip;
+        return freighterShip;
     }
 
-    // Method that read all EliteShip in the database;
+    // Method that read all FreighterShip in the database;
     @Override
-    public List<EliteShip> readAll() throws SQLException {
-        ArrayList<EliteShip> allEliteShip = new ArrayList<>();
+    public List<FreighterShip> readAll() throws SQLException {
+        
+        // Declaring a new list;
+        ArrayList<FreighterShip> allFreighterShip = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
@@ -168,15 +170,16 @@ public class EliteShipDAO implements CrudInterface<EliteShip> {
                         resultSet.getString("password_user"), resultSet.getInt("cash"), resultSet.getString("selected_spaceship"));
                 user.setIdUser(resultSet.getLong("id_user"));
 
-                EliteShip es = new EliteShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
-                es.setIdShip(resultSet.getLong("id_ship"));
+                FreighterShip fs = new FreighterShip(resultSet.getInt("life"), resultSet.getInt("speed"), resultSet.getInt("damage"), user);
+                fs.setIdShip(resultSet.getLong("id_ship"));
 
-                allEliteShip.add(es);
+                allFreighterShip.add(fs);
             }
         } catch (SQLException e) {
             throw e;
         }
 
-        return allEliteShip;
+        // Returning the list;
+        return allFreighterShip;
     }
 }

@@ -12,8 +12,8 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.DatabaseConn
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.UserConflictException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.Configuration;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
-import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.ConfigurationDAO;
-import com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject.UserDAO;
+import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.ConfigurationDAO;
+import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.UserDAO;
 import com.ultra_space_fight.ultra_space_fight.utils.ConfigurationValidate;
 import com.ultra_space_fight.ultra_space_fight.utils.IdValidation;
 import com.ultra_space_fight.ultra_space_fight.utils.UserValidation;

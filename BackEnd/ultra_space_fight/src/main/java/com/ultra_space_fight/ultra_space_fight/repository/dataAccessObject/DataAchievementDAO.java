@@ -1,5 +1,5 @@
 // Declaring the package of the DataAchievementsDAO class;
-package com.ultra_space_fight.ultra_space_fight.persistence.dataAccessObject;
+package com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject;
 
 // Imports necessary classes to aply the Data Access Object;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
-import com.ultra_space_fight.ultra_space_fight.persistence.CrudInterface;
+import com.ultra_space_fight.ultra_space_fight.repository.CrudInterface;
 
 // Declaring the DataAchievementsDAO Class implementing the CrudInterface;
 // the generic value is DataAchievements;
