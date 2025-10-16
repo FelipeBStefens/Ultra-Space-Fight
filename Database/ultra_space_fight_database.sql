@@ -79,9 +79,9 @@ CREATE TABLE standart_ship (
     damage INT NOT NULL DEFAULT 5,
     
     -- Checking values of the Columns;
-    CHECK (life >= 1 AND life <= 100),
-    CHECK (speed >= 1 AND speed <= 10),
-    CHECK (damage >= 1 AND damage <= 15),
+    CHECK (life >= 1 AND life <= 20),
+    CHECK (speed >= 1 AND speed <= 20),
+    CHECK (damage >= 1 AND damage <= 20),
     
     -- Declaring the Primary Key and Foreign Key;
     PRIMARY KEY (id_ship),
@@ -99,9 +99,9 @@ CREATE TABLE speed_ship (
     damage INT NOT NULL DEFAULT 5,
     
     -- Checking values of the Columns;
-    CHECK (life >= 1 AND life <= 100),
-    CHECK (speed >= 1 AND speed <= 10),
-    CHECK (damage >= 1 AND damage <= 15),
+    CHECK (life >= 1 AND life <= 20),
+    CHECK (speed >= 1 AND speed <= 20),
+    CHECK (damage >= 1 AND damage <= 20),
     
     -- Declaring the Primary Key and Foreign Key;
     PRIMARY KEY (id_ship),
@@ -119,9 +119,9 @@ CREATE TABLE destroyer_ship (
     damage INT NOT NULL DEFAULT 10,
     
     -- Checking values of the Columns;
-    CHECK (life >= 1 AND life <= 100),
-    CHECK (speed >= 1 AND speed <= 10),
-    CHECK (damage >= 1 AND damage <= 15),
+    CHECK (life >= 1 AND life <= 20),
+    CHECK (speed >= 1 AND speed <= 20),
+    CHECK (damage >= 1 AND damage <= 20),
     
     -- Declaring the Primary Key and Foreign Key;
     PRIMARY KEY (id_ship),
@@ -139,9 +139,9 @@ CREATE TABLE freighter_ship (
     damage INT NOT NULL DEFAULT 5,
     
     -- Checking values of the Columns;
-    CHECK (life >= 1 AND life <= 100),
-    CHECK (speed >= 1 AND speed <= 10),
-    CHECK (damage >= 1 AND damage <= 15),
+    CHECK (life >= 1 AND life <= 20),
+    CHECK (speed >= 1 AND speed <= 20),
+    CHECK (damage >= 1 AND damage <= 20),
     
     -- Declaring the Primary Key and Foreign Key;
     PRIMARY KEY (id_ship),
@@ -159,9 +159,9 @@ CREATE TABLE elite_ship (
     damage INT NOT NULL DEFAULT 10,
     
     -- Checking values of the Columns;
-    CHECK (life >= 1 AND life <= 100),
-    CHECK (speed >= 1 AND speed <= 10),
-    CHECK (damage >= 1 AND damage <= 15),
+    CHECK (life >= 1 AND life <= 20),
+    CHECK (speed >= 1 AND speed <= 20),
+    CHECK (damage >= 1 AND damage <= 20),
     
     -- Declaring the Primary Key and Foreign Key;
     PRIMARY KEY (id_ship),

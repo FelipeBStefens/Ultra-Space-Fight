@@ -19,13 +19,13 @@ public class UserValidation {
     }
 
     public static void validPassword(String password) throws UserInvalidValuesException {
-        if (password == null || PASSWORD_PATTERN.matcher(password).matches()) {
+        if (password == null || !PASSWORD_PATTERN.matcher(password).matches()) {
             throw new UserInvalidValuesException("E-Mail");
         } 
     }
 
     public static void validUsername(String username) throws UserInvalidValuesException {
-        if (username == null || USERNAME_PATTERN.matcher(username).matches()) {
+        if (username == null || !USERNAME_PATTERN.matcher(username).matches()) {
             throw new UserInvalidValuesException("Username");
         } 
     }

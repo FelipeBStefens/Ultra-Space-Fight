@@ -11,7 +11,7 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.user.UserNot
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.user.UserUnauthorizedException;
 
 public class UserExceptionHandler {
-    
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ModelException> userNotFoundException(UserNotFoundException e) {
 

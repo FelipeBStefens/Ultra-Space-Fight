@@ -29,13 +29,13 @@ public class SpaceshipValidation {
         if (spaceship.getUser().getCash() - spaceshipUpdateTDO.getCash() < 0) {
             throw new SpaceshipInvalidValuesException("Cash");
         }
-        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getLife() < 0 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getLife() > 100) {
+        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getLife() < 1 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getLife() > 20) {
             throw new SpaceshipInvalidValuesException("Spaceship Life");
         }
-        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getSpeed() < 0 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getSpeed() > 10) {
+        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getSpeed() < 1 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getSpeed() > 20) {
             throw new SpaceshipInvalidValuesException("Spaceship Speed");
         }
-        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getDamage() < 0 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getDamage() > 15) {
+        else if (spaceshipUpdateTDO.getSpaceshipValuesTDO().getDamage() < 1 || spaceshipUpdateTDO.getSpaceshipValuesTDO().getDamage() > 20) {
             throw new SpaceshipInvalidValuesException("Spaceship Damage");
         }
     }

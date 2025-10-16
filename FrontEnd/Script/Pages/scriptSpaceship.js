@@ -87,9 +87,9 @@ const upgradeCosts = {
 };
 
 const maxStats = {
-    life: 100,
-    speed: 10,
-    damage: 15
+    life: 20,
+    speed: 20,
+    damage: 20
 };
 
 function setLoadingState(isLoading, activeButton = null, isGray = false, selectedShipIndex = null) {
