@@ -1,4 +1,4 @@
-// Declaring the package of the DataAchievement class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
 // Declaring the DataAchievement class;
@@ -15,8 +15,10 @@ public class DataAchievements {
     // Relation with User class;
     private User user;
 
+    // Empty constructor;
     public DataAchievements() {
 
+        // Initializing the attributes of the DataAchievements class;
         this.score = 0;
         this.scoreMatch = 0;
         this.defeatedEnemies = 0;
@@ -24,7 +26,7 @@ public class DataAchievements {
         this.defeatedBoss = 0;
     };
 
-    // Constructor of the DataAchievements class;
+    // Constructor;
     public DataAchievements(int score, int scoreMatch, int defeatedEnemies, int defeatedElite, int defeatedBoss, User user) {
         
         // Initializing the attributes of the DataAchievements class;

@@ -1,5 +1,7 @@
+// Package;
 package com.ultra_space_fight.ultra_space_fight.controller;
 
+// Imports;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,51 +18,52 @@ import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user.UserResp
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user.UserSendDTO;
 import com.ultra_space_fight.ultra_space_fight.service.UserService;
 
+// Controller class for User;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserController {
     
+    // Declaring the Service of User;
     private final UserService userService;
 
+    // Constructor;
     public UserController(UserService userService) {
+        
+        // Instanciating the User Service;
         this.userService = userService;
     }
 
+    // Endpoint to create a new User;
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDTO> create(@RequestBody UserSendDTO userSendTDO) {
+    public ResponseEntity<UserResponseDTO> create(@RequestBody UserSendDTO userSendDTO) {
 
-        UserResponseDTO userResponseTDO = userService.createUser(userSendTDO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseTDO);
+        // Creating a new User and getting it's values;
+        UserResponseDTO userResponseDTO = userService.createUser(userSendDTO);
+        
+        // Returning the HTTP of this values;
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
 
+    // Endpoint to get the User by an E-Mail and Password;
     @GetMapping("/get/login")
-    public ResponseEntity<UserResponseDTO> getUserLogin(
-        @RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<UserResponseDTO> getUserLogin(@RequestParam String email, @RequestParam String password) {
         
-        UserResponseDTO userResponseTDO = userService.getUserLogin(email, password);
-        return ResponseEntity.status(HttpStatus.OK).body(userResponseTDO);
+        // Getting the User values;
+        UserResponseDTO userResponseDTO = userService.getUserLogin(email, password);
+        
+        // Returning the HTTP of this values;
+        return ResponseEntity.status(HttpStatus.OK).body(userResponseDTO);
     }
     
+    // Endpoint to delete the User by Id;
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
         
+        // Deleting the User by id;
         userService.deleteUser(id);
+        
+        // Returning the HTTP with no body values;
         return ResponseEntity.noContent().build();
     }
-
-    /*
-    @PutMapping("/update/{id}")
-    public User update(@PathVariable long id, @RequestBody User user) {
-        user.setIdUser(id);
-        userService.updateUser(user);
-        return user;
-    }
-
-    @GetMapping("/get/{id}")
-    public User getById(@PathVariable long id) {
-
-        return userService.getUserById(id);
-    }
-    */
 }

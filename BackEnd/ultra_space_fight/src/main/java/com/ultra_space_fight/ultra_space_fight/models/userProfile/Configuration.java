@@ -1,7 +1,7 @@
-// Declaring the package of the Configuration class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
-// Imports of the BigDecimal type;
+// Import;
 import java.math.BigDecimal;
 
 // Declaring the Configuration class;
@@ -16,6 +16,7 @@ public class Configuration {
     // Relation with User class;
     private User user;
 
+    // Empty constructor;
     public Configuration() {
 
         this.language = "English"; 

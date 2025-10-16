@@ -1,5 +1,7 @@
+// Package;
 package com.ultra_space_fight.ultra_space_fight.service;
 
+// Imports;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -19,110 +21,162 @@ import com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject.UserD
 import com.ultra_space_fight.ultra_space_fight.utils.DataAchievementsValidation;
 import com.ultra_space_fight.ultra_space_fight.utils.IdValidation;
 
+// DataAchievements Service class;
 @Service
 public class DataAchievementsService {
     
+    // DAO properties;
     private final UserDAO userDAO;
     private final DataAchievementDAO dataAchievementDAO;
     
+    // Constructor;
     public DataAchievementsService(DataAchievementDAO dataAchievementDAO, UserDAO userDAO) {
+        
+        // Initialyzing the DAO values;
         this.dataAchievementDAO = dataAchievementDAO;
         this.userDAO = userDAO;
     }
 
+    // Method to get Ranking List;
     public ArrayList<RankingScoreDTO> getRankingList() {
 
-        ArrayList<RankingScoreDTO> listRankingScoreTDO = new ArrayList<>();
+        // declaring Rank List;
+        ArrayList<RankingScoreDTO> listRankingScoreDTO = new ArrayList<>();
+        
+        // Try-Catch to Handle Exceptions;
         try {
             
+            // Taking ArrayList of DataAchievements;
             ArrayList<DataAchievements> arrayListDataAchievementses =
                 new ArrayList<>(dataAchievementDAO.selectTopUsersByScore());
             
+            // For Loop getting each DataAchievement from the Array; 
             for (DataAchievements dataAchievement : arrayListDataAchievementses) {
                 
-                RankingScoreDTO rankingScoreTDO = new RankingScoreDTO(
+                // Declaring the RankingScoreDTO;
+                RankingScoreDTO rankingScoreDTO = new RankingScoreDTO(
                     dataAchievement.getScore(), dataAchievement.getUser().getUsername());
                 
-                listRankingScoreTDO.add(rankingScoreTDO);
+                // Adding it on the RankingScoreDTO;
+                listRankingScoreDTO.add(rankingScoreDTO);
             } 
         }
         catch (SQLException e) {
+
+            // Throw Exception;
             throw new RankingException();
         }
-        return listRankingScoreTDO;
+
+        // Return RankingScoreDTO List;
+        return listRankingScoreDTO;
     }
 
+    // Method to get Match Ranking List;
     public ArrayList<RankingScoreMatchDTO> getRankingMatchList() {
 
-        ArrayList<RankingScoreMatchDTO> listRankingScoreMatchTDO = new ArrayList<>();
+        // declaring Rank List;
+        ArrayList<RankingScoreMatchDTO> listRankingScoreMatchDTO = new ArrayList<>();
+        
+        // Try-Catch to Handle Exceptions;
         try {
             
+            // Taking ArrayList of DataAchievements;
             ArrayList<DataAchievements> arrayListDataAchievementses =
                 new ArrayList<>(dataAchievementDAO.selectTopUsersByScore());
             
+            // For Loop getting each DataAchievement from the Array; 
             for (DataAchievements dataAchievement : arrayListDataAchievementses) {
                 
-                RankingScoreMatchDTO rankingScoreTDO = new RankingScoreMatchDTO(
+                // Declaring the RankingScoreMatchDTO;
+                RankingScoreMatchDTO rankingScoreDTO = new RankingScoreMatchDTO(
                     dataAchievement.getScoreMatch(), dataAchievement.getUser().getUsername());
                 
-                listRankingScoreMatchTDO.add(rankingScoreTDO);
+                // Adding it on the RankingScoreMatchDTO;
+                listRankingScoreMatchDTO.add(rankingScoreDTO);
             } 
         }
         catch (SQLException e) {
+
+            // Throw Exception;
             throw new RankingException();
         }
-        return listRankingScoreMatchTDO;
+        // Return RankingScoreMatchDTO List;
+        return listRankingScoreMatchDTO;
     }
 
+    // Method to get Achievements by Id;
     public AchievementsDTO getAchievements(long id) {
 
+        // Method to validate the Id;
         IdValidation.validate(id, new DataAchievementUnauthorizedException("ID"));
 
-        AchievementsDTO achievementsTDO = null;
+        // Declaring AchievementsDTO;
+        AchievementsDTO achievementsDTO = null;
 
+        // Try-Catch to Handle Exceptions;
         try {
-            DataAchievements dataAchievements = 
-                dataAchievementDAO.read(id);
 
+            // Get Data Achievements by Id;
+            DataAchievements dataAchievements = dataAchievementDAO.read(id);
+
+            // Verify if exists DataAchievements;
             DataAchievementsValidation.verifyDataAchievements(dataAchievements);
 
-            achievementsTDO = new AchievementsDTO(
+            // Setting AchievementsDTO values;
+            achievementsDTO = new AchievementsDTO(
                 dataAchievements.getScore(), dataAchievements.getScoreMatch(),
                 dataAchievements.getDefeatedEnemies(), dataAchievements.getDefeatedElite(), 
                 dataAchievements.getDefeatedBoss());
         }
         catch (SQLException e) {
+
+            // Throw Exception;
             throw new DatabaseConnectionException(e);
         }
-        return achievementsTDO;
+
+        // Return AchievementsDTO;
+        return achievementsDTO;
     }
 
-    public ScoreDTO updateScoreCash(long id, ScoreCashDTO scoreCashTDO) {
+    // Method to update Score and Cash; 
+    public ScoreDTO updateScoreCash(long id, ScoreCashDTO scoreCashDTO) {
 
+        // Methods to validate Id and ScoreCashDTO;
         IdValidation.validate(id, new DataAchievementUnauthorizedException("ID"));
-        DataAchievementsValidation.verifyScoreCash(scoreCashTDO);
+        DataAchievementsValidation.verifyScoreCash(scoreCashDTO);
 
-        ScoreDTO scoreTDO = null;
+        // Declaring ScoreDTO;
+        ScoreDTO scoreDTO = null;
 
+        // Try-Catch to Handle Exceptions;
         try {
-            DataAchievements dataAchievements = 
-                dataAchievementDAO.read(id);
 
+            // Get Data Achievements by Id; 
+            DataAchievements dataAchievements = dataAchievementDAO.read(id);
+
+            // Verify if exists Data Achievements;
             DataAchievementsValidation.verifyDataAchievements(dataAchievements);
 
-            DataAchievementsValidation.updateScore(dataAchievements, scoreCashTDO);            
-            DataAchievementsValidation.updateCash(dataAchievements, scoreCashTDO);
-            DataAchievementsValidation.updateScoreMatch(dataAchievements, scoreCashTDO);
-            
+            // Update Score, Score Match and Cash; 
+            DataAchievementsValidation.updateScore(dataAchievements, scoreCashDTO);            
+            DataAchievementsValidation.updateScoreMatch(dataAchievements, scoreCashDTO);
+            DataAchievementsValidation.updateCash(dataAchievements, scoreCashDTO);
+
+            // Update DAOs values;
             userDAO.update(dataAchievements.getUser());
             dataAchievementDAO.update(dataAchievements);
 
-            scoreTDO = new ScoreDTO(
+            // Setting values of ScoreDTO;
+            scoreDTO = new ScoreDTO(
                 dataAchievements.getScore(), dataAchievements.getScoreMatch());
         }
         catch (SQLException e) {
+
+            // Throw Exception;
             throw new DatabaseConnectionException(e);
         }
-        return scoreTDO;
+
+        // Return ScoreDTO;
+        return scoreDTO;
     }
 }

@@ -1,12 +1,13 @@
-// Declaring the package of the StandartShip class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.models.spaceships;
 
-// Importing the User class from the userProfile package;
+// Importing;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 
 // Declaring the StandartShip class extending the SpaceShip class;
 public final class StandartShip extends SpaceShip {
     
+    // Empty constructor;
     public StandartShip() {
         super(10, 5, 5);
     };

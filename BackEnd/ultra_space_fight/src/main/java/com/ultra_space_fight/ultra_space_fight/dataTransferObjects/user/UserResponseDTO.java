@@ -1,11 +1,15 @@
+// Package;
 package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.user;
 
+// Imports;
 import java.math.BigDecimal;
 
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.spaceships.SpaceshipValuesDTO;
 
+// Declaring the UserResponseDTO class;
 public class UserResponseDTO {
     
+    // Attributes of the UserResponseDTO class;
     private long idUser;
     private String selectedSpaceship;
     private SpaceshipValuesDTO spaceshipValues;
@@ -14,10 +18,14 @@ public class UserResponseDTO {
     private BigDecimal soundtrack;
     private BigDecimal soundEffects;
 
+    // Empty constructor;
     public UserResponseDTO() {}
 
+    // Constructor;
     public UserResponseDTO(long idUser, String selectedSpaceship, SpaceshipValuesDTO spaceshipValues,
         int score, int scoreMatch, BigDecimal soundtrack, BigDecimal soundEffects) {
+        
+        // Initializing the Attribute values;
         this.idUser = idUser;
         this.selectedSpaceship = selectedSpaceship;
         this.spaceshipValues = spaceshipValues;
@@ -25,9 +33,9 @@ public class UserResponseDTO {
         this.scoreMatch = scoreMatch;
         this.soundtrack = soundtrack;
         this.soundEffects = soundEffects;
-
     }
     
+    // Getter and Setter of IdUser;
     public long getIdUser() {
         return idUser;
     }
@@ -36,6 +44,7 @@ public class UserResponseDTO {
         this.idUser = idUser;
     }
 
+    // Getter and Setter of Selected Spaceship;
     public String getSelectedSpaceship() {
         return selectedSpaceship;
     }
@@ -44,6 +53,7 @@ public class UserResponseDTO {
         this.selectedSpaceship = selectedSpaceship;
     }
 
+    // Getter and Setter of Score;
     public int getScore() {
         return score;
     }
@@ -52,6 +62,7 @@ public class UserResponseDTO {
         this.score = score;
     }
 
+    // Getter and Setter of Score Match;
     public int getScoreMatch() {
         return scoreMatch;
     }
@@ -60,6 +71,7 @@ public class UserResponseDTO {
         this.scoreMatch = scoreMatch;
     }
 
+    // Getter and Setter of Soundtrack;
     public BigDecimal getSoundtrack() {
         return soundtrack;
     }
@@ -68,6 +80,7 @@ public class UserResponseDTO {
         this.soundtrack = soundtrack;
     }
 
+    // Getter and Setter of Sound Effects;
     public BigDecimal getSoundEffects() {
         return soundEffects;
     }
@@ -76,6 +89,7 @@ public class UserResponseDTO {
         this.soundEffects = soundEffects;
     }
 
+    // Getter and Setter of Spaceship Values; 
     public SpaceshipValuesDTO getSpaceshipValues() {
         return spaceshipValues;
     }

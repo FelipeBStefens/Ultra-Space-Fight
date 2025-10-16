@@ -1,9 +1,9 @@
-// Declaring the package of the CRUD interface;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.repository;
 
-// Importing necessary classes for the interface;
-import java.util.List;
+// Imports;
 import java.sql.SQLException;
+import java.util.List;
 
 // Declaring the CrudInterface;
 public interface CrudInterface<T> {

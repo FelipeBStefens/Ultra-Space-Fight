@@ -1,15 +1,18 @@
-// Declaring the package of the SpaceShip class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.models.spaceships;
 
+// Imports;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 
+// Informations of the Spaceship property;
 @JsonTypeInfo(
   use = JsonTypeInfo.Id.NAME, 
   include = JsonTypeInfo.As.PROPERTY, 
   property = "type")
 
+// Informations of the subclasses of Spaceship;
 @JsonSubTypes({
   @JsonSubTypes.Type(value = StandartShip.class, name = "standartShip"),
   @JsonSubTypes.Type(value = SpeedShip.class, name = "speedShip"),
@@ -29,6 +32,7 @@ public abstract class SpaceShip {
     // Relation with User class;
     protected User user;
 
+    // Empty constructor;
     public SpaceShip() {};
 
     // Constructor of the SpaceShip class;
@@ -41,6 +45,7 @@ public abstract class SpaceShip {
         this.user = user;
     }
 
+    // Constructor without User definition;
     public SpaceShip(int life, int speed, int damage) {
         
         // Initializing the attributes of the SpaceShip class;

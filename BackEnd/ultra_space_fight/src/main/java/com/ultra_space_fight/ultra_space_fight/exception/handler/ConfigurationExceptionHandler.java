@@ -1,5 +1,7 @@
+// Package;
 package com.ultra_space_fight.ultra_space_fight.exception.handler;
 
+// Imports;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,49 +12,52 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.configuratio
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.configuration.ConfigurationNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.configuration.ConfigurationUnauthorizedException;
 
+// Configuration Exception Handler;
 @RestControllerAdvice
 public class ConfigurationExceptionHandler {
     
-    
+    // Handler to ConfigurationNotFound Exception;
     @ExceptionHandler(ConfigurationNotFoundException.class)
     public ResponseEntity<ModelException> getConfigurationValues(ConfigurationNotFoundException e) {
 
-        ModelException globalException = new ModelException(
+        // The Model Exception;
+        ModelException configurationException = new ModelException(
             HttpStatus.NOT_FOUND.value(),
             "The Configuration could not be found",
             e.getMessage()
         );
 
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(globalException);
+        // Returning NotFoundException;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(configurationException);
     }
 
+    // Handler to ConfigrationInvalidValues Exception;
     @ExceptionHandler(ConfigurationInvalidValuesException.class)
     public ResponseEntity<ModelException> configurationValuesInvalid(ConfigurationInvalidValuesException e) {
         
-        ModelException globalException = new ModelException(
+        // The Model Exception;
+        ModelException configurationException = new ModelException(
             HttpStatus.BAD_REQUEST.value(),
             "One of the Configuration values is invalid",
             e.getMessage()
         );
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(globalException);
+        // Returning BadRequestException;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(configurationException);
     }
 
+    // Handler to ConfigurationUnauthorized Exception;
     @ExceptionHandler(ConfigurationUnauthorizedException.class)
     public ResponseEntity<ModelException> configurationUnhathorized(ConfigurationUnauthorizedException e) {
 
-        ModelException globalException = new ModelException(
+        // The Model Exception;
+        ModelException configurationException = new ModelException(
             HttpStatus.UNAUTHORIZED.value(),
             "Configuration Unauthorized to Get",
             e.getMessage()
         );
 
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body(globalException);
+        // Returning UnauthorizedException;
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(configurationException);
     }
 }

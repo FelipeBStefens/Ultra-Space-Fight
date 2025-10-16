@@ -1,12 +1,13 @@
-// Declaring the package of the SpeedShip class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.models.spaceships;
 
-// Importing the User class from the userProfile package;
+// Imports;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 
 // Declaring the SpeedShip class extending the SpaceShip class;
 public class SpeedShip extends SpaceShip {
     
+    // Empty constructor;
     public SpeedShip() {
         super(5, 10, 5);
     };

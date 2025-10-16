@@ -1,5 +1,7 @@
+// Package;
 package com.ultra_space_fight.ultra_space_fight.exception.handler;
 
+// Imports;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,48 +12,52 @@ import com.ultra_space_fight.ultra_space_fight.exception.exceptions.spaceships.S
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.spaceships.SpaceshipNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.spaceships.SpaceshipUnauthorizedException;
 
+// Spaceship Exception Handler class;
 @RestControllerAdvice
 public class SpaceshipExceptionHandler {
    
+    // Handler to SpaceshipNotFound Exception;
     @ExceptionHandler(SpaceshipNotFoundException.class)
     public ResponseEntity<ModelException> spaceshipNotFoundException(SpaceshipNotFoundException e) {
 
-        ModelException globalException = new ModelException(
+        // The Model Exception;
+        ModelException spaceshipException = new ModelException(
             HttpStatus.NOT_FOUND.value(),
             "The Spaceship could not be found",
             e.getMessage()
         );
 
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(globalException);
+        // Returning NotFoundException;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(spaceshipException);
     }
 
+    // Handler to SpaceshipInvalidValues Exception;
     @ExceptionHandler(SpaceshipInvalidValuesException.class)
     public ResponseEntity<ModelException> spaceshipValuesInvalid(SpaceshipInvalidValuesException e) {
         
-        ModelException globalException = new ModelException(
+        // The Model Exception;
+        ModelException spaceshipException = new ModelException(
             HttpStatus.BAD_REQUEST.value(),
             "One of the Spaceship values is invalid",
             e.getMessage()
         );
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(globalException);
+        // Returning BadRequestException;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(spaceshipException);
     }
 
+    // Handler to SpaceshipUnauthorized Exception;
     @ExceptionHandler(SpaceshipUnauthorizedException.class)
     public ResponseEntity<ModelException> spaceshipUnhathorized(SpaceshipUnauthorizedException e) {
 
-        ModelException globalException = new ModelException(
+        // The Model Exception;
+        ModelException spaceshipException = new ModelException(
             HttpStatus.UNAUTHORIZED.value(),
             "Spaceship Unauthorized to Get",
             e.getMessage()
         );
 
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body(globalException);
+        // Returning UnauthorizedException;
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(spaceshipException);
     }
 }

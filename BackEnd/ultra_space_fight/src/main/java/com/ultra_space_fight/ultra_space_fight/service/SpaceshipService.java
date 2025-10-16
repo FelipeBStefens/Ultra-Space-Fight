@@ -1,5 +1,7 @@
+// Package;
 package com.ultra_space_fight.ultra_space_fight.service;
 
+// Imports;
 import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
@@ -27,9 +29,11 @@ import com.ultra_space_fight.ultra_space_fight.utils.IdValidation;
 import com.ultra_space_fight.ultra_space_fight.utils.SpaceshipValidation;
 import com.ultra_space_fight.ultra_space_fight.utils.UserValidation;
 
+// Spaceship Service class;
 @Service
 public class SpaceshipService {
     
+    // DAO properties;
     public final UserDAO userDAO;
     public final StandartShipDAO standartShipDAO;
     public final SpeedShipDAO speedShipDAO;
@@ -38,11 +42,13 @@ public class SpaceshipService {
     public final EliteShipDAO eliteShipDAO;
     public final DataAchievementDAO dataAchievementDAO;
 
+    // Constructor;
     public SpaceshipService(UserDAO userDAO, StandartShipDAO standartShipDAO,
         SpeedShipDAO speedShipDAO, DestroyerShipDAO destroyerShipDAO, 
         FreighterShipDAO freighterShipDAO, EliteShipDAO eliteShipDAO,
         DataAchievementDAO dataAchievementDAO) {
         
+        // Initializing DAO values;
         this.userDAO = userDAO;
         this.standartShipDAO = standartShipDAO;
         this.speedShipDAO = speedShipDAO;
@@ -52,216 +58,265 @@ public class SpaceshipService {
         this.dataAchievementDAO = dataAchievementDAO;
     }
 
+    // Method to get all spaceships and their values for a user;
     public SpaceshipsDTO getAllSpaceshipsValues(long id) {
         
+        // Validating ID value;
         IdValidation.validate(id, new SpaceshipUnauthorizedException("ID"));
 
+        // Declaring DTO;
+        SpaceshipsDTO spaceshipsDTO = null;
 
-        SpaceshipsDTO spaceshipsTDO = null;
-
+        // Try-Catch block to handle SQL exceptions;
         try {
-            
+            // Verify if the user exists in database;
             UserValidation.verifyUsername(userDAO.read(id));
 
+            // Reading all spaceship types for the user;
             StandartShip standartShip = standartShipDAO.read(id);
             SpeedShip speedShip = speedShipDAO.read(id);
             DestroyerShip destroyerShip = destroyerShipDAO.read(id);
             FreighterShip freighterShip = freighterShipDAO.read(id);
             EliteShip eliteShip = eliteShipDAO.read(id);
 
-            SpaceshipValuesDTO standartShipTDO = new SpaceshipValuesDTO(
+            // Creating DTOs with spaceship attributes;
+            SpaceshipValuesDTO standartShipDTO = new SpaceshipValuesDTO(
                 standartShip.getLife(), standartShip.getSpeed(), standartShip.getDamage());
 
-            SpaceshipValuesDTO speedShipTDO = new SpaceshipValuesDTO(
+            SpaceshipValuesDTO speedShipDTO = new SpaceshipValuesDTO(
                 speedShip.getLife(), speedShip.getSpeed(), speedShip.getDamage());
 
-            SpaceshipValuesDTO destroyerShipTDO = new SpaceshipValuesDTO(
+            SpaceshipValuesDTO destroyerShipDTO = new SpaceshipValuesDTO(
                 destroyerShip.getLife(), destroyerShip.getSpeed(), destroyerShip.getDamage());
 
-            SpaceshipValuesDTO freighterShipTDO = new SpaceshipValuesDTO(
+            SpaceshipValuesDTO freighterShipDTO = new SpaceshipValuesDTO(
                 freighterShip.getLife(), freighterShip.getSpeed(), freighterShip.getDamage());
 
-            SpaceshipValuesDTO eliteShipTDO = new SpaceshipValuesDTO(
+            SpaceshipValuesDTO eliteShipDTO = new SpaceshipValuesDTO(
                 eliteShip.getLife(), eliteShip.getSpeed(), eliteShip.getDamage());
         
-            spaceshipsTDO = new SpaceshipsDTO(standartShip.getUser().getCash(), 
-                standartShipTDO, speedShipTDO, destroyerShipTDO, freighterShipTDO, eliteShipTDO);
+            // Creating and returning SpaceshipsDTO containing all ship data and user cash;
+            spaceshipsDTO = new SpaceshipsDTO(standartShip.getUser().getCash(), 
+                standartShipDTO, speedShipDTO, destroyerShipDTO, freighterShipDTO, eliteShipDTO);
         }
         catch (SQLException e) {
+            // Throw database exception if any SQL error occurs;
             throw new DatabaseConnectionException(e);
         }
-        return spaceshipsTDO;
+        return spaceshipsDTO;
     }
 
+    // Method to update which spaceship is currently selected by the user;
     public String updateSelectedSpaceship(String selectedSpaceship, long id) {
 
+        // Validating spaceship name and user ID;
         SpaceshipValidation.validateSpaceship(selectedSpaceship);
         IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         String newSelectedSpaceship;
+
+        // Try-Catch block to handle SQL exceptions;
         try {
+            // Reading user from database;
             User user = userDAO.read(id);
 
+            // Verify if user exists;
             UserValidation.verifyUsername(user);
+
+            // Updating selected spaceship and saving;
             user.setSelectedSpaceship(selectedSpaceship);
             userDAO.update(user);
 
             newSelectedSpaceship = selectedSpaceship;
         }
         catch (SQLException e) {
+            // Throw database exception if update fails;
             throw new DatabaseConnectionException(e);
         }
         return newSelectedSpaceship;
     }
 
+    // Method to update Standart Ship;
+    public SpaceshipUpdateDTO updateStandartShip(SpaceshipUpdateDTO spaceshipsUpdateDTO, long id) {
 
-    public SpaceshipUpdateDTO updateStandartShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
+        // Declaring new DTO;
+        SpaceshipUpdateDTO newSpaceshipUpdateDTO = null;
 
-        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
+        // Validating ID;
         IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
+        // Try-Catch block to handle SQL exceptions;
         try {
+            // Reading spaceship from database;
             StandartShip standartShip = standartShipDAO.read(id);
 
+            // Verifying spaceship existence and values;
             SpaceshipValidation.verifySpaceship(standartShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, standartShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, standartShip);
 
-            standartShip.getUser().setCash(standartShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
+            // Updating user cash based on upgrade cost;
+            standartShip.getUser().setCash(standartShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
             userDAO.update(standartShip.getUser());
 
-            standartShip.setLife(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getLife());
-            standartShip.setSpeed(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getSpeed());
-            standartShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
+            // Updating spaceship stats;
+            standartShip.setLife(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getLife());
+            standartShip.setSpeed(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getSpeed());
+            standartShip.setDamage(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getDamage());
             standartShipDAO.update(standartShip);
 
-            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
+            // Creating new DTO to return updated data;
+            SpaceshipValuesDTO spaceshipValuesDTO = new SpaceshipValuesDTO(
                 standartShip.getLife(), standartShip.getSpeed(), standartShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(standartShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(standartShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
         }
-        return newSpaceshipUpdateTDO;
+        return newSpaceshipUpdateDTO;
     }
 
-    public SpaceshipUpdateDTO updateSpeedShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
+    // Method to update Speed Ship;
+    public SpaceshipUpdateDTO updateSpeedShip(SpaceshipUpdateDTO spaceshipsUpdateDTO, long id) {
 
-        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateDTO = null;
         IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
+            // Reading spaceship from database;
             SpeedShip speedShip = speedShipDAO.read(id);
 
+            // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(speedShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, speedShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, speedShip);
 
-            speedShip.getUser().setCash(speedShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
+            // Updating user cash after spending on upgrade;
+            speedShip.getUser().setCash(speedShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
             userDAO.update(speedShip.getUser());
 
-            speedShip.setLife(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getLife());
-            speedShip.setSpeed(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getSpeed());
-            speedShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
+            // Updating spaceship attributes;
+            speedShip.setLife(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getLife());
+            speedShip.setSpeed(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getSpeed());
+            speedShip.setDamage(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getDamage());
             speedShipDAO.update(speedShip);
 
-            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
+            // Creating DTO with updated data;
+            SpaceshipValuesDTO spaceshipValuesDTO = new SpaceshipValuesDTO(
                 speedShip.getLife(), speedShip.getSpeed(), speedShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(speedShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(speedShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
         }
-        return newSpaceshipUpdateTDO;
+        return newSpaceshipUpdateDTO;
     }
 
-    public SpaceshipUpdateDTO updateDestroyerShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
+    // Method to update Destroyer Ship;
+    public SpaceshipUpdateDTO updateDestroyerShip(SpaceshipUpdateDTO spaceshipsUpdateDTO, long id) {
 
-        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateDTO = null;
         IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
+            // Reading spaceship from database;
             DestroyerShip destroyerShip = destroyerShipDAO.read(id);
 
+            // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(destroyerShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, destroyerShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, destroyerShip);
 
-            destroyerShip.getUser().setCash(destroyerShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
+            // Updating user cash after spending on upgrade;
+            destroyerShip.getUser().setCash(destroyerShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
             userDAO.update(destroyerShip.getUser());
 
-            destroyerShip.setLife(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getLife());
-            destroyerShip.setSpeed(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getSpeed());
-            destroyerShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
+            // Updating spaceship attributes;
+            destroyerShip.setLife(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getLife());
+            destroyerShip.setSpeed(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getSpeed());
+            destroyerShip.setDamage(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getDamage());
             destroyerShipDAO.update(destroyerShip);
 
-            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
+            // Creating DTO with updated data;
+            SpaceshipValuesDTO spaceshipValuesDTO = new SpaceshipValuesDTO(
                 destroyerShip.getLife(), destroyerShip.getSpeed(), destroyerShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(destroyerShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(destroyerShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
         }
-        return newSpaceshipUpdateTDO;
+        return newSpaceshipUpdateDTO;
     }
 
-    public SpaceshipUpdateDTO updateFreighterShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
+    // Method to update Freighter Ship;
+    public SpaceshipUpdateDTO updateFreighterShip(SpaceshipUpdateDTO spaceshipsUpdateDTO, long id) {
 
-        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateDTO = null;
         IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
+            // Reading spaceship from database;
             FreighterShip freighterShip = freighterShipDAO.read(id);
 
+            // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(freighterShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, freighterShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, freighterShip);
 
-            freighterShip.getUser().setCash(freighterShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
+            // Updating user cash after spending on upgrade;
+            freighterShip.getUser().setCash(freighterShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
             userDAO.update(freighterShip.getUser());
 
-            freighterShip.setLife(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getLife());
-            freighterShip.setSpeed(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getSpeed());
-            freighterShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
+            // Updating spaceship attributes;
+            freighterShip.setLife(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getLife());
+            freighterShip.setSpeed(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getSpeed());
+            freighterShip.setDamage(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getDamage());
             freighterShipDAO.update(freighterShip);
 
-            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
+            // Creating DTO with updated data;
+            SpaceshipValuesDTO spaceshipValuesDTO = new SpaceshipValuesDTO(
                 freighterShip.getLife(), freighterShip.getSpeed(), freighterShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(freighterShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(freighterShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
         }
-        return newSpaceshipUpdateTDO;
+        return newSpaceshipUpdateDTO;
     }
 
-    public SpaceshipUpdateDTO updateEliteShip(SpaceshipUpdateDTO spaceshipsUpdateTDO, long id) {
+    // Method to update Elite Ship;
+    public SpaceshipUpdateDTO updateEliteShip(SpaceshipUpdateDTO spaceshipsUpdateDTO, long id) {
 
-        SpaceshipUpdateDTO newSpaceshipUpdateTDO = null;
+        SpaceshipUpdateDTO newSpaceshipUpdateDTO = null;
         IdValidation.validate(id, new SpaceshipInvalidValuesException("ID"));
 
         try {
+            // Reading spaceship from database;
             EliteShip eliteShip = eliteShipDAO.read(id);
 
+            // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(eliteShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateTDO, eliteShip);
+            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, eliteShip);
 
-            eliteShip.getUser().setCash(eliteShip.getUser().getCash() - spaceshipsUpdateTDO.getCash());
+            // Updating user cash after spending on upgrade;
+            eliteShip.getUser().setCash(eliteShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
             userDAO.update(eliteShip.getUser());
 
-            eliteShip.setLife(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getLife());
-            eliteShip.setSpeed(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getSpeed());
-            eliteShip.setDamage(spaceshipsUpdateTDO.getSpaceshipValuesTDO().getDamage());
+            // Updating spaceship attributes;
+            eliteShip.setLife(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getLife());
+            eliteShip.setSpeed(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getSpeed());
+            eliteShip.setDamage(spaceshipsUpdateDTO.getSpaceshipValuesDTO().getDamage());
             eliteShipDAO.update(eliteShip);
 
-            SpaceshipValuesDTO spaceshipValuesTDO = new SpaceshipValuesDTO(
+            // Creating DTO with updated data;
+            SpaceshipValuesDTO spaceshipValuesDTO = new SpaceshipValuesDTO(
                 eliteShip.getLife(), eliteShip.getSpeed(), eliteShip.getDamage());
 
-            newSpaceshipUpdateTDO = new SpaceshipUpdateDTO(eliteShip.getUser().getCash(), spaceshipValuesTDO);
+            newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(eliteShip.getUser().getCash(), spaceshipValuesDTO);
         } 
         catch (SQLException e) {
             throw new DatabaseConnectionException(e);
         }
-        return newSpaceshipUpdateTDO;
+        return newSpaceshipUpdateDTO;
     }
 }

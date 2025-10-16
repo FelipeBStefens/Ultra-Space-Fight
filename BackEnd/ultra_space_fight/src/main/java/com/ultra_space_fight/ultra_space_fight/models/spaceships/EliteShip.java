@@ -1,12 +1,13 @@
-// Declaring the package of the EliteShip class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.models.spaceships;
 
-// Importing the User class from the userProfile package;
+// Imports;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 
 // Declaring the EliteShip class extending the SpaceShip class;
 public class EliteShip extends SpaceShip {
     
+    // Empty constructor; 
     public EliteShip() {
         super(20, 10, 10); 
     };

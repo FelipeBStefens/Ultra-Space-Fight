@@ -1,4 +1,4 @@
-// Declaring the package of the User class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
 // Declaring the User class;
@@ -12,8 +12,10 @@ public class User {
     private int cash;
     private String selectedSpaceship;
 
+    // Empty constructor;
     public User() {
 
+        // Initializing the attributes of the User class;
         this.cash = 0; 
         this.selectedSpaceship = "standart_ship";
     };
