@@ -15,7 +15,7 @@ class EliteEnemy extends Enemy {
         this.life = 50;
         this.cash = 20;
         this.score = 40;
-    this.imagePath = PATH_ELITE_ENEMY_IMAGE;
+        this.imagePath = PATH_ELITE_ENEMY_IMAGE;
     }
 
     update(player, bulletsArray, canvas) {

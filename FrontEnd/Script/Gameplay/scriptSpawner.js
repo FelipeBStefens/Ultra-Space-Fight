@@ -10,13 +10,15 @@ class EnemySpawner {
     player;
     spawnInterval;
     lastSpawnTime;
+    limitEnemies;
 
     constructor(canvas, enemies, player) {
         this.canvas = canvas;
         this.enemies = enemies;
         this.player = player;
 
-        this.spawnInterval = 3000; 
+        this.limitEnemies = 10;
+        this.spawnInterval = 5000; 
         this.lastSpawnTime = Date.now();
     }
 
@@ -30,6 +32,11 @@ class EnemySpawner {
     }
 
     spawnEnemy() {
+
+        if (this.enemies.length >= this.limitEnemies) {
+            return;
+        }
+
         // Escolher tipo com peso
         const enemyType = this.getRandomEnemyType();
 
@@ -58,15 +65,15 @@ class EnemySpawner {
     getRandomEnemyType() {
         const rand = Math.random();
 
-        if (rand < 0.4) return "scoutEnemy";
-        else if (rand < 0.6) return "soldierEnemy";
-        else if (rand < 0.8) return "tankEnemy";
+        if (rand < 0.35) return "scoutEnemy";
+        else if (rand < 0.65) return "soldierEnemy";
+        else if (rand < 0.95) return "tankEnemy";
         else return "eliteEnemy";
     }
 
     getSpawnPosition() {
         const side = Math.floor(Math.random() * 4);
-        const margin = 100; // distância fora da tela
+        const margin = 150; // distância fora da tela
 
         switch (side) {
             case 0: // top
@@ -82,6 +89,11 @@ class EnemySpawner {
 
     // No EnemySpawner
     spawnEnemyAt(enemyType, boss, xPercent, yPercent) {
+
+        if (this.enemies.length >= this.limitEnemies) {
+            return;
+        }
+
         // Calcula posição absoluta na tela
         const x = boss.position.x + boss.width * xPercent;
         const y = boss.position.y + boss.height * yPercent;

@@ -73,7 +73,8 @@ class GameObject {
         switch (this.type) {
             case "spaceship":
                 // Decrement life; takeLife returns true if life reached zero
-                const died = takeLife();
+                //const died = takeLife();
+                const died = false;
                 if (died) {
                     // Notify the app that the player died; listener (gameplay) will show game over UI
                     try {
@@ -88,6 +89,11 @@ class GameObject {
                 break;
 
             case "enemy":
+
+                if (this.kamikaze && gameObject.type === "spaceship") {
+                    this.life = 0;
+                    this.active = false;
+                }
 
                 if (gameObject.type === "bullet") {
                     this.updateLife(getDamage());
