@@ -1,4 +1,5 @@
 import { gameState } from "./scriptGameplay.js";
+import SoundManager from "./scriptSoundManager.js";
 
 const pauseButton = document.getElementById("pauseButton");
 
@@ -13,7 +14,6 @@ if (!pauseButton) {
     gameState.isPaused = true;
     if (document.getElementById("pauseScreen")) return;
 
-    console.log("Pause button clicked ✅");
     const pauseScreen = document.createElement("div");
     pauseScreen.id = "pauseScreen";
 
@@ -38,6 +38,11 @@ if (!pauseButton) {
     soundSlider.value = user.soundEffects;
     soundSlider.className = "pauseSlider";
 
+    const soundLabel = document.createElement("label");
+    soundLabel.textContent = "Sound Effects";
+    soundLabel.htmlFor = soundSlider.id; // associa ao slider
+    soundLabel.className = "pauseLabel"; 
+
     const musicSlider = document.createElement("input");
     musicSlider.type = "range";
     musicSlider.min = "0";
@@ -45,6 +50,19 @@ if (!pauseButton) {
     musicSlider.step = "0.01";
     musicSlider.value = user.soundtrack;
     musicSlider.className = "pauseSlider";
+
+    const musicLabel = document.createElement("label");
+    musicLabel.textContent = "Soundtrack";
+    musicLabel.htmlFor = musicSlider.id;
+    musicLabel.className = "pauseLabel"; 
+
+    const soundContainer = document.createElement("div");
+    soundContainer.className = "sliderContainer";
+    soundContainer.append(soundLabel, soundSlider);
+
+    const musicContainer = document.createElement("div");
+    musicContainer.className = "sliderContainer";
+    musicContainer.append(musicLabel, musicSlider);
 
     const saveSoundsButton = document.createElement("button");
     saveSoundsButton.id = "saveSoundsButton";
@@ -113,7 +131,7 @@ if (!pauseButton) {
             user.soundEffects = result.soundEffects;
             localStorage.setItem("user", JSON.stringify(user));
             if (window.parent?.setAudioVolume) window.parent.setAudioVolume(user.soundtrack);
-
+            SoundManager.updateMusicVolume();
             console.log("Configurações salvas com sucesso:", result);
         } catch (err) {
             console.error(err);
@@ -131,7 +149,14 @@ if (!pauseButton) {
     });
 
         // Append elementos
-        pauseContent.append(pauseTitle, resumeButton, soundSlider, musicSlider, saveSoundsButton, exitButton);
+        pauseContent.append(
+            pauseTitle,
+            resumeButton,
+            soundContainer,
+            musicContainer,
+            saveSoundsButton,
+            exitButton
+        );
         pauseScreen.appendChild(pauseContent);
         document.body.appendChild(pauseScreen);
     });

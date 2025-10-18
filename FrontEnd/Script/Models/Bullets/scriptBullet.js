@@ -1,5 +1,6 @@
 import { PATH_BULLET_IMAGE } from "../../Gameplay/scriptConstants.js";
 import GameObject from "../scriptGameObject.js";
+import SoundManager from "../../Gameplay/scriptSoundManager.js";
 
 class Bullet extends GameObject {
     
@@ -7,11 +8,13 @@ class Bullet extends GameObject {
 
     constructor(x, y, angle, speed, owner) {
 
-        super(20, 50, angle, "bullet");
+        super(40, 40, angle, "bullet");
         this.position = { x, y };
         this.speed = speed;
         this.imagePath = PATH_BULLET_IMAGE;
         this.owner = owner;
+
+        SoundManager.playSound("shoot");
     }
 
     setLength(width, height) {

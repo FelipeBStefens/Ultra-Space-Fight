@@ -257,6 +257,14 @@ body {
     transform: scale(1.5);
 }
 
+.sliderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* mantém o label alinhado à esquerda */
+    gap: 4px; /* espaço pequeno entre label e slider */
+    width: 100%; /* para o slider ocupar toda a largura */
+}
+
 #saveSoundsButton {
 
     /* Altering the Background Color */

@@ -9,6 +9,10 @@ import { values } from "./scriptDOM.js";
 import BattleCruiser from "../Models/Bosses/scriptBattleCruiser.js"; 
 import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
 import { showBossLifeBar, hideBossLifeBar } from "./scriptDOM.js";
+import SoundManager from "./scriptSoundManager.js"; 
+
+SoundManager.loadSound("shoot", "../../Assets/Audios/Shoot.mp3");
+SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3");
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
