@@ -5,9 +5,11 @@ const BOSS_ELLIPSE_PADDING_X = 60; // increases 'a' (horizontal semi-axis)
 class CollisionManager {
 
     entities;
+    explosions;
 
-    constructor(entities) {
+    constructor(entities, explosions) {
         this.entities = entities;
+        this.explosions = explosions;
     }
 
     update() {
@@ -28,15 +30,13 @@ class CollisionManager {
               } else if (B.type === "boss" && (A.type === "spaceship" || A.type === "enemy" || (A.type === "bullet" && A.owner === "spaceship"))) {
                   colliding = this.isCollidingEllipseCircle(B, A);
               } else {
-                  // fallback para colisão circular existente
                   colliding = this.isColliding(A, B);
               }
 
               if (colliding) {
-                  A.onCollision(B);
-                  B.onCollision(A);
+                  A.onCollision(B, this.explosions);
+                  B.onCollision(A, this.explosions);
 
-                  // repulsão física normal (opcional)
                   if (A.type === "boss") {
                     this.resolveRepel(A, B, 0, 0.02);  
                   }

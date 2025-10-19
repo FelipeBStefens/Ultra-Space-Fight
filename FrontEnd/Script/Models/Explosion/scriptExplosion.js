@@ -1,10 +1,11 @@
 import GameObject from "../scriptGameObject.js";
 import AssetLoader from "../../Gameplay/scriptAssetLoader.js";
 import { PATH_EXPLOSION_IMAGE } from "../../Gameplay/scriptConstants.js";
+import SoundManager from "../../Gameplay/scriptSoundManager.js";
 
 class Explosion extends GameObject{
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, type) {
 
         super(width, height, 0, "explosion");
 
@@ -21,6 +22,8 @@ class Explosion extends GameObject{
         this.currentFrame = 0;
         this.tick = 0;
         this.finished = false;
+
+        SoundManager.playSound(type);
     }
 
     update() {

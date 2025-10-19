@@ -13,6 +13,8 @@ import SoundManager from "./scriptSoundManager.js";
 import Explosion from "../Models/Explosion/scriptExplosion.js";
 
 SoundManager.loadSound("shoot", "../../Assets/Audios/Shoot.mp3");
+SoundManager.loadSound("enemyExplosion", "../../Assets/Audios/EnemyExplosion.mp3");
+SoundManager.loadSound("shootExplosion", "../../Assets/Audios/ShootExplosion.mp3");
 SoundManager.loadSound("fireThruster", "../../Assets/Audios/FireThruster.mp3");
 SoundManager.loadSound("ionThruster", "../../Assets/Audios/IonThruster.mp3");
 
@@ -39,7 +41,7 @@ let bossIndex = 0;
 let enemiesDefeated = 0;
 const enemiesToDefeatBeforeBoss = 20;
 
-let collisionManager = new CollisionManager([]); 
+let collisionManager = new CollisionManager([], explosions); 
 let spawner = new EnemySpawner(canvas, enemies, player);
 
 // create bosses after spawner exists so we can pass it to boss constructors that need it
@@ -150,6 +152,7 @@ const gameLoop = () => {
         });
 
         collisionManager.entities = [player, ...enemies];
+        collisionManager.explosions = explosions;
         if (currentBoss) collisionManager.entities.push(currentBoss);
         collisionManager.entities.push(...bullets);
         collisionManager.update();
@@ -212,9 +215,9 @@ const gameLoop = () => {
                 const explosion = new Explosion(
                     enemy.position.x,
                     enemy.position.y,
-                    222, // largura desejada
-                    259, // altura desejada
-                    PATHS.PATH_EXPLOSION_IMAGE
+                    222,
+                    259,
+                    "enemyExplosion"
                 );
                 explosions.push(explosion);
 
@@ -229,7 +232,6 @@ const gameLoop = () => {
             explosion.update();
             explosion.draw(contex);
 
-            // Remove quando terminar
             if (!explosion.active) {
                 explosions.splice(i, 1);
             }

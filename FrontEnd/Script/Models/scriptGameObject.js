@@ -69,7 +69,7 @@ class GameObject {
         context.restore();
     }
 
-    onCollision(gameObject) {
+    onCollision(gameObject, explosions) {
         switch (this.type) {
             case "spaceship":
                 // Decrement life; takeLife returns true if life reached zero
@@ -101,7 +101,7 @@ class GameObject {
 
             case "bullet":
                 
-                this.active = false;
+                this.onDestroy(explosions);
                 break;
             case "boss":
 
