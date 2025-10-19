@@ -91,8 +91,7 @@ class GameObject {
             case "enemy":
 
                 if (this.kamikaze && gameObject.type === "spaceship") {
-                    this.life = 0;
-                    this.active = false;
+                    this.updateLife(this.life);
                 }
 
                 if (gameObject.type === "bullet") {

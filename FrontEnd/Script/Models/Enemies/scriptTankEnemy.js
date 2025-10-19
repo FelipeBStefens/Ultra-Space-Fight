@@ -1,6 +1,7 @@
 import { PATH_TANK_ENEMY_IMAGE } from "../../Gameplay/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Enemy from "./scriptEnemy.js";
+import IonThruster from "../Thruster/scriptIonThruster.js";
 
 class TankEnemy extends Enemy{
     
@@ -8,6 +9,7 @@ class TankEnemy extends Enemy{
     maxDistance = 400;
     lastShotTime = 0;     
     shootCooldown = 1000;
+    ionThruster;
 
     constructor(position) {
         super(position);
@@ -16,9 +18,13 @@ class TankEnemy extends Enemy{
         this.cash = 15;
         this.score = 30;
         this.imagePath = PATH_TANK_ENEMY_IMAGE;
+
+        this.ionThruster = new IonThruster(0, this.height / 3 + 5, 0);
     }
 
     update(player, bulletsArray, canvas) {
+
+        this.ionThruster.update();
 
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;
@@ -71,8 +77,17 @@ class TankEnemy extends Enemy{
         const bulletY = cy + frontOffset * Math.sin(this.angle - Math.PI / 2);
         const bulletSpeed = 10;
 
-    const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "enemy");
+        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "enemy");
         bulletsArray.push(frontBullet);
+    }
+
+    draw(context) {
+        super.draw(context);
+
+        const centerX = this.position.x + this.width / 2; 
+        const centerY = this.position.y + this.height / 2; 
+
+        this.ionThruster.draw(context, centerX, centerY, this.angle);
     }
 }
 

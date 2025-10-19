@@ -12,6 +12,9 @@ import { showBossLifeBar, hideBossLifeBar } from "./scriptDOM.js";
 import SoundManager from "./scriptSoundManager.js"; 
 
 SoundManager.loadSound("shoot", "../../Assets/Audios/Shoot.mp3");
+SoundManager.loadSound("fireThruster", "../../Assets/Audios/FireThruster.mp3");
+SoundManager.loadSound("ionThruster", "../../Assets/Audios/IonThruster.mp3");
+
 SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3");
 
 const canvas = document.getElementById("gameCanvas");
@@ -228,13 +231,13 @@ const assets = [
     PATHS.PATH_ELITE_ENEMY_IMAGE,
     PATHS.PATH_SPACE_DREADNOUGHT_IMAGE,
     PATHS.PATH_BATTLE_CRUISER_IMAGE,
-    PATHS.PATH_BULLET_IMAGE
+    PATHS.PATH_BULLET_IMAGE,
+    PATHS.PATH_FIRE_THRUSTER_IMAGE,
+    PATHS.PATH_ION_THRUSTER_IMAGE
 ].filter(Boolean);
 
-AssetLoader.preload(Array.from(new Set(assets)), (progress) => {
-    // optional: show loading progress if you have a UI element
-    // console.log(`Loading assets: ${(progress * 100).toFixed(0)}%`);
-}).then(() => {
+AssetLoader.preload(Array.from(new Set(assets)), () => {})
+.then(() => {
     console.log("✅ Todos os assets carregados!");
     // Listen for player death events dispatched by game objects
     window.addEventListener('playerGameOver', () => {

@@ -1,5 +1,7 @@
 class SoundManager {
+
     static sounds = {};
+    static loopingSounds = {};
     static music = null;
 
     static loadSound(name, src) {
