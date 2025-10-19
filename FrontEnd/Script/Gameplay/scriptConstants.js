@@ -15,4 +15,5 @@ export const PATH_BATTLE_CRUISER_IMAGE = "../../Assets/PixelArts/Boss/BattleCrui
 export const PATH_FIRE_THRUSTER_IMAGE = "../../Assets/PixelArts/Sprites/FireThruster.png";
 export const PATH_ION_THRUSTER_IMAGE = "../../Assets/PixelArts/Sprites/IonThruster.png";
 
+export const PATH_EXPLOSION_IMAGE = "../../Assets/PixelArts/Sprites/Explosion.png";
 export const PATH_BULLET_IMAGE = "../../Assets/PixelArts/Sprites/Shoot.png";

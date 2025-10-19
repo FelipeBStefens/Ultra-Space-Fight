@@ -21,8 +21,7 @@ class FireThruster extends Thruster {
             this.thrusterAudio.loop = true;
             
             const user = JSON.parse(localStorage.getItem('user')) || {};
-            //this.thrusterAudio.volume = user.soundEffects ?? 0.5;
-            this.thrusterAudio.volume = 1;
+            this.thrusterAudio.volume = user.soundEffects ?? 0.5;
             this.thrusterAudio.play().catch(err => {
             });
         }

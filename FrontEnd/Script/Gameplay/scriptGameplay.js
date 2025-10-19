@@ -10,6 +10,7 @@ import BattleCruiser from "../Models/Bosses/scriptBattleCruiser.js";
 import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
 import { showBossLifeBar, hideBossLifeBar } from "./scriptDOM.js";
 import SoundManager from "./scriptSoundManager.js"; 
+import Explosion from "../Models/Explosion/scriptExplosion.js";
 
 SoundManager.loadSound("shoot", "../../Assets/Audios/Shoot.mp3");
 SoundManager.loadSound("fireThruster", "../../Assets/Audios/FireThruster.mp3");
@@ -30,7 +31,7 @@ const player = getSelectedSpaceship(canvas);
 let input = new InputManager();
 let enemies = [];
 let bullets = [];
-
+let explosions = [];
 let isBossFight = false; // false = inimigos normais, true = boss
 let currentBoss = null;
 let bosses = [];
@@ -206,9 +207,31 @@ const gameLoop = () => {
 
         for (let i = enemies.length - 1; i >= 0; i--) {
             if (!enemies[i].active) {
+
+                const enemy = enemies[i];
+                const explosion = new Explosion(
+                    enemy.position.x,
+                    enemy.position.y,
+                    222, // largura desejada
+                    259, // altura desejada
+                    PATHS.PATH_EXPLOSION_IMAGE
+                );
+                explosions.push(explosion);
+
                 enemies.splice(i, 1);
                 enemiesDefeated++;
                 console.log("Enemy defeated");
+            }
+        }
+
+        for (let i = explosions.length - 1; i >= 0; i--) {
+            const explosion = explosions[i];
+            explosion.update();
+            explosion.draw(contex);
+
+            // Remove quando terminar
+            if (!explosion.active) {
+                explosions.splice(i, 1);
             }
         }
 
@@ -233,7 +256,8 @@ const assets = [
     PATHS.PATH_BATTLE_CRUISER_IMAGE,
     PATHS.PATH_BULLET_IMAGE,
     PATHS.PATH_FIRE_THRUSTER_IMAGE,
-    PATHS.PATH_ION_THRUSTER_IMAGE
+    PATHS.PATH_ION_THRUSTER_IMAGE,
+    PATHS.PATH_EXPLOSION_IMAGE
 ].filter(Boolean);
 
 AssetLoader.preload(Array.from(new Set(assets)), () => {})
