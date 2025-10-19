@@ -1,10 +1,18 @@
-// Make this module a pure UI helper: consumer should set gameState.isGameOver
-// Usage: import gameOver from './scriptGameOver.js'; gameOver(user, values);
+import SoundManager from "./scriptSoundManager.js";
+
 export default function gameOver(user, values) {
+
     if (document.getElementById("pauseScreen")) return;
 
     console.log(values);
     
+    SoundManager.stopMusic();
+
+    setTimeout(() => {
+        SoundManager.playSound("gameOverVoice");
+        SoundManager.playMusic("../../Assets/Audios/GameOver.mp3");
+    }, 1500);
+
     const gameOverScreen = document.createElement("div");
     gameOverScreen.id = "pauseScreen";
 

@@ -17,6 +17,7 @@ SoundManager.loadSound("enemyExplosion", "../../Assets/Audios/EnemyExplosion.mp3
 SoundManager.loadSound("shootExplosion", "../../Assets/Audios/ShootExplosion.mp3");
 SoundManager.loadSound("fireThruster", "../../Assets/Audios/FireThruster.mp3");
 SoundManager.loadSound("ionThruster", "../../Assets/Audios/IonThruster.mp3");
+SoundManager.loadSound("gameOverVoice", "../../Assets/Audios/GameOverVoice.mp3");
 
 SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3");
 
