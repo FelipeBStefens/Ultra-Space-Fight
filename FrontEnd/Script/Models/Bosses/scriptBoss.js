@@ -32,6 +32,16 @@ class Boss extends GameObject {
             hideBossLifeBar();
         }
     }
+
+    reset() {
+        this.life = this.maxLife; 
+        this.active = false;
+        this.introActive = false;
+        this.introActiveEnded = false;
+        this.introProgress = 0;
+        this.isShaking = false;
+        this.shakeTimer = 0;
+    }
 }
 
 export default Boss;
