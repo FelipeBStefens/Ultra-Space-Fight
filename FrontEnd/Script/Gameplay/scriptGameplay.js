@@ -40,15 +40,35 @@ let currentBoss = null;
 let bosses = [];
 let bossIndex = 0;
 let enemiesDefeated = 0;
-const enemiesToDefeatBeforeBoss = 20;
+const enemiesToDefeatBeforeBoss = 5;
 
 let collisionManager = new CollisionManager([], explosions); 
 let spawner = new EnemySpawner(canvas, enemies, player);
 
+// Efeito de terremoto
+let shakeTime = 0;
+let shakeIntensity = 0;
+
+function startShake(durationFrames = 90, intensity = 10) {
+    shakeTime = durationFrames;
+    shakeIntensity = intensity;
+}
+
+function applyShake(context) {
+    if (shakeTime > 0) {
+        const progress = shakeTime / 90; // normaliza (0–1)
+        const currentIntensity = shakeIntensity * progress; // diminui ao longo do tempo
+        const dx = (Math.random() - 0.5) * currentIntensity * 2;
+        const dy = (Math.random() - 0.5) * currentIntensity * 2;
+        context.translate(dx, dy);
+        shakeTime--;
+    }
+}
+
 // create bosses after spawner exists so we can pass it to boss constructors that need it
 bosses = [
-    new BattleCruiser(200, 20, 20, canvas), // Boss 1
-    new SpaceDreadnought(canvas, 300, 30, 30, spawner)  // Boss 2 (needs spawner)
+    new SpaceDreadnought(canvas, 300, 30, 30, spawner),  // Boss 2 (needs spawner)
+    new BattleCruiser(200, 20, 20, canvas) // Boss 1
 ];
 
 // Auto-fire control
@@ -72,6 +92,9 @@ const gameLoop = () => {
         contex.clearRect(0, 0, canvas.width, canvas.height);
 
         input.update();
+
+        contex.save();
+        applyShake(contex);
 
         if (input.keys.left && player.position.x > 0) player.moveLeft();
         if (input.keys.right && player.position.x < canvas.width - player.width) player.moveRight();
@@ -113,10 +136,12 @@ const gameLoop = () => {
         if (isBossFight) {
 
             if (currentBoss) {
-                currentBoss.update(player, bullets, canvas);
-                currentBoss.draw(contex);
 
-                if (!currentBoss.active) {
+                if (currentBoss.introActive || currentBoss.active) {
+                    currentBoss.update(player, bullets, canvas);
+                    currentBoss.draw(contex);
+                }
+                if (!currentBoss.active && currentBoss.introActiveEnded) {
                     isBossFight = false;
                     bossIndex = (bossIndex + 1) % bosses.length;
                     // hide boss life bar when fight ends
@@ -130,15 +155,20 @@ const gameLoop = () => {
 
             spawner.update();
 
-            if (enemiesDefeated >= enemiesToDefeatBeforeBoss) {
+            if (enemiesDefeated >= enemiesToDefeatBeforeBoss && !isBossFight) {
+                // Garante que só entra aqui uma vez
                 isBossFight = true;
                 currentBoss = bosses[bossIndex];
-                // show boss life bar for this boss
-                try {
-                    showBossLifeBar(currentBoss.name, currentBoss.maxLife);
-                } catch (e) {
-                    console.warn('Failed to show boss life bar', e);
-                }
+
+                // Duração do tremor em frames
+                const SHAKE_DURATION = 240; // 120 frames (~2 segundos)
+
+                // Efeito de terremoto
+                startShake(SHAKE_DURATION, 20);
+
+                // Inicia a introdução imediatamente, passando a duração do shake
+                currentBoss.startIntro(true, SHAKE_DURATION); 
+                showBossLifeBar(currentBoss.name, currentBoss.maxLife);
             }
         }
 
@@ -239,6 +269,8 @@ const gameLoop = () => {
         }
 
         player.draw(contex);
+
+        contex.restore();
     }
     
     requestAnimationFrame(gameLoop);

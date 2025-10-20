@@ -134,8 +134,8 @@ class CollisionManager {
     if (t2 === "bullet" && t1 === "enemy") return B.owner === "spaceship";
 
     // bullet (from enemy) hits spaceship
-    if (t1 === "bullet" && t2 === "spaceship") return A.owner === "enemy";
-    if (t2 === "bullet" && t1 === "spaceship") return B.owner === "enemy";
+    if (t1 === "bullet" && t2 === "spaceship") return A.owner === "enemy" || A.owner === "boss";
+    if (t2 === "bullet" && t1 === "spaceship") return B.owner === "enemy" || B.owner === "boss";
 
     // spaceship <-> enemy collisions (player and enemy)
     if ((t1 === "spaceship" && t2 === "enemy") || (t1 === "enemy" && t2 === "spaceship")) return true;
