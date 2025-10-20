@@ -1,4 +1,5 @@
 import { PATH_ELITE_ENEMY_IMAGE  } from "../../Gameplay/scriptConstants.js";
+import { updateDefeatedElite } from "../../Gameplay/scriptDOM.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Enemy from "./scriptEnemy.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
@@ -99,6 +100,14 @@ class EliteEnemy extends Enemy {
         const centerY = this.position.y + this.height / 2; 
 
         this.ionThruster.draw(context, centerX, centerY, this.angle);
+    }
+
+    updateLife(damage) {
+
+        super.updateLife(damage);
+        if (this.life <= 0) {
+            updateDefeatedElite();
+        }
     }
 }
 

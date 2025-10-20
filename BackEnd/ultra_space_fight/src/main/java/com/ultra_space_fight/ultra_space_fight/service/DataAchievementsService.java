@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.AchievementsDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreMatchDTO;
-import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.AchievementsCashDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreDTO;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.DataAchievementUnauthorizedException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.RankingException;
@@ -139,11 +139,11 @@ public class DataAchievementsService {
     }
 
     // Method to update Score and Cash; 
-    public ScoreDTO updateScoreCash(long id, ScoreCashDTO scoreCashDTO) {
+    public ScoreDTO updateAchievementsCash(long id, AchievementsCashDTO achievementsCashDTO) {
 
         // Methods to validate Id and ScoreCashDTO;
         IdValidation.validate(id, new DataAchievementUnauthorizedException("ID"));
-        DataAchievementsValidation.verifyScoreCash(scoreCashDTO);
+        DataAchievementsValidation.verifyAchievementsCash(achievementsCashDTO);
 
         // Declaring ScoreDTO;
         ScoreDTO scoreDTO = null;
@@ -158,9 +158,12 @@ public class DataAchievementsService {
             DataAchievementsValidation.verifyDataAchievements(dataAchievements);
 
             // Update Score, Score Match and Cash; 
-            DataAchievementsValidation.updateScore(dataAchievements, scoreCashDTO);            
-            DataAchievementsValidation.updateScoreMatch(dataAchievements, scoreCashDTO);
-            DataAchievementsValidation.updateCash(dataAchievements, scoreCashDTO);
+            DataAchievementsValidation.updateScore(dataAchievements, achievementsCashDTO);            
+            DataAchievementsValidation.updateScoreMatch(dataAchievements, achievementsCashDTO);
+            DataAchievementsValidation.updateCash(dataAchievements, achievementsCashDTO);
+            DataAchievementsValidation.updateDefeatedEnemies(dataAchievements, achievementsCashDTO);
+            DataAchievementsValidation.updateDefeatedElite(dataAchievements, achievementsCashDTO);
+            DataAchievementsValidation.updateDefeatedBoss(dataAchievements, achievementsCashDTO);
 
             // Update DAOs values;
             userDAO.update(dataAchievements.getUser());

@@ -61,7 +61,7 @@ export default function gameOver(user, values) {
 
 async function fetchUpdateScoreCash(id, scoreCash, user) {
     try {
-        const response = await fetch(`http://localhost:8080/data/achievement/update/score/cash/${id}`, {
+        const response = await fetch(`http://localhost:8080/data/achievement/update/achievements/cash/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(scoreCash) // Certifique-se de enviar como JSON

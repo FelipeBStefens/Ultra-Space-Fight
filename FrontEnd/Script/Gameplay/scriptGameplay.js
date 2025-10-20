@@ -8,7 +8,7 @@ import gameOver from "./scriptGameOver.js";
 import { values } from "./scriptDOM.js";
 import BattleCruiser from "../Models/Bosses/scriptBattleCruiser.js"; 
 import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
-import { showBossLifeBar, hideBossLifeBar } from "./scriptDOM.js";
+import { showBossLifeBar, hideBossLifeBar, updateDefeatedEnemies } from "./scriptDOM.js";
 import SoundManager from "./scriptSoundManager.js"; 
 import Explosion from "../Models/Explosion/scriptExplosion.js";
 
@@ -276,6 +276,7 @@ const gameLoop = () => {
                 explosions.push(explosion);
 
                 enemies.splice(i, 1);
+                updateDefeatedEnemies();
                 enemiesDefeated++;
                 console.log("Enemy defeated");
             }

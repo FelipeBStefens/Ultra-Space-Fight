@@ -1,5 +1,5 @@
 import GameObject from "../scriptGameObject.js"; 
-import { updateScore, updateCash } from "../../Gameplay/scriptDOM.js";
+import { updateScore, updateCash, updateDefeatedEnemies } from "../../Gameplay/scriptDOM.js";
 
 class Enemy extends GameObject { 
 

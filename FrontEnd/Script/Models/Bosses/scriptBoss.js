@@ -1,7 +1,7 @@
 import GameObject from "../scriptGameObject.js";
 import Explosion from "../Explosion/scriptExplosion.js";
 import SoundManager from "../../Gameplay/scriptSoundManager.js";
-import { showBossLifeBar, updateBossLifeBar, hideBossLifeBar } from "../../Gameplay/scriptDOM.js";
+import { updateDefeatedBoss, updateBossLifeBar, hideBossLifeBar } from "../../Gameplay/scriptDOM.js";
 
 class Boss extends GameObject {
 
@@ -28,7 +28,8 @@ class Boss extends GameObject {
 
         if (this.life <= 0 && this.active) {
             hideBossLifeBar();
-
+            updateDefeatedBoss();
+            
             this.startDeathAnimation(explosions, startShake);
         }
     }

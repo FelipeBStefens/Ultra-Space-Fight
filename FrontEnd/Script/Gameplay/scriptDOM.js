@@ -12,6 +12,9 @@ const user = JSON.parse(localStorage.getItem("user"));
 const selectedSpaceship = user.selectedSpaceship;
 let score = 0;
 let cash = 0;
+let defeatedEnemies = 0;
+let defeatedElite = 0;
+let defeatBoss = 0;
 let life = user.spaceshipValues.life; 
 let bossMaxLife = 0;
 let bossLifeContainer = null;
@@ -22,8 +25,11 @@ const heartImage = "../../Assets/Icons/heart.png";
 
 export let values = {
     score: score,
-    cash: cash
-}
+    cash: cash,
+    defeatedEnemies: defeatedEnemies,
+    defeatedElite: defeatedElite,
+    defeatBoss: defeatBoss
+};
 
 export function updateScore(newScore) {
     values.score += newScore;
@@ -33,6 +39,18 @@ export function updateScore(newScore) {
 export function updateCash(newCash) {
     values.cash += newCash;
     cashContainer.textContent = values.cash;
+}
+
+export function updateDefeatedEnemies() {
+    values.defeatedEnemies++;
+}
+
+export function updateDefeatedElite() {
+    values.defeatedElite++;
+}
+
+export function updateDefeatedBoss() {
+    values.defeatBoss++;
 }
 
 function renderLife() {
