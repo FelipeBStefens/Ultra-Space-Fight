@@ -1,4 +1,6 @@
 import GameObject from "../scriptGameObject.js";
+import Explosion from "../Explosion/scriptExplosion.js";
+import SoundManager from "../../Gameplay/scriptSoundManager.js";
 import { showBossLifeBar, updateBossLifeBar, hideBossLifeBar } from "../../Gameplay/scriptDOM.js";
 
 class Boss extends GameObject {
@@ -18,29 +20,69 @@ class Boss extends GameObject {
         this.maxLife = life;
         this.cash = cash;
         this.score = score;
-
-        // Boss UI (life bar) will be shown by the gameplay/stage manager when
-        // the boss fight actually starts to avoid lifecycle and ordering issues.
     }
 
-    updateLife(damage) {
+    updateLife(damage, explosions, startShake) {
         this.life -= damage;
         updateBossLifeBar(this.life);
 
-        if (this.life <= 0) {
-            this.active = false;
+        if (this.life <= 0 && this.active) {
             hideBossLifeBar();
+
+            this.startDeathAnimation(explosions, startShake);
         }
     }
 
     reset() {
         this.life = this.maxLife; 
+        this.finished = false;
         this.active = false;
         this.introActive = false;
         this.introActiveEnded = false;
         this.introProgress = 0;
         this.isShaking = false;
         this.shakeTimer = 0;
+    }
+
+    startDeathAnimation(explosions, startShake) {
+
+        SoundManager.stopMusic();
+        SoundManager.playSound("scream");
+        this.active = false;
+
+        const explosionCount = 10; // número de pequenas explosões
+        const explosionDelay = 150; // intervalo entre elas (ms)
+
+        for (let i = 0; i < explosionCount; i++) {
+            setTimeout(() => {
+                const offsetX = Math.random() * this.width * 0.8 + this.width * 0.1;
+                const offsetY = Math.random() * this.height * 0.8 + this.height * 0.1;
+                const explosion = new Explosion(
+                    this.position.x + offsetX,
+                    this.position.y + offsetY,
+                    111 + Math.random() * 100, // tamanho pequeno
+                    129 + Math.random() * 100,
+                    "shootExplosion"
+                );
+                explosions.push(explosion);
+            }, i * explosionDelay);
+        }
+
+        setTimeout(() => {
+            const finalExplosion = new Explosion(
+                this.position.x,
+                this.position.y, 
+                666, 777,
+                "enemyExplosion"
+            );
+            explosions.push(finalExplosion);
+
+            if (startShake) startShake(90, 25);
+
+            setTimeout(() => {
+                this.finished = true;
+            }, 1000);
+        }, explosionCount * explosionDelay + 500);
     }
 }
 

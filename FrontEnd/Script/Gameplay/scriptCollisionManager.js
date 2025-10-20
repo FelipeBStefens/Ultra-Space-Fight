@@ -6,10 +6,12 @@ class CollisionManager {
 
     entities;
     explosions;
+    startShake;
 
-    constructor(entities, explosions) {
+    constructor(entities, explosions, startShake) {
         this.entities = entities;
         this.explosions = explosions;
+        this.startShake = startShake;
     }
 
     update() {
@@ -34,8 +36,8 @@ class CollisionManager {
               }
 
               if (colliding) {
-                  A.onCollision(B, this.explosions);
-                  B.onCollision(A, this.explosions);
+                  A.onCollision(B, this.explosions, this.startShake);
+                  B.onCollision(A, this.explosions, this.startShake);
 
                   if (A.type === "boss") {
                     this.resolveRepel(A, B, 0, 0.02);  

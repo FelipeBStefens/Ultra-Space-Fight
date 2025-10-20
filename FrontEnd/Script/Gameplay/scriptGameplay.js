@@ -19,7 +19,7 @@ SoundManager.loadSound("fireThruster", "../../Assets/Audios/FireThruster.mp3");
 SoundManager.loadSound("ionThruster", "../../Assets/Audios/IonThruster.mp3");
 SoundManager.loadSound("gameOverVoice", "../../Assets/Audios/GameOverVoice.mp3");
 SoundManager.loadSound("earthquake", "../../Assets/Audios/Earthquake.mp3");
-
+SoundManager.loadSound("scream", "../../Assets/Audios/Scream.mp3");
 
 SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3");
 
@@ -44,9 +44,6 @@ let bossIndex = 0;
 let enemiesDefeated = 0;
 const enemiesToDefeatBeforeBoss = 5;
 
-let collisionManager = new CollisionManager([], explosions); 
-let spawner = new EnemySpawner(canvas, enemies, player);
-
 // Efeito de terremoto
 let shakeTime = 0;
 let shakeIntensity = 0;
@@ -68,10 +65,13 @@ function applyShake(context) {
     }
 }
 
+let collisionManager = new CollisionManager([], explosions, startShake); 
+let spawner = new EnemySpawner(canvas, enemies, player);
+
 // create bosses after spawner exists so we can pass it to boss constructors that need it
 bosses = [
-    new BattleCruiser(1000, 20, 20, canvas), // Boss 1
-    new SpaceDreadnought(canvas, 2000, 30, 30, spawner)  // Boss 2 (needs spawner)
+    new BattleCruiser(100, 20, 20, canvas), // Boss 1
+    new SpaceDreadnought(canvas, 200, 30, 30, spawner)  // Boss 2 (needs spawner)
 ];
 
 // Auto-fire control
@@ -149,11 +149,15 @@ const gameLoop = () => {
                     currentBoss.update(player, bullets, canvas);
                     currentBoss.draw(contex);
                 }
-                if (!currentBoss.active && currentBoss.introActiveEnded) {
+
+                if (currentBoss.introActive || currentBoss.active || !currentBoss.finished) {
+                    currentBoss.draw(contex);
+                }
+
+                if (currentBoss.finished && currentBoss.introActiveEnded) {
                     isBossFight = false;
                     bossIndex = (bossIndex + 1) % bosses.length;
 
-                    SoundManager.stopMusic();
                     SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3"); 
                     bossMusicStarted = false;
 
