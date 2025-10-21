@@ -11,6 +11,7 @@ public class UserResponseDTO {
     
     // Attributes of the UserResponseDTO class;
     private long idUser;
+    private String language;
     private String selectedSpaceship;
     private SpaceshipValuesDTO spaceshipValues;
     private int score;
@@ -23,7 +24,7 @@ public class UserResponseDTO {
 
     // Constructor;
     public UserResponseDTO(long idUser, String selectedSpaceship, SpaceshipValuesDTO spaceshipValues,
-        int score, int scoreMatch, BigDecimal soundtrack, BigDecimal soundEffects) {
+        int score, int scoreMatch, BigDecimal soundtrack, BigDecimal soundEffects, String language) {
         
         // Initializing the Attribute values;
         this.idUser = idUser;
@@ -33,6 +34,7 @@ public class UserResponseDTO {
         this.scoreMatch = scoreMatch;
         this.soundtrack = soundtrack;
         this.soundEffects = soundEffects;
+        this.language = language;
     }
     
     // Getter and Setter of IdUser;
@@ -96,5 +98,13 @@ public class UserResponseDTO {
 
     public void setSpaceshipValues(SpaceshipValuesDTO spaceshipValues) {
         this.spaceshipValues = spaceshipValues;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

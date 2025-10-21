@@ -1,3 +1,15 @@
+const translations = {
+  English: {
+    totalButton: "Total Score Ranking",
+    matchButton: "Match Score Ranking"
+  },
+  Portuguese: {
+    totalButton: "Ranking de Pontos Totais",
+    matchButton: "Ranking de Pontos por Partida"
+  }
+};
+
+
 document.addEventListener("DOMContentLoaded", () => {
   
   (async () => {
@@ -20,6 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // The Button to access the Match Ranking;
     const matchButton = document.getElementById("matchButton");
+
+
+    const lang = user.language in translations ? user.language : "English";
+    const t = translations[lang];
+
+    totalButton.textContent = t.totalButton;
+    matchButton.textContent = t.matchButton;
 
     // The Ranking List Div to put the values;
     const rankingList = document.getElementById("ranking-list");

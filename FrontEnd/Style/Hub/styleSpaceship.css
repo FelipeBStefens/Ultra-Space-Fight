@@ -243,7 +243,7 @@ body {
     font-size: 35px;
     font-weight: bold;
     width: 220px;
-    height: 130px; 
+    height: 150px; 
     padding: 10px 15px;
     border: none;
     border-radius: 8px;
@@ -263,7 +263,7 @@ body {
 
 /* Upgrade button */
 .upgrade-button {
-    background: #007bff; /* ✅ NOVO: Azul primário */
+    background: #007bff; 
     color: var(--light-text-color);
     font-family: var(--pixel-font);
     font-size: 30px;           

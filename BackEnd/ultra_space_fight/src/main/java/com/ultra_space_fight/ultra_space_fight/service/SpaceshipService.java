@@ -152,7 +152,7 @@ public class SpaceshipService {
 
             // Verifying spaceship existence and values;
             SpaceshipValidation.verifySpaceship(standartShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, standartShip);
+            SpaceshipValidation.validateSpaceshipValues(spaceshipsUpdateDTO, standartShip);
 
             // Updating user cash based on upgrade cost;
             standartShip.getUser().setCash(standartShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
@@ -188,7 +188,7 @@ public class SpaceshipService {
 
             // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(speedShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, speedShip);
+            SpaceshipValidation.validateSpaceshipValues(spaceshipsUpdateDTO, speedShip);
 
             // Updating user cash after spending on upgrade;
             speedShip.getUser().setCash(speedShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
@@ -224,7 +224,7 @@ public class SpaceshipService {
 
             // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(destroyerShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, destroyerShip);
+            SpaceshipValidation.validateSpaceshipValues(spaceshipsUpdateDTO, destroyerShip);
 
             // Updating user cash after spending on upgrade;
             destroyerShip.getUser().setCash(destroyerShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
@@ -260,7 +260,7 @@ public class SpaceshipService {
 
             // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(freighterShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, freighterShip);
+            SpaceshipValidation.validateSpaceshipValues(spaceshipsUpdateDTO, freighterShip);
 
             // Updating user cash after spending on upgrade;
             freighterShip.getUser().setCash(freighterShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());
@@ -296,7 +296,7 @@ public class SpaceshipService {
 
             // Validating spaceship existence and values;
             SpaceshipValidation.verifySpaceship(eliteShip);
-            SpaceshipValidation.validateSpaceshipValues(newSpaceshipUpdateDTO, eliteShip);
+            SpaceshipValidation.validateSpaceshipValues(spaceshipsUpdateDTO, eliteShip);
 
             // Updating user cash after spending on upgrade;
             eliteShip.getUser().setCash(eliteShip.getUser().getCash() - spaceshipsUpdateDTO.getCash());

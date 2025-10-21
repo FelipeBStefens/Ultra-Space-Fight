@@ -147,7 +147,7 @@ public class UserService {
         // Returning response DTO with all user data;
         return new UserResponseDTO(user.getIdUser(), user.getSelectedSpaceship(), spaceshipValues,
             dataAchievements.getScore(), dataAchievements.getScoreMatch(),
-            configuration.getSoundtrack(), configuration.getSoundEffects());
+            configuration.getSoundtrack(), configuration.getSoundEffects(), configuration.getLanguage());
     }
 
     // Method to get User by email and password;
@@ -181,7 +181,7 @@ public class UserService {
             userResponseTDO = new UserResponseDTO(
                 user.getIdUser(), user.getSelectedSpaceship(), spaceshipValues,
                 dataAchievements.getScore(), dataAchievements.getScoreMatch(),
-                configuration.getSoundtrack(), configuration.getSoundEffects()); 
+                configuration.getSoundtrack(), configuration.getSoundEffects(), configuration.getLanguage()); 
         }
         catch (SQLException e) {
 

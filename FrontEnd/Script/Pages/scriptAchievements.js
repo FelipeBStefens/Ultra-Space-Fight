@@ -1,3 +1,21 @@
+const translations = {
+  English: {
+    score: "Score Master",
+    match: "Perfect Match",
+    enemies: "Enemies Destroyer",
+    elite: "Elite Person",
+    boss: "A Real Boss",
+  },
+  Portuguese: {
+    score: "Mestre dos Pontos",
+    match: "Partida Perfeita",
+    enemies: "Destruidor de Inimigos",
+    elite: "Pessoa de Elite",
+    boss: "O Verdadeiro Chefe",
+  }
+};
+
+
 // Function Expression, to initialize when the page start;
 (async function(){
 
@@ -30,6 +48,15 @@
   // Selecionando todas as Divs que são Conquistas;
   const achievements = 
     document.querySelectorAll(".achievement");
+
+  const lang = user.language in translations ? user.language : "English";
+  const t = translations[lang];
+
+  document.getElementById("scoreText").textContent = t.score;
+  document.getElementById("matchText").textContent = t.match;
+  document.getElementById("enemiesText").textContent = t.enemies;
+  document.getElementById("eliteText").textContent = t.elite;
+  document.getElementById("bossText").textContent = t.boss;
 
   // ----------------------------------------------------
   // 3. Lógica das Conquistas (Fundo, Classe e Imagem)

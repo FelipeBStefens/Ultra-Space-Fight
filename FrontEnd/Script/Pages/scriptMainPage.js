@@ -1,8 +1,43 @@
+const translations = {
+    English: {
+        ranking: "Ranking",
+        configurations: "Configurations",
+        rules: "Rules",
+        gameplay: "PLAY",
+        achievements: "Achievements",
+        spaceships: "Spaceships",
+        score: "Score",
+        scoreMatch: "Score Match"
+    },
+    Portuguese: {
+        ranking: "Ranking",
+        configurations: "Configurações",
+        rules: "Regras",
+        gameplay: "JOGAR",
+        achievements: "Conquistas",
+        spaceships: "Naves",
+        score: "Pontos",
+        scoreMatch: "Pontos Partida"
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
         window.location.href = "../../enter.html";
     }
+
+    const lang = user.language in translations ? user.language : "English";
+    const t = translations[lang];
+
+    document.getElementById("ranking").textContent = t.ranking;
+    document.getElementById("configurations").textContent = t.configurations;
+    document.getElementById("rules").textContent = t.rules;
+    document.getElementById("gameplay").textContent = t.gameplay;
+    document.getElementById("achievements").textContent = t.achievements;
+    document.getElementById("spaceships").textContent = t.spaceships;
+    document.getElementById("score").textContent = `${t.score}: ${user.score}`;
+    document.getElementById("scoreMatch").textContent = `${t.scoreMatch}: ${user.scoreMatch}`;
 
     document.getElementById('gameplay').addEventListener('click', function(event) {
         event.preventDefault(); 
@@ -12,11 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.parent?.navigateToGame)
             window.parent.navigateToGame('Pages/Gameplay/gameplay.html');
     });
-
-    const scoreText = document.getElementById("score");
-    const scoreMatchText = document.getElementById("scoreMatch");
-    scoreText.textContent = `Score: ${user.score}`;
-    scoreMatchText.textContent = `Score Match: ${user.scoreMatch}`;
 
     // -------------------------------
     // Funções de fetch específicas
