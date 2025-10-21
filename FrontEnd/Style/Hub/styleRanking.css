@@ -187,3 +187,56 @@ button:hover {
     /* Defining the Font Weight */
     font-weight: bold;
 }
+
+.turnBack {
+
+    /* Defining the Color */
+    background: #e53935;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    border: none;
+
+    /* Defining the Position */
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
+    z-index: 1000;
+        
+    /* Defining the Width and Height */
+    width: 60px;
+    height: 60px;
+
+    /* Defining the Border Radius */
+    border-radius: 6px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+
+/* Configuration of the button in case of Hover */
+.turnBack:hover {
+
+    /* Altering the Background Color */
+    background-color: var(#f00e0b);
+
+    /* Scaling the button it's value times 1.2 */
+    transform: scale(1.2);
+}
+
+#x {
+
+    /* Defining the Width and Height  */
+    width: 80%;       
+    height: 80%;  
+  
+    /* Using blocks to configure the position */
+    object-fit: contain;
+    display: block;
+}
