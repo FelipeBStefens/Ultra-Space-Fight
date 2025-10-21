@@ -29,11 +29,80 @@ function handleHttpError(response, inputMap = {}) {
     return true; // indica que houve erro
 }
 
+const translations = {
+    English: {
+        title: "Configurations",
+        username: "Username",
+        password: "Password",
+        language: "Language",
+        portuguese: "Portuguese",
+        english: "English",
+        soundtrack: "Soundtrack",
+        soundEffects: "Sound Effects",
+        save: "Save new Configurations",
+        logout: "Log Out Account",
+        delete: "Delete Account",
+        confirmDelete: "You really want to delete your Account?",
+        invalidForm: "Invalid username or password!",
+        errors: {
+            usernameTooLong: "Username must be less than 15 characters",
+            passwordInvalid: "Password must be at least 8 characters and contain uppercase, lowercase, and numbers"
+        }
+    },
+    Portuguese: {
+        title: "Configurações",
+        username: "Usuário",
+        password: "Senha",
+        language: "Idioma",
+        portuguese: "Português",
+        english: "Inglês",
+        soundtrack: "Trilha Sonora",
+        soundEffects: "Efeitos Sonoros",
+        save: "Salvar novas configurações",
+        logout: "Sair da conta",
+        delete: "Excluir conta",
+        confirmDelete: "Você realmente quer excluir sua conta?",
+        invalidForm: "Usuário ou senha inválidos!",
+        errors: {
+            usernameTooLong: "Usuário deve ter menos de 15 caracteres",
+            passwordInvalid: "A senha deve ter pelo menos 8 caracteres e conter maiúsculas, minúsculas e números"
+        }
+    }
+};
+
+function applyTranslation(lang) {
+
+    const t = translations[lang] || translations.English;
+
+    document.getElementById("titleText").textContent = t.title;
+    document.getElementById("usernameText").textContent = t.username;
+    document.getElementById("passwordText").textContent = t.password;
+    document.getElementById("languageText").textContent = t.language;
+    document.getElementById("portugueseText").textContent = t.portuguese;
+    document.getElementById("englishText").textContent = t.english;
+
+    document.getElementById("soundtrackText").innerHTML = `
+        <img src="../../Assets/Icons/volume.png" alt="volume" class="icon">
+        ${t.soundtrack}
+    `;
+
+    document.getElementById("soundEffectText").innerHTML = `
+        <img src="../../Assets/Icons/volume.png" alt="volume" class="icon">
+        ${t.soundEffects}
+    `;
+
+    document.getElementById("save").textContent = t.save;
+    document.getElementById("logout").textContent = t.logout;
+    document.getElementById("delete").textContent = t.delete;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const configuration = JSON.parse(localStorage.getItem("configurations"));
     if (!user) window.location.href = "../../enter.html";
+
+    let lang = configuration.language in translations ? configuration.language : "English";
+    applyTranslation(lang);
 
     const inputs = ["username", "password", "language", "soundtrack", "soundEffects"];
     const buttons = ["save", "logout", "delete"];
@@ -89,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (validationInputs.username.value.length > 15) {
             usernameContainer.classList.add("error");
-            usernameError.textContent = "Username must be less than 15 characters";
+            usernameError.textContent = t.errors.usernameTooLong;
             valid = false;
         } else {
             usernameContainer.classList.remove("error");
@@ -108,8 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!hasUpper || !hasLower || !hasNumber || !hasMinLength) {
             passwordContainer.classList.add("error");
-            passwordError.textContent =
-                "Password must be at least 8 characters and contain uppercase, lowercase, and numbers";
+            passwordError.textContent = t.errors.passwordInvalid;
             valid = false;
         } else {
             passwordContainer.classList.remove("error");
@@ -163,14 +231,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             user.soundtrack = result.soundtrack;
             user.soundEffects = result.soundEffects;
+            user.language = document.getElementById("language").value;
+
             localStorage.setItem("user", JSON.stringify(user));
             if (window.parent?.setAudioVolume) window.parent.setAudioVolume(user.soundtrack);
             
+            applyTranslation(document.getElementById("language").value);
             console.log("Configurações salvas com sucesso:", result);
         } 
         catch (err) {
             console.error(err);
-            alert("Erro ao salvar configurações!");
+            alert(t.invalidForm);
         } finally {
             // Remove loading e reativa tudo
             saveButton.classList.remove("loading");
@@ -193,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ------------------ DELETE ------------------
     const deleteButton = document.getElementById("delete");
     deleteButton.addEventListener("click", async () => {
-        if (!confirm("You really want to delete your Account?")) return;
+        if (!confirm(t.confirmDelete)) return;
 
         setDisabledAll(true, deleteButton);
 
