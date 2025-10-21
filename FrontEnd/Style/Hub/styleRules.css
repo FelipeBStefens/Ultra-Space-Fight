@@ -126,3 +126,16 @@ h1 {
     /* Align it with FlexBox */
     text-align: center;
 }
+
+pre {
+
+    font-family: var(--pixel-font);  
+    font-size: 25px;
+
+    width: 700px;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
