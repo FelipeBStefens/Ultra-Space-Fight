@@ -7,8 +7,8 @@
 :root {
 
     /* Achievements configrations */
-    --achievement-size: 300px;           
-    --achievement-size-active: 400px;    
+    --achievement-size: 400px;           
+    --achievement-size-active: 500px;    
     --achievement-gap: 140px; 
 
     /* Size of the buttons */
@@ -51,25 +51,40 @@ body{
     justify-content:center; 
 }
 
-/* The Div with all the Achievements configurations */
+body::before {
+
+    content: ""; 
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background: var(--trophies-background-image);
+    
+    z-index: -1; 
+    
+    filter: grayscale(50%);
+    
+    background-size: cover;
+    background-position: center;
+}
+
 .achievements{
 
-    /* Defining the Width and Height */
     width:1000px;
     max-width:100%;
     height: calc(var(--achievement-size-active) + 60px);
 
-    /* Defining the Position */
     position:relative;
     overflow: visible;
 
-    /* Using FlexBox to configure the position */
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
-/* The buttons configurations */
 .button {
 
     /* Defining the Color */ 
@@ -160,8 +175,6 @@ body{
 .achievement {
 
     /* Defining the Color */
-    background: var(--blocked-color);
-    box-shadow: 0 12px 30px rgba(2,6,23,0.6);
     opacity:0.5;
 
     /* Defining the Font Size and Weight */
@@ -177,10 +190,9 @@ body{
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index:1;
+    z-index:0;
 
     /* Defining the Border Radius to make it a Circle */
-    border-radius: 999px;
     user-select:none;
 
     /* Use Display Grid to alter the postion */
@@ -194,20 +206,63 @@ body{
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
 }
 
-.achievement img {
-    /* Ajuste o tamanho da imagem para caber no círculo */
-    width: 60%; 
-    height: auto;
-    max-height: 60%;
+.achievement-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1; /* sempre no fundo */
+  pointer-events: none;
+}
+
+.achievement-text,
+.stars {
+  position: absolute;
+  z-index: 3; /* sempre acima da moldura */
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  gap: 8px;
+  z-index: 2;
+
+  bottom: -18%; 
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 100%;
+}
+
+/* Cada estrela individual */
+.stars img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .achievement-text {
-    font-size: 1.4rem;
-    margin-top: 10px;
+    font-size: 3rem;
     padding: 0 10px;
     color: #f8fafc;
+    z-index: 3;
     /* Oculta o texto por padrão (Bloqueado) */
     display: none; 
+    
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 100%;
+}
+
+.achievement img:not(.achievement-frame) {
+    
+    position: relative; 
+    z-index: 3; 
+    object-fit: contain;
+    transition: opacity 300ms ease;
 }
 
 .achievement.unlocked .achievement-text {

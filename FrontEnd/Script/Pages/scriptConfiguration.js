@@ -70,9 +70,7 @@ const translations = {
     }
 };
 
-function applyTranslation(lang) {
-
-    const t = translations[lang] || translations.English;
+function applyTranslation(t) {
 
     document.getElementById("titleText").textContent = t.title;
     document.getElementById("usernameText").textContent = t.username;
@@ -102,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!user) window.location.href = "../../enter.html";
 
     let lang = configuration.language in translations ? configuration.language : "English";
-    applyTranslation(lang);
+    const t = translations[lang] || translations.English;
+    applyTranslation(t);
 
     const inputs = ["username", "password", "language", "soundtrack", "soundEffects"];
     const buttons = ["save", "logout", "delete"];

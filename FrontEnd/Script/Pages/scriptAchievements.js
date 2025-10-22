@@ -21,20 +21,19 @@ const translations = {
 
   // Active achievement variable;
   let active = 0;
-
-  // ----------------------------------------------------
-  // 1. Definição de Caminhos de Imagem por Nível (NOVO)
-  // ----------------------------------------------------
   
-  // Defina os caminhos das imagens que serão usadas para todas as conquistas
-  const LOCKED_IMAGE = "../../Assets/Icons/blocked.png"; // Imagem padrão (Bloqueada)
-  const BRONZE_IMAGE = "../../Assets/Icons/star.png"; // Imagem para medalha Bronze
-  const SILVER_IMAGE = "../../Assets/Icons/twoStars.png"; // Imagem para medalha Prata
-  const GOLD_IMAGE = "../../Assets/Icons/threeStars.png";     // Imagem para medalha Ouro
+  const FRAME_BLOCKED = "../../Assets/Images/BlockedAchievement.png";
+  const FRAME_BRONZE = "../../Assets/Images/BronzeAchievement.png";
+  const FRAME_SILVER = "../../Assets/Images/SilverAchievement.png";
+  const FRAME_GOLD = "../../Assets/Images/GoldAchievement.png";
 
-  // ----------------------------------------------------
-  // 2. Verificação de Usuário e Dados de Conquistas
-  // ----------------------------------------------------
+  const ICON_SCORE = ""; 
+  const ICON_MATCH = ""; 
+  const ICON_ENEMIES = "";
+  const ICON_ELITE = ""; 
+  const ICON_BOSS = ""; 
+  const ICON_BLOCKED = "../../Assets/Icons/blocked.png";
+
   const user = JSON.parse(localStorage.getItem("user"));
   
   if (!user) {     
@@ -49,6 +48,16 @@ const translations = {
   const achievements = 
     document.querySelectorAll(".achievement");
 
+  achievements.forEach(a => {
+    const frame = a.querySelector(".achievement-frame");
+    frame.src = frame.dataset.defaultFrame;
+
+    const icon = a.querySelector("img:not(.achievement-frame)");
+    if (icon && !icon.src.includes(ICON_BLOCKED)) {
+      icon.src = ICON_BLOCKED;
+    }
+  });
+
   const lang = user.language in translations ? user.language : "English";
   const t = translations[lang];
 
@@ -62,124 +71,138 @@ const translations = {
   // 3. Lógica das Conquistas (Fundo, Classe e Imagem)
   // ----------------------------------------------------
 
-  // Funções auxiliares para simplificar o código repetitivo
-  function setAchievementStyle(achievementElement, imageElement, colorProperty, imagePath) {
-    achievementElement.style.background = root.getPropertyValue(colorProperty).trim();
-    achievementElement.classList.add("unlocked");
-    imageElement.src = imagePath;
-  }
+  function setAchievementStyle(achievementElement, framePath, iconPath, starsCount = 0) {
+    const frame = achievementElement.querySelector(".achievement-frame");
+    frame.src = framePath; 
+    achievementElement.classList.add("unlocked");
+
+    const icon = achievementElement.querySelector("img:not(.achievement-frame)");
+    if (icon) {
+      icon.src = iconPath; 
+      icon.style.display = 'none'; 
+    }
+    // Adiciona as estrelas dinamicamente
+    const starsContainer = achievementElement.querySelector(".stars");
+    starsContainer.innerHTML = ""; 
+
+    for (let i = 0; i < starsCount; i++) {
+      const star = document.createElement("img");
+      star.src = "../../Assets/Images/Star.png"; 
+      star.alt = "star";
+      starsContainer.appendChild(star);
+    }
+  }
   
   // Conquista 1: Pontuação (scoreAchievement)
   const scoreAchievement = document.getElementById("scoreAchievement");
-  const scoreImage = document.getElementById("scoreImage"); 
   
   console.log(achievementValues.score);
   // Nível Ouro
   if (achievementValues.score >= 1000000) {
-    setAchievementStyle(scoreAchievement, scoreImage, "--gold-color", GOLD_IMAGE);
+    setAchievementStyle(scoreAchievement, FRAME_GOLD, ICON_SCORE, 3);
   }
   // Nível Prata
   else if (achievementValues.score >= 10000) {
-    setAchievementStyle(scoreAchievement, scoreImage, "--silver-color", SILVER_IMAGE);
+    setAchievementStyle(scoreAchievement, FRAME_SILVER, ICON_SCORE, 2);
   }
   // Nível Bronze (Ajustado de silver para bronze)
   else if (achievementValues.score >= 1000) {
-    setAchievementStyle(scoreAchievement, scoreImage, "--bronze-color", BRONZE_IMAGE);
+    setAchievementStyle(scoreAchievement, FRAME_BRONZE, ICON_SCORE, 1);
   }
   else {
-    // Garante que a imagem bloqueada seja definida se nenhuma condição for atendida
-    scoreImage.src = LOCKED_IMAGE;
+    const frame = scoreAchievement.querySelector(".achievement-frame");
+    frame.src = FRAME_BLOCKED;
+    scoreAchievement.classList.remove("unlocked"); // remove classe desbloqueada
   }
   
   // Conquista 2: Pontuação por Partida (scoreMatchAchievement)
   const scoreMatchAchievement = document.getElementById("scoreMatchAchievement");
-  const matchImage = document.getElementById("matchImage"); 
 
   console.log(achievementValues.scoreMatch);
   // Nível Ouro
   if (achievementValues.scoreMatch >= 500) {
-    setAchievementStyle(scoreMatchAchievement, matchImage, "--gold-color", GOLD_IMAGE);
+    setAchievementStyle(scoreMatchAchievement, FRAME_GOLD, ICON_MATCH, 3);
   }
   // Nível Prata
   else if (achievementValues.scoreMatch >= 100) {
-    setAchievementStyle(scoreMatchAchievement, matchImage, "--silver-color", SILVER_IMAGE);
+    setAchievementStyle(scoreMatchAchievement, FRAME_SILVER, ICON_MATCH, 2);
   }
   // Nível Bronze (Ajustado de silver para bronze)
   else if (achievementValues.scoreMatch >= 50) {
-    setAchievementStyle(scoreMatchAchievement, matchImage, "--bronze-color", BRONZE_IMAGE);
+    setAchievementStyle(scoreMatchAchievement, FRAME_BRONZE, ICON_MATCH, 1);
   }
   else {
-    matchImage.src = LOCKED_IMAGE;
+    const frame = scoreMatchAchievement.querySelector(".achievement-frame");
+    frame.src = FRAME_BLOCKED;
+    scoreMatchAchievement.classList.remove("unlocked"); // remove classe desbloqueada
   }
 
   // Conquista 3: Inimigos Derrotados (enemiesAchievement)
   const enemiesAchievement = document.getElementById("enemiesAchievement");
-  const enemiesImage = document.getElementById("enemiesImage"); 
 
   console.log(achievementValues.defeatedEnemies);
   // Nível Ouro
   if (achievementValues.defeatedEnemies >= 1000000) {
-    setAchievementStyle(enemiesAchievement, enemiesImage, "--gold-color", GOLD_IMAGE);
+    setAchievementStyle(enemiesAchievement, FRAME_GOLD, ICON_ENEMIES, 3);
   }
   // Nível Prata
   else if (achievementValues.defeatedEnemies >= 10000) {
-    setAchievementStyle(enemiesAchievement, enemiesImage, "--silver-color", SILVER_IMAGE);
+    setAchievementStyle(enemiesAchievement, FRAME_SILVER, ICON_ENEMIES, 2);
   }
   // Nível Bronze (Ajustado de silver para bronze)
   else if (achievementValues.defeatedEnemies >= 1000) {
-    setAchievementStyle(enemiesAchievement, enemiesImage, "--bronze-color", BRONZE_IMAGE);
+    setAchievementStyle(enemiesAchievement, FRAME_BRONZE, ICON_ENEMIES, 1);
   }
   else {
-    enemiesImage.src = LOCKED_IMAGE;
+    const frame = enemiesAchievement.querySelector(".achievement-frame");
+    frame.src = FRAME_BLOCKED;
+    enemiesAchievement.classList.remove("unlocked"); // remove classe desbloqueada
   }
 
   // Conquista 4: Elites Derrotados (eliteAchievement)
   const eliteAchievement = document.getElementById("eliteAchievement");
-  const eliteImage = document.getElementById("eliteImage"); 
 
   console.log(achievementValues.defeatedElite);
   // Nível Ouro
   if (achievementValues.defeatedElite >= 200) {
-    setAchievementStyle(eliteAchievement, eliteImage, "--gold-color", GOLD_IMAGE);
+    setAchievementStyle(eliteAchievement, FRAME_GOLD, ICON_ELITE, 3);
   }
   // Nível Prata
   else if (achievementValues.defeatedElite >= 100) {
-    setAchievementStyle(eliteAchievement, eliteImage, "--silver-color", SILVER_IMAGE);
+    setAchievementStyle(eliteAchievement, FRAME_SILVER, ICON_ELITE, 2);
   }
   // Nível Bronze (Ajustado de silver para bronze)
   else if (achievementValues.defeatedElite >= 50) {
-    setAchievementStyle(eliteAchievement, eliteImage, "--bronze-color", BRONZE_IMAGE);
+    setAchievementStyle(eliteAchievement, FRAME_BRONZE, ICON_ELITE, 1);
   }
   else {
-    eliteImage.src = LOCKED_IMAGE;
+    const frame = eliteAchievement.querySelector(".achievement-frame");
+    frame.src = FRAME_BLOCKED;
+    eliteAchievement.classList.remove("unlocked"); // remove classe desbloqueada
   }
 
   // Conquista 5: Chefes Derrotados (bossAchievement)
   const bossAchievement = document.getElementById("bossAchievement");
-  const bossImage = document.getElementById("bossImage"); 
 
   console.log(achievementValues.defeatedBoss);
   // Nível Ouro
   if (achievementValues.defeatedBoss >= 100) {
-    setAchievementStyle(bossAchievement, bossImage, "--gold-color", GOLD_IMAGE);
+    setAchievementStyle(bossAchievement, FRAME_GOLD, ICON_BOSS, 3);
   }
   // Nível Prata
   else if (achievementValues.defeatedBoss >= 50) {
-    setAchievementStyle(bossAchievement, bossImage, "--silver-color", SILVER_IMAGE);
+    setAchievementStyle(bossAchievement, FRAME_SILVER, ICON_BOSS, 2);
   }
   // Nível Bronze (Ajustado de silver para bronze)
   else if (achievementValues.defeatedBoss >= 10) {
-    setAchievementStyle(bossAchievement, bossImage, "--bronze-color", BRONZE_IMAGE);
+    setAchievementStyle(bossAchievement, FRAME_BRONZE, ICON_BOSS, 1);
   }
   else {
-    bossImage.src = LOCKED_IMAGE;
+    const frame = bossAchievement.querySelector(".achievement-frame");
+    frame.src = FRAME_BLOCKED;
+    bossAchievement.classList.remove("unlocked"); // remove classe desbloqueada
   }
 
-  // ----------------------------------------------------
-  // 4. Funções de Navegação do Carrossel (Inalteradas)
-  // ----------------------------------------------------
-  
-  // functions to update the active achievement; 
   function update() {
 
     // For loop in each achievement;
