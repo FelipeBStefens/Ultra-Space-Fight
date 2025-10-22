@@ -77,7 +77,8 @@ body {
     background-repeat: repeat;
     background-size: contain;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    
+    image-rendering: pixelated;
+
     /* Configure the Padding and Border Radius */
     padding: 40px;
     
@@ -167,39 +168,48 @@ body {
 #button {
 
     /* Defining the Color */
-    background-color: var(--button-color);
+    background-color: transparent;
+    background-image: url('../../Assets/Images/Button.png');
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
+
     color: var(--text-color);
 
     /* The size and family of the Font */
     font-size: var(--button-font-size);
     font-family: var(--pixel-font);
 
-    /* Configure the Padding and Border Radius */
-    padding: var(--button-padding);
-    border-radius: var(--button-radius);
+    border: none;
+    outline: none;
+    box-shadow: none;
 
-    /* The Width and Position */ 
-    width: var(--button-width);
-    margin-top: 15px;
-    
+    /* Configure the Padding and Border Radius */
+    width: 200px;  
+    height: 110px;
+    padding-bottom: 15px;
+
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+
     /* Transition in case of Hover */
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 /* Configuration of the button in case of Hover */
 #button:hover {
 
-    /* Altering the Background Color */
-    background-color: var(--button-hover-color);
-
-    /* Scaling the button it's value times 1.2 */
-    transform: scale(1.2);
+    background-image: url('../../Assets/Images/ButtonHover.png');
+    transform: scale(1.05);
 }
 
 .error-message {
   color: red;
   font-family: var(--pixel-font);
+  font-weight: bold;
   font-size: 14px;
   margin-top: 5px;
   height: 25px;        
@@ -222,20 +232,24 @@ body {
 /* Botão desativado */
 #button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
-  background-color: gray;
+  filter: grayscale(100%);
+  background-image: url('../../Assets/Images/ButtonClicked.png');
+  transform: scale(0.95);
   transform: none !important;
 }
 
 /* Remover o hover quando desativado */
 #button:disabled:hover {
-  background-color: gray;
+  background-image: url('../../Assets/Images/ButtonClicked.png');
   transform: none;
 }
 
 /* Botão em estado de carregamento */
 #button.loading {
+  background-image: url('../../Assets/Images/ButtonClicked.png');
   position: relative;
+  cursor: not-allowed;
+  opacity: 0.7;
   pointer-events: none; /* impede qualquer clique extra */
 }
 

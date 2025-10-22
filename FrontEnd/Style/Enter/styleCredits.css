@@ -38,6 +38,7 @@ body {
   background-image: url("../../Assets/Images/BlackContainer.png");
   background-repeat: repeat;
   background-size: contain;
+  image-rendering: pixelated;
 
   /* background-color: var(--dark-container-color); */
   color: var(--light-text-color);   

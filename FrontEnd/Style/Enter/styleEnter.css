@@ -1,26 +1,19 @@
-/* File of the initial page style */
-
-/* Import variables */
+/* Import das variáveis globais */
 @import url('../style.css');
 
-/* The Body of the HTML */
+/* Corpo da página */
 body {
-  
-  /* Setting it to be in all the page */
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100vh;
-
-  /* Hidden all the parts that overflow the page */
   overflow: hidden;
-
-  /* Using FlexBox to configure the position */
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
+/* Vídeo de fundo */
 #video {
   position: fixed;
   right: 0;
@@ -31,70 +24,59 @@ body {
   z-index: -1;
 }
 
-/* Logo Image of the game */
+/* Logo do jogo */
 #logo {
-
-  /* Image Pixelization */
   image-rendering: pixelated;
-
-  /* Configuring the position of the Image */ 
   position: absolute;
   top: 0px;
   right: -70px;
-
-  /* Configure the Width and Height of the Image */
   width: 1000px;
   height: auto;
 }
 
-/* Buttons of the HTML */
+/* Contêiner dos botões */
 #buttons {
-
-  /* Using FlexBox to configure the position */
   display: flex;
   flex-direction: column;
-
-  /* Configure the Gap and Padding */
-  gap: 35px;
-  padding-top: 350px;
+  gap: 30px;
+  padding-top: 80px;
   padding-left: 150px;
 }
 
-/* Hiperlink of the button */ 
+/* Botões (hiperlinks) */
 #buttons a {
+  
+  background-image: url('../../Assets/Images/Button.png');
+  background-repeat: no-repeat;
+  background-size: contain; 
+  background-position: center;
+  image-rendering: pixelated;
 
-  /* Not decorating the hiperlink text */
+  width: 350px;   
+  height: 150px;   
+
+  color: var(--text-color);
+  font-size: 50px;
+  font-family: var(--pixel-font);
+  text-align: center;
+  line-height: 130px; 
   text-decoration: none;
 
-  /* Defining the color of the Hiperlinks */
-  background-color: var(--button-color);
-  color: var(--text-color);
-
-  /* The size and family of the Font */ 
-  font-size: var(--button-font-size);
-  font-family: var(--pixel-font);
-
-  /* Configure the Padding and Border Radius */ 
-  padding: var(--button-padding);
-  border-radius: var(--button-radius);
-  
-  /* Alligning the text and width */
-  text-align: center;
-  width: var(--button-width);
-
-  /* Display all inside in inline of the block */
+  transition: transform 0.15s ease;
   display: inline-block;
-
-  /* Transition in case of Hover */
-  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
 }
 
-/* Configuration of the button and Hiperlink in case of Hover */
 #buttons a:hover {
+  background-image: url('../../Assets/Images/ButtonHover.png');
+  transform: scale(1.05);
+}
 
-  /* Altering the Background Color */
-  background-color: var(--button-hover-color);
+#buttons a:active {
+  background-image: url('../../Assets/Images/ButtonClicked.png');
+  transform: scale(0.95);
+}
 
-  /* Scaling the button it's value times 1.2 */
-  transform: scale(1.2);
+#buttons a:focus {
+  outline: none;
 }
