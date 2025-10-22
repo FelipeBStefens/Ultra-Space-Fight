@@ -204,11 +204,12 @@ body {
 
 /* Info box */
 .info-box {
-    background: #1a1a1a;
+    background-image: url("../../Assets/Images/BlackContainer.png");
+    background-repeat: repeat;
+    background-size: contain;
     color: var(--light-text-color);
     padding: 15px;
     border: 2px solid #333;
-    border-radius: 10px;
     width: 900px;      
     max-width: 95%;
     gap: 50px;

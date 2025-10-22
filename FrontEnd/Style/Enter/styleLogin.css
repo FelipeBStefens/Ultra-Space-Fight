@@ -73,12 +73,14 @@ body {
 #forms {
 
     /* Defining the Color */
-    background-color: var(--container-color); 
+    background-image: url("../../Assets/Images/BlueContainer.png");
+    background-repeat: repeat;
+    background-size: contain;
+
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
     /* Configure the Padding and Border Radius */
     padding: 40px;
-    border-radius: 10px;
 
     /* The Width, Height and Margins */
     width: 350px;

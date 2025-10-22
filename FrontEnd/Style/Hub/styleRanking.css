@@ -34,7 +34,9 @@ body {
 .container {
 
     /* Defining the Color */
-    background: var(--dark-container-color);
+    background-image: url("../../Assets/Images/BlackContainer.png");
+    background-repeat: repeat;
+    background-size: contain;
 
     /* The position of the Container */
     width: 1000px;
@@ -44,7 +46,6 @@ body {
     margin-bottom: 30px;
 
     /* Configure the Padding and Border Radius */
-    border-radius: 12px;
     padding: 20px;
 
     /* Align with FlexBox */

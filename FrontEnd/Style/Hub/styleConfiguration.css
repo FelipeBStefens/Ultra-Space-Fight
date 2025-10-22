@@ -28,8 +28,12 @@ body {
 
 /* The Container class */
 .container {
+
     /* Configure the color */
-    background-color: var(--dark-container-color);
+    background-image: url("../../Assets/Images/BlackContainer.png");
+    background-repeat: repeat;
+    background-size: contain;
+
     color: var(--light-text-color);   
     box-shadow: 0 4px 15px rgba(53, 53, 53, 0.6); 
     
@@ -39,7 +43,6 @@ body {
 
     /* Configure the Padding and Border Radius */ 
     padding: 30px 30px 50px 30px;
-    border-radius: 10px;
     
     /* Configure the Width and Height */
     width: 700px;       
