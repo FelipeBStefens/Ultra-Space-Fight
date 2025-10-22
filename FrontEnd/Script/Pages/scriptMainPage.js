@@ -1,21 +1,9 @@
 const translations = {
     English: {
-        ranking: "Ranking",
-        configurations: "Configurations",
-        rules: "Rules",
-        gameplay: "PLAY",
-        achievements: "Achievements",
-        spaceships: "Spaceships",
         score: "Score",
         scoreMatch: "Score Match"
     },
     Portuguese: {
-        ranking: "Ranking",
-        configurations: "Configurações",
-        rules: "Regras",
-        gameplay: "JOGAR",
-        achievements: "Conquistas",
-        spaceships: "Naves",
         score: "Pontos",
         scoreMatch: "Pontos Partida"
     }
@@ -30,12 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const lang = user.language in translations ? user.language : "English";
     const t = translations[lang];
 
-    document.getElementById("ranking").textContent = t.ranking;
-    document.getElementById("configurations").textContent = t.configurations;
-    document.getElementById("rules").textContent = t.rules;
-    document.getElementById("gameplay").textContent = t.gameplay;
-    document.getElementById("achievements").textContent = t.achievements;
-    document.getElementById("spaceships").textContent = t.spaceships;
     document.getElementById("score").textContent = `${t.score}: ${user.score}`;
     document.getElementById("scoreMatch").textContent = `${t.scoreMatch}: ${user.scoreMatch}`;
 
@@ -219,21 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
     linkIds.forEach(id => {
     const a = document.getElementById(id);
     if (!a) return;
-
-    // btn-inner
-    if (!a.querySelector('.btn-inner')) {
-        const span = document.createElement('span');
-        span.className = 'btn-inner';
-        while (a.firstChild) span.appendChild(a.firstChild);
-        a.appendChild(span);
-    }
-
-    // btn-spinner
-    if (!a.querySelector('.btn-spinner')) {
-        const spinner = document.createElement('span');
-        spinner.className = 'btn-spinner';
-        a.appendChild(spinner);
-    }
     });
 
     links.forEach(linkObj => {
@@ -243,12 +210,14 @@ document.addEventListener("DOMContentLoaded", () => {
         link.addEventListener("click", async (e) => {
             e.preventDefault();
 
-            // Desativa todos os links (cinza)
-            links.forEach(l => document.getElementById(l.id).classList.add("disabled-others"));
+            links.forEach(l => {
+                const el = document.getElementById(l.id);
+                if (el !== link) el.classList.add("disabled-others");
+            });
 
-            // Ativa loading no clicado
-            link.classList.remove("disabled-others");
+            // Ativa loading no botão clicado
             link.classList.add("loading");
+
 
             try {
                 await linkObj.fetches();

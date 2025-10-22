@@ -50,20 +50,23 @@ h1 {
 /* The Hipertext acting like a button */
 /* Botão base */
 a {
-  background: var(--button-color);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--text-color);
   text-decoration: none;
   font-family: var(--pixel-font);
   border-radius: var(--button-radius);
   transition: background 0.25s;
   position: absolute;
-  width: 320px;         
-  height: 80px;          
+  width: 200px;         
+  height: 200px;          
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  transition: transform 0.2s, background-image 0.15s linear;
 }
 
 /* Conteúdo escalável */
@@ -76,16 +79,67 @@ a .btn-inner {
   transform-origin: center center;
 }
 
-/* Spinner separado do texto */
-a .btn-spinner {
-  display: none;          /* invisível por padrão */
-  width: 18px;
-  height: 18px;
-  border: 2px solid #222;
-  border-top-color: transparent;
-  border-radius: 50%;
-  margin-left: 8px;       /* separa do texto */
-  animation: spin 0.8s linear infinite;
+/* Ranking */
+#ranking {
+  top: 240px;
+  left: 80px;
+  background-image: url("../../Assets/Images/RankingButton.png");
+}
+#ranking:hover {
+  background-image: url("../../Assets/Images/RankingButtonHover.png");
+}
+
+/* Configurations */
+#configurations {
+  top: 30px;
+  right: 60px;
+  background-image: url("../../Assets/Images/ConfigurationButton.png");
+}
+
+#configurations:hover {
+  background-image: url("../../Assets/Images/ConfigurationButtonHover.png");
+}
+
+/* Rules */
+#rules {
+  top: 250px;
+  right: 60px;
+  background-image: url("../../Assets/Images/RulesButton.png");
+}
+#rules:hover {
+  background-image: url("../../Assets/Images/RulesButtonHover.png");
+}
+
+/* Achievements */
+#achievements {
+  bottom: 30px;
+  left: 80px;
+  background-image: url("../../Assets/Images/AchievementsButton.png");
+}
+#achievements:hover {
+  background-image: url("../../Assets/Images/AchievementsButtonHover.png");
+}
+
+/* Spaceships */
+#spaceships {
+  bottom: 60px;
+  right: 80px;
+  background-image: url("../../Assets/Images/SpaceshipButton.png");
+}
+#spaceships:hover {
+  background-image: url("../../Assets/Images/SpaceshipButtonHover.png");
+}
+
+/* Gameplay (central) */
+#gameplay {
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("../../Assets/Images/PlayButton.png");
+}
+
+#gameplay:hover {
+  background-image: url("../../Assets/Images/PlayButtonHover.png");
 }
 
 /* hover escala apenas o conteúdo */
@@ -93,108 +147,23 @@ a:hover .btn-inner {
   transform: scale(1.3);
 }
 
-
 /* Configuration of the Hiperlink in case of Hover */
 a:hover {
-
-    /* Altering the Color */
-    background: var(--button-hover-color);
 
     /* Scaling the button it's value times 1.5 */
     transform: scale(1.5);
 }
 
-/* Ranking Hiperlink */
-#ranking {
-
-    /* Defining the Position */
-    top: 240px;
-    left: 80px;
-}
-
-/* Configurations Hiperlink */
-#configurations {
-
-    /* Defining the Position */
-    top: 60px;
-    right: 60px;
-}
-
-/* Rules Hiperlink */
-#rules {
-
-    /* Defining the Position */
-    top: 180px; 
-    right: 60px;
-}
-
-/* Achievements Hiperlink */
-#achievements {
-
-    /* Defining the Position */
-    bottom: 60px;
-    left: 80px;
-}
-
-/* Spaceship Hiperlink */
-#spaceships {
-
-    /* Defining the Position */
-    bottom: 60px;
-    right: 80px;
-}
-
-#gameplay {
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* mantemos no <a> */
-}
-
-/* #gameplay hover */
-#gameplay:hover .btn-inner {
-  transform: scale(1.5);
-}
-
-/* Configuration of the Hiperlink in case of Hover */
-#gameplay:hover {
-
-    /* Altering the Background Color */
-    background: var(--button-hover-color);
-
-    /* Scaling the button it's value times 1.5 */
-    transform: translate(-50%, -50%) scale(1.5);
-}
-
-
 a.disabled-others {
-  background-color: gray !important;
-  color: #444 !important;
+  filter: grayscale(100%);
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
-  /* NÃO mexer em transform/position */
 }
 
 a.loading {
   pointer-events: none;
   opacity: 0.8;
-  background-color: gray;
-  color: #222;
-}
-
-/* spinner */
-a.loading::after {
-  content: "";
-  position: absolute;       /* relativo ao <a> */
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
-  border: 2px solid #222;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
 }
 
 /* Desativa hover e animação durante loading */
