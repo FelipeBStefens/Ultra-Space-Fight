@@ -270,6 +270,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
                                 setLoadingState(false);
                                 actionButton.textContent = t.selectedSpaceship;
                                 actionButton.disabled = true;
+                                update();
                             }
                         };
                     }
@@ -282,20 +283,26 @@ function updateCashDisplay(newCashValue, coinText, data) {
         });
 
         document.querySelectorAll(".upgrade-button").forEach(button => {
-            const currentShip = ships[active];
-            const requiredScore = spaceshipRequirements[currentShip.name];
-            const isLocked = user.score < requiredScore;
+            const currentShip = ships[active]; // só a nave ativa importa
             const stat = statMap[button.dataset.stat];
 
+            const isLocked = user.score < spaceshipRequirements[currentShip.name];
             const isMaxed = currentShip[stat] >= maxStats[stat];
 
+            // Reset visual
+            button.style.filter = "";
+            button.style.cursor = "pointer";
+
+            // Desabilita só o botão da nave ativa
             button.disabled = isLocked || isMaxed;
 
             if (isMaxed) {
-                button.style.backgroundColor = 'gray';
+                button.style.filter = "grayscale(100%)";
+                button.style.cursor = "not-allowed";
                 button.textContent = t.maxed;
+            } else if (isLocked) {
+                button.textContent = t.locked;
             } else {
-                button.style.backgroundColor = '';
                 button.textContent = t.upgrade;
             }
         });

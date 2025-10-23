@@ -40,16 +40,16 @@ body {
 
     /* The position of the Container */
     width: 1000px;
+    height: 100%;
     max-height: 700px;
     overflow-y: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
 
     /* Configure the Padding and Border Radius */
     padding: 20px;
 
     /* Align with FlexBox */
     text-align: center;
+    overflow: hidden;
 }
 
 /* The Div of the Buttons */
@@ -58,29 +58,36 @@ body {
     /* Setting the margin */
     margin-top: 50px;
     margin-bottom: 70px;
+
 }
 
 /* The Buttons */
 button {
 
     /* Defining the Color */
-    background-color: #22a1e5;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/Button.png");
 
     /* The size and family of the Font */ 
     font-family: var(--pixel-font);
     font-size: 40px;
+    color: var(--light-text-color);
 
     /* Defining the Width and Height */
-    width: 450px;
-    height: auto;
+    width: 350px;
+    height: 180px;
 
     /* Configure the Padding and Border Radius */
     padding: 10px 20px;
-    border-radius: var(--button-radius);
     border: none;
     margin: 0 5px;
-    gap: 20px;
     
+    padding-bottom: 30px;
+
     /* Transition in case of Hover */
     cursor: pointer;
     transition: background 0.3s;
@@ -90,14 +97,15 @@ button {
 button.active {
 
     /* Altering the Color */
-    background-color: #1b02ac;
+    background-image: url("../../Assets/Images/ButtonClicked.png");
 }
 
 /* Configuration of the button in case of Hover */
 button:hover {
 
     /* Altering the Color */
-    background-color: #364cc4;
+    background-image: url("../../Assets/Images/ButtonHover.png");
+    transform: scale(1.05);
 }
 
 /* Ranking Container */

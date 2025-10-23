@@ -4,8 +4,8 @@ const translations = {
     matchButton: "Match Score Ranking"
   },
   Portuguese: {
-    totalButton: "Ranking de Pontos Totais",
-    matchButton: "Ranking de Pontos por Partida"
+    totalButton: "Ranking Pontos Totais",
+    matchButton: "Ranking Pontos Partida"
   }
 };
 

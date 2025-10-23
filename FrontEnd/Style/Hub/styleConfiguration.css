@@ -240,6 +240,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
     gap: 15px;
     display: flex;
     flex-direction: column; 
+
+    align-items: center;
 }
 
 .buttons button {
@@ -256,6 +258,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transition: 0.3s;
     position: relative;
     overflow: hidden;
+    
 }
 
 /* The Button to save the confirations */
@@ -266,7 +269,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     color: var(--light-text-color);
     padding-bottom: 50px;
     margin-top: 30px;
-    margin-bottom: 140px;
+    margin-bottom: 50px;
 }
 
 #save:hover {
@@ -276,24 +279,30 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* The Button to logout the Account */
 #logout {
-    background-color: #6b6a6a;
-    color: #fff;
-    margin-bottom: 15px;
+    background-image: url("../../Assets/Images/ButtonGray.png");
+    width: 330px;
+    height: 210px;
+    padding-bottom: 50px;
+    color: var(--light-text-color);
 }
 
 #logout:hover {
-    background-color: #c6c6c6;
+    background-image: url("../../Assets/Images/ButtonHoverGray.png");
     transform: scale(1.05);
 }
 
 /* The Button to Delete the Account */
 #delete {
-    background-color: #6e0404;
+    background-image: url("../../Assets/Images/ButtonRed.png");
+    width: 330px;
+    height: 210px;
+    padding-bottom: 50px;
+    color: var(--light-text-color);
     color: #fff;
 }
 
 #delete:hover {
-    background-color: #ed0505;
+    background-image: url("../../Assets/Images/ButtonHoverRed.png");
     transform: scale(1.05);
 }
 
@@ -365,7 +374,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* ---------------------------------------- */
 /* Botão desativado                          */
 /* ---------------------------------------- */
-#save:disabled {
+#save.loading {
   cursor: not-allowed;
   opacity: 0.6;
   background-image: url("../../Assets/Images/ButtonClicked.png");
@@ -374,8 +383,38 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* Remover o hover quando desativado */
-#save:disabled:hover {
+#save.loading:hover {
   background-image: url("../../Assets/Images/ButtonClicked.png");
+  filter: grayscale(100%);
+  transform: none;
+}
+
+#logout.loading {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClickedGray.png");
+  filter: grayscale(100%);
+  transform: none !important;
+}
+
+/* Remover o hover quando desativado */
+#logout.loading:hover {
+  background-image: url("../../Assets/Images/ButtonClickedGray.png");
+  filter: grayscale(100%);
+  transform: none;
+}
+
+#delete.loading {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClickedRed.png");
+  filter: grayscale(100%);
+  transform: none !important;
+}
+
+/* Remover o hover quando desativado */
+#delete.loading:hover {
+  background-image: url("../../Assets/Images/ButtonClickedRed.png");
   filter: grayscale(100%);
   transform: none;
 }

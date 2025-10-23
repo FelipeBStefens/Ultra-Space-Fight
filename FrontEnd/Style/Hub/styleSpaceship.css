@@ -10,7 +10,7 @@
 
     /* Spaceships configurations */
     --spaceship-size: 300px;           
-    --spaceship-size-active: 400px;  
+    --spaceship-size-active: 360px;  
     --spaceship-gap: 140px;
     
     /* Size of the buttons */
@@ -38,6 +38,8 @@ body {
     flex-direction: column; 
     align-items: center;
     justify-content: center;
+
+    overflow: hidden;
 }
 
 #coin-counter {
@@ -46,10 +48,13 @@ body {
     top: 32px; 
     right: 32px; 
 
-    background: rgba(105, 156, 252, 0.8); 
-    backdrop-filter: blur(4px);
+    background-image: url("../../Assets/Images/BlackContainer.png");
+    background-repeat: repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
+    
     padding: 10px 18px;
-    border-radius: 15px;
     border: 2px solid var(--light-text-color);
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 
@@ -125,12 +130,14 @@ body {
 
 /* Spaceship styles */
 .spaceship {
-    background-color: var(--blocked-color);
-    background-size: cover;
+
+    background-image: url("../../Assets/Images/BlueContainer.png");
+    background-repeat: repeat;
+    background-size: contain; 
     background-position: center;
-    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    
     box-shadow: 0 12px 30px rgba(2,6,23,0.6);
-    opacity: 0.5;
     font-weight: 700;
     font-size: 28px;
     width: var(--spaceship-size);
@@ -196,11 +203,21 @@ body {
 }
 
 /* Individual ship backgrounds */
-#standartShip { background-image: var(--standart-ship-image); }
-#speedShip { background-image: var(--speed-ship-image); }
-#destroyerShip { background-image: var(--destroyer-ship-image); }
-#freighterShip { background-image: var(--freighter-ship-image); }
-#eliteShip { background-image: var(--elite-ship-image); }
+#standartShip { 
+    background-image: var(--standart-ship-image), url("../../Assets/Images/BlueContainer.png"); 
+}
+#speedShip { 
+    background-image: var(--speed-ship-image), url("../../Assets/Images/BlueContainer.png"); 
+}
+#destroyerShip { 
+    background-image: var(--destroyer-ship-image), url("../../Assets/Images/BlueContainer.png"); 
+}
+#freighterShip { 
+    background-image: var(--freighter-ship-image), url("../../Assets/Images/BlueContainer.png"); 
+}
+#eliteShip {
+    background-image: var(--elite-ship-image), url("../../Assets/Images/BlueContainer.png"); 
+}
 
 /* Info box */
 .info-box {
@@ -208,12 +225,14 @@ body {
     background-repeat: repeat;
     background-size: contain;
     color: var(--light-text-color);
+    border: 2px solid var(--light-text-color);
     padding: 15px;
     border: 2px solid #333;
     width: 900px;      
     max-width: 95%;
-    gap: 50px;
+    gap: 10px;
     margin-top: 20px;
+    margin-bottom: -40px;
     display: flex;
     justify-content: flex-start;
     align-items: center;     
@@ -227,9 +246,17 @@ body {
 }
 
 .stat {
-    background: #262626;
+
+    background-color: transparent;
+    background-repeat: repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/BlueContainer.png");
+
+    color: var(--text-color);
+    font-weight: 1000;
     padding: 8px 12px;
-    border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -259,6 +286,7 @@ body {
 #actionButton:disabled {
     cursor: not-allowed;
     opacity: 0.8;
+    filter: grayscale(100%);
     background-image: url("../../Assets/Images/ButtonClicked.png");
     transform: none !important;
 }
@@ -270,41 +298,48 @@ body {
 
 /* Upgrade button */
 .upgrade-button {
-    background: #007bff; 
+
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/ButtonGreen.png");
+
     color: var(--light-text-color);
     font-family: var(--pixel-font);
     font-size: 30px;           
     font-weight: bold;
-    min-width: 200px;       
-    height: 50px;           
-    padding: 0 16px;        
+
+    width: 150px;
+    height: 85px;
+
+    padding-bottom: 15px;
     border: none;
-    border-radius: 6px;
-    margin-left: 10px;
     display: flex;              
     align-items: center;       
     justify-content: center;   
-    gap: 8px;                 
     cursor: pointer;
-    transition: transform 0.15s ease, background 0.15s ease; /* Adicionei transição para o background */
+    transition: transform 0.15s ease; /* Adicionei transição para o background */
 }
 
 /* Hover do upgrade */
 .upgrade-button:hover {
-    background: #218838; /* ✅ MANTÉM o verde no hover */
+    
+    background-image: url("../../Assets/Images/ButtonHoverGreen.png");
     transform: scale(1.1);
 }
 
 /* Hover do upgrade */
 .upgrade-button:hover:not([disabled]) {
-    background: #218838;
+    
+    background-image: url("../../Assets/Images/ButtonHoverGreen.png");
     transform: scale(1.1);
 }
 
 .upgrade-button[disabled] {
     /* Cor cinza escura para indicar bloqueio */
-    background-color: var(--blocked-color) !important; 
-    color: #999 !important;
+    background-image: url("../../Assets/Images/ButtonClickedGreen.png");
     cursor: not-allowed !important;
     opacity: 0.7;
     /* Remove a transformação do hover se o botão estiver desabilitado */
@@ -338,8 +373,8 @@ body {
     animation: spin 1s linear infinite;
 }
 
-/* Estado desabilitado (outros botões) */
-button.disabled-others {
+/* Estado desabilitado  */
+.button.disabled-others {
     background-color: gray !important;
     color: #444 !important;
     opacity: 0.6;
@@ -348,12 +383,17 @@ button.disabled-others {
 }
 
 /* Estado carregando (com spinner) */
-button.loading {
+.upgrade-button.loading {
     position: relative;
     pointer-events: none;
     opacity: 0.8;
-    background-color: gray;
-    color: #222;
+    filter: grayscale(100%);
+    background-image: url("../../Assets/Images/ButtonClickedGreen.png");
+}
+
+.upgrade-button.disabled-others {
+    filter: grayscale(100%);
+    background-image: url("../../Assets/Images/ButtonClickedGreen.png");
 }
 
 button.loading::after {
@@ -373,13 +413,6 @@ button.loading::after {
 button.loading:hover {
     transform: none;
     background-color: gray;
-}
-
-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
 }
 
 @keyframes spin {

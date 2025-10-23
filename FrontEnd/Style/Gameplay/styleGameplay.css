@@ -247,17 +247,50 @@ body {
 #resumeButton {
 
     /* Defining the Color */
-    background-color: #39813b;
+    background-image: url("../../Assets/Images/ButtonGreen.png");
+    width: 200px;
+    height: 100px;
+
+    image-rendering: pixelated;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+
+    padding-bottom: 30px;
 }
 
 /* Configuration of the button in case of Hover */
 #resumeButton:hover {
 
     /* Altering the Background Color */
-    background-color: #265728;
+    background-image: url("../../Assets/Images/ButtonHoverGreen.png");
 
     /* Scaling the button it's value times 1.05 */
-    transform: scale(1.5);
+    transform: scale(1.1);
+}
+
+#resumeButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClickedGreen.png");
+  filter: grayscale(100%);
+  transform: none !important;
+}
+
+/* Remover o hover quando desativado */
+#resumeButton:disabled:hover {
+  background-image: url("../../Assets/Images/ButtonClickedGreen.png");
+  filter: grayscale(100%);
+  transform: none;
+}
+
+#resumeButton.loading {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClickedGreen.png");
+  filter: grayscale(100%);
+  transform: none !important;
 }
 
 .sliderContainer {
@@ -280,9 +313,6 @@ body {
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
-
-    /* Scaling the button it's value times 1.05 */
-    transform: scale(1.05);
 }
 
 /* Configuration of the button in case of Hover */
@@ -292,7 +322,7 @@ body {
     background-image: url("../../Assets/Images/ButtonHover.png");
 
     /* Scaling the button it's value times 1.05 */
-    transform: scale(1.5);
+    transform: scale(1.1);
 }
 
 #saveSoundsButton:disabled {
@@ -322,17 +352,50 @@ body {
 #exitButton {
 
     /* Defining the Color */
-    background-color: #e53935;
+    background-image: url("../../Assets/Images/ButtonRed.png");
+    width: 200px;
+    height: 100px;
+
+    image-rendering: pixelated;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    
+    padding-bottom: 30px;
 }
 
 /* Configuration of the button in case of Hover */
 #exitButton:hover {
 
     /* Altering the Background Color */
-    background-color: #f00e0b;
+    background-image: url("../../Assets/Images/ButtonHoverRed.png");
 
     /* Scaling the button it's value times 1.05 */
-    transform: scale(1.5);
+    transform: scale(1.1);
+}
+
+#exitButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClickedRed.png");
+  filter: grayscale(100%);
+  transform: none !important;
+}
+
+/* Remover o hover quando desativado */
+#exitButton:disabled:hover {
+  background-image: url("../../Assets/Images/ButtonClickedRed.png");
+  filter: grayscale(100%);
+  transform: none;
+}
+
+#exitButton.loading {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClickedRed.png");
+  filter: grayscale(100%);
+  transform: none !important;
 }
 
 /* The Labels */
