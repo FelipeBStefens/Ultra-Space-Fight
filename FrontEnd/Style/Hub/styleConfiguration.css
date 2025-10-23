@@ -31,6 +31,7 @@ body {
 
     /* Configure the color */
     background-image: url("../../Assets/Images/BlackContainer.png");
+    image-rendering: pixelated;
     background-repeat: repeat;
     background-size: contain;
 
@@ -235,18 +236,22 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* BUTTONS                                 */
 /* ---------------------------------------- */
 .buttons {
-    gap: 15px;
     width: 100%;
+    gap: 15px;
     display: flex;
     flex-direction: column; 
 }
 
 .buttons button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
     font-family: var(--pixel-font);
     font-size: 40px;
     padding: 20px;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
     position: relative;
@@ -255,14 +260,17 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* The Button to save the confirations */
 #save {
-    background-color: var(--button-color);
+    background-image: url("../../Assets/Images/Button.png");
+    width: 330px;
+    height: 210px;
     color: var(--light-text-color);
+    padding-bottom: 50px;
     margin-top: 30px;
     margin-bottom: 140px;
 }
 
 #save:hover {
-    background-color: var(--button-hover-color);
+    background-image: url("../../Assets/Images/ButtonHover.png");
     transform: scale(1.05);
 }
 
@@ -311,7 +319,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.6;
-    background-color: gray !important; /* todos cinzas */
     transform: none !important;
 }
 
@@ -361,13 +368,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
 #save:disabled {
   cursor: not-allowed;
   opacity: 0.6;
-  background-color: gray;
+  background-image: url("../../Assets/Images/ButtonClicked.png");
+  filter: grayscale(100%);
   transform: none !important;
 }
 
 /* Remover o hover quando desativado */
 #save:disabled:hover {
-  background-color: gray;
+  background-image: url("../../Assets/Images/ButtonClicked.png");
+  filter: grayscale(100%);
   transform: none;
 }
 

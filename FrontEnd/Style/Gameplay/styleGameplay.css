@@ -185,16 +185,18 @@ body {
 
     /* Defining the Color */
     background-image: url("../../Assets/Images/BlackContainer.png");
+    image-rendering: pixelated;
     background-repeat: repeat;
     background-size: contain;
     box-shadow: 0 8px 24px rgba(0,0,0,0.5);
     
     /* Configure the Padding, Border and Gap */
     padding: 40px 50px;
-    gap: 40px;
+    gap: 30px;
 
     /* Configure the width */
     min-width: 320px;
+    height: 100%;
 
     /* Using FlexBox to configure the position */
     display: flex;
@@ -269,7 +271,15 @@ body {
 #saveSoundsButton {
 
     /* Altering the Background Color */
-    background-color: var(--button-color);
+    background-image: url("../../Assets/Images/Button.png");
+    width: 200px;
+    height: 100px;
+    padding-bottom: 25px;
+    image-rendering: pixelated;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
 
     /* Scaling the button it's value times 1.05 */
     transform: scale(1.05);
@@ -279,10 +289,33 @@ body {
 #saveSoundsButton:hover {
 
     /* Altering the Background Color */
-    background-color: var(--button-hover-color);
+    background-image: url("../../Assets/Images/ButtonHover.png");
 
     /* Scaling the button it's value times 1.05 */
     transform: scale(1.5);
+}
+
+#saveSoundsButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClicked.png");
+  filter: grayscale(100%);
+  transform: none !important;
+}
+
+/* Remover o hover quando desativado */
+#saveSoundsButton:disabled:hover {
+  background-image: url("../../Assets/Images/ButtonClicked.png");
+  filter: grayscale(100%);
+  transform: none;
+}
+
+#saveSoundsButton.loading {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-image: url("../../Assets/Images/ButtonClicked.png");
+  filter: grayscale(100%);
+  transform: none !important;
 }
 
 /* The exit button */
@@ -399,26 +432,16 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* Loading / Disabled */
 .pauseButton.loading,
 .pauseButton.disabled-others {
-    background-color: gray !important;
-    color: #444 !important;
     cursor: not-allowed;
     pointer-events: none;
     transform: none !important;
 }
 
-/* Spinner dentro do botão */
-.pauseButton.loading::after {
-    content: "";
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
-    border: 2px solid #fff;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+.pauseButton.loading,
+.pauseButton.disabled-others {
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
 }
 
 /* Corrige o giro do spinner */

@@ -238,27 +238,33 @@ body {
 .stat span { font-size: 30px; }
 
 #actionButton {
-    background: #007bff;
+    background-image: url("../../Assets/Images/Button.png");
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
     color: var(--light-text-color);
     font-family: var(--pixel-font);
     font-size: 35px;
     font-weight: bold;
-    width: 220px;
-    height: 150px; 
-    padding: 10px 15px;
+    width: 250px;
+    height: 180px; 
+    padding-bottom: 15px;
     border: none;
-    border-radius: 8px;
     text-align: center;
     cursor: pointer;
 }
 
 #actionButton:disabled {
-    background: var(--button-color);
     cursor: not-allowed;
+    opacity: 0.8;
+    background-image: url("../../Assets/Images/ButtonClicked.png");
+    transform: none !important;
 }
 
 #actionButton:hover:not(:disabled) {
-    background: #0056b3;
+    background-image: url("../../Assets/Images/ButtonHover.png");
     transform: scale(1.05);
 }
 
@@ -332,15 +338,6 @@ body {
     animation: spin 1s linear infinite;
 }
 
-/* Botão selecionado mantém rosa mesmo carregando */
-.upgrade-button.selected-button,
-.upgrade-button.selected-button.loading {
-    background-color: #ff66cc !important;
-    color: white !important;
-    border: 2px solid #ff66cc !important;
-    cursor: default !important;
-}
-
 /* Estado desabilitado (outros botões) */
 button.disabled-others {
     background-color: gray !important;
@@ -383,14 +380,6 @@ button {
     align-items: center;
     justify-content: center;
     gap: 8px;
-}
-
-.selected-button {
-    background-color: #ff66cc !important;
-    color: white !important;
-    border: 2px solid #ff66cc !important;
-    cursor: default !important;
-    opacity: 1 !important;
 }
 
 @keyframes spin {

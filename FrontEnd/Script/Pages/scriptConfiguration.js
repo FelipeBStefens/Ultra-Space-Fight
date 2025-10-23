@@ -235,7 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("user", JSON.stringify(user));
             if (window.parent?.setAudioVolume) window.parent.setAudioVolume(user.soundtrack);
             
-            applyTranslation(document.getElementById("language").value);
+            const newLang = document.getElementById("language").value;
+            const newT = translations[newLang] || translations.English;
+            applyTranslation(newT);
             console.log("Configurações salvas com sucesso:", result);
         } 
         catch (err) {
