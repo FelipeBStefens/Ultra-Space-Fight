@@ -88,16 +88,14 @@ body::before {
 .button {
 
     /* Defining the Color */ 
-    background: rgba(105, 156, 252, 0.6);
-    color:#f8fafc;
-    backdrop-filter: blur(4px);
-
-    /* Defining the Font size */ 
-    font-size:2rem;
+    image-rendering: pixelated;
+    background-size: contain;
+    background-color: transparent;
+    background-repeat: no-repeat;
 
     /* Defining the Width and Height */ 
-    width: var(--button-size);
-    height: var(--button-size);
+    width: 150px;
+    height: 150px;
 
     /* Defining the Position */ 
     position:absolute;
@@ -106,7 +104,6 @@ body::before {
     transform:translateY(-50%);
     
     /* Defining the Border */ 
-    border-radius:20px;
     border:none;
     
     /* Using Grid to display */ 
@@ -121,25 +118,36 @@ body::before {
 /* The Left button */
 .button.left {
 
+    background-image: url("../../Assets/Images/LeftButton.png");
+
     /* Defining the position */
-    left:6px;
+    left:0px;
 }
 
 /* The Right button */
 .button.right {
 
+    background-image: url("../../Assets/Images/RightButton.png");
+
     /* Defining the position */
-    right:6px;
+    right:0px;
 }
 
 /* Configuration of the button in case of Hover */
 .button:hover {
 
-    /* Altering the Background Color */
-    background: rgba(105, 156, 252, 0.4);
-
     /* Scaling the button it's value times 1.08 */
     transform:translateY(-50%) scale(1.08); 
+}
+
+.button.left:hover {
+
+    background-image: url("../../Assets/Images/LeftButtonHover.png");
+}
+
+.button.right:hover {
+
+    background-image: url("../../Assets/Images/RightButtonHover.png");
 }
 
 /* Configuration of the button if it's clicked */
@@ -147,6 +155,16 @@ body::before {
 
     /* Scaling the button it's value times 0.98 */
     transform:translateY(-50%) scale(0.98);
+}
+
+.button.left:active {
+
+    background-image: url("../../Assets/Images/LeftButtonClicked.png");
+}
+
+.button.right:active {
+
+    background-image: url("../../Assets/Images/RightButtonClicked.png");
 }
 
 /* The Viewport to all Achievements */
