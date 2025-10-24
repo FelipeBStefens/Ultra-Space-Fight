@@ -113,9 +113,14 @@ label {
 .inputContainer input[type="text"],
 .inputContainer input[type="password"],
 #language {
+
     /* Defining the Color */
-    background-color: #333;
-    color: var(--light-text-color);
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/WhiteContainer.png");
+    background-repeat: repeat-x;
+    background-size: contain;
+
+    color: var(--text-color);
 
     /* The size and family of the Font */
     font-size: 25px;
@@ -124,22 +129,18 @@ label {
     /* Defining the Width */ 
     width: 100%;
     box-sizing: border-box;
+    border-radius: 5px;
 
     /* Defining the padding, Margin and Border */
     padding: 20px 10px;
     margin: 5px 0 20px 0;
     border: none;
-    border-radius: 5px;
-    
-    /* Transition in case of Hover */
-    transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
 /* Configuration of the Input in case of Hover */
 .inputContainer input[type="text"]:hover,
 .inputContainer input[type="password"]:hover {
-    background-color: #444; 
-    box-shadow: 0 0 8px #1e1e1e;
+    filter: grayscale(30%);
 }
 
 /* ---------------------------------------- */
@@ -153,34 +154,30 @@ label {
 
     /* keep same look as inputs, but feel native */
     border: 2px solid transparent; /* default transparent to match inputs */
-    background-image: none; /* will add custom arrow below */
-    padding-right: 40px; /* espaço para seta */
+    image-rendering: pixelated;
     position: relative;
-    background-color: #333;
-    color: var(--light-text-color);
+    color: var(--text-color);
     font-size: 25px;
     font-family: var(--pixel-font);
     border-radius: 5px;
     border: none;
     background-image:
-        linear-gradient(45deg, transparent 50%, #cfefff 50%),
-        linear-gradient(135deg, #cfefff 50%, transparent 50%);
-    background-position: calc(100% - 18px) calc(50% - 6px), calc(100% - 12px) calc(50% - 6px);
-    background-size: 6px 6px, 6px 6px;
-    background-repeat: no-repeat;
-    padding: 20px 12px;
+        linear-gradient(45deg, transparent 50%, #000000 50%),
+        linear-gradient(135deg, #000000 50%, transparent 50%),
+        url("../../Assets/Images/WhiteContainer.png");
+    background-position: calc(100% - 18px) calc(50% - 6px), calc(100% - 12px) calc(50% - 6px), center;
+    background-size: 6px 6px, 6px 6px, contain;
+    background-repeat: no-repeat, no-repeat, repeat-x;
     box-sizing: border-box;
     transition: box-shadow 0.2s, background-color 0.2s;
 }
 
 #language:hover {
-    background-color: #444; 
-    box-shadow: 0 0 8px #1e1e1e; 
+    filter: grayscale(30%);
 }
 
 #language:focus {
     outline: none;
-    box-shadow: 0 0 8px #1e1e1e;
 }
 
 /* ---------------------------------------- */
@@ -202,34 +199,49 @@ label {
 
 input[type="range"] {
     -webkit-appearance: none;
-    background: #444;
+
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/WhiteContainer.png");
+    background-repeat: repeat-x;
+    background-size: contain;
+
+    margin-top: 20px;
     width: 100%;
-    height: 32px;
+    height: 40px;
     border-radius: 5px;
     outline: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background: var(--button-color);
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+    
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/ButtonSlider.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    width: 50px;
+    height: 80px;
     cursor: pointer;
     transition: 0.3s;
 }
 
 input[type="range"]::-moz-range-thumb {
-    background: var(--button-color);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/ButtonSlider.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    width: 50px;
+    height: 80px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-    background: var(--button-hover-color);
-    transform: scale(1.05);
+    filter: grayscale(100%);
+    transform: scale(1.15);
 }
 
 /* ---------------------------------------- */
@@ -258,7 +270,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transition: 0.3s;
     position: relative;
     overflow: hidden;
-    
 }
 
 /* The Button to save the confirations */

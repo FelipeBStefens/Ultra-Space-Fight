@@ -107,6 +107,11 @@ body {
 /* The Input value appearence */
 .inputContainer .input {
     
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/WhiteContainer.png");
+    background-size: contain;
+    background-repeat: repeat-x;
+    
     /* The size and family of the Font */ 
     font-size: 16px;
     font-family: var(--pixel-font);
@@ -119,9 +124,6 @@ body {
 
     /* The width */
     width: 100%;
-
-    /* The transition to Animation */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* The Label Text of the Input */
@@ -152,15 +154,16 @@ body {
 
     /* Defining the Color */
     color: #000000;
-    background-color:var(--container-color);
+
+    background-color: transparent;
 
     /* The size and family of the Font */ 
-    font-size: 23px;  
+    font-size: 30px;  
     font-family: var(--pixel-font);
 
     /* Configure the Position and Padding */
     padding: 0 5px;
-    top: -8px;        
+    top: -30px;        
     left: 10px;
 }
 
