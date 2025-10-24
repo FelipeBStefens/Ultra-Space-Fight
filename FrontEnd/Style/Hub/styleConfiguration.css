@@ -422,8 +422,12 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .turnBack {
 
     /* Defining the Color */
-    background: #e53935;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    background-image: url("../../Assets/Images/TurnBackButton.png");
+    image-rendering: pixelated;
+    background-size: contain;
+    background-color: transparent;
+    background-repeat: no-repeat;
+
     border: none;
 
     /* Defining the Position */
@@ -435,11 +439,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
     z-index: 1000;
         
     /* Defining the Width and Height */
-    width: 60px;
-    height: 60px;
-
-    /* Defining the Border Radius */
-    border-radius: 6px;
+    width: 120px;
+    height: 120px;
 
     /* Using FlexBox to configure the position */
     display: flex;
@@ -448,26 +449,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
     /* Transition in case of Hover */
     cursor: pointer;
-    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+    transition: transform 120ms ease;
 }
 
 /* Configuration of the button in case of Hover */
 .turnBack:hover {
 
     /* Altering the Background Color */
-    background-color: var(#f00e0b);
+    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
 
     /* Scaling the button it's value times 1.2 */
     transform: scale(1.2);
-}
-
-#x {
-
-    /* Defining the Width and Height  */
-    width: 80%;       
-    height: 80%;  
-  
-    /* Using blocks to configure the position */
-    object-fit: contain;
-    display: block;
 }

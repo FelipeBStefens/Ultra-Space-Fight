@@ -42,9 +42,8 @@ if (!pauseButton) {
         gameState.isPaused = true;
         if (document.getElementById("pauseScreen")) return;
 
-        // -------------------------------
-        // Estrutura visual
-        // -------------------------------
+        pauseButton.classList.add("clicked");
+
         const pauseScreen = document.createElement("div");
         pauseScreen.id = "pauseScreen";
 
@@ -143,6 +142,7 @@ if (!pauseButton) {
             setDisabledAll(true, resumeButton);
             setTimeout(() => {
                 pauseScreen.remove();
+                pauseButton.classList.remove("clicked");
                 gameState.isPaused = false;
             }, 150);
         });

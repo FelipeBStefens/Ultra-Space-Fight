@@ -88,7 +88,13 @@ body {
 #pauseButton {
 
     /* Defining the Color */
-    background: #e53935;
+    background-color: transparent;
+    background-image: url("../../Assets/Images/PauseButton.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 120px;
+    height: 120px;
+
     box-shadow: 0 2px 6px rgba(0,0,0,0.18);
     border: none;
 
@@ -99,13 +105,6 @@ body {
     margin-top: 15px;
     margin-left: 15px;
     z-index: 1000;
-        
-    /* Defining the Width and Height */
-    width: 60px;
-    height: 60px;
-
-    /* Defining the Border Radius */
-    border-radius: 6px;
 
     /* Using FlexBox to configure the position */
     display: flex;
@@ -125,37 +124,30 @@ body {
     content: none;
 
     /* Defining the Color */
-    background: #e53935; 
+    background-image: url("../../Assets/Images/PauseClickedButton.png");
     
     /* Defining the Width, Height and Border Radius */
     width: 5px;        
     height: 18px;      
-    border-radius: 2px;
 
     /* Using blocks to configure the position */
     display: block;
+}
+
+#pauseButton.clicked {
+    background-image: url("../../Assets/Images/PauseClickedButton.png");
+    transform: scale(0.95);
+    opacity: 0.8;
 }
 
 /* Configuration of the button in case of Hover */
 #pauseButton:hover {
 
     /* Altering the Background Color */
-    background-color: var(#f00e0b);
+    background-image: url("../../Assets/Images/PauseHoverButton.png");
 
     /* Scaling the button it's value times 1.2 */
     transform: scale(1.2);
-}
-
-/* Pause icon Image */
-#icon {
-
-    /* Defining the Width and Height  */
-    width: 60%;       
-    height: 60%;  
-  
-    /* Using blocks to configure the position */
-    object-fit: contain;
-    display: block;
 }
 
 /* black screen when paused */
