@@ -123,13 +123,15 @@ button:hover {
 .ranking-item {
     
     /* Defining the Color */
-    background: var(--light-text-color);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background-image: url("../../Assets/Images/RedContainer.png");
+    image-rendering: pixelated;
+    background-size: contain;
+    background-repeat: repeat-x;
 
     /* Configure the Padding and Border Radius */
     padding: 12px 16px;
-    border-radius: 6px;
-    
+    border-radius: 5px;
+
     /* Using FlexBox to configure the position */
     display: flex;
     justify-content: space-between;
@@ -161,7 +163,7 @@ button:hover {
 .ranking-score {
 
     /* Defining the Color */
-    color: var(--button-color);
+    color: var(--text-color);
 
     /* Defining the Font Weight */
     font-weight: bold;
@@ -171,7 +173,10 @@ button:hover {
 .ranking-item.gold {
 
     /* Defining the Color */
-    background: var(--gold-color);
+    background-image: url("../../Assets/Images/GoldContainer.png");
+    image-rendering: pixelated;
+    background-size: contain;
+    background-repeat: repeat-x;
 
     /* Defining the Font Weight */
     font-weight: bold;
@@ -181,7 +186,10 @@ button:hover {
 .ranking-item.silver {
 
     /* Defining the Color */
-    background: var(--silver-color);
+    background-image: url("../../Assets/Images/WhiteContainer.png");
+    image-rendering: pixelated;
+    background-size: contain;
+    background-repeat: repeat-x;
 
     /* Defining the Font Weight */
     font-weight: bold;
@@ -191,7 +199,10 @@ button:hover {
 .ranking-item.bronze {
 
     /* Defining the Color */
-    background: var(--bronze-color);
+    background-image: url("../../Assets/Images/BronzeContainer.png");
+    image-rendering: pixelated;
+    background-size: contain;
+    background-repeat: repeat-x;
 
     /* Defining the Font Weight */
     font-weight: bold;
