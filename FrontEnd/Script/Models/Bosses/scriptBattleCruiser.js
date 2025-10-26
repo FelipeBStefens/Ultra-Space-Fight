@@ -19,7 +19,7 @@ class BattleCruiser extends Boss {
 
     constructor(life, score, cash, canvas) {
         
-        super(0, 0, 477/2, 1089/2, 0, life, cash, score, "Battle Cruiser");
+        super(0, 0, 477/2, 1089/2, Math.PI, life, cash, score, "Battle Cruiser");
 
         this.position.x = Math.max(100, this.width / 2 + 100);
         this.position.y = Math.max(20, this.height / 2 - 80);
@@ -76,7 +76,9 @@ class BattleCruiser extends Boss {
 
         // Define a posição inicial correta (FORA DA TELA)
         this.position.y = this.startY;
-        this.active = false; // Não está atacando/movendo
+        this.active = true; // Não está atacando/movendo
+
+        this.angle = Math.PI;
 
         // Lógica para o tremor
         if (withShake) {

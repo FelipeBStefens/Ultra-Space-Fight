@@ -39,7 +39,7 @@ class SpaceDreadnought extends Boss{
 
         // Define a posição inicial correta (FORA DA TELA)
         this.position.y = this.startY;
-        this.active = false; // Não está atacando
+        this.active = true; // Não está atacando
 
         // Lógica para o tremor
         if (withShake) {

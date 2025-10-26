@@ -42,7 +42,7 @@ let currentBoss = null;
 let bosses = [];
 let bossIndex = 0;
 let enemiesDefeated = 0;
-const enemiesToDefeatBeforeBoss = 5;
+const enemiesToDefeatBeforeBoss = 1;
 
 // Efeito de terremoto
 let shakeTime = 0;
