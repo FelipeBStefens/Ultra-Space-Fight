@@ -1,6 +1,8 @@
 import { PATH_ELITE_ENEMY_IMAGE  } from "../../Gameplay/scriptConstants.js";
+import { updateDefeatedElite } from "../../Gameplay/scriptDOM.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Enemy from "./scriptEnemy.js";
+import IonThruster from "../Thruster/scriptIonThruster.js";
 
 class EliteEnemy extends Enemy {
     
@@ -8,6 +10,7 @@ class EliteEnemy extends Enemy {
     maxDistance = 700;
     lastShotTime = 0;     
     shootCooldown = 1000;
+    ionThruster;
 
     constructor(position) {
         super(position);
@@ -15,10 +18,14 @@ class EliteEnemy extends Enemy {
         this.life = 50;
         this.cash = 20;
         this.score = 40;
-    this.imagePath = PATH_ELITE_ENEMY_IMAGE;
+        this.imagePath = PATH_ELITE_ENEMY_IMAGE;
+    
+        this.ionThruster = new IonThruster(0, this.height / 3 + 13, 0);
     }
 
     update(player, bulletsArray, canvas) {
+
+        this.ionThruster.update();
 
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;
@@ -83,6 +90,23 @@ class EliteEnemy extends Enemy {
                 const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "enemy");
             frontBullet.setLength(40, 100); 
             bulletsArray.push(frontBullet);
+        }
+    }
+
+    draw(context) {
+        super.draw(context);
+
+        const centerX = this.position.x + this.width / 2; 
+        const centerY = this.position.y + this.height / 2; 
+
+        this.ionThruster.draw(context, centerX, centerY, this.angle);
+    }
+
+    updateLife(damage) {
+
+        super.updateLife(damage);
+        if (this.life <= 0) {
+            updateDefeatedElite();
         }
     }
 }

@@ -12,4 +12,8 @@ export const PATH_ELITE_ENEMY_IMAGE = "../../Assets/PixelArts/Enemies/EliteEnemy
 export const PATH_SPACE_DREADNOUGHT_IMAGE = "../../Assets/PixelArts/Boss/SpaceDreadnought.png";
 export const PATH_BATTLE_CRUISER_IMAGE = "../../Assets/PixelArts/Boss/BattleCruiser.png";
 
-export const PATH_BULLET_IMAGE = "../../Assets/PixelArts/shit.png";
+export const PATH_FIRE_THRUSTER_IMAGE = "../../Assets/PixelArts/Sprites/FireThruster.png";
+export const PATH_ION_THRUSTER_IMAGE = "../../Assets/PixelArts/Sprites/IonThruster.png";
+
+export const PATH_EXPLOSION_IMAGE = "../../Assets/PixelArts/Sprites/Explosion.png";
+export const PATH_BULLET_IMAGE = "../../Assets/PixelArts/Sprites/Shoot.png";

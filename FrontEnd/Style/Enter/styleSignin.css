@@ -73,12 +73,14 @@ body {
 #forms {
 
     /* Defining the Color */
-    background-color: var(--container-color); 
+    background-image: url("../../Assets/Images/BlueContainer.png");
+    background-repeat: repeat;
+    background-size: contain;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    
+    image-rendering: pixelated;
+
     /* Configure the Padding and Border Radius */
     padding: 40px;
-    border-radius: 10px;
     
     /* The Width, Height and Margins */
     width: 350px;
@@ -105,6 +107,11 @@ body {
 /* The Input value appearence */
 .inputContainer .input {
     
+    image-rendering: pixelated;
+    background-image: url("../../Assets/Images/WhiteContainer.png");
+    background-size: contain;
+    background-repeat: repeat-x;
+    
     /* The size and family of the Font */ 
     font-size: 16px;
     font-family: var(--pixel-font);
@@ -117,9 +124,6 @@ body {
 
     /* The width */
     width: 100%;
-
-    /* The transition to Animation */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* The Label Text of the Input */
@@ -150,15 +154,16 @@ body {
 
     /* Defining the Color */
     color: #000000;
-    background-color:var(--container-color);
+
+    background-color: transparent;
 
     /* The size and family of the Font */ 
-    font-size: 23px;  
+    font-size: 30px;  
     font-family: var(--pixel-font);
 
     /* Configure the Position and Padding */
     padding: 0 5px;
-    top: -8px;        
+    top: -30px;        
     left: 10px;
 }
 
@@ -166,39 +171,48 @@ body {
 #button {
 
     /* Defining the Color */
-    background-color: var(--button-color);
+    background-color: transparent;
+    background-image: url('../../Assets/Images/Button.png');
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    image-rendering: pixelated;
+
     color: var(--text-color);
 
     /* The size and family of the Font */
     font-size: var(--button-font-size);
     font-family: var(--pixel-font);
 
-    /* Configure the Padding and Border Radius */
-    padding: var(--button-padding);
-    border-radius: var(--button-radius);
+    border: none;
+    outline: none;
+    box-shadow: none;
 
-    /* The Width and Position */ 
-    width: var(--button-width);
-    margin-top: 15px;
-    
+    /* Configure the Padding and Border Radius */
+    width: 200px;  
+    height: 110px;
+    padding-bottom: 15px;
+
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+
     /* Transition in case of Hover */
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 /* Configuration of the button in case of Hover */
 #button:hover {
 
-    /* Altering the Background Color */
-    background-color: var(--button-hover-color);
-
-    /* Scaling the button it's value times 1.2 */
-    transform: scale(1.2);
+    background-image: url('../../Assets/Images/ButtonHover.png');
+    transform: scale(1.05);
 }
 
 .error-message {
   color: red;
   font-family: var(--pixel-font);
+  font-weight: bold;
   font-size: 14px;
   margin-top: 5px;
   height: 25px;        
@@ -221,20 +235,24 @@ body {
 /* Botão desativado */
 #button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
-  background-color: gray;
+  filter: grayscale(100%);
+  background-image: url('../../Assets/Images/ButtonClicked.png');
+  transform: scale(0.95);
   transform: none !important;
 }
 
 /* Remover o hover quando desativado */
 #button:disabled:hover {
-  background-color: gray;
+  background-image: url('../../Assets/Images/ButtonClicked.png');
   transform: none;
 }
 
 /* Botão em estado de carregamento */
 #button.loading {
+  background-image: url('../../Assets/Images/ButtonClicked.png');
   position: relative;
+  cursor: not-allowed;
+  opacity: 0.7;
   pointer-events: none; /* impede qualquer clique extra */
 }
 
@@ -258,4 +276,47 @@ body {
   to {
     transform: translateY(-50%) rotate(360deg);
   }
+}
+
+.turnBack {
+
+    /* Defining the Color */
+    background-image: url("../../Assets/Images/TurnBackButton.png");
+    image-rendering: pixelated;
+    background-size: contain;
+    background-color: transparent;
+    background-repeat: no-repeat;
+
+    border: none;
+
+    /* Defining the Position */
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
+    z-index: 1000;
+        
+    /* Defining the Width and Height */
+    width: 120px;
+    height: 120px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: transform 120ms ease;
+}
+
+/* Configuration of the button in case of Hover */
+.turnBack:hover {
+
+    /* Altering the Background Color */
+    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
+
+    /* Scaling the button it's value times 1.2 */
+    transform: scale(1.2);
 }

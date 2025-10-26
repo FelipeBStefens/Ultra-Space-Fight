@@ -6,17 +6,17 @@ public class SpaceshipUpdateDTO {
     
     // Attributes of SpaceshipUpdateDTO class;
     private int cash;
-    private SpaceshipValuesDTO spaceshipValuesTDO;
+    private SpaceshipValuesDTO spaceshipValuesDTO;
 
     // Empty constructor;
     public SpaceshipUpdateDTO() {}
 
     // Constructor;
-    public SpaceshipUpdateDTO(int cash, SpaceshipValuesDTO spaceshipValuesTDO) {
+    public SpaceshipUpdateDTO(int cash, SpaceshipValuesDTO spaceshipValuesDTO) {
         
         // Initializing the Attribute values;
         this.cash = cash;
-        this.spaceshipValuesTDO = spaceshipValuesTDO;
+        this.spaceshipValuesDTO = spaceshipValuesDTO;
     }
 
     // Getter and Setter of Cash;
@@ -30,10 +30,10 @@ public class SpaceshipUpdateDTO {
 
     // Getter and Setter of Spaceship Values;
     public SpaceshipValuesDTO getSpaceshipValuesDTO() {
-        return spaceshipValuesTDO;
+        return spaceshipValuesDTO;
     }
 
-    public void setSpaceshipValuesDTO(SpaceshipValuesDTO spaceshipValuesTDO) {
-        this.spaceshipValuesTDO = spaceshipValuesTDO;
+    public void setSpaceshipValuesDTO(SpaceshipValuesDTO spaceshipValuesDTO) {
+        this.spaceshipValuesDTO = spaceshipValuesDTO;
     }
 }

@@ -19,13 +19,22 @@ class BattleCruiser extends Boss {
 
     constructor(life, score, cash, canvas) {
         
-        super(0, 0, 477/2, 1089/2, 0, life, cash, score, "Battle Cruiser");
+        super(0, 0, 477/2, 1089/2, Math.PI, life, cash, score, "Battle Cruiser");
 
         this.position.x = Math.max(100, this.width / 2 + 100);
         this.position.y = Math.max(20, this.height / 2 - 80);
 
+        this.introActive = false;
+        this.introActiveEnded = false;
+        this.introProgress = 0; // 0 a 1
+        this.isShaking = false;
+        this.shakeTimer = 0;
+
         this.imagePath = PATH_BATTLE_CRUISER_IMAGE;
         this.setMovementPoints(canvas);
+
+        const targetMovePoint = this.movePoints[0];
+        this.targetY = targetMovePoint.y - this.height / 2;
 
         this.isMoving = false;
         this.framesAtPoint = 0;
@@ -55,35 +64,90 @@ class BattleCruiser extends Boss {
         ];
     }
 
+    startIntro(withShake = false, shakeDuration = 0) {
+        this.introActive = true;
+        this.introActiveEnded = false;
+        this.introProgress = 0;
+
+        // A posição inicial Y deve ser fora da tela
+        this.startY = -this.height; 
+        // A posição final Y é o targetY que calculamos no constructor
+        this.endY = this.targetY;
+
+        // Define a posição inicial correta (FORA DA TELA)
+        this.position.y = this.startY;
+        this.active = true; // Não está atacando/movendo
+
+        this.angle = Math.PI;
+
+        // Lógica para o tremor
+        if (withShake) {
+            this.isShaking = true;
+            this.shakeTimer = shakeDuration;
+        }
+    }
+
     update(player, bulletsArray, canvas) {
-        this.updateMovement(canvas);
 
-        let angleTargetX, angleTargetY;
-
-        if (this.isMoving) {
-            // 👉 Enquanto se move, olha para o destino do movimento
-            angleTargetX = this.endX + this.width / 2;
-            angleTargetY = this.endY + this.height / 2;
-        } else {
-            // 👉 Quando parado, olha para o jogador
-            angleTargetX = player.position.x + player.width / 2;
-            angleTargetY = player.position.y + player.height / 2;
+        if (this.isShaking) {
+            this.shakeTimer--;
+            if (this.shakeTimer <= 0) {
+                this.isShaking = false; 
+            }
+            return; // Sai do update enquanto treme
         }
 
-        // Calcular centro da nave
-        const cx_nave = this.position.x + this.width / 2;
-        const cy_nave = this.position.y + this.height / 2;
+        if (this.introActive) {
+            const introSpeed = 0.005; // Ajuste a velocidade se necessário (e.g., 1 / 200)
+            this.introProgress = Math.min(1, this.introProgress + introSpeed);
 
-        // Calcular ângulo até o alvo (jogador ou ponto de destino)
-        const dx = angleTargetX - cx_nave;
-        const dy = angleTargetY - cy_nave;
-        this.angle = Math.atan2(dy, dx) + Math.PI / 2;
+            // Interpolação linear
+            this.position.y = this.startY + (this.endY - this.startY) * this.introProgress;
+            
+            // Verifica se a introdução acabou
+            if (this.introProgress >= 1) {
+                this.introActive = false;
+                this.introActiveEnded = true;
+                this.active = true; // Libera o boss para o movimento e ataque
+                this.position.y = this.endY;
+                // O Battle Cruiser deve começar no ponto de movimento 0 (já está na posição)
+                this.isMoving = false; // Garante que ele comece parado no ponto inicial
+                this.framesAtPoint = 0; // Zera o contador para começar a contagem de espera
+            }
+            return; // Sai do update enquanto a intro está ativa (em movimento)
+        }
 
-        // Controle de tiros
-        const now = Date.now();
-        if (now - this.lastShotTime >= this.shootCooldown) {
-            this.shoot(bulletsArray);
-            this.lastShotTime = now;
+        if (this.active) {
+
+            this.updateMovement(canvas);
+
+            let angleTargetX, angleTargetY;
+
+            if (this.isMoving) {
+                // 👉 Enquanto se move, olha para o destino do movimento
+                angleTargetX = this.endX + this.width / 2;
+                angleTargetY = this.endY + this.height / 2;
+            } else {
+                // 👉 Quando parado, olha para o jogador
+                angleTargetX = player.position.x + player.width / 2;
+                angleTargetY = player.position.y + player.height / 2;
+            }
+
+            // Calcular centro da nave
+            const cx_nave = this.position.x + this.width / 2;
+            const cy_nave = this.position.y + this.height / 2;
+
+            // Calcular ângulo até o alvo (jogador ou ponto de destino)
+            const dx = angleTargetX - cx_nave;
+            const dy = angleTargetY - cy_nave;
+            this.angle = Math.atan2(dy, dx) + Math.PI / 2;
+
+            // Controle de tiros
+            const now = Date.now();
+            if (now - this.lastShotTime >= this.shootCooldown) {
+                this.shoot(bulletsArray);
+                this.lastShotTime = now;
+            }
         }
     }
 

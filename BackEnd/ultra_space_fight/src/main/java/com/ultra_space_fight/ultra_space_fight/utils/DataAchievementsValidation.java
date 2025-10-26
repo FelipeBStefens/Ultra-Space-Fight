@@ -2,7 +2,7 @@
 package com.ultra_space_fight.ultra_space_fight.utils;
 
 // Imports;
-import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.AchievementsCashDTO;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.DataAchievementNotFoundException;
 import com.ultra_space_fight.ultra_space_fight.exception.exceptions.dataAchievements.DataAchievementUnauthorizedException;
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievements;
@@ -11,34 +11,55 @@ import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievemen
 public class DataAchievementsValidation {
 
     // Method to update the Cash;
-    public static void updateCash(DataAchievements dataAchievements, ScoreCashDTO scoreCashDTO) {
+    public static void updateCash(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
         
         // Defining the new Cash value;
-        int newCash = dataAchievements.getUser().getCash() + scoreCashDTO.getCash();
+        int newCash = dataAchievements.getUser().getCash() + achievementsCashDTO.getCash();
         
         // Setting the new Cash value;
         dataAchievements.getUser().setCash(newCash);
     }
 
     // Method to update the Score;
-    public static void updateScore(DataAchievements dataAchievements, ScoreCashDTO scoreCashDTO) {
+    public static void updateScore(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
         
         // Defining the new Score value;
-        int newScore = dataAchievements.getScore() + scoreCashDTO.getScore();
+        int newScore = dataAchievements.getScore() + achievementsCashDTO.getScore();
         
         // Setting the new Score value;
         dataAchievements.setScore(newScore);
     }
 
     // Method to update the Score in a Match;
-    public static void updateScoreMatch(DataAchievements dataAchievements, ScoreCashDTO scoreCashDTO) {
+    public static void updateScoreMatch(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
         
         // If the Score on the Database is less than the Score of the Match;
-        if (scoreCashDTO.getScore() > dataAchievements.getScoreMatch()) {
+        if (achievementsCashDTO.getScore() > dataAchievements.getScoreMatch()) {
             
             // Setting the new Score Match;
-            dataAchievements.setScoreMatch(scoreCashDTO.getScore());
+            dataAchievements.setScoreMatch(achievementsCashDTO.getScore());
         }
+    }
+
+    public static void updateDefeatedEnemies(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
+
+        int newDefeatedEnemies = dataAchievements.getDefeatedEnemies() + achievementsCashDTO.getDefeatedEnemies();
+
+        dataAchievements.setDefeatedEnemies(newDefeatedEnemies);
+    }
+
+    public static void updateDefeatedElite(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
+
+        int newDefeatedElite = dataAchievements.getDefeatedElite() + achievementsCashDTO.getDefeatedElite();
+
+        dataAchievements.setDefeatedElite(newDefeatedElite);
+    }
+
+    public static void updateDefeatedBoss(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
+
+        int newDefeatedBoss = dataAchievements.getDefeatedBoss() + achievementsCashDTO.getDefeatedBoss();
+
+        dataAchievements.setDefeatedBoss(newDefeatedBoss);
     }
 
     // Method to verify if exists DataAchievements;
@@ -52,14 +73,14 @@ public class DataAchievementsValidation {
         }
     }
 
-    // Method to verify if exists ScoreCash;
-    public static void verifyScoreCash(ScoreCashDTO scoreCashDTO) throws DataAchievementUnauthorizedException {
+    // Method to verify if exists AchievementsCash;
+    public static void verifyAchievementsCash(AchievementsCashDTO achievementsCashDTO) throws DataAchievementUnauthorizedException {
         
         // If the ScoreCash is null;
-        if (scoreCashDTO == null) {
+        if (achievementsCashDTO == null) {
             
             // Throw new Exception;
-            throw new DataAchievementUnauthorizedException("ScoreCashTDO");
+            throw new DataAchievementUnauthorizedException("AchievementsCashDTO");
         }
     }
 }

@@ -1,10 +1,18 @@
-// Make this module a pure UI helper: consumer should set gameState.isGameOver
-// Usage: import gameOver from './scriptGameOver.js'; gameOver(user, values);
+import SoundManager from "./scriptSoundManager.js";
+
 export default function gameOver(user, values) {
+
     if (document.getElementById("pauseScreen")) return;
 
     console.log(values);
     
+    SoundManager.stopMusic();
+
+    setTimeout(() => {
+        SoundManager.playSound("gameOverVoice");
+        SoundManager.playMusic("../../Assets/Audios/GameOver.mp3");
+    }, 1500);
+
     const gameOverScreen = document.createElement("div");
     gameOverScreen.id = "pauseScreen";
 
@@ -53,7 +61,7 @@ export default function gameOver(user, values) {
 
 async function fetchUpdateScoreCash(id, scoreCash, user) {
     try {
-        const response = await fetch(`http://localhost:8080/data/achievement/update/score/cash/${id}`, {
+        const response = await fetch(`http://localhost:8080/data/achievement/update/achievements/cash/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(scoreCash) // Certifique-se de enviar como JSON

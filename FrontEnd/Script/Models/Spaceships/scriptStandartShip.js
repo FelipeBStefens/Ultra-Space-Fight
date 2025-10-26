@@ -1,13 +1,18 @@
 import { PATH_STANDART_SHIP_IMAGE } from "../../Gameplay/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Spaceship from "./scriptSpaceship.js";
+import FireThruster from "../Thruster/scriptFireThruster.js";
 
 class StandartShip extends Spaceship {
 
+    fireThruster;
+
     constructor(canvas) {
         super(canvas);
-    this.speed = 5;
-    this.imagePath = PATH_STANDART_SHIP_IMAGE;
+        this.speed = 5;
+        this.imagePath = PATH_STANDART_SHIP_IMAGE;
+
+        this.fireThruster = new FireThruster(0, this.height / 2 - 10, 0);
     }
 
     shoot(bulletsArray) {
@@ -18,8 +23,19 @@ class StandartShip extends Spaceship {
         const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
         const bulletSpeed = 10;
         
-    const bullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const bullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
         bulletsArray.push(bullet);
+    }
+
+    draw(context) {
+
+        this.fireThruster.update();
+        super.draw(context);
+
+        const centerX = this.position.x + this.width / 2; 
+        const centerY = this.position.y + this.height / 2; 
+
+        this.fireThruster.draw(context, centerX, centerY, this.angle);
     }
 }
 

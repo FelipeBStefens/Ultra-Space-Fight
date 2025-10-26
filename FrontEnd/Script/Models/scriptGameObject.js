@@ -69,11 +69,12 @@ class GameObject {
         context.restore();
     }
 
-    onCollision(gameObject) {
+    onCollision(gameObject, explosions, startShake) {
         switch (this.type) {
             case "spaceship":
                 // Decrement life; takeLife returns true if life reached zero
                 const died = takeLife();
+                //const died = false;
                 if (died) {
                     // Notify the app that the player died; listener (gameplay) will show game over UI
                     try {
@@ -89,6 +90,10 @@ class GameObject {
 
             case "enemy":
 
+                if (this.kamikaze && gameObject.type === "spaceship") {
+                    this.updateLife(this.life);
+                }
+
                 if (gameObject.type === "bullet") {
                     this.updateLife(getDamage());
                 } 
@@ -96,12 +101,12 @@ class GameObject {
 
             case "bullet":
                 
-                this.active = false;
+                this.onDestroy(explosions);
                 break;
             case "boss":
 
                 if (gameObject.type === "bullet") {
-                    this.updateLife(getDamage());
+                    this.updateLife(getDamage(), explosions, startShake);
                 }
                 break;
         }

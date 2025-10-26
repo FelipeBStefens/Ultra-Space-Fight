@@ -21,11 +21,13 @@
   <!-- Body of the HTML file -->
   <body>
 
+    <div class="turnBack" onclick="history.back()"></div>
+
     <!-- A Div with all the informations on the file -->
     <div class="achievements">
 
       <!-- A button to go Left -->
-      <button class="button left" id="leftButton">◀</button>
+      <button class="button left" id="leftButton"></button>
 
       <!-- A Div viewport with all the Achievements -->
       <div class="viewport">
@@ -35,34 +37,44 @@
 
           <!-- Div to each Achievements -->
           <div class="achievement" id="scoreAchievement" data-index="0">
-            <h3 class="achievement-text">Score Master</h3>
+            <img class="achievement-frame" data-default-frame="../../Assets/Images/BlockedAchievement.png" alt="frame">
+            <h3 class="achievement-text" id="scoreText"></h3>
             <img id="scoreImage" src="../../Assets/Icons/blocked.png" alt="achievement">
+            <div class="stars"></div>
           </div>
 
           <div class="achievement" id="scoreMatchAchievement" data-index="1">
-            <h3 class="achievement-text">Perfect Match</h3>
+            <img class="achievement-frame" data-default-frame="../../Assets/Images/BlockedAchievement.png" alt="frame">
+            <h3 class="achievement-text" id="matchText"></h3>
             <img id="matchImage" src="../../Assets/Icons/blocked.png" alt="achievement">
+            <div class="stars"></div>
           </div>
 
           <div class="achievement" id="enemiesAchievement" data-index="2">
-            <h3 class="achievement-text">Enemies Destroyer</h3>
+            <img class="achievement-frame" data-default-frame="../../Assets/Images/BlockedAchievement.png" alt="frame">
+            <h3 class="achievement-text" id="enemiesText"></h3>
             <img id="enemiesImage" src="../../Assets/Icons/blocked.png" alt="achievement">
+            <div class="stars"></div>
           </div>
 
           <div class="achievement" id="eliteAchievement" data-index="3">
-            <h3 class="achievement-text">Elite Person</h3>
+            <img class="achievement-frame" data-default-frame="../../Assets/Images/BlockedAchievement.png" alt="frame">
+            <h3 class="achievement-text" id="eliteText"></h3>
             <img id="eliteImage" src="../../Assets/Icons/blocked.png" alt="achievement">
+            <div class="stars"></div>
           </div>
 
           <div class="achievement" id="bossAchievement" data-index="4">
-            <h3 class="achievement-text">The Real Boss</h3>
+            <img class="achievement-frame" data-default-frame="../../Assets/Images/BlockedAchievement.png" alt="frame">
+            <h3 class="achievement-text" id="bossText"></h3>
             <img id="bossImage" src="../../Assets/Icons/blocked.png" alt="achievement">
+            <div class="stars"></div>
           </div>
         </div>
       </div>
 
       <!-- A button to go Right -->
-      <button class="button right" id="rightButton">▶</button>
+      <button class="button right" id="rightButton"></button>
     </div>
 
     <!-- The script to complement the design -->

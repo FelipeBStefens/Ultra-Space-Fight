@@ -4,6 +4,7 @@ import Enemy from "./scriptEnemy.js";
 class ScoutEnemy extends Enemy{
     
     minDistance = 30;
+    kamikaze = true;
 
     constructor(position) {
         super(position);
@@ -11,7 +12,7 @@ class ScoutEnemy extends Enemy{
         this.life = 20;
         this.cash = 5;
         this.score = 10;
-    this.imagePath = PATH_SCOUT_ENEMY_IMAGE;
+        this.imagePath = PATH_SCOUT_ENEMY_IMAGE;
     }
 
     update(player, bulletsArray, canvas) {

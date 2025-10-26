@@ -8,7 +8,20 @@ import gameOver from "./scriptGameOver.js";
 import { values } from "./scriptDOM.js";
 import BattleCruiser from "../Models/Bosses/scriptBattleCruiser.js"; 
 import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
-import { showBossLifeBar, hideBossLifeBar } from "./scriptDOM.js";
+import { showBossLifeBar, hideBossLifeBar, updateDefeatedEnemies } from "./scriptDOM.js";
+import SoundManager from "./scriptSoundManager.js"; 
+import Explosion from "../Models/Explosion/scriptExplosion.js";
+
+SoundManager.loadSound("shoot", "../../Assets/Audios/Shoot.mp3");
+SoundManager.loadSound("enemyExplosion", "../../Assets/Audios/EnemyExplosion.mp3");
+SoundManager.loadSound("shootExplosion", "../../Assets/Audios/ShootExplosion.mp3");
+SoundManager.loadSound("fireThruster", "../../Assets/Audios/FireThruster.mp3");
+SoundManager.loadSound("ionThruster", "../../Assets/Audios/IonThruster.mp3");
+SoundManager.loadSound("gameOverVoice", "../../Assets/Audios/GameOverVoice.mp3");
+SoundManager.loadSound("earthquake", "../../Assets/Audios/Earthquake.mp3");
+SoundManager.loadSound("scream", "../../Assets/Audios/Scream.mp3");
+
+SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3");
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -23,21 +36,42 @@ const player = getSelectedSpaceship(canvas);
 let input = new InputManager();
 let enemies = [];
 let bullets = [];
-
+let explosions = [];
 let isBossFight = false; // false = inimigos normais, true = boss
 let currentBoss = null;
 let bosses = [];
 let bossIndex = 0;
 let enemiesDefeated = 0;
-const enemiesToDefeatBeforeBoss = 20;
+const enemiesToDefeatBeforeBoss = 1;
 
-let collisionManager = new CollisionManager([]); 
+// Efeito de terremoto
+let shakeTime = 0;
+let shakeIntensity = 0;
+let bossMusicStarted = false;
+
+function startShake(durationFrames = 90, intensity = 10) {
+    shakeTime = durationFrames;
+    shakeIntensity = intensity;
+}
+
+function applyShake(context) {
+    if (shakeTime > 0) {
+        const progress = shakeTime / 90; // normaliza (0–1)
+        const currentIntensity = shakeIntensity * progress; // diminui ao longo do tempo
+        const dx = (Math.random() - 0.5) * currentIntensity * 2;
+        const dy = (Math.random() - 0.5) * currentIntensity * 2;
+        context.translate(dx, dy);
+        shakeTime--;
+    }
+}
+
+let collisionManager = new CollisionManager([], explosions, startShake); 
 let spawner = new EnemySpawner(canvas, enemies, player);
 
 // create bosses after spawner exists so we can pass it to boss constructors that need it
 bosses = [
     new BattleCruiser(200, 20, 20, canvas), // Boss 1
-    new SpaceDreadnought(canvas, 300, 30, 30, spawner)  // Boss 2 (needs spawner)
+    new SpaceDreadnought(canvas, 200, 30, 30, spawner)  // Boss 2 (needs spawner)
 ];
 
 // Auto-fire control
@@ -61,6 +95,9 @@ const gameLoop = () => {
         contex.clearRect(0, 0, canvas.width, canvas.height);
 
         input.update();
+
+        contex.save();
+        applyShake(contex);
 
         if (input.keys.left && player.position.x > 0) player.moveLeft();
         if (input.keys.right && player.position.x < canvas.width - player.width) player.moveRight();
@@ -102,12 +139,28 @@ const gameLoop = () => {
         if (isBossFight) {
 
             if (currentBoss) {
-                currentBoss.update(player, bullets, canvas);
-                currentBoss.draw(contex);
 
-                if (!currentBoss.active) {
+                if (!bossMusicStarted && shakeTime <= 0) { 
+                    SoundManager.playMusic("../../Assets/Audios/boss_audio.mp3"); 
+                    bossMusicStarted = true;
+                }
+
+                if (currentBoss.introActive || currentBoss.active) {
+                    currentBoss.update(player, bullets, canvas);
+                    currentBoss.draw(contex);
+                }
+
+                if (currentBoss.introActive || currentBoss.active || !currentBoss.finished) {
+                    currentBoss.draw(contex);
+                }
+
+                if (currentBoss.finished && currentBoss.introActiveEnded) {
                     isBossFight = false;
                     bossIndex = (bossIndex + 1) % bosses.length;
+
+                    SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3"); 
+                    bossMusicStarted = false;
+
                     // hide boss life bar when fight ends
                     hideBossLifeBar();
                     currentBoss = null;
@@ -119,15 +172,26 @@ const gameLoop = () => {
 
             spawner.update();
 
-            if (enemiesDefeated >= enemiesToDefeatBeforeBoss) {
+            if (enemiesDefeated >= enemiesToDefeatBeforeBoss && !isBossFight) {
+                // Garante que só entra aqui uma vez
                 isBossFight = true;
                 currentBoss = bosses[bossIndex];
-                // show boss life bar for this boss
-                try {
-                    showBossLifeBar(currentBoss.name, currentBoss.maxLife);
-                } catch (e) {
-                    console.warn('Failed to show boss life bar', e);
-                }
+
+                currentBoss.reset();
+
+                // Duração do tremor em frames
+                const SHAKE_DURATION = 240; // 120 frames (~2 segundos)
+
+                SoundManager.stopMusic();
+                SoundManager.playSound("earthquake"); 
+                bossMusicStarted = false;
+
+                // Efeito de terremoto
+                startShake(SHAKE_DURATION, 20);
+
+                // Inicia a introdução imediatamente, passando a duração do shake
+                currentBoss.startIntro(true, SHAKE_DURATION); 
+                showBossLifeBar(currentBoss.name, currentBoss.maxLife);
             }
         }
 
@@ -142,6 +206,7 @@ const gameLoop = () => {
         });
 
         collisionManager.entities = [player, ...enemies];
+        collisionManager.explosions = explosions;
         if (currentBoss) collisionManager.entities.push(currentBoss);
         collisionManager.entities.push(...bullets);
         collisionManager.update();
@@ -199,13 +264,37 @@ const gameLoop = () => {
 
         for (let i = enemies.length - 1; i >= 0; i--) {
             if (!enemies[i].active) {
+
+                const enemy = enemies[i];
+                const explosion = new Explosion(
+                    enemy.position.x,
+                    enemy.position.y,
+                    222,
+                    259,
+                    "enemyExplosion"
+                );
+                explosions.push(explosion);
+
                 enemies.splice(i, 1);
+                updateDefeatedEnemies();
                 enemiesDefeated++;
                 console.log("Enemy defeated");
             }
         }
 
+        for (let i = explosions.length - 1; i >= 0; i--) {
+            const explosion = explosions[i];
+            explosion.update();
+            explosion.draw(contex);
+
+            if (!explosion.active) {
+                explosions.splice(i, 1);
+            }
+        }
+
         player.draw(contex);
+
+        contex.restore();
     }
     
     requestAnimationFrame(gameLoop);
@@ -224,13 +313,14 @@ const assets = [
     PATHS.PATH_ELITE_ENEMY_IMAGE,
     PATHS.PATH_SPACE_DREADNOUGHT_IMAGE,
     PATHS.PATH_BATTLE_CRUISER_IMAGE,
-    PATHS.PATH_BULLET_IMAGE
+    PATHS.PATH_BULLET_IMAGE,
+    PATHS.PATH_FIRE_THRUSTER_IMAGE,
+    PATHS.PATH_ION_THRUSTER_IMAGE,
+    PATHS.PATH_EXPLOSION_IMAGE
 ].filter(Boolean);
 
-AssetLoader.preload(Array.from(new Set(assets)), (progress) => {
-    // optional: show loading progress if you have a UI element
-    // console.log(`Loading assets: ${(progress * 100).toFixed(0)}%`);
-}).then(() => {
+AssetLoader.preload(Array.from(new Set(assets)), () => {})
+.then(() => {
     console.log("✅ Todos os assets carregados!");
     // Listen for player death events dispatched by game objects
     window.addEventListener('playerGameOver', () => {

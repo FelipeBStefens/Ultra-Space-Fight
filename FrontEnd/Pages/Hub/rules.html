@@ -21,11 +21,21 @@
     <!-- Body of the HTML file -->
     <body>
         
+        <div class="turnBack" onclick="history.back()"></div>
+
         <!-- A Div with all the informations on the file -->
         <div class="container">
 
             <!-- The text to identify it's Rules -->
-            <h1>Game Rules</h1>
+            <h1 id="titleText"></h1>
+
+            <p id="rulesText"></p>
+
+            <h1 id="controls"></h1>
+
+            <pre id="constrolsText"></pre>
         </div>
+
+        <script src="../../Script/Pages/scriptRules.js"></script>
     </body>
 </html>

@@ -35,7 +35,12 @@ body {
 .container {
 
   /* Configure the color */
-  background-color: var(--dark-container-color);
+  background-image: url("../../Assets/Images/BlackContainer.png");
+  background-repeat: repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+
+  /* background-color: var(--dark-container-color); */
   color: var(--light-text-color);   
   box-shadow: 0 4px 15px rgba(53, 53, 53, 0.6); 
   
@@ -45,7 +50,6 @@ body {
 
   /* Configure the Padding and Border Radius */ 
   padding: 30px;
-  border-radius: 10px;
   
   /* Configure the Width and Height */
   width: 400px;       
@@ -109,4 +113,47 @@ h1 {
   /* Scaling the button it's value times 1.2 */
   transform: scale(1.2);
   transition: 0.3s;
+}
+
+.turnBack {
+
+    /* Defining the Color */
+    background-image: url("../../Assets/Images/TurnBackButton.png");
+    image-rendering: pixelated;
+    background-size: contain;
+    background-color: transparent;
+    background-repeat: no-repeat;
+
+    border: none;
+
+    /* Defining the Position */
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
+    z-index: 1000;
+        
+    /* Defining the Width and Height */
+    width: 120px;
+    height: 120px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: transform 120ms ease;
+}
+
+/* Configuration of the button in case of Hover */
+.turnBack:hover {
+
+    /* Altering the Background Color */
+    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
+
+    /* Scaling the button it's value times 1.2 */
+    transform: scale(1.2);
 }

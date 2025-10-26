@@ -1,6 +1,7 @@
 import { PATH_SOLDIER_ENEMY_IMAGE  } from "../../Gameplay/scriptConstants.js";
 import Enemy from "./scriptEnemy.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
+import IonThruster from "../Thruster/scriptIonThruster.js";
 
 class SoldierEnemy extends Enemy{
     
@@ -8,6 +9,7 @@ class SoldierEnemy extends Enemy{
     maxDistance = 700;
     lastShotTime = 0;     
     shootCooldown = 1000;
+    ionThruster;
 
     constructor(position) {
         super(position);
@@ -15,10 +17,14 @@ class SoldierEnemy extends Enemy{
         this.life = 15;
         this.cash = 10;
         this.score = 20;
-    this.imagePath = PATH_SOLDIER_ENEMY_IMAGE;
+        this.imagePath = PATH_SOLDIER_ENEMY_IMAGE;
+
+        this.ionThruster = new IonThruster(0, this.height / 6 + 5, 0);
     }
 
     update(player, bulletsArray, canvas) {
+
+        this.ionThruster.update();
 
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;
@@ -73,6 +79,15 @@ class SoldierEnemy extends Enemy{
 
         const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "enemy");
         bulletsArray.push(frontBullet);
+    }
+
+    draw(context) {
+        super.draw(context);
+
+        const centerX = this.position.x + this.width / 2; 
+        const centerY = this.position.y + this.height / 2; 
+
+        this.ionThruster.draw(context, centerX, centerY, this.angle);
     }
 }
 

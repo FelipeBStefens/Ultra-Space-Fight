@@ -16,28 +16,78 @@ class SpaceDreadnought extends Boss{
         const height = width / aspectRatio;
         
         super(0, -canvas.height * 0.3, width, height, 0, life, cash, score, "Space Dreadnought");
-        
+    
+        this.introActive = false;
+        this.introActiveEnded = false;
+        this.introProgress = 0; // 0 a 1
+        this.targetY = -this.height / 2;
+        this.isShaking = false;    // <--- NOVO: Flag para saber se o shake está ativo
+        this.shakeTimer = 0;
+
         this.enemySpawner = enemySpawner;
         this.imagePath = PATH_SPACE_DREADNOUGHT_IMAGE;
     }
 
-    update(player, bulletsArray) {
-        this.updatePhase();
+    startIntro(withShake = false, shakeDuration = 0) {
+        this.introActive = true;
+        this.introActiveEnded = false;
+        this.introProgress = 0;
 
-        // Contadores decrescem a cada frame
-        this.shootCooldown--;
-        this.spawnCooldown--;
+        // posição inicial (totalmente fora da tela, acima)
+        this.startY = -this.height; 
+        this.endY = this.targetY;
 
-        // Disparo
-        if (this.shootCooldown <= 0) {
-            this.shoot(player, bulletsArray);
-            this.shootCooldown = this.shootInterval; // definido pela fase
+        // Define a posição inicial correta (FORA DA TELA)
+        this.position.y = this.startY;
+        this.active = true; // Não está atacando
+
+        // Lógica para o tremor
+        if (withShake) {
+            this.isShaking = true;
+            this.shakeTimer = shakeDuration; // Recebe 120 frames do scriptGameplay
+        }
+    }
+
+    update(player, bulletsArray, canvas) {
+
+        if (this.isShaking) {
+            this.shakeTimer--;
+            if (this.shakeTimer <= 0) {
+                this.isShaking = false; 
+            }
+            return; 
         }
 
-        // Spawn de inimigos
-        if (this.spawnCooldown <= 0) {
-            this.spawnEnemies();
-            this.spawnCooldown = this.spawnInterval; // definido pela fase
+        if (this.introActive) {
+            const introSpeed = 0.005; 
+            this.introProgress = Math.min(1, this.introProgress + introSpeed);
+
+            this.position.y = this.startY + (this.endY - this.startY) * this.introProgress;
+
+            if (this.introProgress >= 1) {
+                this.introActive = false;
+                this.introActiveEnded = true;
+                this.active = true;
+                this.position.y = this.endY;
+            }
+
+            return; 
+        }
+
+        if (this.active) {
+            this.updatePhase(); 
+
+            if (this.shootCooldown <= 0) {
+                this.shoot(player, bulletsArray); 
+                this.shootCooldown = this.shootInterval;
+            }
+            this.shootCooldown--; 
+
+            if (this.spawnCooldown <= 0) {
+                this.spawnEnemies(); 
+                this.spawnCooldown = this.spawnInterval; 
+            }
+            this.spawnCooldown--;
         }
     }
 

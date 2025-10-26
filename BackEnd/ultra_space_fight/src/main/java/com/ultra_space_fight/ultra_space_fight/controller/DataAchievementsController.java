@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations.AchievementsDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.ranking.RankingScoreMatchDTO;
-import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreCashDTO;
+import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.AchievementsCashDTO;
 import com.ultra_space_fight.ultra_space_fight.dataTransferObjects.score.ScoreDTO;
 import com.ultra_space_fight.ultra_space_fight.service.DataAchievementsService;
 
@@ -71,11 +71,11 @@ class DataAchievementsController {
     }
 
     // Endpoint to update the score and cash by Id;
-    @PutMapping("/update/score/cash/{id}") 
-    public ResponseEntity<ScoreDTO> updateScoreCash(@PathVariable long id, @RequestBody ScoreCashDTO scoreCashDTO) {
+    @PutMapping("/update/achievements/cash/{id}") 
+    public ResponseEntity<ScoreDTO> updateScoreCash(@PathVariable long id, @RequestBody AchievementsCashDTO achievementsCashDTO) {
         
-        // Updating the Score and Cash, and getting the new Score;
-        ScoreDTO scoreDTO = dataAchievementsService.updateScoreCash(id, scoreCashDTO);
+        // Updating the Achievements and Cash, and getting the new Score;
+        ScoreDTO scoreDTO = dataAchievementsService.updateAchievementsCash(id, achievementsCashDTO);
         
         // Returning the HTTP of this values;
         return ResponseEntity.status(HttpStatus.OK).body(scoreDTO);

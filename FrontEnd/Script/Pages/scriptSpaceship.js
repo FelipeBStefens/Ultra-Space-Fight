@@ -1,6 +1,30 @@
-// ===============================
-// ===== SPACESHIP.JS FINAL ======
-// ===============================
+const translations = {
+    English: {
+        selectSpaceship: "Select Spaceship",
+        selectedSpaceship: "Selected Spaceship",
+        locked: "Locked: Need",
+        life: "Life",
+        speed: "Speed",
+        damage: "Damage",
+        upgrade: "Upgrade",
+        maxed: "MAXED",
+        cost: "Cost",
+        coins: "Coins"
+    },
+    Portuguese: {
+        selectSpaceship: "Selecionar Nave",
+        selectedSpaceship: "Nave Selecionada",
+        locked: "Bloqueada: Precisa de",
+        life: "Vida",
+        speed: "Velocidade",
+        damage: "Dano",
+        upgrade: "Melhorar",
+        maxed: "MÁXIMO",
+        cost: "Custo",
+        coins: "Moedas"
+    }
+};
+
 async function updateSpaceship(spaceship, values, id) {
     try {
         const response = await fetch(`http://localhost:8080/spaceship/update/${spaceship}/${id}`, {
@@ -67,9 +91,6 @@ async function updateSelectedSpaceship(spaceship, id) {
     }
 }
 
-// ================================
-// Requisitos de pontuação das naves
-// ================================
 const spaceshipRequirements = {
     standart_ship: 0,
     speed_ship: 500,
@@ -145,6 +166,17 @@ function updateCashDisplay(newCashValue, coinText, data) {
     if (!user) {
         window.location.href = "../../enter.html";
     }
+
+    const lang = user.language in translations ? user.language : "English";
+    const t = translations[lang];
+
+    document.querySelector('button#actionButton').textContent = t.selectSpaceship;
+    document.querySelectorAll('.upgrade-button').forEach(btn => btn.textContent = t.upgrade);
+    document.querySelector('#cost-value').textContent = t.cost;
+    document.getElementById("lifeText").innerHTML = `${t.life}: <span class="stat-value" id="lifeValue"></span>`;
+    document.getElementById("speedText").innerHTML = `${t.speed}: <span class="stat-value" id="speedValue"></span>`;
+    document.getElementById("damageText").innerHTML = `${t.damage}: <span class="stat-value" id="damageValue"></span>`;
+
     const data = JSON.parse(localStorage.getItem("spaceships"));
 
     const spaceships = document.querySelectorAll(".spaceship");
@@ -187,21 +219,21 @@ function updateCashDisplay(newCashValue, coinText, data) {
                 document.getElementById("damageValue").textContent = currentShip.damage;
 
                 if (isLocked) {
-                    actionButton.textContent = `Locked: Need ${requiredScore} scores`;
+                    actionButton.textContent = `${t.locked} ${requiredScore} ${t.score || "scores"}`;
                     actionButton.disabled = true;
                     spaceship.classList.add("blocked");
                     upgradeCostDisplay.style.display = 'none';
                 } else {
                     const cost = upgradeCosts[currentShip.name];
-                    costValueSpan.textContent = cost;
+                    costValueSpan.textContent = `${cost} ${t.coins}`;
                     upgradeCostDisplay.style.display = 'flex';
 
                     if (i === selected) {
-                        actionButton.textContent = "Selected Spaceship";
+                        actionButton.textContent = t.selectedSpaceship;
                         actionButton.disabled = true;
                         actionButton.classList.add("selected-button");
                     } else {
-                        actionButton.textContent = "Select Spaceship";
+                        actionButton.textContent = t.selectSpaceship;
                         actionButton.disabled = false;
                         actionButton.classList.remove("selected-button");
 
@@ -225,8 +257,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
                                     user.spaceshipValues = values;
                                     localStorage.setItem("user", JSON.stringify(user)); 
                                     
-                                    actionButton.textContent = "Selected Spaceship";
-                                    actionButton.disabled = true;
+                                    actionButton.textContent = t.selectedSpaceship;                                    actionButton.disabled = true;
                                     update();
                                 } else {
                                     console.error("❌ Erro ao atualizar nave selecionada no servidor");
@@ -237,8 +268,9 @@ function updateCashDisplay(newCashValue, coinText, data) {
                                 alert("Falha ao conectar ao servidor.");
                             } finally {
                                 setLoadingState(false);
-                                actionButton.textContent = "Selected Spaceship";
+                                actionButton.textContent = t.selectedSpaceship;
                                 actionButton.disabled = true;
+                                update();
                             }
                         };
                     }
@@ -251,21 +283,27 @@ function updateCashDisplay(newCashValue, coinText, data) {
         });
 
         document.querySelectorAll(".upgrade-button").forEach(button => {
-            const currentShip = ships[active];
-            const requiredScore = spaceshipRequirements[currentShip.name];
-            const isLocked = user.score < requiredScore;
+            const currentShip = ships[active]; // só a nave ativa importa
             const stat = statMap[button.dataset.stat];
 
+            const isLocked = user.score < spaceshipRequirements[currentShip.name];
             const isMaxed = currentShip[stat] >= maxStats[stat];
 
+            // Reset visual
+            button.style.filter = "";
+            button.style.cursor = "pointer";
+
+            // Desabilita só o botão da nave ativa
             button.disabled = isLocked || isMaxed;
 
             if (isMaxed) {
-                button.style.backgroundColor = 'gray';
-                button.textContent = 'MAXED';
+                button.style.filter = "grayscale(100%)";
+                button.style.cursor = "not-allowed";
+                button.textContent = t.maxed;
+            } else if (isLocked) {
+                button.textContent = t.locked;
             } else {
-                button.style.backgroundColor = '';
-                button.textContent = 'Upgrade';
+                button.textContent = t.upgrade;
             }
         });
     }
@@ -323,7 +361,7 @@ function updateCashDisplay(newCashValue, coinText, data) {
 
                 const body = {
                     cash: cost,
-                    spaceshipValuesTDO: values
+                    spaceshipValuesDTO: values
                 };
 
                 const result = await updateSpaceship(ships[active].name, body, user.idUser);

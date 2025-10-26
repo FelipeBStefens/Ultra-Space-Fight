@@ -1,5 +1,5 @@
 import GameObject from "../scriptGameObject.js"; 
-import { updateScore, updateCash } from "../../Gameplay/scriptDOM.js";
+import { updateScore, updateCash, updateDefeatedEnemies } from "../../Gameplay/scriptDOM.js";
 
 class Enemy extends GameObject { 
 
@@ -40,6 +40,10 @@ class Enemy extends GameObject {
     updateLife(damage) {
         this.life -= damage;
         if (this.life <= 0) {
+            if (this.ionThruster) {
+                this.ionThruster.stopSound();
+            }
+
             this.active = false;
             updateScore(this.score);
             updateCash(this.cash);
