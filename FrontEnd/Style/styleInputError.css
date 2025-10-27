@@ -1,0 +1,22 @@
+@import url('style.css');
+
+.errorMessage {
+  color: red;
+  font-family: var(--pixel-font);
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 5px;
+  height: 20px;
+  display: block;
+  visibility: hidden;
+}
+
+.inputContainer.error .errorMessage {
+  visibility: visible;
+}
+
+/* Estilo visual de erro nos inputs */
+.inputContainer.error .input {
+  border-color: red !important;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}

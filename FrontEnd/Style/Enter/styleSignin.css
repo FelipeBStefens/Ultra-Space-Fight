@@ -207,29 +207,6 @@ body {
     transform: scale(1.05);
 }
 
-.error-message {
-  color: red;
-  font-family: var(--pixel-font);
-  font-weight: bold;
-  font-size: 14px;
-  margin-top: 5px;
-  height: 25px;        
-  display: block;      
-  visibility: hidden;  
-}
-
-/* Quando há erro, apenas torna visível */
-.inputContainer.error .error-message {
-  visibility: visible;
-}
-
-
-/* Estilo visual de erro nos inputs */
-.inputContainer.error .input {
-  border-color: red !important;
-  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
-}
-
 /* Botão desativado */
 #button:disabled {
   cursor: not-allowed;

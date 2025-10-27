@@ -208,21 +208,6 @@ body {
     transform: scale(1.05);
 }
 
-.error-message {
-  color: red;
-  font-family: var(--pixel-font);
-  font-weight: bold;
-  font-size: 15px;
-  margin-top: 5px;
-  height: 20px;
-  display: block;
-  visibility: hidden;
-}
-
-.inputContainer.error .error-message {
-  visibility: visible;
-}
-
 #button:disabled {
   cursor: not-allowed;
   filter: grayscale(100%);
