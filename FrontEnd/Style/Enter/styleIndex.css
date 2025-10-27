@@ -9,7 +9,7 @@ body {
     color: #f0f0f0;
 }
 
-#music-player-container {
+#soundtrackContainer {
     position: absolute;
     top: -50px; 
     left: 0;
@@ -18,11 +18,11 @@ body {
     overflow: hidden; 
 }
 
-#background-audio {
+#backgroundAudio {
     display: none; 
 }
 
-#content-frame {
+#contentFrame {
     flex-grow: 1; 
     border: none; 
     width: 100%;

@@ -28,7 +28,7 @@ let bossLifeContainer = null;
 let bossLifeFill = null;
 let bossLifeText = null;
 
-const heartImage = "../../Assets/Icons/heart.png"; 
+const heartImage = "../../Assets/Icons/Heart.png"; 
 
 export let values = {
     score: score,

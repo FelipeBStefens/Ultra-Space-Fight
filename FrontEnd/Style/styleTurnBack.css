@@ -1,0 +1,43 @@
+@import url('style.css');
+
+.turnBack {
+
+    /* Defining the Color */
+    background-image: var(--turn-back-button-image);
+    background-size: contain;
+    background-color: transparent;
+    background-repeat: no-repeat;
+
+    border: none;
+
+    /* Defining the Position */
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
+    z-index: 1000;
+        
+    /* Defining the Width and Height */
+    width: 120px;
+    height: 120px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: transform 120ms ease;
+}
+
+/* Configuration of the button in case of Hover */
+.turnBack:hover {
+
+    /* Altering the Background Color */
+    background-image: var(--turn-back-button-hover-image);
+
+    /* Scaling the button it's value times 1.2 */
+    transform: scale(1.2);
+}

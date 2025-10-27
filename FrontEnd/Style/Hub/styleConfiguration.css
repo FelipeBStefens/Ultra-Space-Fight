@@ -30,8 +30,7 @@ body {
 .container {
 
     /* Configure the color */
-    background-image: url("../../Assets/Images/BlackContainer.png");
-    image-rendering: pixelated;
+    background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain;
 
@@ -62,7 +61,7 @@ body {
 /* A title text */
 h1 {
     /* Configure the color */
-    color: var(--button-color);
+    color: var(--title-text-color);
 
     /* Defining the Font Size */
     font-size: 90px;
@@ -76,7 +75,7 @@ h1 {
 /* The Labels */
 label {
     /* Defining the Color */
-    color: var(--container-color);
+    color: rgb(148, 148, 148);
 
     /* The size of the Font */
     font-size: 35px;
@@ -90,10 +89,6 @@ label {
     align-items: center;
 }
 
-/* ---------------------------------------- */
-/* INPUT CONTAINERS (corrigidos)            */
-/* ---------------------------------------- */
-
 .inputContainer {
     display: flex;
     flex-direction: column;   /* label -> input -> error */
@@ -106,7 +101,7 @@ label {
     margin-bottom: 8px;
     /* Mantém o visual original do label, pode ser ajustado */
     font-size: 35px;
-    color: var(--container-color);
+    color: rgb(148, 148, 148);
 }
 
 /* Defining the Inputs */ 
@@ -115,8 +110,7 @@ label {
 #language {
 
     /* Defining the Color */
-    image-rendering: pixelated;
-    background-image: url("../../Assets/Images/WhiteContainer.png");
+    background-image: var(--white-container-image);
     background-repeat: repeat-x;
     background-size: contain;
 
@@ -143,9 +137,6 @@ label {
     filter: grayscale(30%);
 }
 
-/* ---------------------------------------- */
-/* SELECT (reaplicando e melhorando estilo) */
-/* ---------------------------------------- */
 #language {
     margin-bottom: 50px; 
     -webkit-appearance: none;
@@ -154,7 +145,6 @@ label {
 
     /* keep same look as inputs, but feel native */
     border: 2px solid transparent; /* default transparent to match inputs */
-    image-rendering: pixelated;
     position: relative;
     color: var(--text-color);
     font-size: 25px;
@@ -164,7 +154,7 @@ label {
     background-image:
         linear-gradient(45deg, transparent 50%, #000000 50%),
         linear-gradient(135deg, #000000 50%, transparent 50%),
-        url("../../Assets/Images/WhiteContainer.png");
+        var(--white-container-image);
     background-position: calc(100% - 18px) calc(50% - 6px), calc(100% - 12px) calc(50% - 6px), center;
     background-size: 6px 6px, 6px 6px, contain;
     background-repeat: no-repeat, no-repeat, repeat-x;
@@ -180,9 +170,6 @@ label {
     outline: none;
 }
 
-/* ---------------------------------------- */
-/* SLIDERS                                 */
-/* ---------------------------------------- */
 .sliderContainer {
     width: 100%;
     margin: 15px 0;
@@ -201,7 +188,7 @@ input[type="range"] {
     -webkit-appearance: none;
 
     image-rendering: pixelated;
-    background-image: url("../../Assets/Images/WhiteContainer.png");
+    background-image: var(--white-container-image);
     background-repeat: repeat-x;
     background-size: contain;
 
@@ -215,8 +202,7 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     
-    image-rendering: pixelated;
-    background-image: url("../../Assets/Images/ButtonSlider.png");
+    background-image: var(--slider-button-image);
     background-repeat: no-repeat;
     background-size: contain;
 
@@ -228,8 +214,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]::-moz-range-thumb {
     
-    image-rendering: pixelated;
-    background-image: url("../../Assets/Images/ButtonSlider.png");
+    background-image: var(--slider-button-image);
     background-repeat: no-repeat;
     background-size: contain;
 
@@ -244,9 +229,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: scale(1.15);
 }
 
-/* ---------------------------------------- */
-/* BUTTONS                                 */
-/* ---------------------------------------- */
 .buttons {
     width: 100%;
     gap: 15px;
@@ -261,7 +243,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
-    image-rendering: pixelated;
     font-family: var(--pixel-font);
     font-size: 40px;
     padding: 20px;
@@ -274,7 +255,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* The Button to save the confirations */
 #save {
-    background-image: url("../../Assets/Images/Button.png");
+    background-image: var(--pink-button-image);
     width: 330px;
     height: 210px;
     color: var(--light-text-color);
@@ -284,13 +265,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 #save:hover {
-    background-image: url("../../Assets/Images/ButtonHover.png");
+    background-image: var(--pink-button-hover-image);
     transform: scale(1.05);
 }
 
 /* The Button to logout the Account */
 #logout {
-    background-image: url("../../Assets/Images/ButtonGray.png");
+    background-image: var(--gray-button-image);
     width: 330px;
     height: 210px;
     padding-bottom: 50px;
@@ -298,13 +279,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 #logout:hover {
-    background-image: url("../../Assets/Images/ButtonHoverGray.png");
+    background-image: var(--gray-button-hover-image);
     transform: scale(1.05);
 }
 
 /* The Button to Delete the Account */
 #delete {
-    background-image: url("../../Assets/Images/ButtonRed.png");
+    background-image: var(--red-button-image);
     width: 330px;
     height: 210px;
     padding-bottom: 50px;
@@ -313,7 +294,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 #delete:hover {
-    background-image: url("../../Assets/Images/ButtonHoverRed.png");
+    background-image: var(--red-button-hover-image);
     transform: scale(1.05);
 }
 
@@ -354,17 +335,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
     100% { transform: translateY(-50%) rotate(360deg); }
 }
 
-/* ---------------------------------------- */
-/* MENSAGENS DE ERRO E ESTADO DE ERRO      */
-/* ---------------------------------------- */
 .error-message {
   color: #ff4d4d;
   font-family: var(--pixel-font);
-  font-size: 18px;        /* maior para legibilidade */
+  font-size: 18px;        
   margin-top: 5px;
-  min-height: 22px;      /* evita pulo quando aparece/desaparece */
+  min-height: 22px;      
   display: block;
-  visibility: hidden;    /* oculto até necessário */
+  visibility: hidden;    
   line-height: 1.2;
 }
 
@@ -382,20 +360,17 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background-color: #2a0e0e;
 }
 
-/* ---------------------------------------- */
-/* Botão desativado                          */
-/* ---------------------------------------- */
 #save.loading {
   cursor: not-allowed;
   opacity: 0.6;
-  background-image: url("../../Assets/Images/ButtonClicked.png");
+  background-image: var(--pink-button-clicked-image);
   filter: grayscale(100%);
   transform: none !important;
 }
 
 /* Remover o hover quando desativado */
 #save.loading:hover {
-  background-image: url("../../Assets/Images/ButtonClicked.png");
+  background-image: var(--pink-button-clicked-image);
   filter: grayscale(100%);
   transform: none;
 }
@@ -403,14 +378,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
 #logout.loading {
   cursor: not-allowed;
   opacity: 0.6;
-  background-image: url("../../Assets/Images/ButtonClickedGray.png");
+  background-image: var(--gray-button-clicked-image);
   filter: grayscale(100%);
   transform: none !important;
 }
 
 /* Remover o hover quando desativado */
 #logout.loading:hover {
-  background-image: url("../../Assets/Images/ButtonClickedGray.png");
+  background-image: var(--gray-button-clicked-image);
   filter: grayscale(100%);
   transform: none;
 }
@@ -418,57 +393,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
 #delete.loading {
   cursor: not-allowed;
   opacity: 0.6;
-  background-image: url("../../Assets/Images/ButtonClickedRed.png");
+  background-image: var(--red-button-clicked-image);
   filter: grayscale(100%);
   transform: none !important;
 }
 
 /* Remover o hover quando desativado */
 #delete.loading:hover {
-  background-image: url("../../Assets/Images/ButtonClickedRed.png");
+  background-image: var(--red-button-clicked-image);
   filter: grayscale(100%);
   transform: none;
-}
-
-.turnBack {
-
-    /* Defining the Color */
-    background-image: url("../../Assets/Images/TurnBackButton.png");
-    image-rendering: pixelated;
-    background-size: contain;
-    background-color: transparent;
-    background-repeat: no-repeat;
-
-    border: none;
-
-    /* Defining the Position */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    margin-top: 15px;
-    margin-left: 15px;
-    z-index: 1000;
-        
-    /* Defining the Width and Height */
-    width: 120px;
-    height: 120px;
-
-    /* Using FlexBox to configure the position */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Transition in case of Hover */
-    cursor: pointer;
-    transition: transform 120ms ease;
-}
-
-/* Configuration of the button in case of Hover */
-.turnBack:hover {
-
-    /* Altering the Background Color */
-    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
-
-    /* Scaling the button it's value times 1.2 */
-    transform: scale(1.2);
 }

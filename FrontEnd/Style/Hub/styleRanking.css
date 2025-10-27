@@ -34,7 +34,7 @@ body {
 .container {
 
     /* Defining the Color */
-    background-image: url("../../Assets/Images/BlackContainer.png");
+    background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain;
 
@@ -58,7 +58,6 @@ body {
     /* Setting the margin */
     margin-top: 50px;
     margin-bottom: 70px;
-
 }
 
 /* The Buttons */
@@ -69,8 +68,7 @@ button {
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
-    image-rendering: pixelated;
-    background-image: url("../../Assets/Images/Button.png");
+    background-image: var(--pink-button-image);
 
     /* The size and family of the Font */ 
     font-family: var(--pixel-font);
@@ -97,14 +95,14 @@ button {
 button.active {
 
     /* Altering the Color */
-    background-image: url("../../Assets/Images/ButtonClicked.png");
+    background-image: var(--pink-button-clicked-image);
 }
 
 /* Configuration of the button in case of Hover */
 button:hover {
 
     /* Altering the Color */
-    background-image: url("../../Assets/Images/ButtonHover.png");
+    background-image: var(--pink-button-hover-image);
     transform: scale(1.05);
 }
 
@@ -123,8 +121,7 @@ button:hover {
 .ranking-item {
     
     /* Defining the Color */
-    background-image: url("../../Assets/Images/RedContainer.png");
-    image-rendering: pixelated;
+    background-image: var(--red-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
@@ -173,8 +170,7 @@ button:hover {
 .ranking-item.gold {
 
     /* Defining the Color */
-    background-image: url("../../Assets/Images/GoldContainer.png");
-    image-rendering: pixelated;
+    background-image: var(--gold-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
@@ -186,8 +182,7 @@ button:hover {
 .ranking-item.silver {
 
     /* Defining the Color */
-    background-image: url("../../Assets/Images/WhiteContainer.png");
-    image-rendering: pixelated;
+    background-image: var(--white-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
@@ -199,54 +194,10 @@ button:hover {
 .ranking-item.bronze {
 
     /* Defining the Color */
-    background-image: url("../../Assets/Images/BronzeContainer.png");
-    image-rendering: pixelated;
+    background-image: var(--bronze-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
     /* Defining the Font Weight */
     font-weight: bold;
-}
-
-.turnBack {
-
-    /* Defining the Color */
-    background-image: url("../../Assets/Images/TurnBackButton.png");
-    image-rendering: pixelated;
-    background-size: contain;
-    background-color: transparent;
-    background-repeat: no-repeat;
-
-    border: none;
-
-    /* Defining the Position */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    margin-top: 15px;
-    margin-left: 15px;
-    z-index: 1000;
-        
-    /* Defining the Width and Height */
-    width: 120px;
-    height: 120px;
-
-    /* Using FlexBox to configure the position */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Transition in case of Hover */
-    cursor: pointer;
-    transition: transform 120ms ease;
-}
-
-/* Configuration of the button in case of Hover */
-.turnBack:hover {
-
-    /* Altering the Background Color */
-    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
-
-    /* Scaling the button it's value times 1.2 */
-    transform: scale(1.2);
 }

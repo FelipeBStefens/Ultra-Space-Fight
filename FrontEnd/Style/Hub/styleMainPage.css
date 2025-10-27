@@ -27,7 +27,6 @@ body {
     align-items: flex-start;
 }
 
-
 h1 {
     margin: 0;
     position: absolute;
@@ -47,16 +46,11 @@ h1 {
     top: 100px; 
 }
 
-/* The Hipertext acting like a button */
-/* Botão base */
 a {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  color: var(--text-color);
   text-decoration: none;
-  font-family: var(--pixel-font);
-  border-radius: var(--button-radius);
   transition: background 0.25s;
   position: absolute;
   width: 200px;         
@@ -69,12 +63,11 @@ a {
   transition: transform 0.2s, background-image 0.15s linear;
 }
 
-/* Conteúdo escalável */
 a .btn-inner {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;       /* aumente ou ajuste conforme necessário */
+  font-size: 32px;       
   transition: transform 0.25s;
   transform-origin: center center;
 }
@@ -83,51 +76,51 @@ a .btn-inner {
 #ranking {
   top: 240px;
   left: 80px;
-  background-image: url("../../Assets/Images/RankingButton.png");
+  background-image: var(--ranking-button-image);
 }
 #ranking:hover {
-  background-image: url("../../Assets/Images/RankingButtonHover.png");
+  background-image: var(--ranking-button-image);
 }
 
 /* Configurations */
 #configurations {
   top: 30px;
   right: 60px;
-  background-image: url("../../Assets/Images/ConfigurationButton.png");
+  background-image: var(--configuration-button-image);
 }
 
 #configurations:hover {
-  background-image: url("../../Assets/Images/ConfigurationButtonHover.png");
+  background-image: var(--configuration-button-hover-image);
 }
 
 /* Rules */
 #rules {
   top: 250px;
   right: 60px;
-  background-image: url("../../Assets/Images/RulesButton.png");
+  background-image: var(--rules-button-image);
 }
 #rules:hover {
-  background-image: url("../../Assets/Images/RulesButtonHover.png");
+  background-image: var(--rules-button-hover-image);
 }
 
 /* Achievements */
 #achievements {
   bottom: 30px;
   left: 80px;
-  background-image: url("../../Assets/Images/AchievementsButton.png");
+  background-image: var(--achievements-button-image);
 }
 #achievements:hover {
-  background-image: url("../../Assets/Images/AchievementsButtonHover.png");
+  background-image: var(--achievements-button-image);
 }
 
 /* Spaceships */
 #spaceships {
   bottom: 60px;
   right: 80px;
-  background-image: url("../../Assets/Images/SpaceshipButton.png");
+  background-image: var(--spaceship-button-image);
 }
 #spaceships:hover {
-  background-image: url("../../Assets/Images/SpaceshipButtonHover.png");
+  background-image: var(--spaceship-button-image);
 }
 
 /* Gameplay (central) */
@@ -135,11 +128,11 @@ a .btn-inner {
   top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-image: url("../../Assets/Images/PlayButton.png");
+  background-image: var(--play-button-image);
 }
 
 #gameplay:hover {
-  background-image: url("../../Assets/Images/PlayButtonHover.png");
+  background-image: var(--play-button-hover-image);
 }
 
 /* hover escala apenas o conteúdo */
@@ -166,10 +159,9 @@ a.loading {
   opacity: 0.8;
 }
 
-/* Desativa hover e animação durante loading */
 a.loading:hover {
   transform: none;
-  background-color: gray;
+  filter: grayscale(100%);
 }
 
 @keyframes spin {

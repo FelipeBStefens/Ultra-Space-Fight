@@ -10,7 +10,7 @@ export default function gameOver(user, values) {
 
     setTimeout(() => {
         SoundManager.playSound("gameOverVoice");
-        SoundManager.playMusic("../../Assets/Audios/GameOver.mp3");
+        SoundManager.playMusic("../../Assets/Audios/Soundtracks/GameOverSoundtrack.mp3");
     }, 1500);
 
     const gameOverScreen = document.createElement("div");

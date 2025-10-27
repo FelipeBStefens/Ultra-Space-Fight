@@ -1,31 +1,34 @@
+document.getElementById("backgroundAudio").load();
+
 window.playAudio = function() {
             
-    const audio = document.getElementById('background-audio');
+    const audio = document.getElementById("backgroundAudio");
             
     audio.play();
 };
-        
-window.navigateToGame = function(pageUrl) {
-            
-    document.getElementById('content-frame').src = pageUrl;
-};
-    
-window.setAudioVolume = function(volume) {
-    const audio = document.getElementById('background-audio');
-
-    if (volume < 0) volume = 0;
-    if (volume > 1) volume = 1;
-
-    audio.volume = volume;
-    console.log(`Volume: ${volume}`);
-};
-
+  
 window.stopAudio = function() {
-    const audio = document.getElementById('background-audio');
+    const audio = document.getElementById("backgroundAudio");
 
     if (!audio.paused) {
         audio.pause();
     } 
 };
 
-document.getElementById('background-audio').load();
+window.setAudioVolume = function(volume) {
+    const audio = document.getElementById("backgroundAudio");
+
+    if (volume < 0) {
+        volume = 0;
+    }
+    else if (volume > 1) {
+        volume = 1;
+    }
+
+    audio.volume = volume;
+};
+
+window.navigateToGame = function(pageUrl) {
+            
+    document.getElementById("contentFrame").src = pageUrl;
+};

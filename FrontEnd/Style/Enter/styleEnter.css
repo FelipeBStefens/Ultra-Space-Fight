@@ -1,7 +1,5 @@
-/* Import das variáveis globais */
 @import url('../style.css');
 
-/* Corpo da página */
 body {
   margin: 0;
   padding: 0;
@@ -13,7 +11,6 @@ body {
   align-items: center;
 }
 
-/* Vídeo de fundo */
 #video {
   position: fixed;
   right: 0;
@@ -24,9 +21,7 @@ body {
   z-index: -1;
 }
 
-/* Logo do jogo */
 #logo {
-  image-rendering: pixelated;
   position: absolute;
   top: 0px;
   right: -70px;
@@ -34,7 +29,6 @@ body {
   height: auto;
 }
 
-/* Contêiner dos botões */
 #buttons {
   display: flex;
   flex-direction: column;
@@ -43,21 +37,19 @@ body {
   padding-left: 150px;
 }
 
-/* Botões (hiperlinks) */
 #buttons a {
   
-  background-image: url('../../Assets/Images/Button.png');
+  background-image: var(--pink-button-image);
   background-repeat: no-repeat;
   background-size: contain; 
   background-position: center;
-  image-rendering: pixelated;
 
   width: 350px;   
   height: 150px;   
 
   color: var(--text-color);
-  font-size: 50px;
   font-family: var(--pixel-font);
+  font-size: 50px;
   text-align: center;
   line-height: 130px; 
   text-decoration: none;
@@ -68,12 +60,12 @@ body {
 }
 
 #buttons a:hover {
-  background-image: url('../../Assets/Images/ButtonHover.png');
+  background-image: var(--pink-button-hover-image);
   transform: scale(1.05);
 }
 
 #buttons a:active {
-  background-image: url('../../Assets/Images/ButtonClicked.png');
+  background-image: var(--pink-button-clicked-image);
   transform: scale(0.95);
 }
 

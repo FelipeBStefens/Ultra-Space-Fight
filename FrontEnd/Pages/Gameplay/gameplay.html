@@ -12,8 +12,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Gameplay\styleGameplay.css">
-        
+        <link rel="stylesheet" href="../../Style/Gameplay/styleGameplay.css">
+        <link rel="stylesheet" href="../../Style/Gameplay/stylePause.css">
+        <link rel="stylesheet" href="../../Style/styleTurnBack.css">
+        <script type="module" src="../../Script/Gameplay/scriptPause.js" defer></script>
+        <script type="module" src="../../Script/Gameplay/scriptDOM.js" defer></script>
+        <script type="module" src="../../Script/Gameplay/scriptGameplay.js" defer></script>
+
         <!-- Title of the HTML file -->
         <title>Gameplay</title>
     </head>
@@ -22,7 +27,7 @@
     <body>
 
         <video id="video" autoplay muted playsinline>
-            <source src="../../Assets/Videos/gameplay_background.mp4" type="video/mp4">
+            <source src="../../Assets/Videos/GameplayBackground.mp4" type="video/mp4">
         </video>
 
         <!-- A Button to pause the game -->
@@ -31,15 +36,10 @@
         <div id="lifeContainer"></div>
         <div id="scoreMatchContainer"></div>
         <div id="cashContainer">
-            <img src="..\..\Assets\Icons\cash.png" alt="Icon Cash"/>
+            <img src="../../Assets/Icons/Cash.png" alt="Icon Cash"/>
             <span id="cashAmount"></span>
         </div>
 
         <canvas id="gameCanvas"></canvas>
-
-        <!-- The script to Pause the game -->
-        <script type="module" src="..\..\Script\Gameplay\scriptPause.js"></script>
-        <script type="module" src="..\..\Script\Gameplay\scriptDOM.js"></script>
-        <script type="module" src="..\..\Script\Gameplay\scriptGameplay.js"></script>
     </body>
 </html>

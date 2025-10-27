@@ -12,8 +12,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Enter\styleSignin.css">
-        
+        <link rel="stylesheet" href="../../Style/Enter/styleSignin.css">
+        <link rel="stylesheet" href="../../Style/styleTurnBack.css">
+        <script src="../../Script/Pages/scriptSignIn.js" defer></script>
+
         <!-- Title of the HTML file -->
         <title>Sign In</title>
     </head>
@@ -21,8 +23,8 @@
     <!-- Body of the HTML file -->
     <body>
 
-        <video id="video" autoplay muted playsinline>
-            <source src="../../Assets/Videos/inital_background.mp4" type="video/mp4">
+        <video id="video" autoplay muted loop playsinline>
+            <source src="../../Assets/Videos/InitalBackground.mp4" type="video/mp4">
         </video>
         
         <div class="turnBack" onclick="history.back()"></div>
@@ -74,8 +76,5 @@
                 </form>   
             </div>
         </div>
-
-        <script src="../../Script/Pages/scriptSignIn.js"></script>
-        <script src="../../Script/Pages/scriptVideo.js"></script>
     </body>
 </html>

@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Space Fight</title>
-    <link rel="stylesheet" href="Style/Enter/styleIndex.css">
-</head>
-<body>
 
-    <div id="music-player-container">
-        <audio id="background-audio" loop>
-            <source src="Assets/Audios/initial_audio.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+<html lang="en">
 
-    <iframe 
-        id="content-frame" 
-        name="main_content" 
-        src="Pages/Enter/enter.html"
-        allow="autoplay">
-    </iframe>
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="Style/Enter/styleIndex.css">
+        <script src="Script/Pages/scriptIndex.js" defer></script>
+    
+        <title>Ultra Space Fight</title>
+    </head>
 
-    <script src="Script/Pages/scriptIndex.js"></script>
-</body>
+    <body>
+
+        <div id="soundtrackContainer">
+
+            <audio id="backgroundAudio" loop>
+                <source src="Assets/Audios/Soundtracks/InitialSoundtrack.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <iframe 
+            id="contentFrame" 
+            name="main_content" 
+            src="Pages/Enter/enter.html"
+            allow="autoplay">
+        </iframe>
+    </body>
 </html>

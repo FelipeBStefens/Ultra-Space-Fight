@@ -12,16 +12,16 @@ import { showBossLifeBar, hideBossLifeBar, updateDefeatedEnemies } from "./scrip
 import SoundManager from "./scriptSoundManager.js"; 
 import Explosion from "../Models/Explosion/scriptExplosion.js";
 
-SoundManager.loadSound("shoot", "../../Assets/Audios/Shoot.mp3");
-SoundManager.loadSound("enemyExplosion", "../../Assets/Audios/EnemyExplosion.mp3");
-SoundManager.loadSound("shootExplosion", "../../Assets/Audios/ShootExplosion.mp3");
-SoundManager.loadSound("fireThruster", "../../Assets/Audios/FireThruster.mp3");
-SoundManager.loadSound("ionThruster", "../../Assets/Audios/IonThruster.mp3");
-SoundManager.loadSound("gameOverVoice", "../../Assets/Audios/GameOverVoice.mp3");
-SoundManager.loadSound("earthquake", "../../Assets/Audios/Earthquake.mp3");
-SoundManager.loadSound("scream", "../../Assets/Audios/Scream.mp3");
+SoundManager.loadSound("shoot", "../../Assets/Audios/SoundEffects/ShootSoundEffect.mp3");
+SoundManager.loadSound("enemyExplosion", "../../Assets/Audios/Explosions/EnemyExplosion.mp3");
+SoundManager.loadSound("shootExplosion", "../../Assets/Audios/Explosions/ShootExplosion.mp3");
+SoundManager.loadSound("fireThruster", "../../Assets/Audios/Thruster/FireThruster.mp3");
+SoundManager.loadSound("ionThruster", "../../Assets/Audios/Thruster/IonThruster.mp3");
+SoundManager.loadSound("gameOverVoice", "../../Assets/Audios/SoundEffects/GameOverVoiceSoundEffect.mp3");
+SoundManager.loadSound("earthquake", "../../Assets/Audios/SoundEffects/EarthquakeSoundEffect.mp3");
+SoundManager.loadSound("scream", "../../Assets/Audios/SoundEffects/ScreamSoundEffect.mp3");
 
-SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3");
+SoundManager.playMusic("../../Assets/Audios/Soundtracks/GameplaySoundtrack.mp3");
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -141,7 +141,7 @@ const gameLoop = () => {
             if (currentBoss) {
 
                 if (!bossMusicStarted && shakeTime <= 0) { 
-                    SoundManager.playMusic("../../Assets/Audios/boss_audio.mp3"); 
+                    SoundManager.playMusic("../../Assets/Audios/Soundtracks/BossGameplaySoundtrack.mp3"); 
                     bossMusicStarted = true;
                 }
 
@@ -158,7 +158,7 @@ const gameLoop = () => {
                     isBossFight = false;
                     bossIndex = (bossIndex + 1) % bosses.length;
 
-                    SoundManager.playMusic("../../Assets/Audios/BackgroundGameplay.mp3"); 
+                    SoundManager.playMusic("../../Assets/Audios/Soundtracks/GameplaySoundtrack.mp3"); 
                     bossMusicStarted = false;
 
                     // hide boss life bar when fight ends

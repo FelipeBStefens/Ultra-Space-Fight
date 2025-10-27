@@ -22,17 +22,17 @@ const translations = {
   // Active achievement variable;
   let active = 0;
   
-  const FRAME_BLOCKED = "../../Assets/Images/BlockedAchievement.png";
-  const FRAME_BRONZE = "../../Assets/Images/BronzeAchievement.png";
-  const FRAME_SILVER = "../../Assets/Images/SilverAchievement.png";
-  const FRAME_GOLD = "../../Assets/Images/GoldAchievement.png";
+  const FRAME_BLOCKED = "../../Assets/Achievements/BlockedAchievement.png";
+  const FRAME_BRONZE = "../../Assets/Achievements/BronzeAchievement.png";
+  const FRAME_SILVER = "../../Assets/Achievements/SilverAchievement.png";
+  const FRAME_GOLD = "../../Assets/Achievements/GoldAchievement.png";
 
   const ICON_SCORE = ""; 
   const ICON_MATCH = ""; 
   const ICON_ENEMIES = "";
   const ICON_ELITE = ""; 
   const ICON_BOSS = ""; 
-  const ICON_BLOCKED = "../../Assets/Icons/blocked.png";
+  const ICON_BLOCKED = "../../Assets/Icons/Blocked.png";
 
   const user = JSON.parse(localStorage.getItem("user"));
   
@@ -87,7 +87,7 @@ const translations = {
 
     for (let i = 0; i < starsCount; i++) {
       const star = document.createElement("img");
-      star.src = "../../Assets/Images/Star.png"; 
+      star.src = "../../Assets/Icons/Star.png"; 
       star.alt = "star";
       starsContainer.appendChild(star);
     }

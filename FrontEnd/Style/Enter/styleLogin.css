@@ -57,7 +57,7 @@ body {
 #loginText {
 
     /* Defining the Color */
-    color: var(--button-color);
+    color: var(--title-text-color);
 
     /* The size and family of the Font */ 
     font-size: 250px;
@@ -73,10 +73,9 @@ body {
 #forms {
 
     /* Defining the Color */
-    background-image: url("../../Assets/Images/BlueContainer.png");
+    background-image: var(--blue-container-image);
     background-repeat: repeat;
     background-size: contain;
-    image-rendering: pixelated;
 
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
@@ -108,8 +107,7 @@ body {
 /* The Input value appearence */
 .inputContainer .input {
 
-    image-rendering: pixelated;
-    background-image: url("../../Assets/Images/WhiteContainer.png");
+    background-image: var(--white-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
@@ -173,16 +171,15 @@ body {
 
     /* Defining the Color */
     background-color: transparent;
-    background-image: url('../../Assets/Images/Button.png');
+    background-image: var(--pink-button-image);
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
-    image-rendering: pixelated;
     
     color: var(--text-color);
 
     /* The size and family of the Font */ 
-    font-size: var(--button-font-size);
+    font-size: 30px;
     font-family: var(--pixel-font);
 
     border: none;
@@ -207,7 +204,7 @@ body {
 /* Configuration of the button in case of Hover */
 #button:hover {
 
-    background-image: url('../../Assets/Images/ButtonHover.png');
+    background-image: var(--pink-button-hover-image);
     transform: scale(1.05);
 }
 
@@ -229,13 +226,13 @@ body {
 #button:disabled {
   cursor: not-allowed;
   filter: grayscale(100%);
-  background-image: url('../../Assets/Images/ButtonClicked.png');
+  background-image: var(--pink-button-clicked-image);
   transform: scale(0.95);
   transform: none !important;
 }
 
 #button.loading {
-  background-image: url('../../Assets/Images/ButtonClicked.png');
+  background-image: var(--pink-button-clicked-image);
   position: relative;
   cursor: not-allowed;
   opacity: 0.7;
@@ -262,49 +259,6 @@ body {
 
 /* Desativa hover quando botão desativado */
 #button:disabled:hover {
-  background-image: url('../../Assets/Images/ButtonClicked.png');
+  background-image: var(--pink-button-clicked-image);
   transform: none;
-}
-
-.turnBack {
-
-    /* Defining the Color */
-    background-image: url("../../Assets/Images/TurnBackButton.png");
-    image-rendering: pixelated;
-    background-size: contain;
-    background-color: transparent;
-    background-repeat: no-repeat;
-
-    border: none;
-
-    /* Defining the Position */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    margin-top: 15px;
-    margin-left: 15px;
-    z-index: 1000;
-        
-    /* Defining the Width and Height */
-    width: 120px;
-    height: 120px;
-
-    /* Using FlexBox to configure the position */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Transition in case of Hover */
-    cursor: pointer;
-    transition: transform 120ms ease;
-}
-
-/* Configuration of the button in case of Hover */
-.turnBack:hover {
-
-    /* Altering the Background Color */
-    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
-
-    /* Scaling the button it's value times 1.2 */
-    transform: scale(1.2);
 }
