@@ -10,12 +10,6 @@
     --achievement-size: 400px;           
     --achievement-size-active: 500px;    
     --achievement-gap: 140px; 
-
-    /* Size of the buttons */
-    --button-size: 80px;           
-        
-    /* Color when Achievement is blocked */
-    --blocked-color: #274360;
 }
 
 /* Configuring to all HTML Tags */
@@ -224,7 +218,7 @@ body::before {
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
 }
 
-.achievement-frame {
+.achievementFrame {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -234,7 +228,7 @@ body::before {
   pointer-events: none;
 }
 
-.achievement-text,
+.achievementText,
 .stars {
   position: absolute;
   z-index: 3; /* sempre acima da moldura */
@@ -261,7 +255,7 @@ body::before {
   object-fit: contain;
 }
 
-.achievement-text {
+.achievementText {
     font-size: 3rem;
     padding: 0 10px;
     color: #f8fafc;
@@ -275,7 +269,7 @@ body::before {
     width: 100%;
 }
 
-.achievement img:not(.achievement-frame) {
+.achievement img:not(.achievementFrame) {
     
     position: relative; 
     z-index: 3; 
@@ -283,12 +277,12 @@ body::before {
     transition: opacity 300ms ease;
 }
 
-.achievement.unlocked .achievement-text {
+.achievement.unlocked .achievementText {
     display: block; /* O texto aparece */
 }
 
-.achievement.active .achievement-text,
-.achievement.unlocked .achievement-text {
+.achievement.active .achievementText,
+.achievement.unlocked .achievementText {
     display: block; /* O texto aparece */
 }
 
@@ -340,9 +334,6 @@ body::before {
         --achievement-size:140px;
         --achievement-size-active:200px;
         --achievement-gap:40px;
-
-        /* Size of the button */
-        --button-size:60px;
     }
 
     /* The Div to all achievements */

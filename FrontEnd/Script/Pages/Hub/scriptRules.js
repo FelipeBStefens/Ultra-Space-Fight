@@ -1,26 +1,17 @@
-const translations = {
-    English: {
-        titleText: "Game Rules",
-        controls: "Controls"
-    },
-    Portuguese: {
-        titleText: "Regras do Jogo",
-        controls: "Controles"
-    }
-}
+import getTranslation from "../../Utils/scriptTranslation.js";
 
 const user = JSON.parse(localStorage.getItem("user"));
 if (!user) {
     window.location.href = "../../enter.html";
 }
 
-const lang = user.language in translations ? user.language : "English";
-const t = translations[lang];
+const language = user.language;
+const translation = getTranslation(user?.language);
 
-document.getElementById("titleText").textContent = t.titleText;
-document.getElementById("controls").textContent = t.controls;
+document.getElementById("titleText").textContent = translation.titleText;
+document.getElementById("controls").textContent = translation.controls;
 
-if (lang === "English") {
+if (language === "English") {
 
     document.getElementById("rulesText").textContent = `
         In Ultra Space Fight, you take control of a powerful spaceship and engage in intense battles against enemies coming from every direction of the galaxy.
@@ -41,7 +32,7 @@ Spacebar — Shoot
 Console Controller is also supported
     `;
 }
-else if (lang === "Portuguese") {
+else if (language === "Portuguese") {
 
     document.getElementById("rulesText").textContent = `
         Em Ultra Space Fight, você assume o controle de uma poderosa nave espacial em batalhas intensas contra inimigos que surgem de todos os lados do espaço.

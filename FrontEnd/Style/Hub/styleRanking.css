@@ -104,7 +104,7 @@ button:hover {
 }
 
 /* Ranking Container */
-.ranking-list {
+.rankingList {
 
     /* Defining the Gap */
     gap: 15px;
@@ -115,7 +115,7 @@ button:hover {
 }
 
 /* Ranking Item of the List */
-.ranking-item {
+.rankingItem {
     
     /* Defining the Color */
     background-image: var(--red-container-image);
@@ -133,7 +133,7 @@ button:hover {
 }
 
 /* The position of the Item */
-.ranking-position {
+.rankingPosition {
 
     /* Defining the Color */
     color: var(--text-color);
@@ -143,7 +143,7 @@ button:hover {
 }
 
 /* The User of the Item */
-.ranking-user {
+.rankingUser {
 
     /* Defining the Margin */
     margin-left: 20px;
@@ -154,7 +154,7 @@ button:hover {
 }
 
 /* The Score of the Item */
-.ranking-score {
+.rankingScore {
 
     /* Defining the Color */
     color: var(--text-color);
@@ -164,7 +164,7 @@ button:hover {
 }
 
 /* The Item when it's the first */
-.ranking-item.gold {
+.rankingItem.gold {
 
     /* Defining the Color */
     background-image: var(--gold-container-image);
@@ -176,7 +176,7 @@ button:hover {
 }
 
 /* The Item when it's the second */
-.ranking-item.silver {
+.rankingItem.silver {
 
     /* Defining the Color */
     background-image: var(--white-container-image);
@@ -188,7 +188,7 @@ button:hover {
 }
 
 /* The Item when it's the third */
-.ranking-item.bronze {
+.rankingItem.bronze {
 
     /* Defining the Color */
     background-image: var(--bronze-container-image);
