@@ -14,7 +14,8 @@
         <!-- Link to CSS file -->
         <link rel="stylesheet" href="../../Style/Hub/styleConfiguration.css">
         <link rel="stylesheet" href="../../Style/styleTurnBack.css">
-        <script src="../../Script/Pages/scriptConfiguration.js" defer></script>
+        <link rel="stylesheet" href="../../Style/styleInputError.css">
+        <script type="module" src="../../Script/Pages/Hub/scriptConfiguration.js" defer></script>
         
         <!-- Title of the HTML file -->
         <title>Configurations</title>
@@ -33,15 +34,21 @@
 
             <!-- Text Username to identify the input -->
             <div class="inputContainer">
+                
                 <label for="username" class="textInput" id="usernameText"></label>
+                
                 <input type="text" id="username" class="input" placeholder=" " />
-                <span class="error-message"></span>
+                
+                <span class="errorMessage"></span>
             </div>
 
             <div class="inputContainer">
+                
                 <label for="password" class="textInput" id="passwordText"></label>
+                
                 <input type="password" id="password" class="input" placeholder=" " />
-                <span class="error-message"></span>
+                
+                <span class="errorMessage"></span>
             </div>
         
 

@@ -61,7 +61,7 @@ function update(achievements, active) {
 
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {     
-    window.location.href = "../../enter.html";
+    window.location.href = "../../index.html";
   }
 
   // Selecionando todas as Divs que são Conquistas;
@@ -79,11 +79,11 @@ function update(achievements, active) {
   });
 
   const translation = getTranslation(user?.language);
-  document.getElementById("scoreText").textContent = translation.score;
-  document.getElementById("matchText").textContent = translation.match;
-  document.getElementById("enemiesText").textContent = translation.enemies;
-  document.getElementById("eliteText").textContent = translation.elite;
-  document.getElementById("bossText").textContent = translation.boss;
+  document.getElementById("scoreText").textContent = translation.scoreAchievement;
+  document.getElementById("matchText").textContent = translation.matchAchievement;
+  document.getElementById("enemiesText").textContent = translation.enemiesAchievement;
+  document.getElementById("eliteText").textContent = translation.eliteAchievement;
+  document.getElementById("bossText").textContent = translation.bossAchievement;
   
 
   const achievementValues = JSON.parse(localStorage.getItem("achievements"));

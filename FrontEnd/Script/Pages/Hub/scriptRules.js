@@ -2,7 +2,7 @@ import getTranslation from "../../Utils/scriptTranslation.js";
 
 const user = JSON.parse(localStorage.getItem("user"));
 if (!user) {
-    window.location.href = "../../enter.html";
+    window.location.href = "../../index.html";
 }
 
 const language = user.language;

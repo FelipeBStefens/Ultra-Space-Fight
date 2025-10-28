@@ -316,7 +316,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* Desativa hover durante loading */
 .buttons button.loading,
-.buttons button.disabled-others {
+.buttons button.disabledOthers {
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.6;
@@ -325,7 +325,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* Desativa hover scale */
 .buttons button.loading:hover,
-.buttons button.disabled-others:hover {
+.buttons button.disabledOthers:hover {
     transform: none !important;
 }
 
@@ -335,23 +335,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
     100% { transform: translateY(-50%) rotate(360deg); }
 }
 
-.error-message {
-  color: #ff4d4d;
-  font-family: var(--pixel-font);
-  font-size: 18px;        
-  margin-top: 5px;
-  min-height: 22px;      
-  display: block;
-  visibility: hidden;    
-  line-height: 1.2;
+.errorMessage {
+    font-size: 20px !important;
 }
 
-/* Quando há erro, apenas torna visível */
-.inputContainer.error .error-message {
-  visibility: visible;
-}
-
-/* Estilo visual de erro nos inputs (aplica borda mesmo que inputs tenham border:none) */
 .inputContainer.error input[type="text"],
 .inputContainer.error input[type="password"],
 .inputContainer.error select {

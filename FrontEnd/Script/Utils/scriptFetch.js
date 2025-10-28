@@ -22,6 +22,14 @@ function getConfigurationsURL(id) {
     return `http://localhost:8080/configuration/get/values/${id}`;
 }
 
+function getUpdateConfigurationURL(id) {
+    return `http://localhost:8080/configuration/update/values/${id}`;
+}
+
+function deleteUserURL(id) {
+    return `http://localhost:8080/user/delete/${id}`;
+}
+
 export async function getUserSignin(username, email, password, button, usernameContainer, usernameError, emailContainer, emailError) {
     
     const USER = {
@@ -253,5 +261,108 @@ export async function getConfigurations(id) {
     catch (error) {
         alert("Connection error while fetching configuration.");
         return null;
+    }
+}
+
+export async function updateConfigurations(id, configurations, usernameInput, passwordInput, translation, button, inputs, buttons) {
+    
+    try {
+    
+        const response = await fetch(getUpdateConfigurationURL(id), {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(configurations)
+        });
+    
+        if (!response.ok) {
+
+            switch (response.status) {
+                case 400:
+                    alert("Incorrect values on the Server!");
+                    break;
+                case 401:
+                    alert("Incorrect values on the Server");
+                    break;
+                case 404:
+                    alert("Server not found");
+                    break;
+                case 409:
+
+                    const usernameContainer = usernameInput.closest(".inputContainer");
+                    const usernameError = usernameContainer.querySelector(".errorMessage");
+                    usernameContainer.classList.add("error");
+                    usernameError.textContent = translation.invalidForm;
+
+                    const passwordContainer = passwordInput.closest(".inputContainer");
+                    const passwordError = passwordContainer.querySelector(".errorMessage");
+                    passwordContainer.classList.add("error");
+                    passwordError.textContent = translation.invalidForm; 
+                    break;
+                case 500:
+                    alert("Server error while fetching ranking score.");
+                    break;
+                default:
+                    alert(`Unexpected error: ${response.status}`);
+                    break;
+            }
+
+            return null;
+        }
+
+    
+        const user = await response.json();
+
+        if (window.parent?.setAudioVolume) window.parent.setAudioVolume(user.soundtrack);
+
+        return user;
+    } 
+    catch (error) {
+
+        alert(translation.invalidForm);
+        return null;
+    } 
+}
+
+export async function deleteUser(id) {
+    
+    try {
+
+        const response = await fetch(deleteUserURL(id), { 
+            method: "DELETE" 
+        });
+
+        if (!response.ok) {
+
+            switch (response.status) {
+                case 400:
+                    alert("Incorrect values on the Server!");
+                    break;
+                case 401:
+                    alert("Incorrect values on the Server");
+                    break;
+                case 404:
+                    alert("Server not found");
+                    break;
+                case 500:
+                    alert("Server error while fetching ranking score.");
+                    break;
+                default:
+                    alert(`Unexpected error: ${response.status}`);
+                    break;
+            }
+
+            return;
+        }
+
+        localStorage.clear();
+        if (window.parent?.stopAudio) window.parent.stopAudio();
+        window.location.href = "../../index.html";
+
+        return;
+    }
+    catch (error) {
+
+        alert("Server or Connection Error, try again lately...");
+        return;
     }
 }

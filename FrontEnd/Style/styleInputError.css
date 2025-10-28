@@ -17,6 +17,5 @@
 
 /* Estilo visual de erro nos inputs */
 .inputContainer.error .input {
-  border-color: red !important;
-  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+  border-color: red;
 }
