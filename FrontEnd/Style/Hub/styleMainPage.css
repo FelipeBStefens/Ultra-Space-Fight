@@ -63,15 +63,6 @@ a {
   transition: transform 0.2s, background-image 0.15s linear;
 }
 
-a .btn-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;       
-  transition: transform 0.25s;
-  transform-origin: center center;
-}
-
 /* Ranking */
 #ranking {
   top: 240px;
@@ -135,11 +126,6 @@ a .btn-inner {
   background-image: var(--play-button-hover-image);
 }
 
-/* hover escala apenas o conteúdo */
-a:hover .btn-inner {
-  transform: scale(1.3);
-}
-
 /* Configuration of the Hiperlink in case of Hover */
 a:hover {
 
@@ -147,7 +133,7 @@ a:hover {
     transform: scale(1.5);
 }
 
-a.disabled-others {
+a.disabledOthers {
   filter: grayscale(100%);
   opacity: 0.6;
   cursor: not-allowed;

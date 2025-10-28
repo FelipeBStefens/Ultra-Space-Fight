@@ -1,5 +1,5 @@
-import { getUserLogin } from "../../scriptFetch.js";
-import { validateEmail, validatePassword } from "../../scriptValidation.js";
+import { getUserLogin } from "../../Utils/scriptFetch.js";
+import { validateEmail, validatePassword } from "../../Utils/scriptValidation.js";
 
 function validateInputs(emailInput, passwordInput, button) {
     
