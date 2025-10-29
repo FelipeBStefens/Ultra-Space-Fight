@@ -329,14 +329,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* Loading / Disabled */
 .pauseButton.loading,
-.pauseButton.disabled-others {
+.pauseButton.disabledOthers {
     cursor: not-allowed;
     pointer-events: none;
     transform: none !important;
 }
 
 .pauseButton.loading,
-.pauseButton.disabled-others {
+.pauseButton.disabledOthers {
     cursor: not-allowed;
     pointer-events: none;
     transform: none !important;

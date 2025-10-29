@@ -38,6 +38,14 @@ function updateSelectedSpaceshipURL(id) {
     return `http://localhost:8080/spaceship/update/selected/spaceship/${id}`;
 }
 
+function updateSoundsURL(id) {
+    return `http://localhost:8080/configuration/update/sound/${id}`;
+}
+
+function updateAchievementsCashURL(id) {
+    return `http://localhost:8080/data/achievement/update/achievements/cash/${id}`;
+}
+
 export async function getUserSignin(username, email, password, button, usernameContainer, usernameError, emailContainer, emailError) {
     
     const USER = {
@@ -439,12 +447,100 @@ export async function updateSelectedSpaceship(id, spaceship) {
                     break;
                 default:
                     alert(`Unexpected error: ${response.status}`);
+                    break;
             }
 
             return null;
         }
 
         return await response.text();
+    } 
+    catch (error) {
+
+        alert("Connection error while selecting spaceship");
+        return null;
+    }
+}
+
+export async function updateSound(id, soundtrack, soundEffect) {
+
+    try {
+
+        const sounds = {
+            soundtrack: soundtrack,
+            soundEffects: soundEffect,
+        };
+
+        const response = await fetch(updateSoundsURL(id), {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(sounds),
+        });
+
+        if (!response.ok) {
+            
+            switch (response.status) {
+
+                case 400:
+                    alert("Incorrect values on the Server!");
+                    break;
+                case 401:
+                    alert("Unauthorized values on the Server!");
+                    break;
+                case 404:
+                    alert("Configurations not Found");
+                    break;
+                case 500:
+                    alert("Server error while fetching ranking score.");
+                    break;
+                default:
+                    alert(`Unexpected error: ${response.status}`);
+                    break;
+            }
+
+            return null;
+        }
+
+        const newSounds = await response.json();
+        if (window.parent?.setAudioVolume) window.parent.setAudioVolume(newSounds.soundtrack);
+
+        return newSounds;
+    } 
+    catch (error) {
+        
+        alert("Connection error while selecting spaceship");
+        return null;
+    } 
+}
+
+export async function updateAchievementsCash(id, achievementsCash) {
+    
+    try {
+        const response = await fetch(updateAchievementsCashURL(id), {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(achievementsCash) 
+        });
+
+        if (!response.ok) {
+            switch(response.status) {
+                case 400:
+                    alert("Incorrect values on the Server!");
+                    break;
+                case 404:
+                    alert("Configurations not Found");
+                    break;
+                case 409:
+                    alert("Conflict error on the configuration");
+                    break;
+                default:
+                    alert(`Unexpected error: ${response.status}`);
+                    break;
+            }
+            return null;
+        }
+
+        return await response.json(); 
     } 
     catch (error) {
 

@@ -44,7 +44,14 @@ const translations = {
         upgrade: "Upgrade",
         maxed: "MAXED",
         cost: "Cost",
-        coins: "Coins"
+        coins: "Coins",
+
+        pause: "Pause",
+        resume: "Resume",
+        soundEffectsPause: "Sound Effects",
+        soundtrackPause: "Soundtrack",
+        saveSoundsPause: "Save Sounds",
+        leaveMatch: "Leave Match"
     },
 
     Portuguese: {
@@ -90,7 +97,14 @@ const translations = {
         upgrade: "Melhorar",
         maxed: "MÁXIMO",
         cost: "Custo",
-        coins: "Moedas"
+        coins: "Moedas",
+
+        pause: "Pausa",
+        resume: "Retomar",
+        soundEffectsPause: "Efeitos Sonoros",
+        soundtrackPause: "Trilha Sonora",
+        saveSoundsPause: "Salvar Sons",
+        leaveMatch: "Sair da Partida"
     }
 };
 

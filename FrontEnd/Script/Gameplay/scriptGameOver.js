@@ -1,16 +1,15 @@
 import SoundManager from "../Engine/scriptSoundManager.js";
+import { GAME_OVER_SOUNDTRACK } from "../Utils/scriptConstants.js";
+import { updateAchievementsCash } from "../Utils/scriptFetch.js";
 
-export default function gameOver(user, values) {
+export default function gameOver(values) {
 
-    if (document.getElementById("pauseScreen")) return;
-
-    console.log(values);
-    
+    if (document.getElementById("pauseScreen")) return;    
     SoundManager.stopMusic();
 
     setTimeout(() => {
         SoundManager.playSound("gameOverVoice");
-        SoundManager.playMusic("../../Assets/Audios/Soundtracks/GameOverSoundtrack.mp3");
+        SoundManager.playMusic(GAME_OVER_SOUNDTRACK);
     }, 1500);
 
     const gameOverScreen = document.createElement("div");
@@ -29,75 +28,30 @@ export default function gameOver(user, values) {
     continueButton.textContent = "Continue";
 
     continueButton.addEventListener("click", async () => {
+        
         continueButton.disabled = true;
         continueButton.classList.add("loading");
         continueButton.textContent = "Saving...";
 
         if (window.parent?.pauseAudio) window.parent.pauseAudio();
+        const user = JSON.parse(localStorage.getItem("user"));
 
-        try {
-            if (!user || !user.idUser) {
-                console.warn('No user available to save score, redirecting to menu');
-            } else {
-                await fetchUpdateScoreCash(user.idUser, values, user);
-            }
-            console.log("Pontuação salva, voltando ao menu...");
-            if (window.parent?.playAudio) window.parent.playAudio();
-            window.location.replace("../../Pages/Hub/mainPage.html");
-        } catch (error) {
-            console.error("Erro ao salvar score:", error);
-            alert("Erro ao salvar dados. Tente novamente.");
-        } finally {
+        const achievementsCash = await updateAchievementsCash(user.idUser, values, user);
+    
+        if (achievementsCash != null) {
+            user.score = achievementsCash.score;
+            localStorage.setItem("user", JSON.stringify(user));
+
             continueButton.disabled = false;
             continueButton.classList.remove("loading");
             continueButton.textContent = "Continue";
-        }
+
+            if (window.parent?.playAudio) window.parent.playAudio();
+            window.location.replace("../../Pages/Hub/mainPage.html"); 
+        }       
     });
 
     gameOverContent.append(gameOverTitle, continueButton);
     gameOverScreen.appendChild(gameOverContent);
     document.body.appendChild(gameOverScreen);
-}
-
-async function fetchUpdateScoreCash(id, scoreCash, user) {
-    try {
-        const response = await fetch(`http://localhost:8080/data/achievement/update/achievements/cash/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(scoreCash) // Certifique-se de enviar como JSON
-        });
-
-        if (!response.ok) {
-            switch(response.status) {
-                case 400:
-                    alert("Erro 400: Dados inválidos enviados ao servidor.");
-                    break;
-                case 404:
-                    alert("Erro 404: Usuário ou nave não encontrados.");
-                    break;
-                case 409:
-                    alert("Erro 409: Conflito ao selecionar a nave.");
-                    break;
-                default:
-                    alert(`Erro inesperado: ${response.status}`);
-            }
-            return null;
-        }
-
-    const res = await response.json();
-    // Update the passed-in user object and persist (if provided)
-    if (user) {
-        user.score = res.score;
-        user.scoreMatch = res.scoreMatch;
-        localStorage.setItem("user", JSON.stringify(user));
-    }
-    console.log("Funcionou");
-    return res;
-
-    } 
-    catch (error) {
-        console.error("Falha na conexão com o servidor:", error);
-        alert("Falha na conexão com o servidor.");
-        return null;
-    }
 }

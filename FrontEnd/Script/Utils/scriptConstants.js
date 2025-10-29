@@ -55,7 +55,7 @@ const SCREAM_SOUND_EFFECT = "../../Assets/Audios/SoundEffects/ScreamSoundEffect.
 
 export const GAMEPLAY_SOUNDTRACK = "../../Assets/Audios/Soundtracks/GameplaySoundtrack.mp3";
 export const BOSS_GAMEPLAY_SOUNDTRACK = "../../Assets/Audios/Soundtracks/BossGameplaySoundtrack.mp3";
-
+export const GAME_OVER_SOUNDTRACK = "../../Assets/Audios/Soundtracks/GameOverSoundtrack.mp3";
 
 export const FRAME_ARRAY = {
     FRAME_BLOCKED: FRAME_BLOCKED,

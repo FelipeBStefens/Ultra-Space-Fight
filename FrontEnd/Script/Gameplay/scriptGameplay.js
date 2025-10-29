@@ -12,6 +12,9 @@ import SoundManager from "../Engine/scriptSoundManager.js";
 import Explosion from "../Models/Explosion/scriptExplosion.js";
 import { ASSETS_IMAGES, GAMEPLAY_SOUNDTRACK, BOSS_GAMEPLAY_SOUNDTRACK } from "../Utils/scriptConstants.js";
 
+const user = JSON.parse(localStorage.getItem("user"));
+if (!user) window.location.href = "../../enter.html";
+
 SoundManager.initSoundEffects();
 SoundManager.playMusic(GAMEPLAY_SOUNDTRACK);
 
@@ -299,8 +302,7 @@ AssetLoader.preload(ASSETS_IMAGES)
         
         gameState.isGameOver = true;
         
-        const user = JSON.parse(localStorage.getItem('user'));
-        gameOver(user, values);
+        gameOver(values);
         
     }, { once: true });
 
