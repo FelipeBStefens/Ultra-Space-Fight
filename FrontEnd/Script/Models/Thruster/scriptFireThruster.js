@@ -1,6 +1,6 @@
 import Thruster from "./scriptThruster.js";
 import { FIRE_THRUSTER_IMAGE } from "../../Utils/scriptConstants.js";
-import SoundManager from "../../Gameplay/scriptSoundManager.js";
+import SoundManager from "../../Engine/scriptSoundManager.js";
 
 class FireThruster extends Thruster {
     

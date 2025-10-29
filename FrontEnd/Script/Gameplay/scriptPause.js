@@ -1,5 +1,5 @@
 import { gameState } from "./scriptGameplay.js";
-import SoundManager from "./scriptSoundManager.js";
+import SoundManager from "../Engine/scriptSoundManager.js";
 
 const pauseButton = document.getElementById("pauseButton");
 

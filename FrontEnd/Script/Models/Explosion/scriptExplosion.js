@@ -1,6 +1,6 @@
 import GameObject from "../scriptGameObject.js";
-import AssetLoader from "../../Gameplay/scriptAssetLoader.js";
-import SoundManager from "../../Gameplay/scriptSoundManager.js";
+import AssetLoader from "../../Engine/scriptAssetLoader.js";
+import SoundManager from "../../Engine/scriptSoundManager.js";
 import { EXPLOSION_IMAGE } from "../../Utils/scriptConstants.js";
 
 class Explosion extends GameObject{

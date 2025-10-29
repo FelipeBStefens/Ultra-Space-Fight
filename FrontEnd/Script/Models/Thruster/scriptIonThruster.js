@@ -1,6 +1,6 @@
 import Thruster from "./scriptThruster.js";
 import { ION_THRUSTER_IMAGE } from "../../Utils/scriptConstants.js";
-import SoundManager from "../../Gameplay/scriptSoundManager.js";
+import SoundManager from "../../Engine/scriptSoundManager.js";
 
 class IonThruster extends Thruster {
     

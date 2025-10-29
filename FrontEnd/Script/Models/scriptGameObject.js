@@ -1,5 +1,5 @@
 import { takeLife, getDamage } from "../Gameplay/scriptDOM.js";
-import AssetLoader from "../Gameplay/scriptAssetLoader.js";
+import AssetLoader from "../Engine/scriptAssetLoader.js";
 
 class GameObject {
 

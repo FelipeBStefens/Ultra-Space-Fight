@@ -1,6 +1,6 @@
 import GameObject from "../scriptGameObject.js";
 import Explosion from "../Explosion/scriptExplosion.js";
-import SoundManager from "../../Gameplay/scriptSoundManager.js";
+import SoundManager from "../../Engine/scriptSoundManager.js";
 import { updateDefeatedBoss, updateBossLifeBar, hideBossLifeBar } from "../../Gameplay/scriptDOM.js";
 
 class Boss extends GameObject {

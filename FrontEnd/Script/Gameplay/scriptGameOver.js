@@ -1,4 +1,4 @@
-import SoundManager from "./scriptSoundManager.js";
+import SoundManager from "../Engine/scriptSoundManager.js";
 
 export default function gameOver(user, values) {
 

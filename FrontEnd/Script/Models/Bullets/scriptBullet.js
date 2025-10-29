@@ -1,6 +1,6 @@
 import { BULLET_IMAGE } from "../../Utils/scriptConstants.js";
 import GameObject from "../scriptGameObject.js";
-import SoundManager from "../../Gameplay/scriptSoundManager.js";
+import SoundManager from "../../Engine/scriptSoundManager.js";
 import Explosion from "../Explosion/scriptExplosion.js";
 
 class Bullet extends GameObject {

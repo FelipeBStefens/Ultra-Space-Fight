@@ -1,5 +1,5 @@
 import GameObject from "../scriptGameObject.js";
-import AssetLoader from "../../Gameplay/scriptAssetLoader.js";
+import AssetLoader from "../../Engine/scriptAssetLoader.js";
 
 class Thruster extends GameObject {
     
