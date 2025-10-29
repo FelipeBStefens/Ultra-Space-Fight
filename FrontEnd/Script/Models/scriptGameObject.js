@@ -1,4 +1,3 @@
-import { takeLife, getDamage } from "../Gameplay/scriptDOM.js";
 import AssetLoader from "../Engine/scriptAssetLoader.js";
 
 class GameObject {
@@ -69,7 +68,10 @@ class GameObject {
         context.restore();
     }
 
-    onCollision(gameObject, explosions, startShake) {
+    async onCollision(gameObject, explosions, startShake) {
+        
+        const { getDamage, takeLife } = await import("../Gameplay/scriptHeadsUpDisplay.js");
+        
         switch (this.type) {
             case "spaceship":
                 // Decrement life; takeLife returns true if life reached zero

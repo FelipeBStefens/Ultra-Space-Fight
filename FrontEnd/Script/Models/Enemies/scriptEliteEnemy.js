@@ -1,5 +1,5 @@
 import { ELITE_ENEMY_IMAGE } from "../../Utils/scriptConstants.js";
-import { updateDefeatedElite } from "../../Gameplay/scriptDOM.js";
+import { updateDefeatedElite } from "../../Gameplay/scriptHeadsUpDisplay.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Enemy from "./scriptEnemy.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";

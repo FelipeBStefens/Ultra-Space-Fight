@@ -1,13 +1,11 @@
-import { getSelectedSpaceship } from "./scriptDOM.js";
 import EnemySpawner from "../Engine/scriptSpawner.js";
 import CollisionManager from "../Engine/scriptCollisionManager.js";
 import AssetLoader from "../Engine/scriptAssetLoader.js";
 import InputManager from "../Engine/scriptInputManager.js";
 import gameOver from "./scriptGameOver.js";
-import { values } from "./scriptDOM.js";
+import { values, getSelectedSpaceship, showBossLifeBar, hideBossLifeBar, updateDefeatedEnemies } from "./scriptHeadsUpDisplay.js";
 import BattleCruiser from "../Models/Bosses/scriptBattleCruiser.js"; 
 import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
-import { showBossLifeBar, hideBossLifeBar, updateDefeatedEnemies } from "./scriptDOM.js";
 import SoundManager from "../Engine/scriptSoundManager.js"; 
 import Explosion from "../Models/Explosion/scriptExplosion.js";
 import { ASSETS_IMAGES, GAMEPLAY_SOUNDTRACK, BOSS_GAMEPLAY_SOUNDTRACK } from "../Utils/scriptConstants.js";

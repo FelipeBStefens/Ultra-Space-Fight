@@ -57,6 +57,8 @@ export const GAMEPLAY_SOUNDTRACK = "../../Assets/Audios/Soundtracks/GameplaySoun
 export const BOSS_GAMEPLAY_SOUNDTRACK = "../../Assets/Audios/Soundtracks/BossGameplaySoundtrack.mp3";
 export const GAME_OVER_SOUNDTRACK = "../../Assets/Audios/Soundtracks/GameOverSoundtrack.mp3";
 
+export const HEART_IMAGE = "../../Assets/Icons/Heart.png";
+
 export const FRAME_ARRAY = {
     FRAME_BLOCKED: FRAME_BLOCKED,
     FRAME_BRONZE: FRAME_BRONZE,
