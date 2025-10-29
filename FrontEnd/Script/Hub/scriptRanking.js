@@ -1,4 +1,4 @@
-import getTranslation from "../../Utils/scriptTranslation.js";
+import getTranslation from "../Utils/scriptTranslation.js";
 
 // Function to update the List;
 function updateList(rankingData, scoreField, rankingList) {

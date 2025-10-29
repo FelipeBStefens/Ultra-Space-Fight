@@ -1,5 +1,5 @@
-import { getRankingScore, getRankingScoreMatch, getAchievements, getConfigurations, getSpaceships } from "../../Utils/scriptFetch.js";
-import getTranslation from "../../Utils/scriptTranslation.js";
+import { getRankingScore, getRankingScoreMatch, getAchievements, getConfigurations, getSpaceships } from "../Utils/scriptFetch.js";
+import getTranslation from "../Utils/scriptTranslation.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     

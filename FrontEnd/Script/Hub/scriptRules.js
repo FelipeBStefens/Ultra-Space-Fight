@@ -1,4 +1,4 @@
-import getTranslation from "../../Utils/scriptTranslation.js";
+import getTranslation from "../Utils/scriptTranslation.js";
 
 const user = JSON.parse(localStorage.getItem("user"));
 if (!user) {

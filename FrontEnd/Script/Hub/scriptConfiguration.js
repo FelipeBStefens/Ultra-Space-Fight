@@ -1,6 +1,6 @@
-import { validateUsername, validatePassword } from "../../Utils/scriptValidation.js";
-import getTranslation from "../../Utils/scriptTranslation.js";
-import { updateConfigurations, deleteUser  } from "../../Utils/scriptFetch.js";
+import { validateUsername, validatePassword } from "../Utils/scriptValidation.js";
+import getTranslation from "../Utils/scriptTranslation.js";
+import { updateConfigurations, deleteUser  } from "../Utils/scriptFetch.js";
 
 function applyTranslation(translation) {
 

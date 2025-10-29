@@ -33,7 +33,18 @@ const translations = {
         errors: {
             usernameTooLong: "Username must be less than 15 characters",
             passwordInvalid: "Password must be at least 8 characters and contain uppercase, lowercase, and numbers"
-        }
+        },
+
+        selectSpaceship: "Select Spaceship",
+        selectedSpaceship: "Selected Spaceship",
+        locked: "Locked: Need",
+        life: "Life",
+        speed: "Speed",
+        damage: "Damage",
+        upgrade: "Upgrade",
+        maxed: "MAXED",
+        cost: "Cost",
+        coins: "Coins"
     },
 
     Portuguese: {
@@ -68,7 +79,18 @@ const translations = {
         errors: {
             usernameTooLong: "Usuário deve ter menos de 15 caracteres",
             passwordInvalid: "A senha deve ter pelo menos 8 caracteres e conter maiúsculas, minúsculas e números"
-        }
+        },
+
+        selectSpaceship: "Selecionar Nave",
+        selectedSpaceship: "Nave Selecionada",
+        locked: "Bloqueada: Precisa de",
+        life: "Vida",
+        speed: "Velocidade",
+        damage: "Dano",
+        upgrade: "Melhorar",
+        maxed: "MÁXIMO",
+        cost: "Custo",
+        coins: "Moedas"
     }
 };
 

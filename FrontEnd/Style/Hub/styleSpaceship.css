@@ -8,12 +8,6 @@
     --spaceship-size: 300px;           
     --spaceship-size-active: 360px;  
     --spaceship-gap: 140px;
-    
-    /* Size of the buttons */
-    --button-size: 80px;           
-    
-    /* Color when Spaceship is blocked */
-    --blocked-color: #274360;
 }
 
 /* Global reset */
@@ -38,7 +32,7 @@ body {
     overflow: hidden;
 }
 
-#coin-counter {
+#coinCounter {
 
     position: absolute;
     top: 32px; 
@@ -64,7 +58,7 @@ body {
     gap: 10px;
 }
 
-.coin-icon-img {
+.coinIconImg {
     height: 80px; 
     width: auto;
     
@@ -245,7 +239,7 @@ body {
 }
 
 /* Info box */
-.info-box {
+.infoBox {
     background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain;
@@ -320,7 +314,7 @@ body {
 }
 
 /* Upgrade button */
-.upgrade-button {
+.upgradeButton {
 
     background-color: transparent;
     background-repeat: no-repeat;
@@ -346,20 +340,20 @@ body {
 }
 
 /* Hover do upgrade */
-.upgrade-button:hover {
+.upgradeButton:hover {
     
     background-image: var(--green-button-hover-image);
     transform: scale(1.1);
 }
 
 /* Hover do upgrade */
-.upgrade-button:hover:not([disabled]) {
+.upgradeButton:hover:not([disabled]) {
     
     background-image: var(--green-button-hover-image);
     transform: scale(1.1);
 }
 
-.upgrade-button[disabled] {
+.upgradeButton[disabled] {
     /* Cor cinza escura para indicar bloqueio */
     background-image: var(--green-button-clicked-image);
     cursor: not-allowed !important;
@@ -371,12 +365,12 @@ body {
 }
 
 /* Botão upgrade carregando */
-.upgrade-button.loading .loading-spinner {
+.upgradeButton.loading .loadingSpinner {
     margin-left: 8px;       /* Espaço entre texto e spinner */
 }
 
 /* Spinner padrão rosa/branco */
-.loading-spinner {
+.loadingSpinner {
     border: 3px solid rgba(255, 255, 255, 0.2);
     border-top: 3px solid #fff;
     border-radius: 50%;
@@ -385,35 +379,25 @@ body {
     animation: spin 1s linear infinite;
 }
 
-/* Spinner cinza (Selected Spaceship) */
-.loading-spinner-gray {
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    border-top: 3px solid #ccc;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    animation: spin 1s linear infinite;
-}
-
 /* Estado desabilitado  */
-.button.disabled-others {
+.button.disabledOthers {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
 }
 
-.button.left.disabled-others {
+.button.left.disabledOthers {
     filter: grayscale(100%);
     background-image: var(--left-button-clicked-image);
 }
 
-.button.right.disabled-others {
+.button.right.disabledOthers {
     filter: grayscale(100%);
     background-image: var(--right-button-clicked-image);
 }
 
 /* Estado carregando (com spinner) */
-.upgrade-button.loading {
+.upgradeButton.loading {
     position: relative;
     pointer-events: none;
     opacity: 0.8;
@@ -421,9 +405,20 @@ body {
     background-image: var(--green-button-clicked-image);
 }
 
-.upgrade-button.disabled-others {
+.upgradeButton.disabledOthers {
     filter: grayscale(100%);
     background-image: var(--green-button-clicked-image);
+}
+
+#upgradeCostDisplay {
+    display: flex; 
+    align-items: center; 
+    font-size: 30px; 
+    color: #f8fafc; 
+    gap: 10px; 
+    margin: 10px 0;
+    justify-content: center;
+    text-align: center;
 }
 
 @keyframes spin {
@@ -436,21 +431,20 @@ body {
         --spaceship-size:140px;
         --spaceship-size-active:200px;
         --spaceship-gap:40px;
-        --button-size:60px;
     }
 
-    #coin-counter {
+    #coinCounter {
         top: 10px;
         right: 10px;
         padding: 8px 12px;
         font-size: 20px;
     }
     
-    .coin-icon-img {
+    .coinIconImg {
         height: 20px; 
     }
 
     .spaceships { width:100%; }
     .button { font-size:1.5rem; }
-    .info-box { flex-direction: column; gap: 10px; }
+    .infoBox { flex-direction: column; gap: 10px; }
 }

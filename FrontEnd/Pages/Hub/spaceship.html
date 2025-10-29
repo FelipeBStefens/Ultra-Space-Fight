@@ -14,7 +14,7 @@
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="../../Style/Hub/styleSpaceship.css">
     <link rel="stylesheet" href="../../Style/styleTurnBack.css">
-    <script src="../../Script/Pages/scriptSpaceship.js" defer></script>
+    <script type="module" src="../../Script/Hub/scriptSpaceship.js" defer></script>
 
     <!-- Title of the HTML file -->
     <title>Spaceships</title>
@@ -25,9 +25,9 @@
 
     <div class="turnBack" onclick="history.back()"></div>
     
-    <div id="coin-counter">
-        <img src="../../Assets/Icons/Cash.png" alt="Coin Icon" class="coin-icon-img">
-        <span id="coin-value" class="stat-value"></span>
+    <div id="coinCounter">
+        <img src="../../Assets/Icons/Cash.png" alt="Coin Icon" class="coinIconImg">
+        <span id="coinValue" class="statValue"></span>
     </div>
 
     <!-- A Div with all the Spaceships -->
@@ -56,25 +56,16 @@
     </div>
 
     <!-- A Div with all the Informations -->
-    <div class="info-box">
+    <div class="infoBox">
 
       <!-- A button to Select the Spaceship -->
       <button id="actionButton"></button>
   
-      <div id="upgrade-cost-display" style="
-        display: flex; 
-        align-items: center; 
-        font-size: 30px; 
-        color: #f8fafc; 
-        gap: 10px; 
-        margin: 10px 0;
-        justify-content: center;
-        text-align: center;
-        ">
+      <div id="upgradeCostDisplay">
         
-        <img src="../../Assets/Icons/Cash.png" alt="Cost Icon" style="height: 40px; width: auto; vertical-align: middle;">
+        <img class="coinIconImg" src="../../Assets/Icons/Cash.png" alt="Cost Icon">
         
-        <span id="cost-value"></span>
+        <span id="costValue"></span>
       </div>
 
       <!-- A Div with all the status -->
@@ -84,30 +75,30 @@
         <div class="stat">
 
           <!-- A Span with the life value -->
-          <span id="lifeText"><span class="stat-value" id="lifeValue"></span></span>
+          <span id="lifeText"><span class="statValue" id="lifeValue"></span></span>
           
           <!-- A button to upgrade the life -->
-          <button class="upgrade-button" data-stat="life"></button>
+          <button class="upgradeButton" data-stat="life"></button>
         </div>
 
         <!-- A Div with a specific stat -->
         <div class="stat">
 
           <!-- A Span with the speed value -->
-          <span id="speedText"><span class="stat-value" id="speedValue"></span></span>
+          <span id="speedText"><span class="statValue" id="speedValue"></span></span>
           
           <!-- A button to upgrade the speed -->
-          <button class="upgrade-button" data-stat="speed"></button>
+          <button class="upgradeButton" data-stat="speed"></button>
         </div>
 
         <!-- A Div with a specific stat -->
         <div class="stat">
 
           <!-- A Span with the damage value -->
-          <span id="damageText"><span class="stat-value" id="damageValue"></span></span>
+          <span id="damageText"><span class="statValue" id="damageValue"></span></span>
           
           <!-- A button to upgrade the damage -->
-          <button class="upgrade-button" data-stat="damage"></button>
+          <button class="upgradeButton" data-stat="damage"></button>
         </div>
       </div>
     </div>

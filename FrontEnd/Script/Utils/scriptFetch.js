@@ -30,6 +30,14 @@ function deleteUserURL(id) {
     return `http://localhost:8080/user/delete/${id}`;
 }
 
+function updateSpaceshipURL(id, spaceship) {
+    return `http://localhost:8080/spaceship/update/${spaceship}/${id}`;
+}
+
+function updateSelectedSpaceshipURL(id) {
+    return `http://localhost:8080/spaceship/update/selected/spaceship/${id}`;
+}
+
 export async function getUserSignin(username, email, password, button, usernameContainer, usernameError, emailContainer, emailError) {
     
     const USER = {
@@ -364,5 +372,83 @@ export async function deleteUser(id) {
 
         alert("Server or Connection Error, try again lately...");
         return;
+    }
+}
+
+export async function updateSpaceship(id, spaceship, values) {
+    
+    try {
+        
+        const response = await fetch(updateSpaceshipURL(id, spaceship), {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values)
+        });
+
+        if (!response.ok) {
+            
+            switch(response.status) {
+                
+                case 400:
+                    alert("Incorrect values on the Server!");
+                    break;
+                case 404:
+                    alert("Spaceship not found");
+                    break;
+                case 409:
+                    alert("Conflict updating spaceship values");
+                    break;
+                default:
+                    alert(`Unexpected error: ${response.status}`);
+            }
+
+            return null;
+        }
+
+        return await response.json();
+    } 
+    catch (error) {
+
+        alert("Connection error while updating spaceships");
+        return null;
+    }
+}
+
+export async function updateSelectedSpaceship(id, spaceship) {
+    
+    try {
+        
+        const response = await fetch(updateSelectedSpaceshipURL(id), {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(spaceship) 
+        });
+
+        if (!response.ok) {
+
+            switch(response.status) {
+
+                case 400:
+                    alert("Incorrect values on the Server!");
+                    break;
+                case 404:
+                    alert("Spaceship not found");
+                    break;
+                case 409:
+                    alert("Conflict updating spaceship values");
+                    break;
+                default:
+                    alert(`Unexpected error: ${response.status}`);
+            }
+
+            return null;
+        }
+
+        return await response.text();
+    } 
+    catch (error) {
+
+        alert("Connection error while selecting spaceship");
+        return null;
     }
 }

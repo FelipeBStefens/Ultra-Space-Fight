@@ -1,5 +1,5 @@
-import getTranslation from "../../Utils/scriptTranslation.js";
-import { FRAME_ARRAY, ICON_ARRAY } from "../../Utils/scriptConstants.js";
+import getTranslation from "../Utils/scriptTranslation.js";
+import { FRAME_ARRAY, ICON_ARRAY } from "../Utils/scriptConstants.js";
 
 function setAchievementStyle(achievementElement, framePath, iconPath, starsCount = 0) {
   
