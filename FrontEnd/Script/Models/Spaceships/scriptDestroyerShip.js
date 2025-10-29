@@ -1,4 +1,4 @@
-import { PATH_DESTROYER_SHIP_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { DESTROYER_SHIP_IMAGE } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
 import RightBullet from "../Bullets/scriptRightSideBullet.js";
@@ -13,7 +13,7 @@ class DestroyerShip extends Spaceship {
     constructor(canvas) {
         super(canvas);
         this.speed = 5;
-        this.imagePath = PATH_DESTROYER_SHIP_IMAGE;
+        this.imagePath = DESTROYER_SHIP_IMAGE;
 
         this.leftFireThruster = new FireThruster(-this.width / 4 + 5, this.height / 2 - 15, 0);
         this.rightFireThruster = new FireThruster(this.width / 4 - 5, this.height / 2 - 15, 0);    

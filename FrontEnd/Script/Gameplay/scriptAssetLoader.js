@@ -1,40 +1,35 @@
 class AssetLoader {
     
-  static cache = new Map();
+  static images = new Map();
 
   static loadImage(path) {
-    if (this.cache.has(path)) {
-      return Promise.resolve(this.cache.get(path));
+
+    if (this.images.has(path)) {
+      return Promise.resolve(this.images.get(path));
     }
 
     return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        this.cache.set(path, img);
-        resolve(img);
+      
+      const image = new Image();
+      
+      image.onload = () => {
+        this.images.set(path, image);
+        resolve(image);
       };
-      img.onerror = () => reject(new Error(`Falha ao carregar imagem: ${path}`));
-      img.src = path;
+      
+      image.onerror = () => reject(new Error(`Cannot Load Image Path: ${path}`));
+      image.src = path;
     });
   }
 
-  static preload(paths, onProgress) {
-    let loaded = 0;
-    const total = paths.length;
+  static preload(paths) {
 
-    return Promise.all(
-      paths.map(path =>
-        this.loadImage(path).then(img => {
-          loaded++;
-          if (onProgress) onProgress(loaded / total);
-          return img;
-        })
-      )
-    );
+    return Promise.all(paths.map(path => this.loadImage(path)));
   }
 
   static get(path) {
-    return this.cache.get(path);
+    
+    return this.images.get(path);
   }
 }
 

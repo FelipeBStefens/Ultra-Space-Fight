@@ -1,5 +1,5 @@
 import Boss from "./scriptBoss.js";
-import { PATH_SPACE_DREADNOUGHT_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { SPACE_DREADNOUGHT_IMAGE  } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 
 class SpaceDreadnought extends Boss{
@@ -25,7 +25,7 @@ class SpaceDreadnought extends Boss{
         this.shakeTimer = 0;
 
         this.enemySpawner = enemySpawner;
-        this.imagePath = PATH_SPACE_DREADNOUGHT_IMAGE;
+        this.imagePath = SPACE_DREADNOUGHT_IMAGE;
     }
 
     startIntro(withShake = false, shakeDuration = 0) {

@@ -1,5 +1,5 @@
 import Thruster from "./scriptThruster.js";
-import { PATH_ION_THRUSTER_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { ION_THRUSTER_IMAGE } from "../../Utils/scriptConstants.js";
 import SoundManager from "../../Gameplay/scriptSoundManager.js";
 
 class IonThruster extends Thruster {
@@ -8,7 +8,7 @@ class IonThruster extends Thruster {
 
         super(60, 60, offsetX, offsetY, angleOffset);
 
-        this.imagePath = PATH_ION_THRUSTER_IMAGE;
+        this.imagePath = ION_THRUSTER_IMAGE;
         this.frameSpeed = 3; 
         this.hFrame = 2;
         this.vFrame = 3;

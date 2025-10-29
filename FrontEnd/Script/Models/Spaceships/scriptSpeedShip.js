@@ -1,4 +1,4 @@
-import { PATH_SPEED_SHIP_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { SPEED_SHIP_IMAGE } from "../../Utils/scriptConstants.js";
 import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
 import RightBullet from "../Bullets/scriptRightSideBullet.js";
 import Spaceship from "./scriptSpaceship.js";
@@ -11,7 +11,7 @@ class SpeedShip extends Spaceship {
     constructor(canvas) {
         super(canvas);
         this.speed = 5;
-        this.imagePath = PATH_SPEED_SHIP_IMAGE;
+        this.imagePath = SPEED_SHIP_IMAGE;
 
         this.ionThruster = new IonThruster(0, this.height / 2 - 25, 0);
     }

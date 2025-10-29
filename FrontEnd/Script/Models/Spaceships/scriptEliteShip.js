@@ -1,4 +1,4 @@
-import { PATH_ELITE_SHIP_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { ELITE_SHIP_IMAGE } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
 import RightBullet from "../Bullets/scriptRightSideBullet.js";
@@ -13,7 +13,7 @@ class EliteShip extends Spaceship {
     constructor(canvas) {
         super(canvas);
         this.speed = 5;
-        this.imagePath = PATH_ELITE_SHIP_IMAGE;
+        this.imagePath = ELITE_SHIP_IMAGE;
 
         this.leftIonThruster = new IonThruster(-this.width / 3, this.height / 2 - 9, 0);
         this.rightIonThruster = new IonThruster(this.width / 3, this.height / 2 - 9, 0);

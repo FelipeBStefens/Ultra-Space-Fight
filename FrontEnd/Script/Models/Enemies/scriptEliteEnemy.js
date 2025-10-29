@@ -1,4 +1,4 @@
-import { PATH_ELITE_ENEMY_IMAGE  } from "../../Gameplay/scriptConstants.js";
+import { ELITE_ENEMY_IMAGE } from "../../Utils/scriptConstants.js";
 import { updateDefeatedElite } from "../../Gameplay/scriptDOM.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Enemy from "./scriptEnemy.js";
@@ -18,7 +18,7 @@ class EliteEnemy extends Enemy {
         this.life = 50;
         this.cash = 20;
         this.score = 40;
-        this.imagePath = PATH_ELITE_ENEMY_IMAGE;
+        this.imagePath = ELITE_ENEMY_IMAGE;
     
         this.ionThruster = new IonThruster(0, this.height / 3 + 13, 0);
     }

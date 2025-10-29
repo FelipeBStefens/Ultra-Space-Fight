@@ -1,5 +1,5 @@
 import Thruster from "./scriptThruster.js";
-import { PATH_FIRE_THRUSTER_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { FIRE_THRUSTER_IMAGE } from "../../Utils/scriptConstants.js";
 import SoundManager from "../../Gameplay/scriptSoundManager.js";
 
 class FireThruster extends Thruster {
@@ -8,7 +8,7 @@ class FireThruster extends Thruster {
 
         super(60, 60, offsetX, offsetY, angleOffset); 
 
-        this.imagePath = PATH_FIRE_THRUSTER_IMAGE; 
+        this.imagePath = FIRE_THRUSTER_IMAGE; 
         this.frameSpeed = 5;
         this.hFrame = 3; 
         this.vFrame = 3; 

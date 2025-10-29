@@ -1,4 +1,4 @@
-import { PATH_SCOUT_ENEMY_IMAGE  } from "../../Gameplay/scriptConstants.js";
+import { SCOUT_ENEMY_IMAGE } from "../../Utils/scriptConstants.js";
 import Enemy from "./scriptEnemy.js";
 
 class ScoutEnemy extends Enemy{
@@ -12,7 +12,7 @@ class ScoutEnemy extends Enemy{
         this.life = 20;
         this.cash = 5;
         this.score = 10;
-        this.imagePath = PATH_SCOUT_ENEMY_IMAGE;
+        this.imagePath = SCOUT_ENEMY_IMAGE;
     }
 
     update(player, bulletsArray, canvas) {

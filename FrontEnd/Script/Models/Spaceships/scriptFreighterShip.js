@@ -1,4 +1,4 @@
-import { PATH_FREIGHTER_SHIP_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { FREIGHTER_SHIP_IMAGE } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Spaceship from "./scriptSpaceship.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
@@ -11,7 +11,7 @@ class FreighterShip extends Spaceship {
     constructor(canvas) {
         super(canvas);
         this.speed = 5;
-        this.imagePath = PATH_FREIGHTER_SHIP_IMAGE;
+        this.imagePath = FREIGHTER_SHIP_IMAGE;
 
         this.leftIonThruster = new IonThruster(-this.width / 4, this.height / 2 - 9, 0);
         this.rightIonThruster = new IonThruster(this.width / 4, this.height / 2 - 9, 0);

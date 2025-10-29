@@ -2,7 +2,6 @@ import { getSelectedSpaceship } from "./scriptDOM.js";
 import EnemySpawner from "./scriptSpawner.js";
 import CollisionManager from "./scriptCollisionManager.js";
 import AssetLoader from "./scriptAssetLoader.js";
-import * as PATHS from "./scriptConstants.js";
 import InputManager from "./scriptInputManager.js";
 import gameOver from "./scriptGameOver.js";
 import { values } from "./scriptDOM.js";
@@ -11,17 +10,10 @@ import SpaceDreadnought from "../Models/Bosses/scriptSpaceDreadnought.js";
 import { showBossLifeBar, hideBossLifeBar, updateDefeatedEnemies } from "./scriptDOM.js";
 import SoundManager from "./scriptSoundManager.js"; 
 import Explosion from "../Models/Explosion/scriptExplosion.js";
+import { ASSETS_IMAGES, GAMEPLAY_SOUNDTRACK, BOSS_GAMEPLAY_SOUNDTRACK } from "../Utils/scriptConstants.js";
 
-SoundManager.loadSound("shoot", "../../Assets/Audios/SoundEffects/ShootSoundEffect.mp3");
-SoundManager.loadSound("enemyExplosion", "../../Assets/Audios/Explosions/EnemyExplosion.mp3");
-SoundManager.loadSound("shootExplosion", "../../Assets/Audios/Explosions/ShootExplosion.mp3");
-SoundManager.loadSound("fireThruster", "../../Assets/Audios/Thruster/FireThruster.mp3");
-SoundManager.loadSound("ionThruster", "../../Assets/Audios/Thruster/IonThruster.mp3");
-SoundManager.loadSound("gameOverVoice", "../../Assets/Audios/SoundEffects/GameOverVoiceSoundEffect.mp3");
-SoundManager.loadSound("earthquake", "../../Assets/Audios/SoundEffects/EarthquakeSoundEffect.mp3");
-SoundManager.loadSound("scream", "../../Assets/Audios/SoundEffects/ScreamSoundEffect.mp3");
-
-SoundManager.playMusic("../../Assets/Audios/Soundtracks/GameplaySoundtrack.mp3");
+SoundManager.initSoundEffects();
+SoundManager.playMusic(GAMEPLAY_SOUNDTRACK);
 
 const canvas = document.getElementById("gameCanvas");
 const contex = canvas.getContext("2d");
@@ -37,7 +29,7 @@ let input = new InputManager();
 let enemies = [];
 let bullets = [];
 let explosions = [];
-let isBossFight = false; // false = inimigos normais, true = boss
+let isBossFight = false; 
 let currentBoss = null;
 let bosses = [];
 let bossIndex = 0;
@@ -141,7 +133,7 @@ const gameLoop = () => {
             if (currentBoss) {
 
                 if (!bossMusicStarted && shakeTime <= 0) { 
-                    SoundManager.playMusic("../../Assets/Audios/Soundtracks/BossGameplaySoundtrack.mp3"); 
+                    SoundManager.playMusic(BOSS_GAMEPLAY_SOUNDTRACK); 
                     bossMusicStarted = true;
                 }
 
@@ -158,7 +150,7 @@ const gameLoop = () => {
                     isBossFight = false;
                     bossIndex = (bossIndex + 1) % bosses.length;
 
-                    SoundManager.playMusic("../../Assets/Audios/Soundtracks/GameplaySoundtrack.mp3"); 
+                    SoundManager.playMusic(GAMEPLAY_SOUNDTRACK); 
                     bossMusicStarted = false;
 
                     // hide boss life bar when fight ends
@@ -300,42 +292,21 @@ const gameLoop = () => {
     requestAnimationFrame(gameLoop);
 }
 
-// Build assets list from known constants and start after preload
-const assets = [
-    PATHS.PATH_STANDART_SHIP_IMAGE,
-    PATHS.PATH_SPEED_SHIP_IMAGE,
-    PATHS.PATH_DESTROYER_SHIP_IMAGE,
-    PATHS.PATH_FREIGHTER_SHIP_IMAGE,
-    PATHS.PATH_ELITE_SHIP_IMAGE,
-    PATHS.PATH_SCOUT_ENEMY_IMAGE,
-    PATHS.PATH_SOLDIER_ENEMY_IMAGE,
-    PATHS.PATH_TANK_ENEMY_IMAGE,
-    PATHS.PATH_ELITE_ENEMY_IMAGE,
-    PATHS.PATH_SPACE_DREADNOUGHT_IMAGE,
-    PATHS.PATH_BATTLE_CRUISER_IMAGE,
-    PATHS.PATH_BULLET_IMAGE,
-    PATHS.PATH_FIRE_THRUSTER_IMAGE,
-    PATHS.PATH_ION_THRUSTER_IMAGE,
-    PATHS.PATH_EXPLOSION_IMAGE
-].filter(Boolean);
-
-AssetLoader.preload(Array.from(new Set(assets)), () => {})
+AssetLoader.preload(ASSETS_IMAGES)
 .then(() => {
-    console.log("✅ Todos os assets carregados!");
-    // Listen for player death events dispatched by game objects
+
     window.addEventListener('playerGameOver', () => {
+        
         gameState.isGameOver = true;
-        // read user from localStorage and call gameOver UI
-        try {
-            const user = JSON.parse(localStorage.getItem('user'));
-            gameOver(user, values);
-        } catch (e) {
-            console.error('Failed to open game over UI', e);
-        }
+        
+        const user = JSON.parse(localStorage.getItem('user'));
+        gameOver(user, values);
+        
     }, { once: true });
+
     gameLoop();
-}).catch(err => {
-    console.error("Falha ao pré-carregar assets:", err);
-    // still start the loop to allow fallback visuals
-    gameLoop();
+})
+.catch(error => {
+
+    alert("The Website could not Load the Assets:", error);
 });

@@ -1,4 +1,4 @@
-import { PATH_SOLDIER_ENEMY_IMAGE  } from "../../Gameplay/scriptConstants.js";
+import { SOLDIER_ENEMY_IMAGE } from "../../Utils/scriptConstants.js";
 import Enemy from "./scriptEnemy.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
@@ -17,7 +17,7 @@ class SoldierEnemy extends Enemy{
         this.life = 15;
         this.cash = 10;
         this.score = 20;
-        this.imagePath = PATH_SOLDIER_ENEMY_IMAGE;
+        this.imagePath = SOLDIER_ENEMY_IMAGE;
 
         this.ionThruster = new IonThruster(0, this.height / 6 + 5, 0);
     }

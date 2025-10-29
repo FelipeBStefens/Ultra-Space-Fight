@@ -1,5 +1,5 @@
 import Boss from "./scriptBoss.js";
-import { PATH_BATTLE_CRUISER_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { BATTLE_CRUISER_IMAGE  } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 
 class BattleCruiser extends Boss {
@@ -30,7 +30,7 @@ class BattleCruiser extends Boss {
         this.isShaking = false;
         this.shakeTimer = 0;
 
-        this.imagePath = PATH_BATTLE_CRUISER_IMAGE;
+        this.imagePath = BATTLE_CRUISER_IMAGE;
         this.setMovementPoints(canvas);
 
         const targetMovePoint = this.movePoints[0];

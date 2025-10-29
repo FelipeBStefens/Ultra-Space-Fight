@@ -1,4 +1,4 @@
-import { PATH_STANDART_SHIP_IMAGE } from "../../Gameplay/scriptConstants.js";
+import { STANDART_SHIP_IMAGE } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Spaceship from "./scriptSpaceship.js";
 import FireThruster from "../Thruster/scriptFireThruster.js";
@@ -10,7 +10,7 @@ class StandartShip extends Spaceship {
     constructor(canvas) {
         super(canvas);
         this.speed = 5;
-        this.imagePath = PATH_STANDART_SHIP_IMAGE;
+        this.imagePath = STANDART_SHIP_IMAGE;
 
         this.fireThruster = new FireThruster(0, this.height / 2 - 10, 0);
     }

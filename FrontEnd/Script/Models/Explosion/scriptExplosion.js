@@ -1,7 +1,7 @@
 import GameObject from "../scriptGameObject.js";
 import AssetLoader from "../../Gameplay/scriptAssetLoader.js";
-import { PATH_EXPLOSION_IMAGE } from "../../Gameplay/scriptConstants.js";
 import SoundManager from "../../Gameplay/scriptSoundManager.js";
+import { EXPLOSION_IMAGE } from "../../Utils/scriptConstants.js";
 
 class Explosion extends GameObject{
 
@@ -10,7 +10,7 @@ class Explosion extends GameObject{
         super(width, height, 0, "explosion");
 
         this.position = {x, y};
-        this.imagePath = PATH_EXPLOSION_IMAGE;
+        this.imagePath = EXPLOSION_IMAGE;
 
         this.image = null;
 
