@@ -11,7 +11,9 @@ function setAchievementStyle(achievementElement, framePath, iconPath, starsCount
   if (icon) {
     
     icon.src = iconPath; 
-    icon.style.display = 'none'; 
+    icon.style.display = "block";
+    icon.style.width = "350px";
+    icon.style.height = "auto"; 
   }
 
   const starsContainer = achievementElement.querySelector(".stars");

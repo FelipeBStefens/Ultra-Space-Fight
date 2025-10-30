@@ -1,4 +1,5 @@
 import Bullet from "./scriptBullet.js";
+import { updatePosition } from "../../Utils/scriptMath.js";
 
 class LeftBullet extends Bullet {
 
@@ -7,8 +8,7 @@ class LeftBullet extends Bullet {
     }
     
     update() {
-        this.position.x += this.speed * Math.cos(this.angle - Math.PI / 3);
-        this.position.y += this.speed * Math.sin(this.angle - Math.PI / 3);
+        this.position = updatePosition(this.position, this.speed, this.angle, 2 / 3);
     }
 }
 

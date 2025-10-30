@@ -2,6 +2,7 @@ import { SOLDIER_ENEMY_IMAGE } from "../../Utils/scriptConstants.js";
 import Enemy from "./scriptEnemy.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
+import { getDifferentialVector, getVectorMagnitude, getNormalizedVector, getLateralFactor, maxValuePosition, getCenterVector, getFrontOffsetVector, updateAngle } from "../../Utils/scriptMath.js";
 
 class SoldierEnemy extends Enemy{
     
@@ -26,68 +27,61 @@ class SoldierEnemy extends Enemy{
 
         this.ionThruster.update();
 
-        const dx = player.position.x - this.position.x;
-        const dy = player.position.y - this.position.y;
-        const dist = Math.hypot(dx, dy);
+        const differentialVector = getDifferentialVector(this.position, player);
+        const magnitude = getVectorMagnitude(differentialVector);
 
-        this.angle = Math.atan2(dy, dx) + Math.PI / 2; 
+        this.angle = updateAngle(differentialVector);
 
-        if (dist < this.minDistance) {
+        if (magnitude < this.minDistance) {
             
-            const normalizedDx = dx / dist;
-            const normalizedDy = dy / dist;
-            this.position.x -= normalizedDx * this.speed;
-            this.position.y -= normalizedDy * this.speed;
+            const normalizedVector = getNormalizedVector({x: differentialVector.differentialX, y: differentialVector.differentialY}, magnitude);
 
+            this.position.x -= normalizedVector.normalizedX * this.speed;
+            this.position.y -= normalizedVector.normalizedY * this.speed;
         } 
-        else if (dist > this.maxDistance) {
-            
-            const normalizedDx = dx / dist;
-            const normalizedDy = dy / dist;
-            this.position.x += normalizedDx * this.speed; 
-            this.position.y += normalizedDy * this.speed;
+        else if (magnitude > this.maxDistance) {
+               
+            const normalizedVector = getNormalizedVector({x: differentialVector.differentialX, y: differentialVector.differentialY}, magnitude);
 
+            this.position.x += normalizedVector.normalizedX * this.speed;
+            this.position.y += normalizedVector.normalizedY * this.speed;
         } 
         else {
             
-            const normalizedDx = dx / dist;
-            const normalizedDy = dy / dist;
+            const normalizedVector = getNormalizedVector({x: differentialVector.differentialX, y: differentialVector.differentialY}, magnitude);
 
-            // Perpendicular: (-dy, dx) ou (dy, -dx)
-            const lateralFactor = Math.sin(Date.now() / 500) * this.speed * 0.3;
-            this.position.x += -normalizedDy * lateralFactor;
-            this.position.y += normalizedDx * lateralFactor;
+            const lateralFactor = getLateralFactor(this.speed);
+            this.position.x += -normalizedVector.normalizedX * lateralFactor;
+            this.position.y += normalizedVector.normalizedY * lateralFactor;
         }
 
         const now = Date.now();
-        if (dist <= this.maxDistance && now - this.lastShotTime >= this.shootCooldown) {
+        if (magnitude <= this.maxDistance && now - this.lastShotTime >= this.shootCooldown) {
             this.shoot(bulletsArray);
             this.lastShotTime = now;
         }
 
-        this.position.x = Math.max(0, Math.min(canvas.width - this.width, this.position.x));
-        this.position.y = Math.max(0, Math.min(canvas.height - this.height, this.position.y));
+        this.position = maxValuePosition(canvas, this.width, this.height, this.position);
     }
 
     shoot(bulletsArray) {
-        const cx = this.position.x + this.width / 2;
-        const cy = this.position.y + this.height / 2;
-        const frontOffset = this.height / 2;
-        const bulletX = cx + frontOffset * Math.cos(this.angle - Math.PI / 2);
-        const bulletY = cy + frontOffset * Math.sin(this.angle - Math.PI / 2);
+
+        const centerPosition = getCenterVector(this.position, this.width, this.height);
+        const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle);
+        
         const bulletSpeed = 10;
 
-        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "enemy");
+        const frontBullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "enemy");
+        
         bulletsArray.push(frontBullet);
     }
 
     draw(context) {
         super.draw(context);
 
-        const centerX = this.position.x + this.width / 2; 
-        const centerY = this.position.y + this.height / 2; 
+        const centerPosition = getCenterVector(this.position, this.width, this.height);  
 
-        this.ionThruster.draw(context, centerX, centerY, this.angle);
+        this.ionThruster.draw(context, centerPosition.x, centerPosition.y, this.angle);
     }
 }
 

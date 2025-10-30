@@ -3,6 +3,7 @@ import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
 import RightBullet from "../Bullets/scriptRightSideBullet.js";
 import Spaceship from "./scriptSpaceship.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
+import { getCenterVector, getFrontOffsetVector } from "../../Utils/scriptMath.js";
 
 class SpeedShip extends Spaceship {
 
@@ -17,15 +18,15 @@ class SpeedShip extends Spaceship {
     }
 
     shoot(bulletsArray) {
-        const cx = this.position.x + this.width / 2;
-        const cy = this.position.y + this.height / 2;
-        const frontOffset = this.height / 2; // distância do centro até a ponta
-        const bulletX = cx + frontOffset * Math.cos(this.angle - Math.PI / 2);
-        const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
+
+        const centerPosition = getCenterVector(this.position, this.width, this.height); 
+        
+        const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle);
+        
         const bulletSpeed = 10;
         
-        const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
-        const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const leftBullet = new LeftBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
+        const rightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
 
         bulletsArray.push(leftBullet, rightBullet);
     }
@@ -35,10 +36,9 @@ class SpeedShip extends Spaceship {
         this.ionThruster.update();
         super.draw(context);
 
-        const centerX = this.position.x + this.width / 2; 
-        const centerY = this.position.y + this.height / 2; 
-
-        this.ionThruster.draw(context, centerX, centerY, this.angle);
+        const centerPosition = getCenterVector(this.position, this.width, this.height);
+        
+        this.ionThruster.draw(context, centerPosition.x, centerPosition.y, this.angle);
     }
 }
 

@@ -4,11 +4,11 @@ const FRAME_SILVER = "../../Assets/Achievements/SilverAchievement.png";
 const FRAME_GOLD = "../../Assets/Achievements/GoldAchievement.png";
 
 const ICON_BLOCKED = "../../Assets/Icons/Blocked.png";
-const ICON_SCORE = ""; 
+const ICON_SCORE = "../../Assets/Icons/Score.png"; 
 const ICON_MATCH = ""; 
-const ICON_ENEMIES = "";
-const ICON_ELITE = ""; 
-const ICON_BOSS = ""; 
+const ICON_ENEMIES = "../../Assets/Icons/DefeatedEnemies.png";
+const ICON_ELITE = "../../Assets/Icons/DefeatedElites.png"; 
+const ICON_BOSS = "../../Assets/Icons/DefeatedBoss.png"; 
 
 const STANDART_SHIP_SCORE = 0;
 const SPEED_SHIP_SCORE = 500;

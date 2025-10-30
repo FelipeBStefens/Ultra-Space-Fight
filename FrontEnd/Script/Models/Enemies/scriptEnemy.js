@@ -1,5 +1,6 @@
 import GameObject from "../scriptGameObject.js"; 
 import { updateScore, updateCash } from "../../Gameplay/scriptHeadsUpDisplay.js";
+import { rotation } from "../../Utils/scriptMath.js";
 
 class Enemy extends GameObject { 
 
@@ -30,11 +31,11 @@ class Enemy extends GameObject {
     }
 
     rotateLeft() {
-        this.angle -= Math.PI / 180 * 5; // 5 graus
+        this.angle -= rotation(5);
     }
 
     rotateRight() {
-        this.angle += Math.PI / 180 * 5; // 5 graus
+        this.angle += rotation(5);
     }
 
     updateLife(damage) {

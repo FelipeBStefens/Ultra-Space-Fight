@@ -2,6 +2,7 @@ import { BULLET_IMAGE } from "../../Utils/scriptConstants.js";
 import GameObject from "../scriptGameObject.js";
 import SoundManager from "../../Engine/scriptSoundManager.js";
 import Explosion from "../Explosion/scriptExplosion.js";
+import { updatePosition } from "../../Utils/scriptMath.js";
 
 class Bullet extends GameObject {
     
@@ -24,8 +25,7 @@ class Bullet extends GameObject {
     }
     
     update() {
-        this.position.x += this.speed * Math.cos(this.angle - Math.PI / 2);
-        this.position.y += this.speed * Math.sin(this.angle - Math.PI / 2);
+        this.position = updatePosition(this.position, this.speed, this.angle, 1);
     }
 
     onDestroy(explosions) {

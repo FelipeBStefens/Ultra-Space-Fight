@@ -2,6 +2,7 @@ import { STANDART_SHIP_IMAGE } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Spaceship from "./scriptSpaceship.js";
 import FireThruster from "../Thruster/scriptFireThruster.js";
+import { getCenterVector, getFrontOffsetVector } from "../../Utils/scriptMath.js";
 
 class StandartShip extends Spaceship {
 
@@ -16,14 +17,12 @@ class StandartShip extends Spaceship {
     }
 
     shoot(bulletsArray) {
-        const cx = this.position.x + this.width / 2;
-        const cy = this.position.y + this.height / 2;
-        const frontOffset = this.height / 2; // distância do centro até a ponta
-        const bulletX = cx + frontOffset * Math.cos(this.angle - Math.PI / 2);
-        const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
+
+        const centerPosition = getCenterVector(this.position, this.width, this.height); 
+        const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle);
         const bulletSpeed = 10;
         
-        const bullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const bullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
         bulletsArray.push(bullet);
     }
 
@@ -32,10 +31,9 @@ class StandartShip extends Spaceship {
         this.fireThruster.update();
         super.draw(context);
 
-        const centerX = this.position.x + this.width / 2; 
-        const centerY = this.position.y + this.height / 2; 
+        const centerPosition = getCenterVector(this.position, this.width, this.height);
 
-        this.fireThruster.draw(context, centerX, centerY, this.angle);
+        this.fireThruster.draw(context, centerPosition.x, centerPosition.y, this.angle);
     }
 }
 

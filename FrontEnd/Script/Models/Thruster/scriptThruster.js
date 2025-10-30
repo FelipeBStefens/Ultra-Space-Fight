@@ -1,5 +1,6 @@
 import GameObject from "../scriptGameObject.js";
 import AssetLoader from "../../Engine/scriptAssetLoader.js";
+import { rotateVector } from "../../Utils/scriptMath.js";
 
 class Thruster extends GameObject {
     
@@ -44,30 +45,31 @@ class Thruster extends GameObject {
             if (loaded) this.image = loaded;
         }
 
-        const x = parentX + this.offsetX * Math.cos(parentAngle) - this.offsetY * Math.sin(parentAngle);
-        const y = parentY + this.offsetX * Math.sin(parentAngle) + this.offsetY * Math.cos(parentAngle);
+        const rotatedVector = rotateVector({x: this.offsetX, y: this.offsetY}, parentAngle);
+        rotatedVector.rotatedX += parentX;
+        rotatedVector.rotatedY += parentY
+        
         const angle = parentAngle + this.angleOffset;
 
         context.save();
-        context.translate(x, y);
+        context.translate(rotatedVector.rotatedX, rotatedVector.rotatedY);
         context.rotate(angle);
 
-        const col = this.currentFrame % this.hFrame; // MUDANÇA: Use this.hFrame
-        const row = Math.floor(this.currentFrame / this.hFrame); // MUDANÇA: Use this.hFrame
+        const col = this.currentFrame % this.hFrame; 
+        const row = Math.floor(this.currentFrame / this.hFrame); 
 
-        if (this.image && this.image.complete) { // VERIFICAÇÃO EXTRA: se a imagem realmente carregou
-            context.drawImage(
-                this.image,
-                col * this.frameWidth,   // origem x
-                row * this.frameHeight,  // origem y
-                this.frameWidth,         // largura do frame (source width)
-                this.frameHeight,        // altura do frame (source height)
-                -this.width / 2,         // destino x (usando this.width/height do construtor)
-                -this.height / 2,        // destino y
-                this.width,              // largura do destino
-                this.height              // altura do destino
-            );
-        }
+        context.drawImage(
+            this.image,
+            col * this.frameWidth,   
+            row * this.frameHeight,  
+            this.frameWidth,         
+            this.frameHeight,        
+            -this.width / 2,         
+            -this.height / 2,        
+            this.width,              
+            this.height              
+        );
+
         context.restore();
 
         context.restore();

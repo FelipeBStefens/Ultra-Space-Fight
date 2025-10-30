@@ -1,4 +1,5 @@
 import GameObject from "../scriptGameObject.js";
+import { getMiddlePosition, rotation } from "../../Utils/scriptMath.js";
 
 class Spaceship extends GameObject { 
 
@@ -6,10 +7,7 @@ class Spaceship extends GameObject {
 
         super(140, 140, 0, "spaceship");
 
-        this.position = {
-            x: canvas.width / 2 - this.width / 2, 
-            y: canvas.height / 2 - this.height / 2
-        };
+        this.position = getMiddlePosition(canvas, this.width, this.height);
     }
 
     moveLeft() {
@@ -29,11 +27,11 @@ class Spaceship extends GameObject {
     }
 
     rotateLeft() {
-        this.angle -= Math.PI / 180 * 5; // 5 graus
+        this.angle -= rotation(5) 
     }
 
     rotateRight() {
-        this.angle += Math.PI / 180 * 5; // 5 graus
+        this.angle += rotation(5);
     }
 
     shoot(bulletsArray) {}

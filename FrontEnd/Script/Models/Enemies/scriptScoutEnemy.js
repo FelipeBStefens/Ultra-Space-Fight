@@ -1,5 +1,6 @@
 import { SCOUT_ENEMY_IMAGE } from "../../Utils/scriptConstants.js";
 import Enemy from "./scriptEnemy.js";
+import { getDifferentialVector, getVectorMagnitude, updateAngle, getNormalizedVector } from "../../Utils/scriptMath.js";
 
 class ScoutEnemy extends Enemy{
     
@@ -17,19 +18,17 @@ class ScoutEnemy extends Enemy{
 
     update(player, bulletsArray, canvas) {
 
-        const dx = player.position.x - this.position.x;
-        const dy = player.position.y - this.position.y;
+        const differentialVector = getDifferentialVector(this.position, player);
+        const magnitude = getVectorMagnitude(differentialVector);
         
-        const dir = Math.hypot(dx, dy);
-        
-        this.angle = Math.atan2(dy, dx) - Math.PI / 2;
+        this.angle = updateAngle(differentialVector);
 
-        if (dir > this.minDistance) {
-            const normalizedDx = dx / dir;
-            const normalizedDy = dy / dir;
+        if (magnitude > this.minDistance) {
+            
+            const normalizedVector = getNormalizedVector({x: differentialVector.differentialX, y: differentialVector.differentialY}, magnitude);
 
-            this.position.x += normalizedDx * this.speed;
-            this.position.y += normalizedDy * this.speed;
+            this.position.x += normalizedVector.normalizedX * this.speed;
+            this.position.y += normalizedVector.normalizedY * this.speed;
         }
     }
 }

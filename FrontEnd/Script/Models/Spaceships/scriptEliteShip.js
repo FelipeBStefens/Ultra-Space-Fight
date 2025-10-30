@@ -4,6 +4,7 @@ import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
 import RightBullet from "../Bullets/scriptRightSideBullet.js";
 import Spaceship from "./scriptSpaceship.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
+import { getCenterVector, getFrontOffsetVector } from "../../Utils/scriptMath.js";
 
 class EliteShip extends Spaceship {
 
@@ -20,18 +21,17 @@ class EliteShip extends Spaceship {
     }
     
     shoot(bulletsArray) {
-        const cx = this.position.x + this.width / 2;
-        const cy = this.position.y + this.height / 2;
-        const frontOffset = this.height / 2; // distância do centro até a ponta
-        const bulletX = cx + frontOffset * Math.cos(this.angle - Math.PI / 2);
-        const bulletY = cy + frontOffset * Math.sin(this.angle -  Math.PI / 2);
+
+        const centerPosition = getCenterVector(this.position, this.width, this.height); 
+        const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle); 
+        
         const bulletSpeed = 10;
 
-        const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const frontBullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
         frontBullet.setLength(40, 100);
-        const leftBullet = new LeftBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const leftBullet = new LeftBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
         leftBullet.setLength(40, 100);
-        const rightBullet = new RightBullet(bulletX, bulletY, this.angle, bulletSpeed, "spaceship");
+        const rightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
         rightBullet.setLength(40, 100);
             
         bulletsArray.push(frontBullet, leftBullet, rightBullet);
@@ -43,11 +43,10 @@ class EliteShip extends Spaceship {
         this.rightIonThruster.update();
         super.draw(context);
 
-        const centerX = this.position.x + this.width / 2; 
-        const centerY = this.position.y + this.height / 2; 
+        const centerPosition = getCenterVector(this.position, this.width, this.height); 
 
-        this.leftIonThruster.draw(context, centerX, centerY, this.angle);
-        this.rightIonThruster.draw(context, centerX, centerY, this.angle);
+        this.leftIonThruster.draw(context, centerPosition.x, centerPosition.y, this.angle);
+        this.rightIonThruster.draw(context, centerPosition.x, centerPosition.y, this.angle);
     }
 }
 
