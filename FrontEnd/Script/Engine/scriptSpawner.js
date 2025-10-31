@@ -2,21 +2,18 @@ import ScoutEnemy from "../Models/Enemies/scriptScoutEnemy.js";
 import SoldierEnemy from "../Models/Enemies/scriptSoldierEnemy.js";
 import TankEnemy from "../Models/Enemies/scriptTankEnemy.js";
 import EliteEnemy from "../Models/Enemies/scriptEliteEnemy.js";
+import EntityManager from "./scriptEntityManager.js";
 import { getCenterVector, getDifferentialVectorByObject, getVectorMagnitude, clamp } from "../Utils/scriptMath.js";
 
 class EnemySpawner {
 
     canvas;
-    enemies;
-    player;
     spawnInterval;
     lastSpawnTime;
     limitEnemies;
 
-    constructor(canvas, enemies, player) {
+    constructor(canvas) {
         this.canvas = canvas;
-        this.enemies = enemies;
-        this.player = player;
 
         this.limitEnemies = 10;
         this.spawnInterval = 5000; 
@@ -34,7 +31,7 @@ class EnemySpawner {
 
     spawnEnemy() {
 
-        if (this.enemies.length >= this.limitEnemies) {
+        if (EntityManager.enemies.length >= this.limitEnemies) {
             return;
         }
 
@@ -59,8 +56,7 @@ class EnemySpawner {
             enemy = new EliteEnemy({x, y});
         }
 
-        // Adiciona ao array
-        this.enemies.push(enemy);
+        EntityManager.addEnemy(enemy);
     }
 
     getRandomEnemyType() {
@@ -91,7 +87,7 @@ class EnemySpawner {
     // No EnemySpawner
     spawnEnemyAt(enemyType, boss, xPercent, yPercent) {
 
-        if (this.enemies.length >= this.limitEnemies) {
+        if (EntityManager.enemies.length >= this.limitEnemies) {
             return;
         }
 
@@ -134,7 +130,7 @@ class EnemySpawner {
             enemy.vy += Math.min(12 * 0.6 + 2, 8);
         }
         
-        this.enemies.push(enemy);
+        EntityManager.addEnemy(enemy);
     }
 }
 

@@ -132,3 +132,12 @@ export function clamp(value, minValue, maxValue) {
 
     return Math.max(minValue, Math.min(maxValue, value));
 }
+
+export function isInInterval(value, minValue, maxValue) {
+
+    if (value >= minValue && value <= maxValue) {
+        return true;
+    }
+    
+    return false;
+}

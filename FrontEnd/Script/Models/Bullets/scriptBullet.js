@@ -3,6 +3,7 @@ import GameObject from "../scriptGameObject.js";
 import SoundManager from "../../Engine/scriptSoundManager.js";
 import Explosion from "../Explosion/scriptExplosion.js";
 import { updatePosition } from "../../Utils/scriptMath.js";
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class Bullet extends GameObject {
     
@@ -30,12 +31,12 @@ class Bullet extends GameObject {
         this.position = updatePosition(this.position, this.speed, this.angle, this.ratio);
     }
 
-    onDestroy(explosions) {
+    onDestroy() {
 
         this.active = false;
         let explosion = new Explosion(this.position.x, this.position.y,
             44.4, 51.8, "shootExplosion");
-        explosions.push(explosion);
+        EntityManager.addExplosion(explosion);
     }
 }
 

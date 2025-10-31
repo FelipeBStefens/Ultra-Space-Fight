@@ -4,6 +4,7 @@ import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
 import RightBullet from "../Bullets/scriptRightSideBullet.js";
 import { scalarLerp, vectorLerp, getDifferentialVectorByObject, getCenterVector, updateAngle, getFrontOffsetVector } from "../../Utils/scriptMath.js";
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class BattleCruiser extends Boss {
 
@@ -90,7 +91,9 @@ class BattleCruiser extends Boss {
         }
     }
 
-    update(player, bulletsArray, canvas) {
+    update() {
+
+        const player = EntityManager.player;
 
         if (this.isShaking) {
             this.shakeTimer--;
@@ -122,7 +125,7 @@ class BattleCruiser extends Boss {
 
         if (this.active) {
 
-            this.updateMovement(canvas);
+            this.updateMovement();
 
             let angleTargetX, angleTargetY;
 
@@ -144,13 +147,13 @@ class BattleCruiser extends Boss {
             // Controle de tiros
             const now = Date.now();
             if (now - this.lastShotTime >= this.shootCooldown) {
-                this.shoot(bulletsArray);
+                this.shoot();
                 this.lastShotTime = now;
             }
         }
     }
 
-    shoot(bulletsArray) {
+    shoot() {
 
         const centerPosition = getCenterVector(this.position, this.width, this.height);
         const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle); 
@@ -171,11 +174,15 @@ class BattleCruiser extends Boss {
         
         const rightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
         rightBullet.setLength(40, 100);
-            
-        bulletsArray.push(frontBullet, veryLeftBullet, leftBullet, rightBullet, veryRightBullet);   
+        
+        EntityManager.addBullet(frontBullet);
+        EntityManager.addBullet(veryLeftBullet);
+        EntityManager.addBullet(leftBullet);
+        EntityManager.addBullet(rightBullet);
+        EntityManager.addBullet(veryRightBullet);
     }
 
-    updateMovement(canvas) {
+    updateMovement() {
 
         // If stationary, count frames until we should start moving
         if (!this.isMoving) {

@@ -16,7 +16,7 @@ class ScoutEnemy extends Enemy{
         this.imagePath = SCOUT_ENEMY_IMAGE;
     }
 
-    update(player, bulletsArray, canvas) {
+    update(player, canvas) {
 
         const differentialVector = getDifferentialVector(this.position, player);
         const magnitude = getVectorMagnitude(differentialVector);

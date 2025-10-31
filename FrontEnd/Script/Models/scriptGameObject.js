@@ -68,15 +68,15 @@ class GameObject {
         context.restore();
     }
 
-    async onCollision(gameObject, explosions, startShake) {
+    async onCollision(gameObject, startShake) {
         
         const { getDamage, takeLife } = await import("../Gameplay/scriptHeadsUpDisplay.js");
         
         switch (this.type) {
             case "spaceship":
                 // Decrement life; takeLife returns true if life reached zero
-                const died = takeLife();
-                //const died = false;
+                //const died = takeLife();
+                const died = false;
                 if (died) {
                     // Notify the app that the player died; listener (gameplay) will show game over UI
                     try {
@@ -103,12 +103,12 @@ class GameObject {
 
             case "bullet":
                 
-                this.onDestroy(explosions);
+                this.onDestroy();
                 break;
             case "boss":
 
                 if (gameObject.type === "bullet") {
-                    this.updateLife(getDamage(), explosions, startShake);
+                    this.updateLife(getDamage(), startShake);
                 }
                 break;
         }

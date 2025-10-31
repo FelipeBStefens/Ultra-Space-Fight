@@ -3,6 +3,7 @@ import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Spaceship from "./scriptSpaceship.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
 import { getCenterVector, getFrontOffsetVector } from "../../Utils/scriptMath.js";
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class FreighterShip extends Spaceship {
 
@@ -18,7 +19,7 @@ class FreighterShip extends Spaceship {
         this.rightIonThruster = new IonThruster(this.width / 4, this.height / 2 - 9, 0);
     }
 
-    shoot(bulletsArray) {
+    shoot() {
 
         const centerPosition = getCenterVector(this.position, this.width, this.height); 
         const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle); 
@@ -33,7 +34,7 @@ class FreighterShip extends Spaceship {
 
             const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "spaceship");
             frontBullet.setLength(40, 100);
-            bulletsArray.push(frontBullet);
+            EntityManager.addBullet(frontBullet);
         }        
     }
 

@@ -34,7 +34,7 @@ class Spaceship extends GameObject {
         this.angle += rotation(5);
     }
 
-    shoot(bulletsArray) {}
+    shoot() {}
 }
 
 export default Spaceship;

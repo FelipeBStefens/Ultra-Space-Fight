@@ -6,12 +6,10 @@ const BOSS_ELLIPSE_PADDING_X = 60; // increases 'a' (horizontal semi-axis)
 class CollisionManager {
 
     entities;
-    explosions;
     startShake;
 
-    constructor(entities, explosions, startShake) {
+    constructor(entities, startShake) {
         this.entities = entities;
-        this.explosions = explosions;
         this.startShake = startShake;
     }
 
@@ -37,8 +35,8 @@ class CollisionManager {
               }
 
               if (colliding) {
-                  A.onCollision(B, this.explosions, this.startShake);
-                  B.onCollision(A, this.explosions, this.startShake);
+                  A.onCollision(B, this.startShake);
+                  B.onCollision(A, this.startShake);
 
                   if (A.type === "boss") {
                     this.resolveRepel(A, B, 0, 0.4);  

@@ -2,6 +2,7 @@ import GameObject from "../scriptGameObject.js";
 import Explosion from "../Explosion/scriptExplosion.js";
 import SoundManager from "../../Engine/scriptSoundManager.js";
 import { updateDefeatedBoss, updateBossLifeBar, hideBossLifeBar } from "../../Gameplay/scriptHeadsUpDisplay.js";
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class Boss extends GameObject {
 
@@ -22,7 +23,7 @@ class Boss extends GameObject {
         this.score = score;
     }
 
-    updateLife(damage, explosions, startShake) {
+    updateLife(damage, startShake) {
         this.life -= damage;
         updateBossLifeBar(this.life);
 
@@ -30,7 +31,7 @@ class Boss extends GameObject {
             hideBossLifeBar();
             updateDefeatedBoss();
             
-            this.startDeathAnimation(explosions, startShake);
+            this.startDeathAnimation(startShake);
         }
     }
 
@@ -45,7 +46,7 @@ class Boss extends GameObject {
         this.shakeTimer = 0;
     }
 
-    startDeathAnimation(explosions, startShake) {
+    startDeathAnimation(startShake) {
 
         SoundManager.stopMusic();
         SoundManager.playSound("scream");
@@ -65,7 +66,7 @@ class Boss extends GameObject {
                     129 + Math.random() * 100,
                     "shootExplosion"
                 );
-                explosions.push(explosion);
+                EntityManager.addExplosion(explosion);
             }, i * explosionDelay);
         }
 
@@ -76,7 +77,7 @@ class Boss extends GameObject {
                 666, 777,
                 "enemyExplosion"
             );
-            explosions.push(finalExplosion);
+            EntityManager.addExplosion(finalExplosion);
 
             if (startShake) startShake(90, 25);
 

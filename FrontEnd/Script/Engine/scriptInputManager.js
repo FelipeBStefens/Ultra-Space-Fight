@@ -1,7 +1,16 @@
+import EntityManager from "./scriptEntityManager.js";
 
 class InputManager {
 
+    keys;
+    gamepadIndex;
+    prevShootPressed;
+    _keyboardSpaceHeld;
+    _keySpacePressed;
+    autoFireState;
+
     constructor() {
+
         this.keys = {
             left: false,
             right: false,
@@ -10,22 +19,24 @@ class InputManager {
             rotateLeft: false,
             rotateRight: false,
             space: false,
-            // spacePressed = true only on the frame the button was initially pressed
             spacePressed: false
         };
 
         this.gamepadIndex = null;
         this.prevShootPressed = false;
-        // track keyboard-held space separately so gamepad doesn't latch the held state
         this._keyboardSpaceHeld = false;
-    // temporary marker set on keydown and consumed on update()
-    this._keySpacePressed = false;
+        this._keySpacePressed = false;
 
-        // Teclado
+        this.autoFireState = {
+            holding: false,
+            holdDelay: 300, 
+            autoFireInterval: 240, 
+            nextAutoShot: 0
+        };
+
         window.addEventListener("keydown", (e) => this._onKeyDown(e));
         window.addEventListener("keyup", (e) => this._onKeyUp(e));
 
-        // Gamepad
         window.addEventListener("gamepadconnected", (e) => this._onGamepadConnected(e));
         window.addEventListener("gamepaddisconnected", (e) => this._onGamepadDisconnected(e));
     }
@@ -138,6 +149,58 @@ class InputManager {
         // Held state: true if keyboard is holding space OR gamepad trigger/button is held
         const keyboardHeld = !!this._keyboardSpaceHeld;
         this.keys.space = keyboardHeld || shootPressed;
+    }
+
+    applyInputs(canvas) {
+       
+        const player = EntityManager.player;
+        const now = Date.now();
+
+        // Movement;
+        if (this.keys.left && player.position.x > 0) {
+            player.moveLeft();
+        }
+        if (this.keys.right && player.position.x < canvas.width - player.width) {
+            player.moveRight();
+        } 
+        if (this.keys.up && player.position.y > 0) {
+            player.moveUp();
+        } 
+        if (this.keys.down && player.position.y < canvas.height - player.height) {
+            player.moveDown();
+        }
+
+        // Rotations;
+        if (this.keys.rotateLeft) {
+            player.rotateLeft();
+        }
+        if (this.keys.rotateRight) {
+            player.rotateRight();
+        }   
+
+
+        if (this.keys.spacePressed) {
+
+            player.shoot();
+
+            this.autoFireState.holding = true;
+            this.autoFireState.nextAutoShot = now + this.autoFireState.holdDelay;
+        }
+
+        if (this.keys.space) {
+
+            if (this.autoFireState.holding && now >= this.autoFireState.nextAutoShot) {
+                
+                player.shoot();
+                
+                this.autoFireState.nextAutoShot = now + this.autoFireState.autoFireInterval;
+            }
+        } 
+        else {
+            
+            this.autoFireState.holding = false;
+            this.autoFireState.nextAutoShot = 0;
+        }
     }
 }
 

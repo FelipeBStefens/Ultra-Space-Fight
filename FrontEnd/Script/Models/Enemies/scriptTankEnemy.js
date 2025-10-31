@@ -3,6 +3,7 @@ import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Enemy from "./scriptEnemy.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
 import { getDifferentialVector, getVectorMagnitude, getNormalizedVector, getLateralFactor, maxValuePosition, getCenterVector, getFrontOffsetVector, updateAngle } from "../../Utils/scriptMath.js";
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class TankEnemy extends Enemy{
     
@@ -23,7 +24,7 @@ class TankEnemy extends Enemy{
         this.ionThruster = new IonThruster(0, this.height / 3 + 5, 0);
     }
 
-    update(player, bulletsArray, canvas) {
+    update(player, canvas) {
 
         this.ionThruster.update();
 
@@ -52,14 +53,14 @@ class TankEnemy extends Enemy{
 
         const now = Date.now();
         if (magnitude <= this.maxDistance && now - this.lastShotTime >= this.shootCooldown) {
-            this.shoot(bulletsArray);
+            this.shoot();
             this.lastShotTime = now;
         }
 
         this.position = maxValuePosition(canvas, this.width, this.height, this.position);
     }
 
-    shoot(bulletsArray) {
+    shoot() {
         
         const centerPosition = getCenterVector(this.position, this.width, this.height);
         const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle);
@@ -67,7 +68,7 @@ class TankEnemy extends Enemy{
         const bulletSpeed = 10;
 
         const frontBullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "enemy");
-        bulletsArray.push(frontBullet);
+        EntityManager.addBullet(frontBullet);
     }
 
     draw(context) {

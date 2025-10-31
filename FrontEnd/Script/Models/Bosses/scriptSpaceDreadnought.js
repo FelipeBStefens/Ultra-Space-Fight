@@ -2,6 +2,7 @@ import Boss from "./scriptBoss.js";
 import { SPACE_DREADNOUGHT_IMAGE  } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import { scalarLerp, getPercentOf, getCenterVector, getDifferentialVectorByObject, updateAngle } from "../../Utils/scriptMath.js";
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class SpaceDreadnought extends Boss{
 
@@ -49,7 +50,9 @@ class SpaceDreadnought extends Boss{
         }
     }
 
-    update(player, bulletsArray, canvas) {
+    update() {
+
+        const player = EntityManager.player;
 
         if (this.isShaking) {
             this.shakeTimer--;
@@ -79,7 +82,7 @@ class SpaceDreadnought extends Boss{
             this.updatePhase(); 
 
             if (this.shootCooldown <= 0) {
-                this.shoot(player, bulletsArray); 
+                this.shoot(player); 
                 this.shootCooldown = this.shootInterval;
             }
             this.shootCooldown--; 
@@ -116,7 +119,7 @@ class SpaceDreadnought extends Boss{
         }
     }
 
-    shoot(player, bulletsArray) {
+    shoot(player) {
 
         const turretPercents = [
             {x: 25.00, y: 70.0}, 
@@ -137,7 +140,8 @@ class SpaceDreadnought extends Boss{
             console.log(angle);
             const bulletSpeed = 10;
             const frontBullet = new FrontBullet(turretX, turretY, angle, bulletSpeed, "boss");
-            bulletsArray.push(frontBullet);
+            
+            EntityManager.addBullet(frontBullet);
         });
     }
 

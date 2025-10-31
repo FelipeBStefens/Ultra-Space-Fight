@@ -3,6 +3,7 @@ import FrontBullet from "../Bullets/scriptFrontBullet.js";
 import Spaceship from "./scriptSpaceship.js";
 import FireThruster from "../Thruster/scriptFireThruster.js";
 import { getCenterVector, getFrontOffsetVector } from "../../Utils/scriptMath.js";
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class StandartShip extends Spaceship {
 
@@ -16,14 +17,15 @@ class StandartShip extends Spaceship {
         this.fireThruster = new FireThruster(0, this.height / 2 - 10, 0);
     }
 
-    shoot(bulletsArray) {
+    shoot() {
 
         const centerPosition = getCenterVector(this.position, this.width, this.height); 
         const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle);
         const bulletSpeed = 10;
         
-        const bullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
-        bulletsArray.push(bullet);
+        const frontBullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "spaceship");
+        
+        EntityManager.addBullet(frontBullet);
     }
 
     draw(context) {
