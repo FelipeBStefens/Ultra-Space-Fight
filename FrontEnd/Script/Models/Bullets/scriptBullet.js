@@ -7,15 +7,17 @@ import { updatePosition } from "../../Utils/scriptMath.js";
 class Bullet extends GameObject {
     
     owner;
+    ratio;
 
-    constructor(x, y, angle, speed, owner) {
+    constructor(x, y, angle, speed, owner, ratio = 1) {
 
         super(40, 40, angle, "bullet");
         this.position = { x, y };
         this.speed = speed;
         this.imagePath = BULLET_IMAGE;
         this.owner = owner;
-
+        this.ratio = ratio;
+        
         SoundManager.playSound("shoot");
     }
 
@@ -25,7 +27,7 @@ class Bullet extends GameObject {
     }
     
     update() {
-        this.position = updatePosition(this.position, this.speed, this.angle, 1);
+        this.position = updatePosition(this.position, this.speed, this.angle, this.ratio);
     }
 
     onDestroy(explosions) {

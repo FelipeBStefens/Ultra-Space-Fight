@@ -1,6 +1,7 @@
 import Boss from "./scriptBoss.js";
 import { SPACE_DREADNOUGHT_IMAGE  } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
+import { scalarLerp, getPercentOf, getCenterVector, getDifferentialVectorByObject, updateAngle } from "../../Utils/scriptMath.js";
 
 class SpaceDreadnought extends Boss{
 
@@ -62,7 +63,7 @@ class SpaceDreadnought extends Boss{
             const introSpeed = 0.005; 
             this.introProgress = Math.min(1, this.introProgress + introSpeed);
 
-            this.position.y = this.startY + (this.endY - this.startY) * this.introProgress;
+            this.position.y = scalarLerp(this.startY, this.endY, this.introProgress);
 
             if (this.introProgress >= 1) {
                 this.introActive = false;
@@ -117,24 +118,23 @@ class SpaceDreadnought extends Boss{
 
     shoot(player, bulletsArray) {
 
-        // Posições das torretas como porcentagem da largura e altura do Boss
         const turretPercents = [
-            {x: 0.25, y: 0.7}, // torreta esquerda
-            {x: 0.75, y: 0.7}  // torreta direita
+            {x: 25.00, y: 70.0}, 
+            {x: 75.00, y: 70.0}  
         ];
 
         turretPercents.forEach(percent => {
-            // Converte para coordenadas absolutas
-            const turretX = this.position.x + this.width * percent.x;
-            const turretY = this.position.y + this.height * percent.y;
 
-            // Calcula diferença de posição entre Player e torreta
-            const dx = (player.position.x + player.width / 2) - turretX;
-            const dy = (player.position.y + player.height / 2) - turretY;
+            const turretX = this.position.x + getPercentOf(this.width, percent.x);
+            const turretY = this.position.y + getPercentOf(this.height, percent.y);
 
-            // Ângulo para mirar no Player
-            const angle = Math.atan2(dy, dx) + Math.PI / 2;
+            const centerPosition = getCenterVector(player.position, player.width, player.height);
+            const differentialVector = getDifferentialVectorByObject({x: centerPosition.x, y: centerPosition.y}, {objectX: turretX, objectY: turretY}); 
 
+            const angle = updateAngle(differentialVector);
+            console.log(turretX);
+            console.log(turretY);
+            console.log(angle);
             const bulletSpeed = 10;
             const frontBullet = new FrontBullet(turretX, turretY, angle, bulletSpeed, "boss");
             bulletsArray.push(frontBullet);

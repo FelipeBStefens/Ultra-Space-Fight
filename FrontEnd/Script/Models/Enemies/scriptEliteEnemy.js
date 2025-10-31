@@ -1,6 +1,8 @@
 import { ELITE_ENEMY_IMAGE } from "../../Utils/scriptConstants.js";
 import { updateDefeatedElite } from "../../Gameplay/scriptHeadsUpDisplay.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
+import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
+import RightBullet from "../Bullets/scriptRightSideBullet.js";
 import Enemy from "./scriptEnemy.js";
 import IonThruster from "../Thruster/scriptIonThruster.js";
 import { getDifferentialVector, getVectorMagnitude, getNormalizedVector, getLateralFactor, maxValuePosition, getCenterVector, getFrontOffsetVector, updateAngle } from "../../Utils/scriptMath.js";
@@ -62,21 +64,21 @@ class EliteEnemy extends Enemy {
 
     shoot(bulletsArray) {
 
-        const centerPosition = getCenterVector(this.position, this.width, this.height); 
+        const centerPosition = getCenterVector(this.position, this.width, this.height);
         const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle); 
+
+        const bulletSpeed = 10;
+
+        const frontBullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        frontBullet.setLength(40, 100);
         
-        const sideOffset = 20;               
-        const offsets =  [1, -1];
+        const leftBullet = new LeftBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        leftBullet.setLength(40, 100);
+        
+        const rightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        rightBullet.setLength(40, 100);
 
-        for (const offset of offsets) {
-            
-            const bulletX = frontOffset.x + offset * sideOffset * Math.cos(this.angle);
-            const bulletY = frontOffset.y + offset * sideOffset * Math.sin(this.angle);
-
-            const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "spaceship");
-            frontBullet.setLength(40, 100);
-            bulletsArray.push(frontBullet);
-        }    
+        bulletsArray.push(frontBullet, leftBullet, rightBullet);
     }
 
     draw(context) {

@@ -1,6 +1,9 @@
 import Boss from "./scriptBoss.js";
 import { BATTLE_CRUISER_IMAGE  } from "../../Utils/scriptConstants.js";
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
+import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
+import RightBullet from "../Bullets/scriptRightSideBullet.js";
+import { scalarLerp, vectorLerp, getDifferentialVectorByObject, getCenterVector, updateAngle, getFrontOffsetVector } from "../../Utils/scriptMath.js";
 
 class BattleCruiser extends Boss {
 
@@ -102,7 +105,7 @@ class BattleCruiser extends Boss {
             this.introProgress = Math.min(1, this.introProgress + introSpeed);
 
             // Interpolação linear
-            this.position.y = this.startY + (this.endY - this.startY) * this.introProgress;
+            this.position.y = scalarLerp(this.startY, this.endY, this.introProgress);
             
             // Verifica se a introdução acabou
             if (this.introProgress >= 1) {
@@ -133,14 +136,10 @@ class BattleCruiser extends Boss {
                 angleTargetY = player.position.y + player.height / 2;
             }
 
-            // Calcular centro da nave
-            const cx_nave = this.position.x + this.width / 2;
-            const cy_nave = this.position.y + this.height / 2;
-
-            // Calcular ângulo até o alvo (jogador ou ponto de destino)
-            const dx = angleTargetX - cx_nave;
-            const dy = angleTargetY - cy_nave;
-            this.angle = Math.atan2(dy, dx) + Math.PI / 2;
+            const centerPosition = getCenterVector(this.position, this.width, this.height);
+            const differentialVector = getDifferentialVectorByObject({x: angleTargetX, y: angleTargetY}, {objectX: centerPosition.x, objectY: centerPosition.y});
+            
+            this.angle = updateAngle(differentialVector);
 
             // Controle de tiros
             const now = Date.now();
@@ -152,26 +151,28 @@ class BattleCruiser extends Boss {
     }
 
     shoot(bulletsArray) {
-        const cx = this.position.x + this.width / 2;
-        const cy = this.position.y + this.height / 2;
 
-        const frontOffset = this.height / 2; // distância à frente da nave
-        const sideOffset = 20;               // distância lateral do canhão
+        const centerPosition = getCenterVector(this.position, this.width, this.height);
+        const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle); 
 
-        const offsets = [+1, -1]; // direita e esquerda
+        const bulletSpeed = 10;
 
-        for (const s of offsets) {
-            const bulletX = cx
-                + frontOffset * Math.cos(this.angle - Math.PI / 2)
-                + s * sideOffset * Math.cos(this.angle);
-            const bulletY = cy
-                + frontOffset * Math.sin(this.angle - Math.PI / 2)
-                + s * sideOffset * Math.sin(this.angle);
-
-                const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "enemy");
-            frontBullet.setLength(40, 100); 
-            bulletsArray.push(frontBullet);
-        }
+        const frontBullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        frontBullet.setLength(40, 100);
+        
+        const veryLeftBullet = new LeftBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss", 1 / 3);
+        veryLeftBullet.setLength(40, 100);
+        
+        const leftBullet = new LeftBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        leftBullet.setLength(40, 100);
+        
+        const veryRightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss", 5 / 3);
+        veryRightBullet.setLength(40, 100);
+        
+        const rightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        rightBullet.setLength(40, 100);
+            
+        bulletsArray.push(frontBullet, veryLeftBullet, leftBullet, rightBullet, veryRightBullet);   
     }
 
     updateMovement(canvas) {
@@ -207,9 +208,8 @@ class BattleCruiser extends Boss {
         // moving: advance frame and interpolate
         this.moveFrame++;
         const t = Math.min(1, this.moveFrame / this.moveDuration);
-        this.position.x = this.startX + (this.endX - this.startX) * t;
-        this.position.y = this.startY + (this.endY - this.startY) * t;
-        // finished movement
+        this.position = vectorLerp({startX: this.startX, endX: this.endX}, {startY: this.startY, endY: this.endY}, t);
+        
         if (this.moveFrame >= this.moveDuration) {
             this.position.x = this.endX;
             this.position.y = this.endY;

@@ -2,6 +2,7 @@ import ScoutEnemy from "../Models/Enemies/scriptScoutEnemy.js";
 import SoldierEnemy from "../Models/Enemies/scriptSoldierEnemy.js";
 import TankEnemy from "../Models/Enemies/scriptTankEnemy.js";
 import EliteEnemy from "../Models/Enemies/scriptEliteEnemy.js";
+import { getCenterVector, getDifferentialVectorByObject, getVectorMagnitude, clamp } from "../Utils/scriptMath.js";
 
 class EnemySpawner {
 
@@ -94,7 +95,6 @@ class EnemySpawner {
             return;
         }
 
-        // Calcula posição absoluta na tela
         const x = boss.position.x + boss.width * xPercent;
         const y = boss.position.y + boss.height * yPercent;
 
@@ -112,39 +112,28 @@ class EnemySpawner {
             enemy = new EliteEnemy({x, y});
         }
 
-        // If the spawn position overlaps the boss, push the enemy outward until it's outside
-        try {
-            const bossCx = (boss.position.x || 0) + (boss.width || 0) / 2;
-            const bossCy = (boss.position.y || 0) + (boss.height || 0) / 2;
-            const enemyCx = (enemy.position.x || 0) + (enemy.width || 0) / 2;
-            const enemyCy = (enemy.position.y || 0) + (enemy.height || 0) / 2;
+        const bossCenterPosition = getCenterVector(boss.position, boss.width, boss.height);
+        const enemyCenterPosition = getCenterVector(enemy.position, enemy.width, enemy.height);
+        
+        const differentialVector = getDifferentialVectorByObject(enemyCenterPosition, {objectX: bossCenterPosition.x, objectY: bossCenterPosition.y});
+        const vectorMagnitude = getVectorMagnitude(differentialVector);
+        
+        const radiusBoss = boss.width / 2;
+        const radiusEnemy = enemy.width / 2;
 
-            let dx = enemyCx - bossCx;
-            let dy = enemyCy - bossCy;
-            let dist = Math.hypot(dx, dy);
+        const overlap = radiusBoss + radiusEnemy - vectorMagnitude;
 
-            const radiusBoss = Math.max(boss.width || 0, boss.height || 0) / 2;
-            const radiusEnemy = Math.max(enemy.width || 0, enemy.height || 0) / 2;
-            const overlap = radiusBoss + radiusEnemy - dist;
+        if (overlap >= 0) {
 
-            if (overlap >= 0) {
-                // Force spawn BELOW the boss: place enemy right under boss bottom with small padding
-                const padding = 12;
-                const targetX = boss.position.x + boss.width * xPercent; // keep horizontal relative position
-                const targetY = boss.position.y + boss.height + padding;
+            const targetX = boss.position.x + boss.width * xPercent; 
+            const targetY = boss.position.y + boss.height + 12;
 
-                enemy.position.x = Math.max(0, Math.min(this.canvas.width - enemy.width, targetX));
-                enemy.position.y = Math.max(0, Math.min(this.canvas.height - enemy.height, targetY));
-
-                // give a small downward velocity so it visibly exits below the boss
-                enemy.vx = (enemy.vx || 0) + 0; // no horizontal impulse
-                enemy.vy = (enemy.vy || 0) + Math.min(padding * 0.6 + 2, 8);
-            }
-        } catch (e) {
-            // if anything goes wrong, at least push the enemy a little to avoid stuck
-            enemy.position.x += 0;
+            enemy.position.x = clamp(targetX, 0, this.canvas.width - enemy.width);
+            enemy.position.y = clamp(targetY, 0, this.canvas.height - enemy.height);
+            
+            enemy.vy += Math.min(12 * 0.6 + 2, 8);
         }
-
+        
         this.enemies.push(enemy);
     }
 }

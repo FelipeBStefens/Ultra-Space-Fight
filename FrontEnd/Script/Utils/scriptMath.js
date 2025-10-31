@@ -18,6 +18,7 @@ export function getCenterVector({x, y}, width, height) {
 }
 
 // Max value position to make the gameobjects on canvas;
+// PRECISA TIRAR ESSE CARA E SUBSTITUI-LO PELO CLAMP;
 export function maxValuePosition(canvas, width, height, {x, y}) {
 
     const minPositionX = Math.min(canvas.width - width, x); 
@@ -61,6 +62,14 @@ export function getDifferentialVector({x, y}, player) {
     return {differentialX: differentialX, differentialY: differentialY};
 }
 
+export function getDifferentialVectorByObject({x, y}, {objectX, objectY}) {
+
+    const differentialX = x - objectX;
+    const differentialY = y - objectY;
+
+    return {differentialX: differentialX, differentialY: differentialY};
+}
+
 // Get magnitude of the vector;
 export function getVectorMagnitude({differentialX, differentialY}) {
 
@@ -98,4 +107,28 @@ export function rotateVector({x, y}, angle) {
     return {rotatedX: rotatedX, rotatedY: rotatedY};
 }
 
-export function lerp() {}
+// Linear Scalar interpolation;
+export function scalarLerp(initialValue, finalValue, lerpFactor) {
+
+    return initialValue + (finalValue - initialValue) * lerpFactor;
+}
+
+export function vectorLerp({startX, endX}, {startY, endY}, lerpFactor) {
+
+    const lerpX = scalarLerp(startX, endX, lerpFactor);
+    const lerpY = scalarLerp(startY, endY, lerpFactor);
+
+    return {x: lerpX, y: lerpY};
+}
+
+// Getting the Percent of;
+export function getPercentOf(value, percent) {
+    
+    return value * (percent / 100);
+}
+
+// Clamp function to make it inside an interval;
+export function clamp(value, minValue, maxValue) {
+
+    return Math.max(minValue, Math.min(maxValue, value));
+}

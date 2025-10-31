@@ -3,12 +3,12 @@ import { updatePosition } from "../../Utils/scriptMath.js";
 
 class RightBullet extends Bullet{
 
-    constructor(x, y, angle, speed, owner) {
-        super(x, y, angle, speed, owner);
+    constructor(x, y, angle, speed, owner, ratio = 4 / 3) {
+        super(x, y, angle, speed, owner, ratio);
     }
     
     update() {
-        this.position = updatePosition(this.position, this.speed, this.angle, 4 / 3);
+        this.position = updatePosition(this.position, this.speed, this.angle, this.ratio);
     }
 }
 
