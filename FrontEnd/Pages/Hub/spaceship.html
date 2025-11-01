@@ -13,7 +13,9 @@
   
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="../../Style/Hub/styleSpaceship.css">
-    <link rel="stylesheet" href="../../Style/styleTurnBack.css">
+    <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+    
+    <!-- Script File -->
     <script type="module" src="../../Script/Hub/scriptSpaceship.js" defer></script>
 
     <!-- Title of the HTML file -->
@@ -23,10 +25,16 @@
   <!-- Body of the HTML file -->
   <body>
 
+    <!-- Button to turn back on history -->
     <div class="turnBack" onclick="history.back()"></div>
     
+    <!-- Div that shows the actual Cash -->
     <div id="coinCounter">
+
+        <!-- Cash image -->
         <img src="../../Assets/Icons/Cash.png" alt="Coin Icon" class="coinIconImg">
+        
+        <!-- Cash value -->
         <span id="coinValue" class="statValue"></span>
     </div>
 
@@ -61,10 +69,13 @@
       <!-- A button to Select the Spaceship -->
       <button id="actionButton"></button>
   
+      <!-- Div to shows the Spaceship Upgrade Cost -->
       <div id="upgradeCostDisplay">
         
+        <!-- Cash Image -->
         <img class="coinIconImg" src="../../Assets/Icons/Cash.png" alt="Cost Icon">
         
+        <!-- Cash value -->
         <span id="costValue"></span>
       </div>
 

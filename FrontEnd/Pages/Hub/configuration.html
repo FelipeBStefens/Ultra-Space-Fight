@@ -13,8 +13,10 @@
         
         <!-- Link to CSS file -->
         <link rel="stylesheet" href="../../Style/Hub/styleConfiguration.css">
-        <link rel="stylesheet" href="../../Style/styleTurnBack.css">
-        <link rel="stylesheet" href="../../Style/styleInputError.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleInputError.css">
+        
+        <!-- Script File -->
         <script type="module" src="../../Script/Hub/scriptConfiguration.js" defer></script>
         
         <!-- Title of the HTML file -->
@@ -24,6 +26,7 @@
     <!-- Body of the HTML file -->
     <body>
         
+        <!-- Button to turn back on history -->
         <div class="turnBack" onclick="history.back()"></div>
 
         <!-- A Div with all the informations on the file -->
@@ -39,15 +42,18 @@
                 
                 <input type="text" id="username" class="input" placeholder=" " />
                 
+                <!-- Error Message -->
                 <span class="errorMessage"></span>
             </div>
 
+            <!-- Text Password to identify the input -->
             <div class="inputContainer">
                 
                 <label for="password" class="textInput" id="passwordText"></label>
                 
                 <input type="password" id="password" class="input" placeholder=" " />
                 
+                <!-- Error Message -->
                 <span class="errorMessage"></span>
             </div>
         

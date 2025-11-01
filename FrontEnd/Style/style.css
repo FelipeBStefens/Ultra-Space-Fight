@@ -65,8 +65,8 @@
   --right-button-hover-image: url('../../Assets/Buttons/RightButton/RightButtonHover.png');
   --right-button-clicked-image: url('../../Assets/Buttons/RightButton/RightButtonClicked.png');
 
-  --turn-back-button-image: url('../Assets/Buttons/TurnBackButton/TurnBackButton.png');
-  --turn-back-button-hover-image: url('../Assets/Buttons/TurnBackButton/TurnBackHoverButton.png');
+  --turn-back-button-image: url('../../Assets/Buttons/TurnBackButton/TurnBackButton.png');
+  --turn-back-button-hover-image: url('../../Assets/Buttons/TurnBackButton/TurnBackHoverButton.png');
 
   --slider-button-image: url('../../Assets/Buttons/SliderButton/ButtonSlider.png');
 

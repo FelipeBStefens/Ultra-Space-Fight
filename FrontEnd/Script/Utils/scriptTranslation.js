@@ -11,11 +11,11 @@ const translations = {
         titleText: "Game Rules",
         controls: "Controls",
         
-        score: "Score Master",
-        match: "Perfect Match",
-        enemies: "Enemies Destroyer",
-        elite: "Elite Person",
-        boss: "A Real Boss",
+        scoreAchievement: "Score Master",
+        matchAchievement: "Perfect Match",
+        enemiesAchievement: "Enemies Destroyer",
+        eliteAchievement: "Elite Person",
+        bossAchievement: "A Real Boss",
 
         title: "Configurations",
         username: "Username",

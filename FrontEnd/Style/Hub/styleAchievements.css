@@ -35,6 +35,8 @@ body{
     /* Defining the Font Family */
     font-family: var(--pixel-font);
     
+    overflow: hidden;
+    
     /* Defining the margin and padding */
     margin:0;
     padding:32px;
