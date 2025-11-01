@@ -14,7 +14,7 @@ class GameManager {
     static currentBoss = null;
     static bossIndex = 0;
     static bosses = [];
-    static enemiesToDefeatBeforeBoss = 1;
+    static enemiesToDefeatBeforeBoss = 5;
     
     static initBosses(bossList) {
 

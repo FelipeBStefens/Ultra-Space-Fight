@@ -48,71 +48,12 @@ class GameObject {
 
         if (this.image && this.image.complete) {
             context.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
-        } else {
-            // Fallback visual if image isn't loaded: simple rectangle (preserves orientation)
-            context.fillStyle = "#fff";
-            context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
         }
-
-        context.beginPath();
-        context.ellipse(0, 0, this.width / 2, this.height / 2, 0, 0, 2 * Math.PI);
-        context.strokeStyle = "rgba(0,255,0,0.3)";
-        context.stroke();
-
-        context.beginPath();
-        context.moveTo(0, 0);
-        context.lineTo(0, -this.height / 2);
-        context.strokeStyle = "red";
-        context.stroke();
 
         context.restore();
     }
 
-    async onCollision(gameObject, startShake) {
-        
-        const { getDamage, takeLife } = await import("../Gameplay/scriptHeadsUpDisplay.js");
-        
-        switch (this.type) {
-            case "spaceship":
-                // Decrement life; takeLife returns true if life reached zero
-                //const died = takeLife();
-                const died = false;
-                if (died) {
-                    // Notify the app that the player died; listener (gameplay) will show game over UI
-                    try {
-                        window.dispatchEvent(new CustomEvent('playerGameOver'));
-                    } catch (e) {
-                        // ignore if dispatch not supported
-                    }
-                }
-                if (gameObject.type === "bullet") {
-                    gameObject.active = false;
-                }
-                break;
-
-            case "enemy":
-
-                if (this.kamikaze && gameObject.type === "spaceship") {
-                    this.updateLife(this.life);
-                }
-
-                if (gameObject.type === "bullet") {
-                    this.updateLife(getDamage());
-                } 
-                break;
-
-            case "bullet":
-                
-                this.onDestroy();
-                break;
-            case "boss":
-
-                if (gameObject.type === "bullet") {
-                    this.updateLife(getDamage(), startShake);
-                }
-                break;
-        }
-    }
+    onCollision(gameObject, startShake) {}
 }
 
 export default GameObject;

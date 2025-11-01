@@ -1,7 +1,7 @@
 import GameObject from "../scriptGameObject.js";
 import Explosion from "../Explosion/scriptExplosion.js";
 import SoundManager from "../../Engine/scriptSoundManager.js";
-import { updateDefeatedBoss, updateBossLifeBar, hideBossLifeBar } from "../../Gameplay/scriptHeadsUpDisplay.js";
+import { updateDefeatedBoss, updateBossLifeBar, hideBossLifeBar, getDamage } from "../../Gameplay/scriptHeadsUpDisplay.js";
 import EntityManager from "../../Engine/scriptEntityManager.js";
 
 class Boss extends GameObject {
@@ -85,6 +85,13 @@ class Boss extends GameObject {
                 this.finished = true;
             }, 1000);
         }, explosionCount * explosionDelay + 500);
+    }
+
+    onCollision(gameObject, startShake) {
+        
+        if (gameObject.type === "bullet") {
+            this.updateLife(getDamage(), startShake);
+        }
     }
 }
 

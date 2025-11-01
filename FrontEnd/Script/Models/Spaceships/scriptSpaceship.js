@@ -1,5 +1,6 @@
 import GameObject from "../scriptGameObject.js";
 import { getMiddlePosition, rotation } from "../../Utils/scriptMath.js";
+import { takeLife } from "../../Gameplay/scriptHeadsUpDisplay.js";
 
 class Spaceship extends GameObject { 
 
@@ -35,6 +36,26 @@ class Spaceship extends GameObject {
     }
 
     shoot() {}
+
+    onCollision(gameObject, startShake) {
+
+        const died = takeLife();
+        //const died = false;
+        
+        if (died) {
+
+            try {
+
+                window.dispatchEvent(new CustomEvent("playerGameOver"));
+            } 
+            catch (e) {}
+        }
+
+        if (gameObject.type === "bullet") {
+            
+            gameObject.active = false;
+        }
+    }
 }
 
 export default Spaceship;

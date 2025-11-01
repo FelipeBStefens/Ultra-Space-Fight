@@ -1,5 +1,5 @@
 import GameObject from "../scriptGameObject.js"; 
-import { updateScore, updateCash } from "../../Gameplay/scriptHeadsUpDisplay.js";
+import { updateScore, updateCash, getDamage } from "../../Gameplay/scriptHeadsUpDisplay.js";
 import { rotation } from "../../Utils/scriptMath.js";
 
 class Enemy extends GameObject { 
@@ -52,6 +52,13 @@ class Enemy extends GameObject {
     }
 
     update(player, bulletsArray, canvas) {}
+
+    onCollision(gameObject, startShake) {
+
+        if (gameObject.type === "bullet") {
+            this.updateLife(getDamage());
+        }
+    }
 }
 
 export default Enemy;

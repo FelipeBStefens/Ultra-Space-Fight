@@ -31,8 +31,8 @@ class Bullet extends GameObject {
         this.position = updatePosition(this.position, this.speed, this.angle, this.ratio);
     }
 
-    onDestroy() {
-
+    onCollision(gameObject, startShake) {
+    
         this.active = false;
         let explosion = new Explosion(this.position.x, this.position.y,
             44.4, 51.8, "shootExplosion");

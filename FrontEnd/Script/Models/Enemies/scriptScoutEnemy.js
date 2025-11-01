@@ -5,7 +5,6 @@ import { getDifferentialVector, getVectorMagnitude, updateAngle, getNormalizedVe
 class ScoutEnemy extends Enemy{
     
     minDistance = 30;
-    kamikaze = true;
 
     constructor(position) {
         super(position);
@@ -29,6 +28,13 @@ class ScoutEnemy extends Enemy{
 
             this.position.x += normalizedVector.normalizedX * this.speed;
             this.position.y += normalizedVector.normalizedY * this.speed;
+        }
+    }
+
+    onCollision(gameObject, startShake) {
+    
+        if (gameObject.type === "spaceship") {
+            this.updateLife(this.life);
         }
     }
 }
