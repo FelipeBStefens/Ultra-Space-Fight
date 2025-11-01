@@ -1,7 +1,7 @@
 import SoundManager from "../Engine/scriptSoundManager.js";
 import getTranslation from "../Utils/scriptTranslation.js";
 import { updateSound } from "../Utils/scriptFetch.js";
-import { gameState } from "./scriptGameplay.js";
+import GameManager from "../Engine/scriptGameManager.js";
 
 const pauseButton = document.getElementById("pauseButton");
 
@@ -45,7 +45,7 @@ function removeLoading(allInputs, allButtons) {
 
 pauseButton.addEventListener("click", () => {
     
-    gameState.isPaused = true;
+    GameManager.isPaused = true;
     
     if (document.getElementById("pauseScreen")) {
         return;
@@ -131,7 +131,7 @@ pauseButton.addEventListener("click", () => {
         setTimeout(() => {
             pauseScreen.remove();
             pauseButton.classList.remove("clicked");
-            gameState.isPaused = false;
+            GameManager.isPaused = false;
         }, 150);
     });
 
