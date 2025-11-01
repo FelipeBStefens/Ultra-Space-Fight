@@ -171,6 +171,7 @@ public class SpaceshipService {
             newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(standartShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
+            // Throw database exception if update fails;
             throw new DatabaseConnectionException(e);
         }
         return newSpaceshipUpdateDTO;
@@ -207,6 +208,7 @@ public class SpaceshipService {
             newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(speedShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
+            // Throw database exception if update fails;
             throw new DatabaseConnectionException(e);
         }
         return newSpaceshipUpdateDTO;
@@ -243,6 +245,7 @@ public class SpaceshipService {
             newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(destroyerShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
+            // Throw database exception if update fails;
             throw new DatabaseConnectionException(e);
         }
         return newSpaceshipUpdateDTO;
@@ -279,6 +282,7 @@ public class SpaceshipService {
             newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(freighterShip.getUser().getCash(), spaceshipValuesDTO);
         }
         catch (SQLException e) {
+            // Throw database exception if update fails;
             throw new DatabaseConnectionException(e);
         }
         return newSpaceshipUpdateDTO;
@@ -315,6 +319,7 @@ public class SpaceshipService {
             newSpaceshipUpdateDTO = new SpaceshipUpdateDTO(eliteShip.getUser().getCash(), spaceshipValuesDTO);
         } 
         catch (SQLException e) {
+            // Throw database exception if update fails;
             throw new DatabaseConnectionException(e);
         }
         return newSpaceshipUpdateDTO;

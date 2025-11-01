@@ -1,7 +1,7 @@
-// Declaring the package of the DataAchievementsDAO class;
+// Package;
 package com.ultra_space_fight.ultra_space_fight.repository.dataAccessObject;
 
-// Imports necessary classes to apply the Data Access Object;
+// Imports;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +18,7 @@ import com.ultra_space_fight.ultra_space_fight.models.userProfile.DataAchievemen
 import com.ultra_space_fight.ultra_space_fight.models.userProfile.User;
 import com.ultra_space_fight.ultra_space_fight.repository.CrudInterface;
 
-// Declaring the DataAchievementsDAO Class implementing the CrudInterface;
-// The generic value is DataAchievements;
+// Declaring the DataAchievementsDAO Class;
 @Repository
 public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
@@ -32,38 +31,44 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     }
 
     // SQL code to insert a value;
-    private final String SQL_CREATE = """
+    private final String SQL_CREATE = 
+        """
         INSERT INTO data_achievements (id_data, id_user, score, score_match, defeated_enemies, defeated_elite, defeated_boss)
         VALUES (NULL, ?, ?, ?, ?, ?, ?);
         """; 
     
     // SQL code to delete a value;
-    private final String SQL_DELETE = """
+    private final String SQL_DELETE = 
+        """
         DELETE FROM data_achievements WHERE id_user = ?;    
         """;
 
     // SQL code to update a value;
-    private final String SQL_UPDATE = """
+    private final String SQL_UPDATE = 
+        """
         UPDATE data_achievements
         SET score = ?, score_match = ?, defeated_enemies = ?, defeated_elite = ?, defeated_boss = ?
         WHERE id_user = ?;    
         """;
 
     // SQL code to read a value by user ID;
-    private final String SQL_READ = """
+    private final String SQL_READ = 
+        """
         SELECT * 
         FROM (users u INNER JOIN data_achievements d USING(id_user)) 
         WHERE id_user = ?;    
         """;
 
     // SQL code to read all values;
-    private final String SQL_READ_ALL = """
+    private final String SQL_READ_ALL = 
+        """
         SELECT * 
         FROM (users u INNER JOIN data_achievements d USING(id_user));    
         """;
 
     // SQL code to select the top 10 users by total score;
-    private final String SELECT_USERS_BY_SCORE = """
+    private final String SELECT_USERS_BY_SCORE = 
+        """
         SELECT *
         FROM users u INNER JOIN data_achievements d USING(id_user)
         ORDER BY d.score DESC
@@ -71,7 +76,8 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
         """;
 
     // SQL code to select the top 10 users by score in a single match;
-    private final String SELECT_USERS_BY_SCORE_MATCH = """
+    private final String SELECT_USERS_BY_SCORE_MATCH =  
+        """
         SELECT *
         FROM users u INNER JOIN data_achievements d USING(id_user)
         ORDER BY d.score_match DESC
@@ -81,9 +87,10 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     // Method that creates a new DataAchievements record in the database;
     @Override
     public void create(DataAchievements dataAchievements) throws SQLException {
+        
         // Try-with-resources ensures the connection and statement will be automatically closed;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
             // Set parameters in the same order as defined in the SQL statement;
             preparedStatement.setLong(1, dataAchievements.getUser().getIdUser());
@@ -96,41 +103,40 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
             // Execute the INSERT command;
             preparedStatement.executeUpdate();
 
-            // Retrieve the generated ID (id_data) and assign it back to the object;
+            // Getting the Results (auto-generated keys);            
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
+                    
+                    // Assign the generated ID back to the configuration object;
                     dataAchievements.setIdDataAchievements(resultSet.getLong(1));
                 }
             }
-        } catch (SQLException e) {
-            // Re-throwing the exception for higher-level handling (e.g., service layer);
-            throw e;
         }
     }
 
     // Method that deletes a DataAchievement record by user ID;
     @Override
     public void delete(long id) throws SQLException {
+        
         // Open a new connection to the database;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
 
             // Set the ID of the user whose data should be deleted;
             preparedStatement.setLong(1, id);
 
             // Execute the DELETE command;
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
     // Method that updates a DataAchievement record in the database;
     @Override
     public void update(DataAchievements dataAchievements) throws SQLException {
+        
         // Create a connection and prepare the SQL statement;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
 
             // Assign each parameter with the updated values from the object;
             preparedStatement.setInt(1, dataAchievements.getScore());
@@ -142,26 +148,29 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
             // Execute the UPDATE command;
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
     // Method that reads a DataAchievement record by user ID;
     @Override
     public DataAchievements read(long id) throws SQLException {
+        
+        
         DataAchievements dataAchievements = null;
 
         // Establish connection and prepare the SQL query;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ)) {
 
             // Set the parameter for the user ID;
             preparedStatement.setLong(1, id);
 
             // Execute the query and read the result;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                
+                
                 if (resultSet.next()) {
+                    
                     // Create a User object from the "users" table data;
                     User user = new User(
                         resultSet.getString("name_user"),
@@ -184,8 +193,6 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
                     dataAchievements.setIdDataAchievements(resultSet.getLong("id_data"));
                 }
             }
-        } catch (SQLException e) {
-            throw e;
         }
 
         // Return the DataAchievements found (or null if not found);
@@ -195,15 +202,18 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
     // Method that reads all DataAchievements from the database;
     @Override
     public List<DataAchievements> readAll() throws SQLException {
+        
+        
         ArrayList<DataAchievements> allDataAchievements = new ArrayList<>();
 
         // Open connection and execute the SQL query to retrieve all records;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery()) {
 
             // Loop through all results returned from the query;
             while (resultSet.next()) {
+
                 // Create a User object for each record;
                 User user = new User(
                     resultSet.getString("name_user"),
@@ -228,8 +238,6 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
                 // Add each object to the list;
                 allDataAchievements.add(dataAchievements);
             }
-        } catch (SQLException e) {
-            throw e;
         }
 
         // Return the complete list;
@@ -238,15 +246,18 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // Method that selects the top 10 users by total score;
     public List<DataAchievements> selectTopUsersByScore() throws SQLException {
+        
+        
         ArrayList<DataAchievements> topUsers = new ArrayList<>();
 
         // Open the connection and execute the query ordering by "score";
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_BY_SCORE);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_BY_SCORE);
+            ResultSet resultSet = preparedStatement.executeQuery()) {
 
             // Iterate through each result returned by the query;
             while (resultSet.next()) {
+                
                 // Build the User object;
                 User user = new User(
                     resultSet.getString("name_user"),
@@ -271,8 +282,6 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
                 // Add to the top users list;
                 topUsers.add(dataAchievements);
             }
-        } catch (SQLException e) {
-            throw e;
         }
 
         // Return the list containing the 10 best users by score;
@@ -281,15 +290,18 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
 
     // Method that selects the top 10 users by score in a single match;
     public List<DataAchievements> selectTopUsersByScoreMatch() throws SQLException {
+        
+        
         ArrayList<DataAchievements> topUsersMatch = new ArrayList<>();
 
         // Open connection and execute the SQL query ordering by "score_match";
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_BY_SCORE_MATCH);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_BY_SCORE_MATCH);
+            ResultSet resultSet = preparedStatement.executeQuery()) {
 
             // Iterate through the query results;
             while (resultSet.next()) {
+
                 // Create a User object for the current record;
                 User user = new User(
                     resultSet.getString("name_user"),
@@ -314,8 +326,6 @@ public class DataAchievementDAO implements CrudInterface<DataAchievements> {
                 // Add the object to the list of top users;
                 topUsersMatch.add(dataAchievements);
             }
-        } catch (SQLException e) {
-            throw e;
         }
 
         // Return the list containing the 10 best users by match score;

@@ -41,24 +41,33 @@ public class DataAchievementsValidation {
         }
     }
 
+    // Method to updated Defeated Enemies;
     public static void updateDefeatedEnemies(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
 
+        // Defining new Defeated Enemies;
         int newDefeatedEnemies = dataAchievements.getDefeatedEnemies() + achievementsCashDTO.getDefeatedEnemies();
 
+        // Setting the new Defeated Enemies;
         dataAchievements.setDefeatedEnemies(newDefeatedEnemies);
     }
 
+    // Method to updated Defeated Elite;
     public static void updateDefeatedElite(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
 
+        // Defining new Defeated Elite;
         int newDefeatedElite = dataAchievements.getDefeatedElite() + achievementsCashDTO.getDefeatedElite();
 
+        // Setting the new Defeated Elite;
         dataAchievements.setDefeatedElite(newDefeatedElite);
     }
 
+    // Method to updated Defeated Boss;
     public static void updateDefeatedBoss(DataAchievements dataAchievements, AchievementsCashDTO achievementsCashDTO) {
 
+        // Defining new Defeated Boss;
         int newDefeatedBoss = dataAchievements.getDefeatedBoss() + achievementsCashDTO.getDefeatedBoss();
 
+        // Setting the new Defeated Boss;
         dataAchievements.setDefeatedBoss(newDefeatedBoss);
     }
 
