@@ -84,9 +84,9 @@ body {
     
     /* The Width, Height and Margins */
     width: 350px;
-    height: calc(100vh - 220px);
+    height: calc(100vh - 150px);
     margin-left: 200px;
-    margin-top: 250px;          
+    margin-top: 150px;          
     
     /* Using FlexBox to configure the position */
     display: flex;
@@ -176,6 +176,7 @@ body {
     background-size: contain; 
     background-position: center;
 
+    margin-top: 100px;
     color: var(--text-color);
 
     /* The size and family of the Font */
