@@ -1,6 +1,8 @@
 
+// Translations of the Web Page/
 const translations = {
     
+    // English Translations;
     English: {
         score: "Score",
         scoreMatch: "Score Match",
@@ -54,6 +56,7 @@ const translations = {
         leaveMatch: "Leave Match"
     },
 
+    // Portuguese Translations
     Portuguese: {
         score: "Pontos",
         scoreMatch: "Pontos Partida",
@@ -108,6 +111,9 @@ const translations = {
     }
 };
 
+// Function to get the translations with the selected language;
 export default function getTranslation(language = "English") {
+
+    // Returning the transaltions of the language or the english translations if the other doesn't exist; 
     return translations[language] || translations["English"];
 }

@@ -1,100 +1,114 @@
+// Imports the function used to fetch translated strings from the scriptTranslation utility file;
 import getTranslation from "../Utils/scriptTranslation.js";
 
-// Function to update the List;
+// Function to dynamically create and update the HTML list of rankings;
 function updateList(rankingData, scoreField, rankingList) {
 
-  // Restart the HTML inside the List;
-  rankingList.innerHTML = "";
+    // Clears all existing content inside the ranking list container;
+    rankingList.innerHTML = "";
 
-  // For loop in each item of the data;
-  rankingData.forEach((item, index) => {
+    // Iterates through each item (user) in the ranking data array;
+    rankingData.forEach((item, index) => {
 
-    // Creating a new Div Element;
-    const div = document.createElement("div");
+        // Creates a new <div> element to hold a single ranking entry;
+        const div = document.createElement("div");
 
-    // Add the class item to the Ranking;
-    div.classList.add("rankingItem");
+        // Adds a base CSS class for styling the ranking item;
+        div.classList.add("rankingItem");
 
-    // Conditional expressions;
-    if (index === 0) {
+        // Conditional checks to assign special classes for the top 3 positions;
+        if (index === 0) {
 
-      // Add a gold class on the first item;
-      div.classList.add("gold");
-    }
-    else if (index === 1) {
+            // Adds a 'gold' class for the 1st place item;
+            div.classList.add("gold");
+        }
+        else if (index === 1) {
 
-      // Add a silver class on the first item;
-      div.classList.add("silver");
-    }
-    else if (index === 2) {
+            // Adds a 'silver' class for the 2nd place item;
+            div.classList.add("silver");
+        }
+        else if (index === 2) {
 
-      // Add a bronze class on the first item;
-      div.classList.add("bronze");
-    }
+            // Adds a 'bronze' class for the 3rd place item;
+            div.classList.add("bronze");
+        }
 
-    // Add HTML Spans on that Div;
-    div.innerHTML = `
-      <span class="rankingPosition">#${index + 1}</span>
-      <span class="rankingUser">${item.username}</span>
-      <span class="rankingScore">${item[scoreField]}</span>
-    `;
+        // Sets the inner HTML of the <div>, including position, username, and score;
+        div.innerHTML = `
+            <span class="rankingPosition">#${index + 1}</span>
+            <span class="rankingUser">${item.username}</span>
+            <span class="rankingScore">${item[scoreField]}</span>
+        `;
 
-    // Append that Div to the List of the Rankings;
-    rankingList.appendChild(div);
-  });
+        // Adds the newly created ranking item (div) to the main ranking list container;
+        rankingList.appendChild(div);
+    });
 }
 
+// Event listener that executes when the entire HTML document is loaded;
 document.addEventListener("DOMContentLoaded", () => {
-  
-  (async () => {
+    
+    // Invoked Async Function Expression to handle async operations at load time;
+    (async () => {
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {     
-      window.location.href = "../../index.html";
-    }
+        // Retrieves and parses the user object from Local Storage;
+        const user = JSON.parse(localStorage.getItem("user"));
+        // Checks if the user object is null;
+        if (!user) {     
+            // Redirects the browser to the application's main index page if no user is found;
+            window.location.href = "../../index.html";
+        }
 
-    const rankings = JSON.parse(localStorage.getItem("rankings"));
-    const totalRanking = rankings.scoreRanking;
-    const matchRanking = rankings.scoreMatchRanking;
+        // Retrieves and parses the rankings data (fetched previously) from Local Storage;
+        const rankings = JSON.parse(localStorage.getItem("rankings"));
+        // Assigns the total score ranking data;
+        const totalRanking = rankings.scoreRanking;
+        // Assigns the match score ranking data;
+        const matchRanking = rankings.scoreMatchRanking;
 
-    const totalButton = document.getElementById("totalButton");
-    const matchButton = document.getElementById("matchButton");
+        // Gets a reference to the button for the total ranking view;
+        const totalButton = document.getElementById("totalButton");
+        // Gets a reference to the button for the match ranking view;
+        const matchButton = document.getElementById("matchButton");
 
-    const translation = getTranslation(user?.language);
+        // Fetches the translated strings based on the user's preferred language;
+        const translation = getTranslation(user?.language);
 
-    totalButton.textContent = translation.totalButton;
-    matchButton.textContent = translation.matchButton;
+        // Updates the button text content using translations;
+        totalButton.textContent = translation.totalButton;
+        // Updates the button text content using translations;
+        matchButton.textContent = translation.matchButton;
 
-    // The Ranking List Div to put the values;
-    const rankingList = document.getElementById("rankingList");
+        // Gets a reference to the main container element where ranking items will be appended;
+        const rankingList = document.getElementById("rankingList");
 
-    // Add an Event Listener on the Total Button; 
-    totalButton.addEventListener("click", () => {
+        // Adds a click event listener to the Total Ranking Button; 
+        totalButton.addEventListener("click", () => {
 
-      // Add a new class on the Total Button;
-      totalButton.classList.add("active");
+            // Sets the total button as active for styling purposes;
+            totalButton.classList.add("active");
 
-      // Remove the class on the Match Button;
-      matchButton.classList.remove("active");
+            // Removes the active class from the match button;
+            matchButton.classList.remove("active");
 
-      // Update the Ranking; 
-      updateList(totalRanking, "score", rankingList);
-    });
+            // Calls the update function to display the total ranking data, using "score" as the field name; 
+            updateList(totalRanking, "score", rankingList);
+        });
 
-    // Add an Event Listener on the Match Button; 
-    matchButton.addEventListener("click", () => {
+        // Adds a click event listener to the Match Ranking Button; 
+        matchButton.addEventListener("click", () => {
 
-      // Add a new class on the Match Button;
-      matchButton.classList.add("active");
+            // Sets the match button as active for styling purposes;
+            matchButton.classList.add("active");
 
-      // Remove the class on the Total Button;
-      totalButton.classList.remove("active");
+            // Removes the active class from the total button;
+            totalButton.classList.remove("active");
 
-      // Update the Ranking;
-      updateList(matchRanking, "scoreMatch", rankingList);
-    });
+            // Calls the update function to display the match ranking data, using "scoreMatch" as the field name;
+            updateList(matchRanking, "scoreMatch", rankingList);
+        });
 
-    // Update the Ranking;
-    updateList(totalRanking, "score", rankingList);
-  })()
+        // Initializes the ranking list by displaying the Total Ranking data by default on page load;
+        updateList(totalRanking, "score", rankingList);
+    })()
 });

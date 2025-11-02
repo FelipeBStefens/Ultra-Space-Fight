@@ -88,6 +88,10 @@ export function getDamage() {
     return user.spaceshipValues.damage;
 }
 
+export function getSpeed() {
+    return user.spaceshipValues.speed;
+}
+
 export function getSelectedSpaceship(canvas) {
 
     if (selectedSpaceship === "standart_ship") {
