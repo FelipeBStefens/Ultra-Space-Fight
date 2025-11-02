@@ -1,9 +1,9 @@
 // Constant defining the API endpoint for creating a new user;
-const CREATE_USER_URL = "http://localhost:8080/user/create";
+const CREATE_USER_URL = "https://ultra-space-fight.onrender.com/user/create";
 // Constant defining the API endpoint to get the global score ranking data;
-const RANKING_SCORE = "http://localhost:8080/data/achievement/get/ranking/score";
+const RANKING_SCORE = "https://ultra-space-fight.onrender.com/data/achievement/get/ranking/score";
 // Constant defining the API endpoint to get the match score ranking data;
-const RANKING_SCORE_MATCH = "http://localhost:8080/data/achievement/get/ranking/score/match";
+const RANKING_SCORE_MATCH = "https://ultra-space-fight.onrender.com/data/achievement/get/ranking/score/match";
 
 // Function that constructs the login URL using email and password as query parameters;
 function getLoginURL(email, password) {
@@ -13,52 +13,52 @@ function getLoginURL(email, password) {
     // Encodes the password for safe use in a URL query string;
     const ENCODE_PASSWORD = encodeURIComponent(password);
     // Returns the complete login URL with encoded parameters;
-    return `http://localhost:8080/user/get/login?email=${ENCODE_EMAIL}&password=${ENCODE_PASSWORD}`;
+    return `https://ultra-space-fight.onrender.com/user/get/login?email=${ENCODE_EMAIL}&password=${ENCODE_PASSWORD}`;
 }
 
 // Function that constructs the URL to fetch a user's achievements by their ID;
 function getAchievementsURL(id) {
-    return `http://localhost:8080/data/achievement/get/achievements/${id}`;
+    return `https://ultra-space-fight.onrender.com/data/achievement/get/achievements/${id}`;
 }
 
 // Function that constructs the URL to fetch a user's spaceships by their ID;
 function getSpaceshipsURL(id) {
-    return `http://localhost:8080/spaceship/get/spaceships/${id}`;
+    return `https://ultra-space-fight.onrender.com/spaceship/get/spaceships/${id}`;
 }
 
 // Function that constructs the URL to fetch a user's configuration settings by their ID;
 function getConfigurationsURL(id) {
-    return `http://localhost:8080/configuration/get/values/${id}`;
+    return `https://ultra-space-fight.onrender.com/configuration/get/values/${id}`;
 }
 
 // Function that constructs the URL to update a user's configuration settings by their ID;
 function getUpdateConfigurationURL(id) {
-    return `http://localhost:8080/configuration/update/values/${id}`;
+    return `https://ultra-space-fight.onrender.com/configuration/update/values/${id}`;
 }
 
 // Function that constructs the URL to delete a user account by their ID;
 function deleteUserURL(id) {
-    return `http://localhost:8080/user/delete/${id}`;
+    return `https://ultra-space-fight.onrender.com/user/delete/${id}`;
 }
 
 // Function that constructs the URL to update a specific spaceship's properties for a user;
 function updateSpaceshipURL(id, spaceship) {
-    return `http://localhost:8080/spaceship/update/${spaceship}/${id}`;
+    return `https://ultra-space-fight.onrender.com/spaceship/update/${spaceship}/${id}`;
 }
 
 // Function that constructs the URL to set a user's currently selected spaceship;
 function updateSelectedSpaceshipURL(id) {
-    return `http://localhost:8080/spaceship/update/selected/spaceship/${id}`;
+    return `https://ultra-space-fight.onrender.com/spaceship/update/selected/spaceship/${id}`;
 }
 
 // Function that constructs the URL to update a user's sound/audio settings;
 function updateSoundsURL(id) {
-    return `http://localhost:8080/configuration/update/sound/${id}`;
+    return `https://ultra-space-fight.onrender.com/configuration/update/sound/${id}`;
 }
 
 // Function that constructs the URL to update a user's achievement cash/currency;
 function updateAchievementsCashURL(id) {
-    return `http://localhost:8080/data/achievement/update/achievements/cash/${id}`;
+    return `https://ultra-space-fight.onrender.com/data/achievement/update/achievements/cash/${id}`;
 }
 
 // Asynchronous function to handle user sign-up/creation;
