@@ -1,22 +1,25 @@
-# ===== Stage 1: Build =====
-FROM maven:3.9.2-eclipse-temurin-21 AS build
+## 
+
+# ===== Stage 1: Build (Ajustamos a TAG da imagem) =====
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copia pom e src
+# Copia pom.xml e código fonte
 COPY pom.xml .
 COPY src ./src
 
-# Build do JAR (skip tests para agilizar)
+# Build do JAR
 RUN mvn clean package -DskipTests
 
-# ===== Stage 2: Runtime =====
+# ===== Stage 2: Runtime (Imagem leve com JRE) =====
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-# Copia JAR do stage anterior
-COPY --from=build /app/target/ultra_space_fight-0.0.1-SNAPSHOT.jar app.jar
+# Copia JAR do stage anterior (Usando curinga para evitar erro de nome)
+COPY --from=build /app/target/*.jar app.jar
 
-# Expõe porta (Render injeta PORT automaticamente)
-ENV PORT=8080
+# Expõe porta (Render usará a variável PORT, mas é boa prática)
+EXPOSE 8080
 
+# Comando de execução
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
