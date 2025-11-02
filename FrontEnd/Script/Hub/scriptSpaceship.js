@@ -224,6 +224,11 @@ function updateCashDisplay(newCashValue, coinText, data) {
     // Retrieves spaceship inventory/stat data;
     const data = JSON.parse(localStorage.getItem("spaceships"));
 
+    if (!data) {
+        data = await getSpaceships(user.idUser);
+        localStorage.setItem("spaceships", JSON.stringify(data));
+    }
+
     // Gets references to key DOM elements;
     const spaceships = document.querySelectorAll(".spaceship");
     const actionButton = document.getElementById("actionButton");

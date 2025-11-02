@@ -111,7 +111,7 @@
   --elite-ship-image: url('../../Assets/GameObjects/Spaceships/EliteShip.png');
 
   /* Locked image resource */
-  --locked-image: url('../../Assets/Icons/blocked.png');
+  --locked-image: url('../../Assets/Icons/Blocked.png');
 
   /* Font family for pixelated style */
   --pixel-font: 'PixelifySans', arial, sans-serif;

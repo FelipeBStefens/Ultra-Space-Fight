@@ -36,7 +36,7 @@ if (language === "English") {
     document.getElementById("constrolsText").textContent = `
 W / A / S / D — Move your ship
 
-Q / E — Rotate your ship
+Arrow Left and Right — Rotate your ship
 
 Spacebar — Shoot
 
@@ -60,7 +60,7 @@ else if (language === "Portuguese") {
     document.getElementById("constrolsText").textContent = `
 W / A / S / D — Movimentação da nave
 
-Q / E — Rotação da nave
+Flecha Esquerda e Direita — Rotação da nave
 
 Barra de Espaço (Space) — Atirar
 

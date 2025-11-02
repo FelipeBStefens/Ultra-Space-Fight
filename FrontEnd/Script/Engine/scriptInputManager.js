@@ -54,8 +54,8 @@ class InputManager {
             case "s": this.keys.down = true; break;
             case "a": this.keys.left = true; break;
             case "d": this.keys.right = true; break;
-            case "q": this.keys.rotateLeft = true; break;
-            case "e": this.keys.rotateRight = true; break;
+            case "arrowleft": this.keys.rotateLeft = true; break;
+            case "arrowright": this.keys.rotateRight = true; break;
             case " ": 
                 // Edge-Trigger Logic for Keyboard:
                 if (!this._keyboardSpaceHeld) {
@@ -74,8 +74,8 @@ class InputManager {
             case "s": this.keys.down = false; break;
             case "a": this.keys.left = false; break;
             case "d": this.keys.right = false; break;
-            case "q": this.keys.rotateLeft = false; break;
-            case "e": this.keys.rotateRight = false; break;
+            case "arrowleft": this.keys.rotateLeft = false; break;
+            case "arrowright": this.keys.rotateRight = false; break;
             case " ": this._keyboardSpaceHeld = false; break;
         }
     }
