@@ -6,82 +6,161 @@
 /* The Body of the HTML */
 body {
 
-    /* Setting it to be in all the page */
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-
-    /* Hidden all the parts that overflow the page */
-    overflow: hidden;
-
     /* Using FlexBox to configure the position */
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-#video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-}
-
+/* Canvas of the Game */
 #gameCanvas {
+
+    /* Defining the Position */
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 10; 
+
+    /* Defining the Layer */
+    z-index: 10;
     pointer-events: none;  
 }
 
+/* Container with Score Match */
 #scoreMatchContainer {
+    
+    /* Defining the color */
+    color: #f0f0f0;
+    text-shadow: 2px 2px 5px #000000;
+
+    /* Defining the Position */
     position: fixed;
     bottom: 20px;
     left: 20px;
-    color: #fff;
+
+    /* Defining the Font */
     font-family: var(--pixel-font);
     font-size: 35px;
     font-weight: bold;
-    text-shadow: 2px 2px 5px #000;
+    
+    /* Defining the Layer */
     z-index: 100;
 }
 
+/* Container with the Cash */
 #cashContainer {
+
+    /* Defining the Color */
+    color: #f0f0f0;
+    text-shadow: 2px 2px 5px #000000;
+
+    /* Defining the Position */
     position: fixed;
     bottom: 80px;
     left: 20px;
-    color: #fff;
+    
+    /* Defining the Font */
     font-family: var(--pixel-font);
     font-size: 35px;
     font-weight: bold;
-    text-shadow: 2px 2px 5px #000;
+    
+    /* Defining the Layer */
     z-index: 100;
 }
 
+/* Image of the Cash */
 #cashContainer img {
+
+    /* Width and Height */
     width: 50px;
     height: 50px;
 }
 
-/* Vidas no canto superior direito */
+/* Container with Lifes */
 #lifeContainer {
+    
+    /* Defining the Position */
     position: fixed;
     top: 20px;
     right: 20px;
-    display: flex;
     gap: 8px;
+
+    /* Display it Flex  */
+    display: flex;
+    
+    /* Defining the Layer */
     z-index: 100;
 }
 
-/* Estilo das imagens de coração */
+/* The Hearts images of the Container */
 #lifeContainer img {
+
+    /* Width and Height */
     width: 50px;
     height: 50px;
+}
+
+/* Container of the Boss Life */
+#bossLifeContainer {
+
+    /* Background Color */
+    background-color: #444444;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+
+    /* Width and Height */
+    width: 1000px;
+    height: 35px;
+
+    /* Defining the Position */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    /* Defining the Border Radius */
+    border-radius: 10px;
+    
+    /* Defining to not visible as start and hidden */
+    overflow: hidden;
+    display: none; 
+    
+    /* Defining the Layer */
+    z-index: 100;
+}
+
+/* The Boss Life */
+#bossLifeFill {
+
+    /* Background color */
+    background-color: red;
+
+    /* Width and Height */
+    height: 100%;
+    width: 100%;
+
+    /* Defining the Border Radius */
+    border-radius: 8px 0 0 8px;
+
+    /* Defining the Animation */
+    transition: width 0.3s ease-in-out;
+}
+
+/* The Boss name */
+#bossLifeText {
+
+    /* Defining the Color */
+    color: white;
+    text-shadow: 2px 2px 5px black;
+
+    /* Defining the Position */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    
+    /* Defining the Font */
+    font-family: var(--pixel-font);
+    font-size: 22px;
 }
 
 /* The button to pause the Game */
@@ -92,11 +171,11 @@ body {
     background-image: var(--pause-button-image);
     background-repeat: no-repeat;
     background-size: contain;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    
+    /* Width and Height */
     width: 120px;
     height: 120px;
-
-    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-    border: none;
 
     /* Defining the Position */
     position: fixed;
@@ -104,6 +183,9 @@ body {
     left: 10px;
     margin-top: 15px;
     margin-left: 15px;
+    border: none;
+
+    /* Defining the Layer */
     z-index: 1000;
 
     /* Using FlexBox to configure the position */
@@ -116,30 +198,6 @@ body {
     transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
 }
 
-/* Aditional configurations of the button */
-#pauseButton::before,
-#pauseButton::after {
-
-    /* Setting the content to none */
-    content: none;
-
-    /* Defining the Color */
-    background-image: var(--pause-button-clicked-image);
-    
-    /* Defining the Width, Height and Border Radius */
-    width: 5px;        
-    height: 18px;      
-
-    /* Using blocks to configure the position */
-    display: block;
-}
-
-#pauseButton.clicked {
-    background-image: var(--pause-button-clicked-image);
-    transform: scale(0.95);
-    opacity: 0.8;
-}
-
 /* Configuration of the button in case of Hover */
 #pauseButton:hover {
 
@@ -150,42 +208,13 @@ body {
     transform: scale(1.2);
 }
 
-@keyframes blink {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0.3; }
-}
+/* Configurations of th button when clicked */
+#pauseButton.clicked {
 
-#bossLifeContainer {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 1000px;
-    height: 35px;
-    border: 2px solid #fff;
-    border-radius: 10px;
-    background-color: #444; /* fundo cinza escuro */
-    overflow: hidden;
-    z-index: 100;
-    display: none; /* começa invisível */
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-}
+    /* Background Image */
+    background-image: var(--pause-button-clicked-image);
+    opacity: 0.8;
 
-#bossLifeFill {
-    height: 100%;
-    width: 100%;
-    background-color: red;
-    border-radius: 8px 0 0 8px;
-    transition: width 0.3s ease-in-out;
-}
-
-#bossLifeText {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--pixel-font);
-    font-size: 22px;
-    color: white;
-    text-shadow: 2px 2px 5px black;
-    pointer-events: none;
+    /* Scaling it 0.95 */
+    transform: scale(0.95);
 }

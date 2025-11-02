@@ -1,14 +1,16 @@
+/* File with the Style of the Turn Back button  */
+
+/* Import variables */
 @import url('../style.css');
 
+/* The Turn Back button */
 .turnBack {
 
-    /* Defining the Color */
+    /* Defining the Background */
     background-image: var(--turn-back-button-image);
     background-size: contain;
-    background-color: transparent;
     background-repeat: no-repeat;
-
-    border: none;
+    background-color: transparent;
 
     /* Defining the Position */
     position: fixed;
@@ -16,6 +18,7 @@
     left: 10px;
     margin-top: 15px;
     margin-left: 15px;
+    border: none;
     z-index: 1000;
         
     /* Defining the Width and Height */
@@ -32,7 +35,7 @@
     transition: transform 120ms ease;
 }
 
-/* Configuration of the button in case of Hover */
+/* Turn Back button in case of Hover */
 .turnBack:hover {
 
     /* Altering the Background Color */

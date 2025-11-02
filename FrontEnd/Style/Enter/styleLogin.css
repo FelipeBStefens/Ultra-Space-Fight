@@ -15,30 +15,11 @@
 /* The Body of the HTML */
 body {
 
-    /* Setting it to be in all the page */
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-
-    /* Hidden all the parts that overflow the page */
-    overflow: hidden;
-
     /* Using FlexBox to configure the position */
     display: flex;
     justify-content: flex-start; 
     flex-direction: column;      
     align-items: flex-start; 
-}
-
-#video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
 }
 
 /* The Container Div */
@@ -76,7 +57,6 @@ body {
     background-image: var(--blue-container-image);
     background-repeat: repeat;
     background-size: contain;
-
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
     /* Configure the Padding and Border Radius */
@@ -107,6 +87,7 @@ body {
 /* The Input value appearence */
 .inputContainer .input {
 
+    /* Background Image */
     background-image: var(--white-container-image);
     background-size: contain;
     background-repeat: repeat-x;
@@ -129,7 +110,7 @@ body {
 .inputContainer .textInput {
 
     /* Defining the Color */
-    color: 000000;
+    color: #000000;
     background-color: transparent;
 
     /* The size and family of the Font */ 
@@ -152,8 +133,7 @@ body {
 .inputContainer .input:not(:placeholder-shown) + .textInput {
    
     /* Defining the Color */
-    color: hsl(0, 0%, 0%);
-
+    color: #000000;
     background-color: transparent;
 
     /* The size and family of the Font */ 
@@ -175,23 +155,24 @@ body {
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
-    
     color: var(--text-color);
+    box-shadow: none;
 
     /* The size and family of the Font */ 
     font-size: 30px;
     font-family: var(--pixel-font);
 
-    border: none;
-    outline: none;
-    box-shadow: none;
-
-    /* The Width and Position */ 
+    /* Width and Height */ 
     width: 200px;  
     height: 110px;
+
+    /* Defining the Position */
     margin-top: 70px;
     padding-bottom: 15px;
+    border: none;
+    outline: none;
 
+    /* Using FlexBox to configure the position */
     display: flex;
     align-items: center; 
     justify-content: center;
@@ -204,46 +185,47 @@ body {
 /* Configuration of the button in case of Hover */
 #button:hover {
 
+    /* Background image */
     background-image: var(--pink-button-hover-image);
+
+    /* Scaling it 1.05 */
     transform: scale(1.05);
 }
 
+/* Configurations of the button when disabled */
 #button:disabled {
-  cursor: not-allowed;
+  
+  /* Background Image */
+  background-image: var(--pink-button-clicked-image);
   filter: grayscale(100%);
-  background-image: var(--pink-button-clicked-image);
-  transform: scale(0.95);
-  transform: none !important;
-}
-
-#button.loading {
-  background-image: var(--pink-button-clicked-image);
-  position: relative;
+  
+  /* Making the cursor cannot click */
   cursor: not-allowed;
-  opacity: 0.7;
-  pointer-events: none;
+  
+  /* Scaling it 0.95 */
+  transform: scale(0.95);
+  transform: none;
 }
 
-/* Spinner dentro do botão */
-#button.loading::after {
-  content: "";
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: translateY(-50%) rotate(360deg); }
-}
-
-/* Desativa hover quando botão desativado */
+/* Disabling hover when button is disabled too */
 #button:disabled:hover {
+
+  /* Background Image */
   background-image: var(--pink-button-clicked-image);
   transform: none;
+}
+
+/* Button when Loading */
+#button.loading {
+
+  /* Background Image */
+  background-image: var(--pink-button-clicked-image);
+  opacity: 0.7;
+  
+  /* Defining the Position */
+  position: relative;
+
+  /* Making the cursor cannot click */
+  cursor: not-allowed;
+  pointer-events: none;
 }

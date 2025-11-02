@@ -1,3 +1,6 @@
+/* Pause content */
+
+/* Import variables */
 @import url('../style.css');
 
 /* black screen when paused */
@@ -10,6 +13,8 @@
     position: fixed;
     top: 0;
     left: 0;
+
+    /* Defining the Layer */
     z-index: 2000;
 
     /* Defining the Width and Height */
@@ -58,6 +63,9 @@
     
     /* Defining the Margin */
     margin-bottom: 10px;
+
+    /* Defining the animation */
+    animation: blink 1s infinite;
 }
 
 /* Buttons of the Pause screen  */
@@ -84,19 +92,31 @@
     transition: background 0.2s, transform 0.2s;
 }
 
+/* The Buttons when Loading or Disabled Others */
+.pauseButton.loading,
+.pauseButton.disabledOthers {
+    
+    /* Making the cursor to cannot click */
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+}
+
 /* The resume button */
 #resumeButton {
 
-    /* Defining the Color */
+    /* Background Image */
     background-image: var(--green-button-image);
-    width: 200px;
-    height: 100px;
-
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
+    
+    /* Width and Height */
+    width: 200px;
+    height: 100px;
 
+    /* Defining the Padding */
     padding-bottom: 30px;
 }
 
@@ -110,130 +130,52 @@
     transform: scale(1.1);
 }
 
+/* Configuration of the button when is clicked */
 #resumeButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background-image: var(--green-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none !important;
+  
+    /* Background Image */
+    background-image: var(--green-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
 }
 
-/* Remover o hover quando desativado */
+/* Remove Hover when is disable */
 #resumeButton:disabled:hover {
-  background-image: var(--green-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none;
+
+    /* Background Image */
+    background-image: var(--green-button-clicked-image);
+    filter: grayscale(100%);
+    transform: none;
 }
 
+/* Configuration button when is loading */
 #resumeButton.loading {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background-image: var(--green-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none !important;
+  
+    /* Background Image */
+    background-image: var(--green-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+  
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
 }
 
+/* Container of the Sliders */
 .sliderContainer {
+
+    /* Width */
+    width: 100%;
+    gap: 4px;
+
+    /* Using FlexBox to configure the position */
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* mantém o label alinhado à esquerda */
-    gap: 4px; /* espaço pequeno entre label e slider */
-    width: 100%; /* para o slider ocupar toda a largura */
-}
-
-#saveSoundsButton {
-
-    /* Altering the Background Color */
-    background-image: var(--pink-button-image);
-    width: 200px;
-    height: 100px;
-    padding-bottom: 25px;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: contain; 
-    background-position: center;
-}
-
-/* Configuration of the button in case of Hover */
-#saveSoundsButton:hover {
-
-    /* Altering the Background Color */
-    background-image: var(--pink-button-hover-image);
-
-    /* Scaling the button it's value times 1.05 */
-    transform: scale(1.1);
-}
-
-#saveSoundsButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background-image: var(--pink-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none !important;
-}
-
-/* Remover o hover quando desativado */
-#saveSoundsButton:disabled:hover {
-  background-image: var(--pink-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none;
-}
-
-#saveSoundsButton.loading {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background-image: var(--pink-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none !important;
-}
-
-/* The exit button */
-#exitButton {
-
-    /* Defining the Color */
-    background-image: var(--red-button-image);
-    width: 200px;
-    height: 100px;
-
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: contain; 
-    background-position: center;
-    
-    padding-bottom: 30px;
-}
-
-/* Configuration of the button in case of Hover */
-#exitButton:hover {
-
-    /* Altering the Background Color */
-    background-image: var(--red-button-hover-image);
-
-    /* Scaling the button it's value times 1.05 */
-    transform: scale(1.1);
-}
-
-#exitButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background-image: var(--red-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none !important;
-}
-
-/* Remover o hover quando desativado */
-#exitButton:disabled:hover {
-  background-image: var(--red-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none;
-}
-
-#exitButton.loading {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background-image: var(--red-button-clicked-image);
-  filter: grayscale(100%);
-  transform: none !important;
+    align-items: flex-start; 
 }
 
 /* The Labels */
@@ -281,7 +223,6 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
 
     /* Defining the background Color */
-    image-rendering: pixelated;
     background-image: var(--slider-button-image);
     background-repeat: no-repeat;
     background-size: contain;
@@ -298,13 +239,16 @@ input[type="range"]::-webkit-slider-thumb {
 /* Styling the button on the Fire Fox */
 input[type="range"]::-moz-range-thumb {
     
-    image-rendering: pixelated;
+    /* Defining the background Color */
     background-image: var(--slider-button-image);
     background-repeat: no-repeat;
     background-size: contain;
 
+    /* Width and Height */
     width: 50px;
     height: 70px;
+
+    /* Transition in case of Hover */
     cursor: pointer;
     transition: 0.3s;
 }
@@ -319,50 +263,152 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: scale(1.05); 
 }
 
-.pauseButton {
-    position: relative; /* necessário para o spinner ficar dentro do botão */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* espaço para o spinner à direita */
-}
-
-/* Loading / Disabled */
-.pauseButton.loading,
-.pauseButton.disabledOthers {
-    cursor: not-allowed;
-    pointer-events: none;
-    transform: none !important;
-}
-
-.pauseButton.loading,
-.pauseButton.disabledOthers {
-    cursor: not-allowed;
-    pointer-events: none;
-    transform: none !important;
-}
-
-/* Corrige o giro do spinner */
-@keyframes spin {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(360deg); }
-}
-
+/* The Pause Slider when Disabled */
 .pauseSlider:disabled {
+
+    /* Defining the Filter */
     filter: grayscale(100%);
     cursor: not-allowed;
 }
 
+/* The Button Slider when Disabled */
 .pauseSlider:disabled::-webkit-slider-thumb {
+    
+    /* Defining the Filter */
     filter: grayscale(100%);
     cursor: not-allowed;
 }
 
+/* The Button Slider when Disabled */
 .pauseSlider:disabled::-moz-range-thumb {
+    
+    /* Defining the Filter */
     filter: grayscale(100%);
     cursor: not-allowed;
 }
 
-#pauseTitle {
-    animation: blink 1s infinite;
+/* Configuring the Sound buttons */
+#saveSoundsButton {
+
+    /* Background Image */
+    background-image: var(--pink-button-image);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    
+    /* Width and Height */
+    width: 200px;
+    height: 100px;
+
+    /* Defining the Padding */
+    padding-bottom: 25px;
+}
+
+/* Configuration of the button in case of Hover */
+#saveSoundsButton:hover {
+
+    /* Altering the Background Color */
+    background-image: var(--pink-button-hover-image);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.1);
+}
+
+/* Remove Hover when is disable */
+#saveSoundsButton:disabled {
+    
+    /* Background Image */
+    background-image: var(--pink-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Remove Hover when is disable */
+#saveSoundsButton:disabled:hover {
+    
+    /* Background Image */
+    background-image: var(--pink-button-clicked-image);
+    filter: grayscale(100%);
+    transform: none;
+}
+
+/* Configuration button when is loading */
+#saveSoundsButton.loading {
+  
+    /* Background Image */
+    background-image: var(--pink-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* The exit button */
+#exitButton {
+
+    /* Background Image */
+    background-image: var(--red-button-image);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+
+    /* Width and Height */
+    width: 200px;
+    height: 100px;
+
+    /* Defining the Padding */
+    padding-bottom: 30px;
+}
+
+/* Configuration of the button in case of Hover */
+#exitButton:hover {
+
+    /* Altering the Background Color */
+    background-image: var(--red-button-hover-image);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.1);
+}
+
+/* Configuration of the button when clicked */
+#exitButton:disabled {
+  
+    /* Background Image */
+    background-image: var(--red-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Remove Hover when is disable */
+#exitButton:disabled:hover {
+
+    /* Background Image */
+    background-image: var(--red-button-clicked-image);
+    filter: grayscale(100%);
+    transform: none;
+}
+
+/* Configuration button when is loading */
+#exitButton.loading {
+
+    /* Background Image */
+    opacity: 0.6;
+    background-image: var(--red-button-clicked-image);
+    filter: grayscale(100%);
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
 }
