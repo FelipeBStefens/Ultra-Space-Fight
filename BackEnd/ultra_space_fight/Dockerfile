@@ -1,29 +1,15 @@
-# ===== Stage 1: Build do JAR =====
-FROM maven:3.9.2-eclipse-temurin-21 AS build
 
-# Define o diretório de trabalho
-WORKDIR /app
+FROM ubuntu:latest as BUILD
 
-# Copia apenas o pom.xml primeiro (otimiza cache do Docker)
-COPY pom.xml .
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
+COPY . .
 
-# Copia a pasta src
-COPY src ./src
+RUN apt-get install maven -y
+RUN mvn clean install
 
-# Roda o build do Maven (skip tests para acelerar)
-RUN mvn clean package -DskipTests
+EXPOSE 8080
 
-# ===== Stage 2: Rodar o JAR =====
-FROM eclipse-temurin:21-jre-alpine
+COPY --from=build /target/ultra_space_fight-0.0.1-SNAPSHOT.jar app.jar
 
-# Define diretório de trabalho
-WORKDIR /app
-
-# Copia o JAR buildado do stage anterior
-COPY --from=build /app/target/ultra_space_fight-0.0.1-SNAPSHOT.jar app.jar
-
-# Expõe a porta (Render injeta a variável PORT automaticamente)
-ENV PORT=8080
-
-# Comando para rodar o JAR
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
