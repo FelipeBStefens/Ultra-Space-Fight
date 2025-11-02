@@ -1,97 +1,115 @@
-/* Import variables */
+/* File for Spaceships Selection Page Styles */
+
+/* Import external variables */
 @import url('../style.css');
 
 /* CSS variables */
 :root {
-
-    /* Spaceships configurations */
-    --spaceship-size: 300px;           
-    --spaceship-size-active: 360px;  
+    /* Spaceships Configurations: Defines base size, active/hover size, and spacing (gap) between ships. */
+    --spaceship-size: 300px;      
+    --spaceship-size-active: 360px; 
     --spaceship-gap: 140px;
 }
 
-/* Global reset */
+/* Global Reset and Base Styles */
 * {
+    /* Box Model Reset: Ensures padding and border are included in the element's total width and height. */
     box-sizing: border-box;
 }
 
 html, body {
+    /* Full Height: Ensures the entire viewport is covered. */
     height: 100%;
 }
 
 body {
+    /* Background and Typography: Sets background image, font, and removes default margins. */
     background: var(--spaceships-background-image);
     font-family: var(--pixel-font);
     margin: 0;
     padding: 32px;
+    
+    /* Layout with Flexbox: Centers all content vertically and horizontally. */
     display: flex;
     flex-direction: column; 
     align-items: center;
     justify-content: center;
 
+    /* Viewport Control: Prevents scrolling on the main page. */
     overflow: hidden;
 }
 
+/* Coin Counter Display (HUD) */
 #coinCounter {
-
+    /* Positioning: Fixes the counter to the top-right corner. */
     position: absolute;
     top: 32px; 
     right: 32px; 
 
+    /* Background Style: Applies the black container image for the counter box. */
     background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain; 
     background-position: center;
     
+    /* Spacing and Border: Adds internal padding, a light border, and a subtle shadow. */
     padding: 10px 18px;
     border: 2px solid var(--light-text-color);
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 
+    /* Typography and Stacking: Sets text color, font properties, and ensures it's above other elements. */
     color: var(--light-text-color);
     font-family: var(--pixel-font);
     font-size: 40px;
     font-weight: bold;
     z-index: 20; 
 
+    /* Layout: Aligns coin icon and count horizontally. */
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+/* Coin Icon Image */
 .coinIconImg {
+    /* Sizing and Alignment: Sets the height of the coin icon. */
     height: 80px; 
     width: auto;
-    
     vertical-align: middle; 
 }
 
 
-/* Spaceships container */
+/* Spaceships Carousel Container */
 .spaceships {
+    /* Sizing and Positioning: Defines maximum width and height, relative positioning for children. */
     width: 1000px;
     max-width: 100%;
     height: calc(var(--spaceship-size-active) + 60px);
     position: relative;
+    
+    /* Layout: Centers the carousel items. */
     overflow: visible;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Left/Right buttons */
+/* Left/Right Navigation Buttons */
 .button {
-    
+    /* Image Rendering and Background: Ensures pixelated image quality, sets background to transparent/image. */
     image-rendering: pixelated;
     background-size: contain;
     background-color: transparent;
     background-repeat: no-repeat;
 
+    /* Sizing and Positioning: Fixed size, absolute positioning (vertically centered). */
     width: 150px;
     height: 150px;
-    
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    
+    /* Stacking and Interactivity: Higher z-index, removes border, sets pointer cursor, and adds transition. */
     z-index: 10;
     border: none;
     display: grid;
@@ -100,65 +118,72 @@ body {
     transition: all 180ms ease;
 }
 
+/* Left Button Specifics */
 .button.left {
-    
     background-image: var(--left-button-image);
-
     left: 0px; 
 }
 
+/* Right Button Specifics */
 .button.right { 
-
     background-image: var(--right-button-image);
-
     right: 0px; 
 }
 
+/* Button Hover Effects */
 .button:hover { 
-
+    /* Slight scale up on hover. */
     transform: translateY(-50%) scale(1.08); 
 }
 
 .button.left:hover {
-
+    /* Changes background image on left button hover. */
     background-image: var(--left-button-hover-image);
 }
 
 .button.right:hover {
-
+    /* Changes background image on right button hover. */
     background-image: var(--right-button-hover-image);
 }
 
+/* Button Active/Click Effects */
 .button:active { 
+    /* Slight scale down on click. */
     transform: translateY(-50%) scale(0.98); 
 }
 
 .button.left:active {
+    /* Changes background image on left button click. */
     background-image: var(--left-button-clicked-image);
 }
 
 .button.right:active {
+    /* Changes background image on right button click. */
     background-image: var(--right-button-clicked-image);
 }
 
-/* Viewport & Container */
+/* Viewport & Container Wrappers */
 .viewport, .container {
+    /* Full size wrappers for internal positioning. */
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-/* Spaceship styles */
+/* Spaceship Card Base Styles */
 .spaceship {
-
+    /* Background and Visuals: Sets background image, repeat, size, and shadow for the card. */
     background-image: var(--blue-container-image);
     background-repeat: repeat;
     background-size: contain; 
     background-position: center;
-    
     box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+    
+    /* Typography: Sets font size and weight. */
     font-weight: 700;
     font-size: 28px;
+    
+    /* Sizing and Positioning: Defines base size, centers the element, and ensures initial stacking order. */
     width: var(--spaceship-size);
     height: var(--spaceship-size);
     transform: translate(-50%, -50%) scale(0.9);
@@ -167,14 +192,20 @@ body {
     left: 50%;
     z-index: 1;
     border-radius: 20px; 
+    
+    /* Interactivity and Layout: Disables text selection and centers content. */
     user-select: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    /* Transition: Smoothens movement, opacity, and stacking changes. */
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
 }
 
+/* Active Spaceship (Center) State */
 .spaceship.active {
+    /* Sizing and Visuals: Increases size, applies slight scale, increases z-index, and adds a highlighted border. */
     font-size: 36px;
     width: var(--spaceship-size-active);
     height: var(--spaceship-size-active);
@@ -184,44 +215,51 @@ body {
     border: 2px solid #ff66cc;
 }
 
+/* Left Spaceship (Off-Center) State */
 .spaceship.left {
+    /* Positioning and Visuals: Moves to the left by the defined gap, reduces opacity and scale. */
     transform: translate(calc(-50% - var(--spaceship-gap)), -50%) scale(0.95);
     opacity: 0.7;
     z-index: 2;
 }
 
+/* Right Spaceship (Off-Center) State */
 .spaceship.right {
+    /* Positioning and Visuals: Moves to the right by the defined gap, reduces opacity and scale. */
     transform: translate(calc(-50% + var(--spaceship-gap)), -50%) scale(0.95);
     opacity: 0.7;
     z-index: 2;
 }
 
+/* Blocked/Locked Spaceship State */
 .spaceship.blocked {
+    /* Visual Filter: Applies grayscale and reduces brightness to indicate locked status. */
     filter: grayscale(100%) brightness(65%);
     position: relative;
 }
 
+/* Locked Icon Overlay (::after pseudo-element) */
 .spaceship.blocked::after {
+    /* Content and Appearance: Displays the lock icon image. */
     content: "";
     position: absolute;
-    
     background-image: var(--locked-image);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 
+    /* Sizing and Positioning: Defines size and centers the icon over the spaceship. */
     width: 350px;
     height: 350px;
-
     padding: 8px 12px;
     border-radius: 8px;
-
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-/* Individual ship backgrounds */
+/* Individual Ship Background Images */
+/* Note: These rules stack a ship-specific image over the base blue container background. */
 #standartShip { 
     background-image: var(--standart-ship-image), var(--blue-container-image); 
 }
@@ -238,51 +276,63 @@ body {
     background-image: var(--elite-ship-image), var(--blue-container-image); 
 }
 
-/* Info box */
+/* Info Box (Ship Stats and Action Button Container) */
 .infoBox {
+    /* Background and Border: Sets the dark container background and light text color. */
     background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain;
     color: var(--light-text-color);
     border: 2px solid var(--light-text-color);
+    
+    /* Spacing and Sizing: Adds padding, defines responsive width, and adjusts vertical margin. */
     padding: 15px;
     border: 2px solid #333;
-    width: 900px;      
+    width: 900px;   
     max-width: 95%;
     gap: 10px;
     margin-top: 20px;
     margin-bottom: -40px;
+    
+    /* Layout: Uses flexbox to align stats and the action button horizontally. */
     display: flex;
     justify-content: flex-start;
-    align-items: center;     
+    align-items: center;   
 }
 
+/* Status/Stats Container */
 .status {
+    /* Layout: Stacks individual stats vertically and ensures it takes available space. */
     display: flex;
     flex-direction: column;
     flex: 1;
     gap: 12px;
 }
 
+/* Individual Stat Item */
 .stat {
-
+    /* Background and Typography: Sets a blue container background and specific text styles. */
     background-color: transparent;
     background-repeat: repeat;
     background-size: contain; 
     background-position: center;
     background-image: var(--blue-container-image);
-
     color: var(--text-color);
     font-weight: 1000;
+    
+    /* Spacing and Layout: Adds padding and justifies content (stat name/value) horizontally. */
     padding: 8px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Stat Value Text Size */
 .stat span { font-size: 30px; }
 
+/* Main Action Button (Select/Buy) */
 #actionButton {
+    /* Background and Typography: Sets the pink button image, transparent background, and pixel font. */
     background-image: var(--pink-button-image);
     background-color: transparent;
     background-repeat: no-repeat;
@@ -292,6 +342,8 @@ body {
     font-family: var(--pixel-font);
     font-size: 35px;
     font-weight: bold;
+    
+    /* Sizing and Interactivity: Fixed size, removes border, and sets pointer cursor. */
     width: 250px;
     height: 180px; 
     padding-bottom: 15px;
@@ -300,7 +352,9 @@ body {
     cursor: pointer;
 }
 
+/* Action Button Disabled State */
 #actionButton:disabled {
+    /* Visual Feedback: Disables cursor, reduces opacity, applies filter, and uses the 'clicked' image. */
     cursor: not-allowed;
     opacity: 0.8;
     filter: grayscale(100%);
@@ -308,69 +362,73 @@ body {
     transform: none !important;
 }
 
+/* Action Button Hover (Not Disabled) State */
 #actionButton:hover:not(:disabled) {
+    /* Visual Feedback: Changes image and applies slight scale. */
     background-image: var(--pink-button-hover-image);
     transform: scale(1.05);
 }
 
-/* Upgrade button */
+/* Upgrade Button (Small Stat Button) */
 .upgradeButton {
-
+    /* Background and Typography: Sets the green button image, transparent background, and pixel font. */
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
     background-image: var(--green-button-image);
-
     color: var(--light-text-color);
     font-family: var(--pixel-font);
-    font-size: 30px;           
+    font-size: 30px;      
     font-weight: bold;
 
+    /* Sizing and Layout: Fixed small size, no border, and centers content. */
     width: 150px;
     height: 85px;
-
     padding-bottom: 15px;
     border: none;
-    display: flex;              
-    align-items: center;       
-    justify-content: center;   
+    display: flex;       
+    align-items: center;    
+    justify-content: center;  
+    
+    /* Interactivity: Sets pointer cursor and transition for smooth hover. */
     cursor: pointer;
-    transition: transform 0.15s ease; /* Adicionei transição para o background */
+    transition: transform 0.15s ease;
 }
 
-/* Hover do upgrade */
+/* Upgrade Button Hover (General) */
 .upgradeButton:hover {
-    
+    /* Visual Feedback: Changes image and scales up. */
     background-image: var(--green-button-hover-image);
     transform: scale(1.1);
 }
 
-/* Hover do upgrade */
+/* Upgrade Button Hover (Not Disabled) */
 .upgradeButton:hover:not([disabled]) {
-    
+    /* Ensures hover effect only applies when not disabled. */
     background-image: var(--green-button-hover-image);
     transform: scale(1.1);
 }
 
+/* Upgrade Button Disabled State */
 .upgradeButton[disabled] {
-    /* Cor cinza escura para indicar bloqueio */
+    /* Visual Feedback: Uses 'clicked' image, disables cursor/events, reduces opacity, and prevents hover scale. */
     background-image: var(--green-button-clicked-image);
     cursor: not-allowed !important;
     opacity: 0.7;
-    /* Remove a transformação do hover se o botão estiver desabilitado */
     transform: none !important; 
-    /* Garante que o clique seja totalmente ignorado, embora 'disabled' já faça isso */
     pointer-events: none; 
 }
 
-/* Botão upgrade carregando */
+/* Upgrade Button Loading State Spinner Spacing */
 .upgradeButton.loading .loadingSpinner {
-    margin-left: 8px;       /* Espaço entre texto e spinner */
+    /* Adds space between the button text and the spinner. */
+    margin-left: 8px; 
 }
 
-/* Spinner padrão rosa/branco */
+/* Standard Loading Spinner */
 .loadingSpinner {
+    /* Appearance and Animation: Creates a spinning white circle. */
     border: 3px solid rgba(255, 255, 255, 0.2);
     border-top: 3px solid #fff;
     border-radius: 50%;
@@ -379,25 +437,30 @@ body {
     animation: spin 1s linear infinite;
 }
 
-/* Estado desabilitado  */
+/* Disabled/Inactive State for Other Buttons */
 .button.disabledOthers {
+    /* Visual and Interactivity: Reduces opacity, disables cursor/events. */
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
 }
 
+/* Disabled State Specific Button Styles */
 .button.left.disabledOthers {
+    /* Visual Filter: Grayscale and uses the 'clicked' image for a disabled look. */
     filter: grayscale(100%);
     background-image: var(--left-button-clicked-image);
 }
 
 .button.right.disabledOthers {
+    /* Visual Filter: Grayscale and uses the 'clicked' image for a disabled look. */
     filter: grayscale(100%);
     background-image: var(--right-button-clicked-image);
 }
 
-/* Estado carregando (com spinner) */
+/* Upgrade Button Loading State */
 .upgradeButton.loading {
+    /* Visual and Interactivity: Disables events, reduces opacity, applies filter, and uses the 'clicked' image. */
     position: relative;
     pointer-events: none;
     opacity: 0.8;
@@ -405,12 +468,16 @@ body {
     background-image: var(--green-button-clicked-image);
 }
 
+/* Upgrade Button Disabled Others State */
 .upgradeButton.disabledOthers {
+    /* Sets the 'disabled' visual state. */
     filter: grayscale(100%);
     background-image: var(--green-button-clicked-image);
 }
 
+/* Upgrade Cost Display */
 #upgradeCostDisplay {
+    /* Layout and Typography: Centers the cost display with icon and text. */
     display: flex; 
     align-items: center; 
     font-size: 30px; 
@@ -421,18 +488,22 @@ body {
     text-align: center;
 }
 
+/* Animation Keyframes */
 @keyframes spin {
+    /* Defines the continuous rotation for the loading spinner. */
     to { transform: translateY(-50%) rotate(360deg); }
 }
 
-/* Ajustes para telas pequenas */
+/* Media Queries for Small Screens */
 @media (max-width:640px){
+    /* Spaceship Size Adjustments: Reduces sizes and gap for mobile devices. */
     :root {
         --spaceship-size:140px;
         --spaceship-size-active:200px;
         --spaceship-gap:40px;
     }
 
+    /* Coin Counter Adjustments: Repositions and reduces size. */
     #coinCounter {
         top: 10px;
         right: 10px;
@@ -440,10 +511,12 @@ body {
         font-size: 20px;
     }
     
+    /* Coin Icon Size Adjustment */
     .coinIconImg {
         height: 20px; 
     }
 
+    /* Layout Adjustments: Makes containers full width and stacks info box items vertically. */
     .spaceships { width:100%; }
     .button { font-size:1.5rem; }
     .infoBox { flex-direction: column; gap: 10px; }

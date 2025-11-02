@@ -35,10 +35,7 @@ body{
     /* Defining the Font Family */
     font-family: var(--pixel-font);
     
-    overflow: hidden;
-    
     /* Defining the margin and padding */
-    margin:0;
     padding:32px;
     
     /* Using FlexBox to configure the position */
@@ -47,44 +44,51 @@ body{
     justify-content:center; 
 }
 
+/* Body to Apply grayscale */
 body::before {
 
+    /* Content of the HTML */
     content: ""; 
     
+    /* Background Image */
+    background: var(--trophies-background-image);
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(50%);
+
+    /* Defining the position */
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    
-    background: var(--trophies-background-image);
-    
+
+    /* Defining the Layer */
     z-index: -1; 
-    
-    filter: grayscale(50%);
-    
-    background-size: cover;
-    background-position: center;
 }
 
-.achievements{
+/* Container with the Achievements and Buttons */
+.achievements {
 
+    /* Width and Height */
     width:1000px;
     max-width:100%;
     height: calc(var(--achievement-size-active) + 60px);
 
+    /* Defining the Position */
     position:relative;
     overflow: visible;
 
+    /* Using FlexBox to configure the position */
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
+/* Buttons Style */
 .button {
 
     /* Defining the Color */ 
-    image-rendering: pixelated;
     background-size: contain;
     background-color: transparent;
     background-repeat: no-repeat;
@@ -114,6 +118,7 @@ body::before {
 /* The Left button */
 .button.left {
 
+    /* Background Image */
     background-image: var(--left-button-image);
 
     /* Defining the position */
@@ -123,6 +128,7 @@ body::before {
 /* The Right button */
 .button.right {
 
+    /* Background Image */
     background-image: var(--right-button-image);
 
     /* Defining the position */
@@ -136,13 +142,17 @@ body::before {
     transform:translateY(-50%) scale(1.08); 
 }
 
+/* Hover in Left Button */
 .button.left:hover {
 
+    /* Background Image */
     background-image: var(--left-button-hover-image)
 }
 
+/* Hover in Right Button */
 .button.right:hover {
 
+    /* Background Image */
     background-image: var(--right-button-hover-image);
 }
 
@@ -153,13 +163,17 @@ body::before {
     transform:translateY(-50%) scale(0.98);
 }
 
+/* When Button Left is clicked */
 .button.left:active {
 
+    /* Background Image */
     background-image: var(--left-button-clicked-image);
 }
 
+/* When Button Right is clicked */
 .button.right:active {
 
+    /* Background Image */
     background-image: var(--right-button-clicked-image);
 }
 
@@ -220,72 +234,100 @@ body::before {
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
 }
 
+/* The Frame of the Achievement */
 .achievementFrame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  z-index: 1; /* sempre no fundo */
-  pointer-events: none;
+    
+    /* Width and Height */
+    width: 100%;
+    height: 100%;
+
+    /* Defining the Position */
+    position: absolute;
+    inset: 0;
+    object-fit: contain;
+    z-index: 1; 
+  
+    /* Removing mouse clicks */
+    pointer-events: none;
 }
 
+/* The Text of each Achievement and Stars */
 .achievementText,
 .stars {
-  position: absolute;
-  z-index: 3; /* sempre acima da moldura */
-}
 
-.stars {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 3;
-  gap: 8px;
-  z-index: 2;
-
-  bottom: -18%; 
-  left: 50%;
-  transform: translateX(-50%); 
-  width: 100%;
-}
-
-/* Cada estrela individual */
-.stars img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-}
-
-.achievementText {
-    font-size: 3rem;
-    padding: 0 10px;
-    color: #f8fafc;
+    /* Defining the Position */
+    position: absolute;
     z-index: 3;
-    /* Oculta o texto por padrão (Bloqueado) */
-    display: none; 
-    
-    top: -25%;
+}
+
+/* The stars */
+.stars {
+
+    /* Width */
+    width: 100%;
+
+    /* Defining the Position */
+    gap: 8px;
+    bottom: -18%; 
     left: 50%;
     transform: translateX(-50%); 
-    width: 100%;
+  
+    /* Use Display Flex to alter the postion */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Star's Image */
+.stars img {
+    
+    /* Width and Height */
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* The Text of each Achievement */
+.achievementText {
+
+    /* Color */
+    color: #f8fafc;
+
+    /* Width */
+    width: 100%;
+
+    /* Configuring the Fonts */
+    font-size: 3rem;
+    
+    /* Configuring the Position */
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+
+    /* Configuring the Padding */
+    padding: 0 10px;
+    display: none; 
+}
+
+/* All the Images that isn't AchievementFrame */
 .achievement img:not(.achievementFrame) {
     
+    /* Defining the Position */
     position: relative; 
     z-index: 3; 
     object-fit: contain;
+
+    /* Defining the Transition */
     transition: opacity 300ms ease;
 }
 
-.achievement.unlocked .achievementText {
-    display: block; /* O texto aparece */
-}
-
+/* The Text when the Achievement is unlocked */
 .achievement.active .achievementText,
 .achievement.unlocked .achievementText {
-    display: block; /* O texto aparece */
+    
+    /* Display it */
+    display: block;
 }
 
 /* The Achievement that is in front */
