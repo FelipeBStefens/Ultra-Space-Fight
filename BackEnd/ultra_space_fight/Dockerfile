@@ -1,15 +1,22 @@
+# ===== Stage 1: Build =====
+FROM maven:3.9.2-eclipse-temurin-21 AS build
+WORKDIR /app
 
-FROM ubuntu:latest as BUILD
+# Copia pom e src
+COPY pom.xml .
+COPY src ./src
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
+# Build do JAR (skip tests para agilizar)
+RUN mvn clean package -DskipTests
 
-RUN apt-get install maven -y
-RUN mvn clean install
+# ===== Stage 2: Runtime =====
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
 
-EXPOSE 8080
+# Copia JAR do stage anterior
+COPY --from=build /app/target/ultra_space_fight-0.0.1-SNAPSHOT.jar app.jar
 
-COPY --from=build /target/ultra_space_fight-0.0.1-SNAPSHOT.jar app.jar
+# Expõe porta (Render injeta PORT automaticamente)
+ENV PORT=8080
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
