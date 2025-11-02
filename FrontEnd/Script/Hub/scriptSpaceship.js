@@ -391,6 +391,8 @@ function updateCashDisplay(newCashValue, coinText, data) {
             // Refreshes the UI to reflect the loading state;
             update(ships, user, selected, active, t, spaceships, actionButton, upgradeCostDisplay, costValueSpan, statMap);
 
+            ships[active][stat] += 1;
+            
             // Prepares the data transfer object (DTO) for the API call;
             const values = {
                 cash: cost, // Cost to be deducted;
@@ -401,17 +403,12 @@ function updateCashDisplay(newCashValue, coinText, data) {
                 }
             };
             
-            // NOTE: The stat value is NOT incremented locally BEFORE the API call, which means the API call DTO sends the *current* stats, not the *updated* ones.
-            // This is likely incorrect unless the API handles the increment based on the ship name and stat field.
-
             // Calls the API to perform the spaceship upgrade;
             const result = await updateSpaceship(user.idUser, ships[active].name, values);
 
             // If the server update is successful;
             if (result != null) {
                 
-                // ***Correction: Increment the stat AFTER a successful server response;***
-                ships[active][stat] += 1;
                 // Updates the displayed cash value using the new cash value returned by the server;
                 updateCashDisplay(result.cash, coinValueText, data);
                 
