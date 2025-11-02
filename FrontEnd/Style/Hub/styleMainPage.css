@@ -6,15 +6,6 @@
 /* The Body of the HTML */
 body {
 
-    /* Setting it to be in all the page */
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-
-    /* Hidden all the parts that overflow the page */
-    overflow: hidden;
-
     /* Putting and configuring the Background image */ 
     background-image: var(--main-page-background-image);
     background-size: cover;
@@ -27,124 +18,170 @@ body {
     align-items: flex-start;
 }
 
-
+/* Style of the text */
 h1 {
-    margin: 0;
-    position: absolute;
+    
+    /* Color */
+    color: white;
+
+    /* Defining the Font */
     font-family: var(--pixel-font);
     font-size: 100px;
-    color: white;
+    
+    /* Defining the Position */
     left: 50px;
+    margin: 0;
+    position: absolute;
 }
 
+/* Score Match Text */
 #scoreMatch {
 
+    /* Defining the Position */
     top: 10px;
 }
 
+/* Score Text */
 #score {
 
+    /* Defining the Position */
     top: 100px; 
 }
 
-/* The Hipertext acting like a button */
-/* Botão base */
+/* The buttons */
 a {
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: var(--text-color);
-  text-decoration: none;
-  font-family: var(--pixel-font);
-  border-radius: var(--button-radius);
-  transition: background 0.25s;
-  position: absolute;
-  width: 200px;         
-  height: 200px;          
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  transition: transform 0.2s, background-image 0.15s linear;
+
+    /* Background Image */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-decoration: none;
+
+    /* Width and Height */
+    width: 200px;         
+    height: 200px;
+
+    /* Defining the Position */
+    position: absolute;
+    box-sizing: border-box;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    /* Defining the animation */
+    transition: transform 0.2s, background-image 0.15s linear;
 }
 
-/* Conteúdo escalável */
-a .btn-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;       /* aumente ou ajuste conforme necessário */
-  transition: transform 0.25s;
-  transform-origin: center center;
-}
-
-/* Ranking */
+/* Ranking button */
 #ranking {
-  top: 240px;
-  left: 80px;
-  background-image: url("../../Assets/Images/RankingButton.png");
+    
+    /* Background Image */
+    background-image: var(--ranking-button-image);
+
+    /* Defining the Position */
+    top: 240px;
+    left: 80px;
 }
+
+/* Ranking hover button */
 #ranking:hover {
-  background-image: url("../../Assets/Images/RankingButtonHover.png");
+
+    /* Background Image */
+    background-image: var(--ranking-button-image);
 }
 
-/* Configurations */
+/* Configurations button */
 #configurations {
-  top: 30px;
-  right: 60px;
-  background-image: url("../../Assets/Images/ConfigurationButton.png");
+
+    /* Background Image */
+    background-image: var(--configuration-button-image);
+
+    /* Defining the Position */
+    top: 30px;
+    right: 60px;
 }
 
+/* Configuration hover button */
 #configurations:hover {
-  background-image: url("../../Assets/Images/ConfigurationButtonHover.png");
+    
+    /* Background Image */
+    background-image: var(--configuration-button-hover-image);
 }
 
-/* Rules */
+/* Rules button */
 #rules {
-  top: 250px;
-  right: 60px;
-  background-image: url("../../Assets/Images/RulesButton.png");
+    
+    /* Background Image */
+    background-image: var(--rules-button-image);
+
+    /* Defining the Position */
+    top: 250px;
+    right: 60px;
 }
+
+/* Rules hover button */
 #rules:hover {
-  background-image: url("../../Assets/Images/RulesButtonHover.png");
+    
+    /* Background Image */
+    background-image: var(--rules-button-hover-image);
 }
 
-/* Achievements */
+/* Achievements button */
 #achievements {
-  bottom: 30px;
-  left: 80px;
-  background-image: url("../../Assets/Images/AchievementsButton.png");
+    
+    /* Background Image */
+    background-image: var(--achievements-button-image);
+
+    /* Defining the Position */
+    bottom: 30px;
+    left: 80px;
 }
+
+/* Achievements hover button */
 #achievements:hover {
-  background-image: url("../../Assets/Images/AchievementsButtonHover.png");
+    
+    /* Background Image */
+    background-image: var(--achievements-button-image);
 }
 
-/* Spaceships */
+/* Spaceships button */
 #spaceships {
-  bottom: 60px;
-  right: 80px;
-  background-image: url("../../Assets/Images/SpaceshipButton.png");
+    
+    /* Background Image */
+    background-image: var(--spaceship-button-image);
+
+    /* Defining the Position */
+    bottom: 60px;
+    right: 80px;
 }
+
+/* Spaceships hover button */
 #spaceships:hover {
-  background-image: url("../../Assets/Images/SpaceshipButtonHover.png");
+    
+    /* Background Image */
+    background-image: var(--spaceship-button-image);
 }
 
-/* Gameplay (central) */
+/* Gameplay button */
 #gameplay {
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-image: url("../../Assets/Images/PlayButton.png");
+    
+    /* Background Image */
+    background-image: var(--play-button-image);
+
+    /* Defining the Position */
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
+/* Gameplay hover button */
 #gameplay:hover {
-  background-image: url("../../Assets/Images/PlayButtonHover.png");
-}
-
-/* hover escala apenas o conteúdo */
-a:hover .btn-inner {
-  transform: scale(1.3);
+    
+    /* Background Image */
+    background-image: var(--play-button-hover-image);
 }
 
 /* Configuration of the Hiperlink in case of Hover */
@@ -154,24 +191,30 @@ a:hover {
     transform: scale(1.5);
 }
 
-a.disabled-others {
-  filter: grayscale(100%);
-  opacity: 0.6;
-  cursor: not-allowed;
-  pointer-events: none;
+/* Configurations when the buttons are disabled */
+a.disabledOthers {
+
+    /* Color */
+    filter: grayscale(100%);
+    opacity: 0.6;
+    
+    /* Make the cursor cannot clicked */
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
+/* Button when loading */
 a.loading {
-  pointer-events: none;
-  opacity: 0.8;
+
+    /* Defining the Opacity */
+    opacity: 0.8;
+    pointer-events: none;
 }
 
-/* Desativa hover e animação durante loading */
+/* Loading button when Hover */
 a.loading:hover {
-  transform: none;
-  background-color: gray;
-}
-
-@keyframes spin {
-  to { transform: translateY(-50%) rotate(360deg); }
+    
+    /* Filter */
+    filter: grayscale(100%);
+    transform: none;
 }

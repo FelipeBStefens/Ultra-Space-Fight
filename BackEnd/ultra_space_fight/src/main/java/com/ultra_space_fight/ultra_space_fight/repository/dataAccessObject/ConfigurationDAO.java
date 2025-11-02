@@ -27,33 +27,49 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
 
     // Constructor;
     public ConfigurationDAO(DataSource dataSource) {
-        // Initialize the DataSource through Spring dependency injection;
         this.dataSource = dataSource;
     }
 
     // SQL Create Command;
     private static final String SQL_CREATE = 
-        "INSERT INTO configurations (id_configuration, id_user, language_user, soundtrack, sound_effects) VALUES (NULL, ?, ?, ?, ?)";
+        """
+        INSERT INTO configurations (id_configuration, id_user, language_user, soundtrack, sound_effects)
+        VALUES (NULL, ?, ?, ?, ?);
+        """;
 
     // SQL Delete Command;
-    private static final String SQL_DELETE = 
-        "DELETE FROM configurations WHERE id_user = ?";
+    private static final String SQL_DELETE =
+        """
+        DELETE FROM configurations WHERE id_user = ?;    
+        """;
 
     // SQL Update Command;
-    private static final String SQL_UPDATE = 
-        "UPDATE configurations SET language_user = ?, soundtrack = ?, sound_effects = ? WHERE id_user = ?";
+    private static final String SQL_UPDATE =
+        """
+        UPDATE configurations
+        SET language_user = ?, soundtrack = ?, sound_effects = ? 
+        WHERE id_user = ?;
+        """; 
 
     // SQL Read Command;
     private static final String SQL_READ = 
-        "SELECT * FROM (users u INNER JOIN configurations c USING(id_user)) WHERE id_user = ?";
+        """
+        SELECT *
+        FROM (users u INNER JOIN configurations c USING(id_user))       
+        WHERE id_user = ?;
+        """;
 
     // SQL Read All Command;
     private static final String SQL_READ_ALL = 
-        "SELECT * FROM (users u INNER JOIN configurations c USING(id_user))";
+        """
+        SELECT *
+        FROM (users u INNER JOIN configurations c USING(id_user));
+        """;
 
-    // Inserts a new configuration record in the database;
+    // Inserts a new configuration record in the database
     @Override
     public void create(Configuration configuration) throws SQLException {
+        
         // Try-with-resources guarantees that the connection and statement are closed automatically;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
@@ -67,9 +83,10 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
             // Execute the INSERT command;
             preparedStatement.executeUpdate();
 
-            // Retrieve the automatically generated primary key (id_configuration);
+            // Getting the Results (auto-generated keys);
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
+
                     // Assign the generated ID back to the configuration object;
                     configuration.setIdConfiguration(resultSet.getLong(1));
                 }
@@ -77,9 +94,10 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         }
     }
 
-    // Deletes configuration for a specific user;
+    // Deletes configuration for a specific user
     @Override
     public void delete(long id) throws SQLException {
+        
         // Open a connection and prepare the SQL DELETE statement;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
@@ -92,9 +110,10 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         }
     }
 
-    // Updates a user's configuration record;
+    // Updates a user's configuration record
     @Override
     public void update(Configuration configuration) throws SQLException {
+        
         // Open a connection and prepare the SQL UPDATE statement;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
@@ -110,7 +129,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         }
     }
 
-    // Reads configuration data for a specific user by ID;
+    // Reads configuration data for a specific user by ID
     @Override
     public Configuration read(long id) throws SQLException {
         Configuration configuration = null;
@@ -124,7 +143,10 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
 
             // Execute the query and retrieve the results;
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                // Check if a record exists and build corresponding objects
                 if (resultSet.next()) {
+                    
                     // Build the User object based on the joined "users" table;
                     User user = new User(
                         resultSet.getString("name_user"),
@@ -151,7 +173,7 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
         return configuration;
     }
 
-    // Reads and returns all user configurations from the database;
+    // Reads and returns all user configurations from the database
     @Override
     public List<Configuration> readAll() throws SQLException {
         List<Configuration> listConfigurations = new ArrayList<>();
@@ -161,9 +183,9 @@ public class ConfigurationDAO implements CrudInterface<Configuration> {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            // Loop through all records returned by the query;
+            // Loop through all records returned by the query
             while (resultSet.next()) {
-
+               
                 // Create the User object with joined user data;
                 User user = new User(
                     resultSet.getString("name_user"),

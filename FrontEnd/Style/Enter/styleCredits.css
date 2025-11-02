@@ -5,15 +5,6 @@
 
 /* The Body of the HTML */
 body {
-
-  /* Setting it to be in all the page */
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
-
-  /* Hidden all the parts that overflow the page */
-  overflow: hidden;
   
   /* Using FlexBox to configure the position */
   display: flex;
@@ -21,28 +12,16 @@ body {
   align-items: flex-start;
 }
 
-#video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-}
-
 /* The Container class */
 .container {
 
   /* Configure the color */
-  background-image: url("../../Assets/Images/BlackContainer.png");
+  background-image: var(--black-container-image);
   background-repeat: repeat;
   background-size: contain;
-  image-rendering: pixelated;
 
   /* background-color: var(--dark-container-color); */
   color: var(--light-text-color);   
-  box-shadow: 0 4px 15px rgba(53, 53, 53, 0.6); 
   
   /* The size and family of the Font */
   font-family: var(--pixel-font);  
@@ -67,7 +46,7 @@ body {
 h1 {
 
   /* Configure the color */
-  color: var(--button-color);
+  color: var(--title-text-color);
   
   /* The size and family of the Font */
   font-family: var(--pixel-font);
@@ -96,14 +75,6 @@ h1 {
   display: inline-flex;
 }
 
-/* The Images of the Hiperlink */
-.container a img {
-
-  /* Definig the Width and Height */
-  width: 27px;   
-  height: 27px;
-}
-
 /* The Hover of the Container */
 .container a:hover {
 
@@ -115,45 +86,10 @@ h1 {
   transition: 0.3s;
 }
 
-.turnBack {
+/* The Images of the Hiperlink */
+.container a img {
 
-    /* Defining the Color */
-    background-image: url("../../Assets/Images/TurnBackButton.png");
-    image-rendering: pixelated;
-    background-size: contain;
-    background-color: transparent;
-    background-repeat: no-repeat;
-
-    border: none;
-
-    /* Defining the Position */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    margin-top: 15px;
-    margin-left: 15px;
-    z-index: 1000;
-        
-    /* Defining the Width and Height */
-    width: 120px;
-    height: 120px;
-
-    /* Using FlexBox to configure the position */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Transition in case of Hover */
-    cursor: pointer;
-    transition: transform 120ms ease;
-}
-
-/* Configuration of the button in case of Hover */
-.turnBack:hover {
-
-    /* Altering the Background Color */
-    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
-
-    /* Scaling the button it's value times 1.2 */
-    transform: scale(1.2);
+  /* Definig the Width and Height */
+  width: 27px;   
+  height: 27px;
 }

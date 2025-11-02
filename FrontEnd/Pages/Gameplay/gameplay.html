@@ -12,8 +12,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Gameplay\styleGameplay.css">
-        
+        <link rel="stylesheet" href="../../Style/Gameplay/styleGameplay.css">
+        <link rel="stylesheet" href="../../Style/Gameplay/stylePause.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleVideo.css">
+
+        <!-- Script Files -->
+        <script type="module" src="../../Script/Gameplay/scriptPause.js" defer></script>
+        <script type="module" src="../../Script/Gameplay/scriptHeadsUpDisplay.js" defer></script>
+        <script type="module" src="../../Script/Gameplay/scriptGameplay.js" defer></script>
+
         <!-- Title of the HTML file -->
         <title>Gameplay</title>
     </head>
@@ -21,25 +28,33 @@
     <!-- Body of the HTML file -->
     <body>
 
+        <!-- Video -->
         <video id="video" autoplay muted playsinline>
-            <source src="../../Assets/Videos/gameplay_background.mp4" type="video/mp4">
+            
+            <!-- Video Source -->
+            <source src="../../Assets/Videos/GameplayBackground.mp4" type="video/mp4">
         </video>
 
         <!-- A Button to pause the game -->
         <button id="pauseButton"></button>
 
+        <!-- The Life Container -->
         <div id="lifeContainer"></div>
+
+        <!-- Text of the Score -->
         <div id="scoreMatchContainer"></div>
+
+        <!-- Text of the Cash -->
         <div id="cashContainer">
-            <img src="..\..\Assets\Icons\cash.png" alt="Icon Cash"/>
+
+            <!-- Image of the Cash -->
+            <img src="../../Assets/Icons/Cash.png" alt="Icon Cash"/>
+            
+            <!-- Text of the Cah -->
             <span id="cashAmount"></span>
         </div>
 
+        <!-- Canvas of the Game -->
         <canvas id="gameCanvas"></canvas>
-
-        <!-- The script to Pause the game -->
-        <script type="module" src="..\..\Script\Gameplay\scriptPause.js"></script>
-        <script type="module" src="..\..\Script\Gameplay\scriptDOM.js"></script>
-        <script type="module" src="..\..\Script\Gameplay\scriptGameplay.js"></script>
     </body>
 </html>

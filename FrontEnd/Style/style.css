@@ -4,60 +4,146 @@
 @font-face {
 
   /* The Font Family of that font */
-    font-family: 'PixelifySans';
+  font-family: 'PixelifySans';
 
-    /* The path to the font file */
-    src: url('../Assets/Fonts/PixelifySans-VariableFont_wght.ttf') 
-      format('truetype');
+  /* The path to the font file */
+  src: url('../Assets/Fonts/PixelifySans.ttf') format('truetype');
     
-    /* The weight and style of the font */
-    font-weight: 100 900; 
-    font-style: normal;
+  /* The weight and style of the font */
+  font-weight: 100 900; 
+  font-style: normal;
+}
+
+/* Blink Animation */
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.3; }
 }
 
 /* CSS variables */
 :root {
 
   /* Background images resources */
-  --controls-background-image: url('../../Assets/Images/controls_background.png');
-  --trophies-background-image: url('../../Assets/Images/trophies_background.png');
-  --spaceships-background-image: url('../../Assets/Images/spaceships_background.png');
-  --main-page-background-image: url('../../Assets/Images/main_page_background.png');
+  --controls-background-image: url('../../Assets/Images/Backgrounds/ControlsBackground.png');
+  --trophies-background-image: url('../../Assets/Images/Backgrounds/TrophiesBackground.png');
+  --spaceships-background-image: url('../../Assets/Images/Backgrounds/SpaceshipsBackground.png');
+  --main-page-background-image: url('../../Assets/Images/Backgrounds/MainPageBackground.png');
+  
+  /* Pink Buttons images resources */
+  --pink-button-image: url('../../Assets/Buttons/PinkButton/ButtonPink.png');
+  --pink-button-hover-image: url('../../Assets/Buttons/PinkButton/ButtonHoverPink.png');
+  --pink-button-clicked-image: url('../../Assets/Buttons/PinkButton/ButtonClickedPink.png');
+  
+  /* Gray Buttons images resources */
+  --gray-button-image: url('../../Assets/Buttons/GrayButton/ButtonGray.png');
+  --gray-button-hover-image: url('../../Assets/Buttons/GrayButton/ButtonHoverGray.png');
+  --gray-button-clicked-image: url('../../Assets/Buttons/GrayButton/ButtonClickedGray.png');
+
+  /* Green buttons images resources */
+  --green-button-image: url('../../Assets/Buttons/GreenButton/ButtonGreen.png');
+  --green-button-hover-image: url('../../Assets/Buttons/GreenButton/ButtonHoverGreen.png');
+  --green-button-clicked-image: url('../../Assets/Buttons/GreenButton/ButtonClickedGreen.png');
+
+  /* Red buttons images resources */
+  --red-button-image: url('../../Assets/Buttons/RedButton/ButtonRed.png');
+  --red-button-hover-image: url('../../Assets/Buttons/RedButton/ButtonHoverRed.png');
+  --red-button-clicked-image: url('../../Assets/Buttons/RedButton/ButtonClickedRed.png');
+
+  /* Achievements Buttons resources */
+  --achievements-button-image: url('../../Assets/Buttons/AchievementsButton/AchievementsButton.png');
+  --achievements-button-hover-image: url('../../Assets/Buttons/AchievementsButton/AchievementsButtonHover.png');
+
+  /* Configurations Buttons resources */
+  --configuration-button-image: url('../../Assets/Buttons/ConfigurationButton/ConfigurationButton.png');
+  --configuration-button-hover-image: url('../../Assets/Buttons/ConfigurationButton/ConfigurationButtonHover.png');
+
+  /* Ranking Buttons resources */
+  --ranking-button-image: url('../../Assets/Buttons/RankingButton/RankingButton.png');
+  --ranking-button-hover-image: url('../../Assets/Buttons/RankingButton/RankingButtonHover.png');
+
+  /* Rules Buttons resources */
+  --rules-button-image: url('../../Assets/Buttons/RulesButton/RulesButton.png');
+  --rules-button-hover-image: url('../../Assets/Buttons/RulesButton/RulesButtonHover.png');
+
+  /* Spaceships Buttons resources */
+  --spaceship-button-image: url('../../Assets/Buttons/SpaceshipButton/SpaceshipButton.png');
+  --spaceship-button-hover-image: url('../../Assets/Buttons/SpaceshipButton/SpaceshipButtonHover.png');
+
+  /* Play Buttons resources */
+  --play-button-image: url('../../Assets/Buttons/PlayButton/PlayButton.png');
+  --play-button-hover-image: url('../../Assets/Buttons/PlayButton/PlayButtonHover.png');
+
+  /* Left Buttons resources */
+  --left-button-image: url('../../Assets/Buttons/LeftButton/LeftButton.png');
+  --left-button-hover-image: url('../../Assets/Buttons/LeftButton/LeftButtonHover.png');
+  --left-button-clicked-image: url('../../Assets/Buttons/LeftButton/LeftButtonClicked.png');  
+
+  /* Right Buttons resources */
+  --right-button-image: url('../../Assets/Buttons/RightButton/RightButton.png');
+  --right-button-hover-image: url('../../Assets/Buttons/RightButton/RightButtonHover.png');
+  --right-button-clicked-image: url('../../Assets/Buttons/RightButton/RightButtonClicked.png');
+
+  /* Turn Back Buttons resources */
+  --turn-back-button-image: url('../../Assets/Buttons/TurnBackButton/TurnBackButton.png');
+  --turn-back-button-hover-image: url('../../Assets/Buttons/TurnBackButton/TurnBackHoverButton.png');
+
+  /* Slider Button resource */
+  --slider-button-image: url('../../Assets/Buttons/SliderButton/ButtonSlider.png');
+
+  /* Pause Buttons resources */
+  --pause-button-image: url('../../Assets/Buttons/PauseButton/PauseButton.png');
+  --pause-button-hover-image: url('../../Assets/Buttons/PauseButton/PauseHoverButton.png');
+  --pause-button-clicked-image: url('../../Assets/Buttons/PauseButton/PauseClickedButton.png');
+
+  /* Pixelated Containers resources */
+  --black-container-image: url('../../Assets/Containers/BlackContainer.png');
+  --white-container-image: url('../../Assets/Containers/WhiteContainer.png');
+  --blue-container-image: url('../../Assets/Containers/BlueContainer.png');
+  --red-container-image: url('../../Assets/Containers/RedContainer.png');
+  --bronze-container-image: url('../../Assets/Containers/BronzeContainer.png');
+  --gold-container-image: url('../../Assets/Containers/GoldContainer.png');
+
+  /* Spaceships images resources */
+  --standart-ship-image: url('../../Assets/GameObjects/Spaceships/StandartShip.png');
+  --speed-ship-image: url('../../Assets/GameObjects/Spaceships/SpeedShip.png');
+  --destroyer-ship-image: url('../../Assets/GameObjects/Spaceships/DestroyerShip.png');
+  --freighter-ship-image: url('../../Assets/GameObjects/Spaceships/FreighterShip.png');
+  --elite-ship-image: url('../../Assets/GameObjects/Spaceships/EliteShip.png');
+
+  /* Locked image resource */
   --locked-image: url('../../Assets/Icons/blocked.png');
 
   /* Font family for pixelated style */
   --pixel-font: 'PixelifySans', arial, sans-serif;
 
-  /* Colors of the buttons */
-  --button-color: #e867e8;
-  --button-hover-color: #5f1370;
-
   /* Colors of the texts */
+  --title-text-color: #f15ccc;
   --text-color: #000000;
   --light-text-color: #ffffff;
-
-  /* Colors of the containers */
-  --container-color: #699CFC;
-  --dark-container-color: #212020;
 
   /* Colors of the hiperlinks */
   --link-color: #4da6ff;
   --link-hover-color: #80c0ff;
+}
 
-  /* Colors of the podium */
-  --gold-color: linear-gradient(90deg, #FFD700, #FFF3B0);
-  --silver-color: linear-gradient(90deg, #7d7d7d, #b5b5b5, #e0e0e0);
-  --bronze-color: linear-gradient(90deg, #CD7F32, #E8B07A);
+/* Styles for all elements */
+* {
 
-  /* Button styles configurations */
-  --button-padding: 20px 40px;
-  --button-radius: 10px;
-  --button-font-size: 30px;
-  --button-width: 220px;
+  /* Rendering all images Pixelated */
+  image-rendering: pixelated;
+}
 
-  --standart-ship-image: url('../../Assets/PixelArts/Spaceships/StandartShip.png');
-  --speed-ship-image: url('../../Assets/PixelArts/Spaceships/SpeedShip.png');
-  --destroyer-ship-image: url('../../Assets/PixelArts/Spaceships/DestroyerShip.png');
-  --freighter-ship-image: url('../../Assets/PixelArts/Spaceships/FreighterShip.png');
-  --elite-ship-image: url('../../Assets/PixelArts/Spaceships/EliteShip.png');
+/* Global Style of the Body */
+body {
+
+  /* Configuring th Margin and Padding of the Body */
+  margin: 0;
+  padding: 0;
+
+  /* Width and Height of the Body */
+  width: 100%;
+  height: 100vh;
+
+  /* Make all the overflow parts hidden */
+  overflow: hidden;
 }

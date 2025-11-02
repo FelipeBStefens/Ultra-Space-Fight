@@ -18,8 +18,5 @@ public class MainApplication {
 		new SpringApplicationBuilder(MainApplication.class)
             .initializers(new DotenvInitializer())
             .run(args);
-			
-		// Testing output example;
-		System.out.println("Ultra Space Fight application started successfully!!");
 	}
 }

@@ -12,8 +12,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Enter\styleCredits.css">
-        
+        <link rel="stylesheet" href="../../Style/Enter/styleCredits.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleVideo.css">
+
         <!-- Title of the HTML file -->
         <title>Credits</title>
     </head>
@@ -21,10 +23,14 @@
     <!-- Body of the HTML file -->
     <body>
         
-        <video id="video" autoplay muted playsinline>
-            <source src="../../Assets/Videos/inital_background.mp4" type="video/mp4">
+        <!-- Video -->
+        <video id="video" autoplay muted loop playsinline>
+            
+            <!-- Video Source -->
+            <source src="../../Assets/Videos/InitalBackground.mp4" type="video/mp4">
         </video>
         
+        <!-- Button to turn back on history -->
         <div class="turnBack" onclick="history.back()"></div>
         
         <!-- A Div with all the informations on the file -->
@@ -53,7 +59,7 @@
             <a href="https://www.linkedin.com/in/felipe-bianchi-stefens-7bb9b0303/" target="_blank">
                 
                 <!-- The LinkedIn icon Image-->
-                <img src="../../Assets/Icons/linkedin.png" alt="LinkedIn logo"> Felipe
+                <img src="../../Assets/Icons/Linkedin.png" alt="LinkedIn logo"> Felipe
             </a>
 
             <!-- New lines -->
@@ -64,14 +70,14 @@
             <a href="https://github.com/FelipeBStefens" target="_blank">
                 
                 <!-- The LinkedIn icon Image-->
-                <img src="../../Assets/Icons/github.png" alt="GitHub logo"> Felipe
+                <img src="../../Assets/Icons/Github.png" alt="GitHub logo"> Felipe
             </a>
 
             <!-- HipperLink of the GitHub-->
             <a href="https://github.com/Luis-Henrique-Silva-de-Souza" target="_blank">
                 
                 <!-- The LinkedIn icon Image-->
-                <img src="../../Assets/Icons/github.png" alt="GitHub logo"> Luis
+                <img src="../../Assets/Icons/Github.png" alt="GitHub logo"> Luis
             </a>
 
             <!-- New lines -->
@@ -82,10 +88,8 @@
             <a href="https://github.com/FelipeBStefens/Ultra-Space-Fight" target="_blank">
                 
                 <!-- The LinkedIn icon Image-->
-                <img src="../../Assets/Icons/github.png" alt="GitHub logo"> Ultra Space Fight
+                <img src="../../Assets/Icons/Github.png" alt="GitHub logo"> Ultra Space Fight
             </a>
         </div>
-
-        <script src="../../Script/Pages/scriptVideo.js"></script>
     </body>
 </html>

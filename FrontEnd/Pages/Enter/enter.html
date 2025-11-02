@@ -12,7 +12,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Enter\styleEnter.css">
+        <link rel="stylesheet" href="../../Style/Enter/styleEnter.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleVideo.css">
         
         <!-- Title of the HTML file -->
         <title>Ultra Space Fight</title>
@@ -21,15 +22,18 @@
     <!-- Body of the HTML file -->
     <body>
 
-        <video id="video" autoplay muted playsinline>
-            <source src="../../Assets/Videos/inital_background.mp4" type="video/mp4">
+        <!-- Video -->
+        <video id="video" autoplay muted loop playsinline>
+            
+            <!-- Video Source -->
+            <source src="../../Assets/Videos/InitalBackground.mp4" type="video/mp4">
         </video>
 
         <!-- A Div with all the informations on the file -->
         <div id="container">
 
             <!-- The Logo Image -->
-            <img id="logo" src="../../Assets/Images/logo_ultra_space_fight.png" alt="Ultra Space Fight Logo">
+            <img id="logo" src="../../Assets/Images/Logo.png" alt="Ultra Space Fight Logo">
 
             <!-- A Div with all the hiperlink buttons -->
             <div id="buttons">
@@ -44,8 +48,5 @@
                 <a href="../../Pages/Enter/credits.html" target="main_content">Credits</a>
             </div>
         </div>
-
-        <script src="../../Script/Pages/scriptVideo.js"></script>
-        <script src="../../Script/Pages/scriptEnter.js"></script>
     </body>
 </html>

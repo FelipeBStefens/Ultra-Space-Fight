@@ -12,7 +12,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Hub\styleRanking.css">
+        <link rel="stylesheet" href="../../Style/Hub/styleRanking.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+        
+        <!-- Script File -->
+        <script type="module" src="../../Script/Hub/scriptRanking.js" defer></script>
         
         <!-- Title of the HTML file -->
         <title>Ranking</title>
@@ -21,26 +25,26 @@
     <!-- Body of the HTML file -->
     <body>
 
+        <!-- Button to turn back on history -->
         <div class="turnBack" onclick="history.back()"></div>
 
         <!-- A Div with all the informations on the file -->
-        <div class="container">
+        <section>
+            <div class="container">
             
-            <!-- A Div with all the buttons -->
-            <div class="buttons">
+                <!-- A Div with all the buttons -->
+                <div class="buttons">
 
-                <!-- A button to access the Total Score -->
-                <button id="totalButton" class="active"></button>
-                
-                <!-- A button to access the Score by Match -->
-                <button id="matchButton"></button>
+                    <!-- A button to access the Total Score -->
+                    <button id="totalButton" class="active"></button>
+                    
+                    <!-- A button to access the Score by Match -->
+                    <button id="matchButton"></button>
+                </div>
+
+                <!-- A Div with the Ranking List -->
+                <div id="rankingList" class="rankingList"></div>
             </div>
-
-            <!-- A Div with the Ranking List -->
-            <div id="ranking-list" class="ranking-list"></div>
-        </div>
-
-        <!-- The script to complement the design -->
-        <script src="../../Script/Pages/scriptRanking.js"></script>
+        </section>
     </body>
 </html>

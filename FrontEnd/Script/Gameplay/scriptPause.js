@@ -1,209 +1,200 @@
-import { gameState } from "./scriptGameplay.js";
-import SoundManager from "./scriptSoundManager.js";
+// Imports the SoundManager to apply updated volume settings;
+import SoundManager from "../Engine/scriptSoundManager.js";
+// Imports a translation utility to display UI text in the user's selected language;
+import getTranslation from "../Utils/scriptTranslation.js";
+// Imports the utility function for saving sound settings to the backend;
+import { updateSound } from "../Utils/scriptFetch.js";
+// Imports the GameManager to control the global 'isPaused' state;
+import GameManager from "../Engine/scriptGameManager.js";
 
+// Get the main pause trigger button from the HTML;
 const pauseButton = document.getElementById("pauseButton");
 
+// Check if user data exists in localStorage; if not, redirect to the entry page;
 const user = JSON.parse(localStorage.getItem("user"));
 if (!user) window.location.href = "../../enter.html";
 
-// -------------------------------
-// 🌐 Sistema de Traduções
-// -------------------------------
-const translations = {
-    English: {
-        pause: "Pause",
-        resume: "Resume",
-        soundEffects: "Sound Effects",
-        soundtrack: "Soundtrack",
-        saveSounds: "Save Sounds",
-        leaveMatch: "Leave Match",
-    },
-    Portuguese: {
-        pause: "Pausa",
-        resume: "Retomar",
-        soundEffects: "Efeitos Sonoros",
-        soundtrack: "Trilha Sonora",
-        saveSounds: "Salvar Sons",
-        leaveMatch: "Sair da Partida",
-    }
-};
+// Fetches the appropriate translation object based on the user's language setting;
+const translation = getTranslation(user?.language);
 
-// Define o idioma atual (fallback: English)
-const lang = user.language in translations ? user.language : "English";
-const t = translations[lang];
-
-// -------------------------------
-// Botão principal de Pause
-// -------------------------------
-if (!pauseButton) {
-    console.warn("pauseButton element not found");
-} else {
-    pauseButton.addEventListener("click", () => {
-        gameState.isPaused = true;
-        if (document.getElementById("pauseScreen")) return;
-
-        pauseButton.classList.add("clicked");
-
-        const pauseScreen = document.createElement("div");
-        pauseScreen.id = "pauseScreen";
-
-        const pauseContent = document.createElement("div");
-        pauseContent.id = "pauseContent";
-
-        const pauseTitle = document.createElement("div");
-        pauseTitle.id = "pauseTitle";
-        pauseTitle.textContent = t.pause;
-
-        // --- Resume ---
-        const resumeButton = document.createElement("button");
-        resumeButton.id = "resumeButton";
-        resumeButton.className = "pauseButton";
-        resumeButton.textContent = t.resume;
-
-        // --- Sound Effects ---
-        const soundSlider = document.createElement("input");
-        soundSlider.type = "range";
-        soundSlider.min = "0";
-        soundSlider.max = "1";
-        soundSlider.step = "0.01";
-        soundSlider.value = user.soundEffects;
-        soundSlider.className = "pauseSlider";
-
-        const soundLabel = document.createElement("label");
-        soundLabel.textContent = t.soundEffects;
-        soundLabel.className = "pauseLabel";
-
-        const soundContainer = document.createElement("div");
-        soundContainer.className = "sliderContainer";
-        soundContainer.append(soundLabel, soundSlider);
-
-        // --- Music (Soundtrack) ---
-        const musicSlider = document.createElement("input");
-        musicSlider.type = "range";
-        musicSlider.min = "0";
-        musicSlider.max = "1";
-        musicSlider.step = "0.01";
-        musicSlider.value = user.soundtrack;
-        musicSlider.className = "pauseSlider";
-
-        const musicLabel = document.createElement("label");
-        musicLabel.textContent = t.soundtrack;
-        musicLabel.className = "pauseLabel";
-
-        const musicContainer = document.createElement("div");
-        musicContainer.className = "sliderContainer";
-        musicContainer.append(musicLabel, musicSlider);
-
-        // --- Save Sounds ---
-        const saveSoundsButton = document.createElement("button");
-        saveSoundsButton.id = "saveSoundsButton";
-        saveSoundsButton.className = "pauseButton";
-        saveSoundsButton.textContent = t.saveSounds;
-
-        // --- Exit ---
-        const exitButton = document.createElement("button");
-        exitButton.id = "exitButton";
-        exitButton.className = "pauseButton";
-        exitButton.textContent = t.leaveMatch;
-
-        const allButtons = [resumeButton, saveSoundsButton, exitButton];
-        const allInputs = [soundSlider, musicSlider];
-
-        // -------------------------------
-        // Controle de estado visual
-        // -------------------------------
-        function setDisabledAll(state = true, activeButton = null) {
-            allInputs.forEach(input => (input.disabled = state));
-            allButtons.forEach(btn => {
-                if (btn === activeButton && state) {
-                    btn.classList.add("loading");
-                    btn.disabled = false;
-                } else {
-                    btn.disabled = state;
-                    if (state) btn.classList.add("disabled-others");
-                    else btn.classList.remove("disabled-others");
-                    btn.classList.remove("loading");
-                }
-            });
-        }
-
-        function removeLoading(button) {
-            allButtons.forEach(btn => {
-                btn.classList.remove("loading", "disabled-others");
-                btn.disabled = false;
-            });
-            allInputs.forEach(input => (input.disabled = false));
-        }
-
-        // -------------------------------
-        // EVENTOS
-        // -------------------------------
-        resumeButton.addEventListener("click", () => {
-            setDisabledAll(true, resumeButton);
-            setTimeout(() => {
-                pauseScreen.remove();
-                pauseButton.classList.remove("clicked");
-                gameState.isPaused = false;
-            }, 150);
-        });
-
-        saveSoundsButton.addEventListener("click", async () => {
-            setDisabledAll(true, saveSoundsButton);
-
-            const body = {
-                soundtrack: musicSlider.valueAsNumber,
-                soundEffects: soundSlider.valueAsNumber,
-            };
-
-            try {
-                const response = await fetch(
-                    `http://localhost:8080/configuration/update/sound/${user.idUser}`,
-                    {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(body),
-                    }
-                );
-
-                if (!response.ok) throw new Error(response.status);
-
-                const result = await response.json();
-                user.soundtrack = result.soundtrack;
-                user.soundEffects = result.soundEffects;
-                localStorage.setItem("user", JSON.stringify(user));
-
-                if (window.parent?.setAudioVolume)
-                    window.parent.setAudioVolume(user.soundtrack);
-                SoundManager.updateMusicVolume();
-
-                console.log("Configurações de som salvas:", result);
-            } catch (err) {
-                console.error("Erro ao salvar sons:", err);
-            } finally {
-                removeLoading(saveSoundsButton);
+// Disables all input fields and buttons on the pause screen.
+function setDisabledAll(state = true, activeButton = null, allInputs, allButtons) {
+    
+    allInputs.forEach(input => (input.disabled = state));
+    
+    allButtons.forEach(button => {
+        if (button === activeButton && state) {
+            
+            // Keeps the active button enabled but shows a loading state;
+            button.classList.add("loading");
+            button.disabled = false;
+        } 
+        else {
+            button.disabled = state;
+            if (state) {
+                // Visually disables other buttons;
+                button.classList.add("disabledOthers");
             }
-        });
-
-        exitButton.addEventListener("click", () => {
-            setDisabledAll(true, exitButton);
-            setTimeout(() => {
-                if (window.parent?.playAudio) window.parent.playAudio();
-                window.location.replace("../../Pages/Hub/mainPage.html"), 150;
-            });
-        });
-
-        // -------------------------------
-        // Monta tudo
-        // -------------------------------
-        pauseContent.append(
-            pauseTitle,
-            resumeButton,
-            soundContainer,
-            musicContainer,
-            saveSoundsButton,
-            exitButton
-        );
-        pauseScreen.appendChild(pauseContent);
-        document.body.appendChild(pauseScreen);
+            else {
+                button.classList.remove("disabledOthers");
+            } 
+            button.classList.remove("loading");
+        }
     });
 }
+
+// Re-enables all input fields and removes loading/disabled states from buttons.
+function removeLoading(allInputs, allButtons) {
+    
+    allInputs.forEach(input => (input.disabled = false));
+
+    allButtons.forEach(button => {
+        button.classList.remove("loading", "disabledOthers");
+        button.disabled = false;
+    });
+}
+
+// Main Pause Button Event Listener;
+pauseButton.addEventListener("click", () => {
+    
+    // Pause the game logic immediately;
+    GameManager.isPaused = true;
+    
+    // Prevents opening multiple pause screens;
+    if (document.getElementById("pauseScreen")) {
+        return;
+    }
+
+    // Visually indicates the pause button is active;
+    pauseButton.classList.add("clicked");
+
+    // Create Pause Screen DOM Elements;
+    const pauseScreen = document.createElement("div");
+    pauseScreen.id = "pauseScreen";
+
+    const pauseContent = document.createElement("div");
+    pauseContent.id = "pauseContent";
+
+    const pauseTitle = document.createElement("div");
+    pauseTitle.id = "pauseTitle";
+    pauseTitle.textContent = translation.pause;
+
+    // Resume Button;
+    const resumeButton = document.createElement("button");
+    resumeButton.id = "resumeButton";
+    resumeButton.className = "pauseButton";
+    resumeButton.textContent = translation.resume;
+
+    // Sound Effects Slider (Input);
+    const soundSlider = document.createElement("input");
+    soundSlider.type = "range";
+    soundSlider.min = "0";
+    soundSlider.max = "1";
+    soundSlider.step = "0.01";
+    soundSlider.value = user.soundEffects;
+    soundSlider.className = "pauseSlider";
+
+    const soundLabel = document.createElement("label");
+    soundLabel.textContent = translation.soundEffectsPause;
+    soundLabel.className = "pauseLabel";
+
+    const soundContainer = document.createElement("div");
+    soundContainer.className = "sliderContainer";
+    soundContainer.append(soundLabel, soundSlider);
+
+    // Music Slider (Input);
+    const musicSlider = document.createElement("input");
+    musicSlider.type = "range";
+    musicSlider.min = "0";
+    musicSlider.max = "1";
+    musicSlider.step = "0.01";
+    musicSlider.value = user.soundtrack;
+    musicSlider.className = "pauseSlider";
+
+    const musicLabel = document.createElement("label");
+    musicLabel.textContent = translation.soundtrackPause;
+    musicLabel.className = "pauseLabel";
+
+    const musicContainer = document.createElement("div");
+    musicContainer.className = "sliderContainer";
+    musicContainer.append(musicLabel, musicSlider);
+
+    // Save Sounds Button;
+    const saveSoundsButton = document.createElement("button");
+    saveSoundsButton.id = "saveSoundsButton";
+    saveSoundsButton.className = "pauseButton";
+    saveSoundsButton.textContent = translation.saveSoundsPause;
+
+    // Exit Match Button;
+    const exitButton = document.createElement("button");
+    exitButton.id = "exitButton";
+    exitButton.className = "pauseButton";
+    exitButton.textContent = translation.leaveMatch;
+
+    // Define collections for easy UI state management;
+    const allButtons = [resumeButton, saveSoundsButton, exitButton];
+    const allInputs = [soundSlider, musicSlider];
+
+    // Assemble the pause screen content;
+    pauseContent.append(
+        pauseTitle,
+        resumeButton,
+        soundContainer,
+        musicContainer,
+        saveSoundsButton,
+        exitButton
+    );
+    pauseScreen.appendChild(pauseContent);
+    document.body.appendChild(pauseScreen);
+ 
+    // Resume Button Logic;
+    resumeButton.addEventListener("click", () => {
+        
+        // Temporarily disable all controls during the short resume period;
+        setDisabledAll(true, resumeButton, allInputs, allButtons);
+        
+        // Short delay to allow visual feedback/fade-out;
+        setTimeout(() => {
+            pauseScreen.remove(); // Remove the UI overlay;
+            pauseButton.classList.remove("clicked");
+            GameManager.isPaused = false; // Unpause the game logic;
+        }, 150);
+    });
+
+    // Save Sounds Button Logic;
+    saveSoundsButton.addEventListener("click", async () => {
+        
+        setDisabledAll(true, saveSoundsButton, allInputs, allButtons);
+
+        // Save the new volume values to the backend;
+        const sounds = await updateSound(user.idUser, musicSlider.valueAsNumber, soundSlider.valueAsNumber);
+        
+        if (sounds != null) {
+            // Update the local storage with the confirmed new values;
+            user.soundtrack = sounds.soundtrack;
+            user.soundEffects = sounds.soundEffects;
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // Apply the new volumes immediately via SoundManager;
+            SoundManager.updateMusicVolume();
+            // Note: Sound effects volume is typically handled inside the SoundManager's playSound method;
+        }
+
+        // Enable all controls after the save operation is complete;
+        removeLoading(allInputs, allButtons);
+    });
+
+    // Exit Button Logic;
+    exitButton.addEventListener("click", () => {
+        
+        setDisabledAll(true, exitButton, allInputs, allButtons);
+        
+        // Short delay before redirecting;
+        setTimeout(() => {
+            // If running inside an iframe, attempt to resume parent audio before leaving;
+            if (window.parent?.playAudio) window.parent.playAudio();
+            // Redirect the user back to the main Hub page;
+            window.location.replace("../../Pages/Hub/mainPage.html"), 150;
+        });
+    });
+});

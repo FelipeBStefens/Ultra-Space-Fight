@@ -10,12 +10,6 @@
     --achievement-size: 400px;           
     --achievement-size-active: 500px;    
     --achievement-gap: 140px; 
-
-    /* Size of the buttons */
-    --button-size: 80px;           
-        
-    /* Color when Achievement is blocked */
-    --blocked-color: #274360;
 }
 
 /* Configuring to all HTML Tags */
@@ -42,7 +36,6 @@ body{
     font-family: var(--pixel-font);
     
     /* Defining the margin and padding */
-    margin:0;
     padding:32px;
     
     /* Using FlexBox to configure the position */
@@ -51,44 +44,51 @@ body{
     justify-content:center; 
 }
 
+/* Body to Apply grayscale */
 body::before {
 
+    /* Content of the HTML */
     content: ""; 
     
+    /* Background Image */
+    background: var(--trophies-background-image);
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(50%);
+
+    /* Defining the position */
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    
-    background: var(--trophies-background-image);
-    
+
+    /* Defining the Layer */
     z-index: -1; 
-    
-    filter: grayscale(50%);
-    
-    background-size: cover;
-    background-position: center;
 }
 
-.achievements{
+/* Container with the Achievements and Buttons */
+.achievements {
 
+    /* Width and Height */
     width:1000px;
     max-width:100%;
     height: calc(var(--achievement-size-active) + 60px);
 
+    /* Defining the Position */
     position:relative;
     overflow: visible;
 
+    /* Using FlexBox to configure the position */
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
+/* Buttons Style */
 .button {
 
     /* Defining the Color */ 
-    image-rendering: pixelated;
     background-size: contain;
     background-color: transparent;
     background-repeat: no-repeat;
@@ -118,7 +118,8 @@ body::before {
 /* The Left button */
 .button.left {
 
-    background-image: url("../../Assets/Images/LeftButton.png");
+    /* Background Image */
+    background-image: var(--left-button-image);
 
     /* Defining the position */
     left:0px;
@@ -127,7 +128,8 @@ body::before {
 /* The Right button */
 .button.right {
 
-    background-image: url("../../Assets/Images/RightButton.png");
+    /* Background Image */
+    background-image: var(--right-button-image);
 
     /* Defining the position */
     right:0px;
@@ -140,14 +142,18 @@ body::before {
     transform:translateY(-50%) scale(1.08); 
 }
 
+/* Hover in Left Button */
 .button.left:hover {
 
-    background-image: url("../../Assets/Images/LeftButtonHover.png");
+    /* Background Image */
+    background-image: var(--left-button-hover-image)
 }
 
+/* Hover in Right Button */
 .button.right:hover {
 
-    background-image: url("../../Assets/Images/RightButtonHover.png");
+    /* Background Image */
+    background-image: var(--right-button-hover-image);
 }
 
 /* Configuration of the button if it's clicked */
@@ -157,14 +163,18 @@ body::before {
     transform:translateY(-50%) scale(0.98);
 }
 
+/* When Button Left is clicked */
 .button.left:active {
 
-    background-image: url("../../Assets/Images/LeftButtonClicked.png");
+    /* Background Image */
+    background-image: var(--left-button-clicked-image);
 }
 
+/* When Button Right is clicked */
 .button.right:active {
 
-    background-image: url("../../Assets/Images/RightButtonClicked.png");
+    /* Background Image */
+    background-image: var(--right-button-clicked-image);
 }
 
 /* The Viewport to all Achievements */
@@ -224,72 +234,100 @@ body::before {
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
 }
 
-.achievement-frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  z-index: 1; /* sempre no fundo */
-  pointer-events: none;
-}
-
-.achievement-text,
-.stars {
-  position: absolute;
-  z-index: 3; /* sempre acima da moldura */
-}
-
-.stars {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 3;
-  gap: 8px;
-  z-index: 2;
-
-  bottom: -18%; 
-  left: 50%;
-  transform: translateX(-50%); 
-  width: 100%;
-}
-
-/* Cada estrela individual */
-.stars img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-}
-
-.achievement-text {
-    font-size: 3rem;
-    padding: 0 10px;
-    color: #f8fafc;
-    z-index: 3;
-    /* Oculta o texto por padrão (Bloqueado) */
-    display: none; 
+/* The Frame of the Achievement */
+.achievementFrame {
     
-    top: -25%;
+    /* Width and Height */
+    width: 100%;
+    height: 100%;
+
+    /* Defining the Position */
+    position: absolute;
+    inset: 0;
+    object-fit: contain;
+    z-index: 1; 
+  
+    /* Removing mouse clicks */
+    pointer-events: none;
+}
+
+/* The Text of each Achievement and Stars */
+.achievementText,
+.stars {
+
+    /* Defining the Position */
+    position: absolute;
+    z-index: 3;
+}
+
+/* The stars */
+.stars {
+
+    /* Width */
+    width: 100%;
+
+    /* Defining the Position */
+    gap: 8px;
+    bottom: -18%; 
     left: 50%;
     transform: translateX(-50%); 
-    width: 100%;
+  
+    /* Use Display Flex to alter the postion */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.achievement img:not(.achievement-frame) {
+/* Star's Image */
+.stars img {
     
+    /* Width and Height */
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* The Text of each Achievement */
+.achievementText {
+
+    /* Color */
+    color: #f8fafc;
+
+    /* Width */
+    width: 100%;
+
+    /* Configuring the Fonts */
+    font-size: 3rem;
+    
+    /* Configuring the Position */
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+
+    /* Configuring the Padding */
+    padding: 0 10px;
+    display: none; 
+}
+
+/* All the Images that isn't AchievementFrame */
+.achievement img:not(.achievementFrame) {
+    
+    /* Defining the Position */
     position: relative; 
     z-index: 3; 
     object-fit: contain;
+
+    /* Defining the Transition */
     transition: opacity 300ms ease;
 }
 
-.achievement.unlocked .achievement-text {
-    display: block; /* O texto aparece */
-}
-
-.achievement.active .achievement-text,
-.achievement.unlocked .achievement-text {
-    display: block; /* O texto aparece */
+/* The Text when the Achievement is unlocked */
+.achievement.active .achievementText,
+.achievement.unlocked .achievementText {
+    
+    /* Display it */
+    display: block;
 }
 
 /* The Achievement that is in front */
@@ -330,49 +368,6 @@ body::before {
     z-index:2;
 }
 
-.turnBack {
-
-    /* Defining the Color */
-    background-image: url("../../Assets/Images/TurnBackButton.png");
-    image-rendering: pixelated;
-    background-size: contain;
-    background-color: transparent;
-    background-repeat: no-repeat;
-
-    border: none;
-
-    /* Defining the Position */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    margin-top: 15px;
-    margin-left: 15px;
-    z-index: 1000;
-        
-    /* Defining the Width and Height */
-    width: 120px;
-    height: 120px;
-
-    /* Using FlexBox to configure the position */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Transition in case of Hover */
-    cursor: pointer;
-    transition: transform 120ms ease;
-}
-
-/* Configuration of the button in case of Hover */
-.turnBack:hover {
-
-    /* Altering the Background Color */
-    background-image: url("../../Assets/Images/TurnBackHoverButton.png");
-
-    /* Scaling the button it's value times 1.2 */
-    transform: scale(1.2);
-}
-
 /* Adjustements on small screens */
 @media (max-width:640px){
 
@@ -383,9 +378,6 @@ body::before {
         --achievement-size:140px;
         --achievement-size-active:200px;
         --achievement-gap:40px;
-
-        /* Size of the button */
-        --button-size:60px;
     }
 
     /* The Div to all achievements */

@@ -1,44 +1,64 @@
+// Imports the base Boss class;
 import Boss from "./scriptBoss.js";
-import { PATH_BATTLE_CRUISER_IMAGE } from "../../Gameplay/scriptConstants.js";
+// Imports the constant string path for the Battle Cruiser image asset;
+import { BATTLE_CRUISER_IMAGE } from "../../Utils/scriptConstants.js";
+// Imports the three bullet types used for the spread shot;
 import FrontBullet from "../Bullets/scriptFrontBullet.js";
+import LeftBullet from "../Bullets/scriptLeftSideBullet.js";
+import RightBullet from "../Bullets/scriptRightSideBullet.js";
+// Imports math utilities: scalarLerp for intro, vectorLerp for path movement, 
+// and vector/angle utilities for aiming;
+import { scalarLerp, vectorLerp, getDifferentialVectorByObject, getCenterVector, updateAngle, getFrontOffsetVector } from "../../Utils/scriptMath.js";
+// Imports the EntityManager for managing game entities;
+import EntityManager from "../../Engine/scriptEntityManager.js";
 
+// Defines the BattleCruiser class, specializing the Boss with complex, path-based movement;
 class BattleCruiser extends Boss {
 
+    // Basic Combat Parameters;
     minDistance = 400;
     maxDistance = 700;
-    lastShotTime = 0;     
-    shootCooldown = 1000;
+    lastShotTime = 0;     
+    shootCooldown = 1000; // Milliseconds between shots;
 
-    movePoints = [];              
-    isMoving = false;
-    framesAtPoint = 0;
-    moveDuration = 120;
-    moveFrame = 0;
-    currentPointIndex = 0;
-    targetPointIndex = 1;
+    // Movement Properties;
+    movePoints = [];               
+    isMoving = false;              
+    framesAtPoint = 0;             
+    framesToStay = 120;            
+    moveDuration = 120;            
+    moveFrame = 0;                 
+    currentPointIndex = 0;         
+    targetPointIndex = 1;          
 
+    // Constructor initializes the Battle Cruiser's complex movement and stats;
     constructor(life, score, cash, canvas) {
         
+        // Calls the parent Boss constructor;
         super(0, 0, 477/2, 1089/2, Math.PI, life, cash, score, "Battle Cruiser");
 
+        // Sets initial position on the screen;
         this.position.x = Math.max(100, this.width / 2 + 100);
         this.position.y = Math.max(20, this.height / 2 - 80);
 
+        // Intro Setup;
         this.introActive = false;
         this.introActiveEnded = false;
-        this.introProgress = 0; // 0 a 1
+        this.introProgress = 0;
         this.isShaking = false;
         this.shakeTimer = 0;
 
-        this.imagePath = PATH_BATTLE_CRUISER_IMAGE;
-        this.setMovementPoints(canvas);
+        this.imagePath = BATTLE_CRUISER_IMAGE;
+        // Calculates the fixed patrol points based on canvas size;
+        this.setMovementPoints(canvas); 
 
+        // Initial setup for the intro final position (targetY is the Y position of the first patrol point);
         const targetMovePoint = this.movePoints[0];
-        this.targetY = targetMovePoint.y - this.height / 2;
+        this.targetY = targetMovePoint.y - this.height / 2; // Convert center coordinate to top-left coordinate;
 
+        // Movement State Initialization
         this.isMoving = false;
         this.framesAtPoint = 0;
-        // how many frames to stay at each point before moving
         this.framesToStay = 120;
         this.moveDuration = 120;
         this.moveFrame = 0;
@@ -46,137 +66,153 @@ class BattleCruiser extends Boss {
         this.targetPointIndex = 1;
     }
 
+    // Defines the corner coordinates for the movement path;
     setMovementPoints(canvas) {
 
-        const marginX = Math.max(100, this.width / 2 + 100); // margem horizontal maior
-        const marginY = Math.max(20, this.height / 2 - 80); // margem vertical menor
+        // Defines margins to keep the large boss within the screen bounds;
+        const marginX = Math.max(100, this.width / 2 + 100); 
+        const marginY = Math.max(20, this.height / 2 - 80); 
 
-
+        // Defines the four fixed points (using center coordinates for consistency)
+        // for the boss to patrol (likely a square/rectangular path);
         this.movePoints = [
-            // top-left
-            { x: marginX, y: marginY },
-            // top-right
-            { x: canvas.width - marginX, y: marginY },
-            // bottom-right
-            { x: canvas.width - marginX, y: canvas.height - marginY },
-            // bottom-left
-            { x: marginX, y: canvas.height - marginY }
+            { x: marginX, y: marginY },                          // top-left
+            { x: canvas.width - marginX, y: marginY },           // top-right
+            { x: canvas.width - marginX, y: canvas.height - marginY }, // bottom-right
+            { x: marginX, y: canvas.height - marginY }           // bottom-left
         ];
     }
 
+    // Starts the boss's entrance sequence (slide-in from the top);
     startIntro(withShake = false, shakeDuration = 0) {
         this.introActive = true;
         this.introActiveEnded = false;
         this.introProgress = 0;
 
-        // A posição inicial Y deve ser fora da tela
+        // Start Y position (off-screen above);
         this.startY = -this.height; 
-        // A posição final Y é o targetY que calculamos no constructor
-        this.endY = this.targetY;
+        // End Y position (calculated in constructor, aligned with the first patrol point);
+        this.endY = this.targetY; 
 
-        // Define a posição inicial correta (FORA DA TELA)
         this.position.y = this.startY;
-        this.active = true; // Não está atacando/movendo
+        this.active = true; // Allows update to run;
+        this.angle = Math.PI; // Ensures the boss is facing the default direction (down/towards the player);
 
-        this.angle = Math.PI;
-
-        // Lógica para o tremor
+        // Screen shake logic for the introduction;
         if (withShake) {
             this.isShaking = true;
             this.shakeTimer = shakeDuration;
         }
     }
 
-    update(player, bulletsArray, canvas) {
+    // Main update loop for the Battle Cruiser;
+    update() {
 
+        const player = EntityManager.player;
+
+        // Screen Shake Block;
         if (this.isShaking) {
             this.shakeTimer--;
             if (this.shakeTimer <= 0) {
                 this.isShaking = false; 
             }
-            return; // Sai do update enquanto treme
+            return; 
         }
 
+        // Introduction Phase (Vertical slide-in via scalarLerp);
         if (this.introActive) {
-            const introSpeed = 0.005; // Ajuste a velocidade se necessário (e.g., 1 / 200)
+            const introSpeed = 0.005;
             this.introProgress = Math.min(1, this.introProgress + introSpeed);
 
-            // Interpolação linear
-            this.position.y = this.startY + (this.endY - this.startY) * this.introProgress;
+            this.position.y = scalarLerp(this.startY, this.endY, this.introProgress);
             
-            // Verifica se a introdução acabou
             if (this.introProgress >= 1) {
                 this.introActive = false;
                 this.introActiveEnded = true;
-                this.active = true; // Libera o boss para o movimento e ataque
+                this.active = true; // Start combat/movement logic;
                 this.position.y = this.endY;
-                // O Battle Cruiser deve começar no ponto de movimento 0 (já está na posição)
-                this.isMoving = false; // Garante que ele comece parado no ponto inicial
-                this.framesAtPoint = 0; // Zera o contador para começar a contagem de espera
+                // Reset movement state to start the patrol loop;
+                this.isMoving = false; 
+                this.framesAtPoint = 0; 
             }
-            return; // Sai do update enquanto a intro está ativa (em movimento)
+            return; 
         }
 
+        // Combat Phase (Movement, Aiming, Shooting);
         if (this.active) {
 
-            this.updateMovement(canvas);
+            this.updateMovement(); // Handles the patrol path interpolation;
 
             let angleTargetX, angleTargetY;
 
+            // Determines the target for the boss's rotation (aiming):
             if (this.isMoving) {
-                // 👉 Enquanto se move, olha para o destino do movimento
+                // If moving, face the target patrol point (looks cool during transit);
                 angleTargetX = this.endX + this.width / 2;
                 angleTargetY = this.endY + this.height / 2;
             } else {
-                // 👉 Quando parado, olha para o jogador
+                // If stationary, aim directly at the player for attack;
                 angleTargetX = player.position.x + player.width / 2;
                 angleTargetY = player.position.y + player.height / 2;
             }
 
-            // Calcular centro da nave
-            const cx_nave = this.position.x + this.width / 2;
-            const cy_nave = this.position.y + this.height / 2;
+            // Rotates the boss to face the angleTarget;
+            const centerPosition = getCenterVector(this.position, this.width, this.height);
+            const differentialVector = getDifferentialVectorByObject({x: angleTargetX, y: angleTargetY}, {objectX: centerPosition.x, objectY: centerPosition.y});
+            this.angle = updateAngle(differentialVector);
 
-            // Calcular ângulo até o alvo (jogador ou ponto de destino)
-            const dx = angleTargetX - cx_nave;
-            const dy = angleTargetY - cy_nave;
-            this.angle = Math.atan2(dy, dx) + Math.PI / 2;
-
-            // Controle de tiros
+            // Shooting Cooldown Control (uses time instead of frames);
             const now = Date.now();
             if (now - this.lastShotTime >= this.shootCooldown) {
-                this.shoot(bulletsArray);
+                this.shoot(); // Fires the powerful spread shot;
                 this.lastShotTime = now;
             }
         }
     }
 
-    shoot(bulletsArray) {
-        const cx = this.position.x + this.width / 2;
-        const cy = this.position.y + this.height / 2;
+    // Implements the powerful five-bullet spread shot;
+    shoot() {
 
-        const frontOffset = this.height / 2; // distância à frente da nave
-        const sideOffset = 20;               // distância lateral do canhão
+        // Calculates the firing origin (front center of the ship);
+        const centerPosition = getCenterVector(this.position, this.width, this.height);
+        const frontOffset = getFrontOffsetVector(centerPosition, this.height, this.angle); 
 
-        const offsets = [+1, -1]; // direita e esquerda
+        const bulletSpeed = 10;
 
-        for (const s of offsets) {
-            const bulletX = cx
-                + frontOffset * Math.cos(this.angle - Math.PI / 2)
-                + s * sideOffset * Math.cos(this.angle);
-            const bulletY = cy
-                + frontOffset * Math.sin(this.angle - Math.PI / 2)
-                + s * sideOffset * Math.sin(this.angle);
+        // Fires five large bullets with varying spread (ratios determine the angle offset):
+        
+        // Far Left (Ratio 1/3)
+        const veryLeftBullet = new LeftBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss", 1 / 3);
+        veryLeftBullet.setLength(40, 100);
 
-                const frontBullet = new FrontBullet(bulletX, bulletY, this.angle, 10, "enemy");
-            frontBullet.setLength(40, 100); 
-            bulletsArray.push(frontBullet);
-        }
+        // Mid Left (Ratio 2/3 - default for LeftBullet)
+        const leftBullet = new LeftBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        leftBullet.setLength(40, 100);
+        
+        // Center (Ratio 1 - default for FrontBullet)
+        const frontBullet = new FrontBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        frontBullet.setLength(40, 100);
+
+        // Mid Right (Ratio 4/3 - default for RightBullet)
+        const rightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss");
+        rightBullet.setLength(40, 100);
+        
+        // Far Right (Ratio 5/3)
+        const veryRightBullet = new RightBullet(frontOffset.x, frontOffset.y, this.angle, bulletSpeed, "boss", 5 / 3);
+        veryRightBullet.setLength(40, 100);
+
+        // Adds all five bullets to the game manager;
+        EntityManager.addBullet(frontBullet);
+        EntityManager.addBullet(veryLeftBullet);
+        EntityManager.addBullet(leftBullet);
+        EntityManager.addBullet(rightBullet);
+        EntityManager.addBullet(veryRightBullet);
     }
 
-    updateMovement(canvas) {
+    // Manages the sequential movement between the defined patrol points;
+    updateMovement() {
 
-        // If stationary, count frames until we should start moving
+        // State 1: Stationary (Waiting at a move point);
         if (!this.isMoving) {
             this.framesAtPoint++;
 
@@ -184,19 +220,19 @@ class BattleCruiser extends Boss {
                 this.isMoving = true;
                 this.framesAtPoint = 0;
 
-                // origin and destination (convert center points to top-left positions)
+                // Determine start and end points for interpolation:
                 const origin = this.movePoints[this.currentPointIndex];
+                // Calculate the index of the next point (wrapping around using modulo);
                 const destIndex = (this.currentPointIndex + 1) % this.movePoints.length;
                 const dest = this.movePoints[destIndex];
 
-                console.log(destIndex);
-
+                // Convert center-point coordinates to top-left coordinates for interpolation:
                 this.startX = origin.x - this.width / 2;
                 this.startY = origin.y - this.height / 2;
                 this.endX = dest.x - this.width / 2;
                 this.endY = dest.y - this.height / 2;
 
-                // reset frame counters for the interpolation
+                // Reset frame counters for the interpolation;
                 this.moveDuration = Math.max(1, this.moveDuration);
                 this.moveFrame = 0;
                 this.targetPointIndex = destIndex;
@@ -204,15 +240,21 @@ class BattleCruiser extends Boss {
             return;
         }
 
-        // moving: advance frame and interpolate
+        // State 2: Moving (Interpolating between points);
         this.moveFrame++;
+        // Calculate the interpolation factor (t) from 0 to 1;
         const t = Math.min(1, this.moveFrame / this.moveDuration);
-        this.position.x = this.startX + (this.endX - this.startX) * t;
-        this.position.y = this.startY + (this.endY - this.startY) * t;
-        // finished movement
+        
+        // Use vectorLerp for smooth movement along the path;
+        this.position = vectorLerp({startX: this.startX, endX: this.endX}, {startY: this.startY, endY: this.endY}, t);
+        
+        // Check if the movement is complete;
         if (this.moveFrame >= this.moveDuration) {
+            // Snap to the final position to avoid floating point errors;
             this.position.x = this.endX;
             this.position.y = this.endY;
+            
+            // Transition back to the stationary state;
             this.currentPointIndex = this.targetPointIndex;
             this.isMoving = false;
             this.framesAtPoint = 0;
@@ -220,4 +262,5 @@ class BattleCruiser extends Boss {
     }
 }
 
+// Exports the BattleCruiser class;
 export default BattleCruiser;

@@ -32,33 +32,38 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
     }
 
     // SQL statement to create a new StandartShip
-    private final String SQL_CREATE = """
+    private final String SQL_CREATE = 
+        """
         INSERT INTO standart_ship (id_ship, id_user, life, speed, damage)
         VALUES (NULL, ?, ?, ?, ?);
         """;
 
     // SQL statement to delete a StandartShip by user ID
-    private final String SQL_DELETE = """
+    private final String SQL_DELETE = 
+        """
         DELETE FROM standart_ship 
         WHERE id_user = ?;    
         """;
 
     // SQL statement to update a StandartShip by user ID
-    private final String SQL_UPDATE = """
+    private final String SQL_UPDATE = 
+        """
         UPDATE standart_ship
         SET life = ?, speed = ?, damage = ?
         WHERE id_user = ?;    
         """;
 
     // SQL statement to read a StandartShip by user ID
-    private final String SQL_READ = """
+    private final String SQL_READ = 
+        """
         SELECT * 
         FROM (users u INNER JOIN standart_ship s USING(id_user)) 
         WHERE id_user = ?;    
         """;
 
     // SQL statement to read all StandartShips
-    private final String SQL_READ_ALL = """
+    private final String SQL_READ_ALL = 
+        """
         SELECT * 
         FROM (users u INNER JOIN standart_ship s USING(id_user));    
         """;
@@ -66,8 +71,10 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
     // Method to create a new StandartShip record in the database
     @Override
     public void create(StandartShip standartShip) throws SQLException {
+        
+        
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
             // Set SQL parameters from the StandartShip object
             preparedStatement.setLong(1, standartShip.getUser().getIdUser());
@@ -80,36 +87,40 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
 
             // Retrieve generated ID (id_ship) and assign it to the object
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                
+                
                 if (resultSet.next()) {
+                    
+                    
                     standartShip.setIdShip(resultSet.getLong(1));
                 }
             }
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
     // Method to delete a StandartShip record by user ID
     @Override
     public void delete(long id) throws SQLException {
+        
+        
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
 
             // Set the user ID parameter
             preparedStatement.setLong(1, id);
 
             // Execute the DELETE statement
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
     // Method to update a StandartShip record in the database
     @Override
     public void update(StandartShip standartShip) throws SQLException {
+        
+        
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE)) {
 
             // Set updated values from the StandartShip object
             preparedStatement.setInt(1, standartShip.getLife());
@@ -119,26 +130,28 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
 
             // Execute the UPDATE statement
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
     // Method to read a StandartShip record by user ID
     @Override
     public StandartShip read(long id) throws SQLException {
+        
         // Initialize StandartShip as null
         StandartShip standartShip = null;
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ)) {
 
             // Set the user ID parameter
             preparedStatement.setLong(1, id);
 
             // Execute the query and process the result set
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                
+
                 if (resultSet.next()) {
+                    
                     // Create a User object from the result set
                     User user = new User(
                         resultSet.getString("name_user"),
@@ -159,8 +172,6 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
                     standartShip.setIdShip(resultSet.getLong("id_ship"));
                 }
             }
-        } catch (SQLException e) {
-            throw e;
         }
 
         // Return the StandartShip object (or null if not found)
@@ -170,15 +181,17 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
     // Method to read all StandartShip records from the database
     @Override
     public List<StandartShip> readAll() throws SQLException {
+        
         // Initialize list to store all StandartShips
         List<StandartShip> allStandartShip = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery()) {
 
             // Iterate over all records
             while (resultSet.next()) {
+
                 // Create a User object for each record
                 User user = new User(
                     resultSet.getString("name_user"),
@@ -201,8 +214,6 @@ public class StandartShipDAO implements CrudInterface<StandartShip> {
                 // Add the object to the list
                 allStandartShip.add(standartShip);
             }
-        } catch (SQLException e) {
-            throw e;
         }
 
         // Return the complete list

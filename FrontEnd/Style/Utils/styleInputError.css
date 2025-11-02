@@ -1,0 +1,38 @@
+/* File with the Style of a Error Message */
+
+/* Import variables */
+@import url('../style.css');
+
+/* Error Message */
+.errorMessage {
+
+  /* Defining the Color */
+  color: red;
+
+  /* Defining the Fonts */
+  font-family: var(--pixel-font);
+  font-weight: bold;
+  font-size: 15px;
+
+  /* Defining the position */ 
+  display: block;
+  height: 20px;
+  margin-top: 5px;
+  
+  /* Defining the visibility Hidden */
+  visibility: hidden;
+}
+
+/* Error Message when exists an Error on the Input */ 
+.inputContainer.error .errorMessage {
+
+  /* Defining it visible */
+  visibility: visible;
+}
+
+/* The Input when exists an Error on the Input Container */ 
+.inputContainer.error .input {
+
+  /* Defining the Color */
+  border-color: red;
+}

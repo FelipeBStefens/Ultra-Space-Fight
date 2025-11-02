@@ -1,0 +1,414 @@
+/* Pause content */
+
+/* Import variables */
+@import url('../style.css');
+
+/* black screen when paused */
+#pauseScreen {
+
+    /* Altering the Background Color */
+    background-color: rgba(0,0,0,0.7);
+
+    /* Defining the Position */
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    /* Defining the Layer */
+    z-index: 2000;
+
+    /* Defining the Width and Height */
+    width: 100%;
+    height: 100%;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+/* Pause Container */
+#pauseContent {
+
+    /* Defining the Color */
+    background-image: var(--black-container-image);
+    background-repeat: repeat;
+    background-size: contain;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    
+    /* Configure the Padding, Border and Gap */
+    padding: 40px 50px;
+    gap: 20px;
+
+    /* Configure the width */
+    min-width: 320px;
+    height: 100%;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Central title */
+#pauseTitle {
+
+    /* Defining the Color */
+    color: var(--light-text-color);
+
+    /* The size, family and weight of the Font */ 
+    font-family: var(--pixel-font);
+    font-size: 120px;
+    font-weight: bold;
+    
+    /* Defining the Margin */
+    margin-bottom: 10px;
+
+    /* Defining the animation */
+    animation: blink 1s infinite;
+}
+
+/* Buttons of the Pause screen  */
+.pauseButton {
+
+    /* Defining the Color */
+    color: var(--light-text-color);
+
+    /* The size and family of the Font */
+    font-family: var(--pixel-font);
+    font-size: 25px;
+
+    /* Configure the Padding and Border Radius */
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+
+    /* Defining the Width and Height */
+    width: 250px;
+    height: 60px;
+    
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+/* The Buttons when Loading or Disabled Others */
+.pauseButton.loading,
+.pauseButton.disabledOthers {
+    
+    /* Making the cursor to cannot click */
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+}
+
+/* The resume button */
+#resumeButton {
+
+    /* Background Image */
+    background-image: var(--green-button-image);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    
+    /* Width and Height */
+    width: 200px;
+    height: 100px;
+
+    /* Defining the Padding */
+    padding-bottom: 30px;
+}
+
+/* Configuration of the button in case of Hover */
+#resumeButton:hover {
+
+    /* Altering the Background Color */
+    background-image: var(--green-button-hover-image);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.1);
+}
+
+/* Configuration of the button when is clicked */
+#resumeButton:disabled {
+  
+    /* Background Image */
+    background-image: var(--green-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Remove Hover when is disable */
+#resumeButton:disabled:hover {
+
+    /* Background Image */
+    background-image: var(--green-button-clicked-image);
+    filter: grayscale(100%);
+    transform: none;
+}
+
+/* Configuration button when is loading */
+#resumeButton.loading {
+  
+    /* Background Image */
+    background-image: var(--green-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+  
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Container of the Sliders */
+.sliderContainer {
+
+    /* Width */
+    width: 100%;
+    gap: 4px;
+
+    /* Using FlexBox to configure the position */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+/* The Labels */
+label {
+
+    /* Defining the Color */
+    color: var(--light-text-color);
+
+    /* The size and family of the Font */
+    font-family: var(--pixel-font);
+    font-size: 25px;
+    
+    /* Defining the Margin bottom */
+    margin-bottom: 4px;
+
+    /* Align it on FlexBox */
+    align-self: flex-start;
+}
+
+/* Defining the Slider */
+input[type="range"] {
+
+    /* remove the appearence of the Web Site */
+    -webkit-appearance: none;
+
+    /* Defining the background Color */
+    background-image: var(--white-container-image);
+    background-repeat: repeat-x;
+    background-size: contain;
+
+    /* Defining the Width and Height */ 
+    width: 100%;
+    height: 30px;
+
+    /* Defining the Border Radius */
+    margin-top: 20px;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Styling the button on the Web Sites */
+input[type="range"]::-webkit-slider-thumb {
+
+    /* remove the appearence of the Web Site */
+    -webkit-appearance: none;
+
+    /* Defining the background Color */
+    background-image: var(--slider-button-image);
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    /* Defining the Width and Height */
+    width: 50px;
+    height: 70px;
+    
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Styling the button on the Fire Fox */
+input[type="range"]::-moz-range-thumb {
+    
+    /* Defining the background Color */
+    background-image: var(--slider-button-image);
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    /* Width and Height */
+    width: 50px;
+    height: 70px;
+
+    /* Transition in case of Hover */
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Configuration of the slider in case of Hover */
+input[type="range"]::-webkit-slider-thumb:hover {
+    
+    /* Defining the background Color */
+    filter: grayscale(100%);
+    
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.05); 
+}
+
+/* The Pause Slider when Disabled */
+.pauseSlider:disabled {
+
+    /* Defining the Filter */
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+/* The Button Slider when Disabled */
+.pauseSlider:disabled::-webkit-slider-thumb {
+    
+    /* Defining the Filter */
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+/* The Button Slider when Disabled */
+.pauseSlider:disabled::-moz-range-thumb {
+    
+    /* Defining the Filter */
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+/* Configuring the Sound buttons */
+#saveSoundsButton {
+
+    /* Background Image */
+    background-image: var(--pink-button-image);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+    
+    /* Width and Height */
+    width: 200px;
+    height: 100px;
+
+    /* Defining the Padding */
+    padding-bottom: 25px;
+}
+
+/* Configuration of the button in case of Hover */
+#saveSoundsButton:hover {
+
+    /* Altering the Background Color */
+    background-image: var(--pink-button-hover-image);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.1);
+}
+
+/* Remove Hover when is disable */
+#saveSoundsButton:disabled {
+    
+    /* Background Image */
+    background-image: var(--pink-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Remove Hover when is disable */
+#saveSoundsButton:disabled:hover {
+    
+    /* Background Image */
+    background-image: var(--pink-button-clicked-image);
+    filter: grayscale(100%);
+    transform: none;
+}
+
+/* Configuration button when is loading */
+#saveSoundsButton.loading {
+  
+    /* Background Image */
+    background-image: var(--pink-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* The exit button */
+#exitButton {
+
+    /* Background Image */
+    background-image: var(--red-button-image);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+
+    /* Width and Height */
+    width: 200px;
+    height: 100px;
+
+    /* Defining the Padding */
+    padding-bottom: 30px;
+}
+
+/* Configuration of the button in case of Hover */
+#exitButton:hover {
+
+    /* Altering the Background Color */
+    background-image: var(--red-button-hover-image);
+
+    /* Scaling the button it's value times 1.05 */
+    transform: scale(1.1);
+}
+
+/* Configuration of the button when clicked */
+#exitButton:disabled {
+  
+    /* Background Image */
+    background-image: var(--red-button-clicked-image);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Remove Hover when is disable */
+#exitButton:disabled:hover {
+
+    /* Background Image */
+    background-image: var(--red-button-clicked-image);
+    filter: grayscale(100%);
+    transform: none;
+}
+
+/* Configuration button when is loading */
+#exitButton.loading {
+
+    /* Background Image */
+    opacity: 0.6;
+    background-image: var(--red-button-clicked-image);
+    filter: grayscale(100%);
+
+    /* Defining the Cursor to cannot click */
+    cursor: not-allowed;
+    transform: none;
+}

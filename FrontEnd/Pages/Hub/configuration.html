@@ -12,7 +12,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Hub\styleConfiguration.css">
+        <link rel="stylesheet" href="../../Style/Hub/styleConfiguration.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleInputError.css">
+        
+        <!-- Script File -->
+        <script type="module" src="../../Script/Hub/scriptConfiguration.js" defer></script>
         
         <!-- Title of the HTML file -->
         <title>Configurations</title>
@@ -21,6 +26,7 @@
     <!-- Body of the HTML file -->
     <body>
         
+        <!-- Button to turn back on history -->
         <div class="turnBack" onclick="history.back()"></div>
 
         <!-- A Div with all the informations on the file -->
@@ -31,15 +37,24 @@
 
             <!-- Text Username to identify the input -->
             <div class="inputContainer">
+                
                 <label for="username" class="textInput" id="usernameText"></label>
+                
                 <input type="text" id="username" class="input" placeholder=" " />
-                <span class="error-message"></span>
+                
+                <!-- Error Message -->
+                <span class="errorMessage"></span>
             </div>
 
+            <!-- Text Password to identify the input -->
             <div class="inputContainer">
+                
                 <label for="password" class="textInput" id="passwordText"></label>
+                
                 <input type="password" id="password" class="input" placeholder=" " />
-                <span class="error-message"></span>
+                
+                <!-- Error Message -->
+                <span class="errorMessage"></span>
             </div>
         
 
@@ -63,7 +78,7 @@
                 <label for="soundtrack" id="soundtrackText">
 
                     <!-- The Volume icon Image-->
-                    <img src="..\..\Assets\Icons\volume.png" alt="volume" class="icon">
+                    <img src="..\..\Assets\Icons\Volume.png" alt="volume" class="icon">
                     
                 </label>
 
@@ -78,7 +93,7 @@
                 <label for="soundEffects" id="soundEffectText">
 
                     <!-- The Volume icon Image-->
-                    <img src="..\..\Assets\Icons\volume.png" alt="volume" class="icon">
+                    <img src="..\..\Assets\Icons\Volume.png" alt="volume" class="icon">
                     
                 </label>
 
@@ -99,7 +114,5 @@
                 <button id="delete"></button>
             </div>
         </div>
-
-        <script src="../../Script/Pages/scriptConfiguration.js"></script>
     </body>
 </html>

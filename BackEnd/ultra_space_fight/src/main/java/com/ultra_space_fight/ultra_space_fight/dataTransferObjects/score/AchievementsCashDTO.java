@@ -43,6 +43,7 @@ public class AchievementsCashDTO {
         this.cash = cash;
     }
 
+    // Getter and Setter of Defeated Enemies;
     public int getDefeatedEnemies() {
         return defeatedEnemies;
     }
@@ -51,6 +52,7 @@ public class AchievementsCashDTO {
         this.defeatedEnemies = defeatedEnemies;
     }
 
+    // Getter and Setter of Defeated Elite;
     public int getDefeatedElite() {
         return defeatedElite;
     }
@@ -59,6 +61,7 @@ public class AchievementsCashDTO {
         this.defeatedElite = defeatedElite;
     }
 
+    // Getter and Setter of Defeated Boss;
     public int getDefeatedBoss() {
         return defeatedBoss;
     }

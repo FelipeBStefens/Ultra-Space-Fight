@@ -1,26 +1,41 @@
+<!-- Identify it's a HTML -->
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Space Fight</title>
-    <link rel="stylesheet" href="Style/Enter/styleIndex.css">
-</head>
-<body>
 
-    <div id="music-player-container">
-        <audio id="background-audio" loop>
-            <source src="Assets/Audios/initial_audio.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+<!-- HTML file -->
+<html lang="en">
 
-    <iframe 
-        id="content-frame" 
-        name="main_content" 
-        src="Pages/Enter/enter.html"
-        allow="autoplay">
-    </iframe>
+    <!-- Head of the HTML file -->
+    <head>
+        
+        <!-- Meta configurations -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Link to CSS file -->
+        <link rel="stylesheet" href="Style/Enter/styleIndex.css">
+        
+        <!-- Script file -->
+        <script src="Script/scriptIndex.js" defer></script>
+    
+        <!-- Title of the HTML file -->
+        <title>Ultra Space Fight</title>
+    </head>
 
-    <script src="Script/Pages/scriptIndex.js"></script>
-</body>
+    <!-- Body of the HTML file -->
+    <body>
+
+        <!-- Div container with the Soundtrack -->
+        <div id="soundtrackContainer">
+
+            <!-- Audio -->
+            <audio id="backgroundAudio" loop>
+
+                <!-- Audio Source -->
+                <source src="Assets/Audios/Soundtracks/InitialSoundtrack.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- IFrame that inside contains all the others HTML files -->
+        <iframe id="contentFrame" name="main_content" src="Pages/Enter/enter.html" allow="autoplay"></iframe>
+    </body>
 </html>

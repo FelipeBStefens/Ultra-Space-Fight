@@ -12,7 +12,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Hub\styleRules.css">
+        <link rel="stylesheet" href="../../Style/Hub/styleRules.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+        
+        <!-- Script File -->
+        <script type="module" src="../../Script/Hub/scriptRules.js" defer></script>
         
         <!-- Title of the HTML file -->
         <title>Rules</title>
@@ -21,6 +25,7 @@
     <!-- Body of the HTML file -->
     <body>
         
+        <!-- Button to turn back on history -->
         <div class="turnBack" onclick="history.back()"></div>
 
         <!-- A Div with all the informations on the file -->
@@ -29,13 +34,14 @@
             <!-- The text to identify it's Rules -->
             <h1 id="titleText"></h1>
 
+            <!-- The rules -->
             <p id="rulesText"></p>
 
+            <!-- The text to identify it's Controls -->
             <h1 id="controls"></h1>
 
+            <!-- The controls -->
             <pre id="constrolsText"></pre>
         </div>
-
-        <script src="../../Script/Pages/scriptRules.js"></script>
     </body>
 </html>

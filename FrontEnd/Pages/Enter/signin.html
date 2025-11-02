@@ -12,8 +12,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Enter\styleSignin.css">
-        
+        <link rel="stylesheet" href="../../Style/Enter/styleSignin.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleInputError.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleVideo.css">
+
+        <!-- Script File -->
+        <script type="module" src="../../Script/Enter/scriptSignIn.js" defer></script>
+
         <!-- Title of the HTML file -->
         <title>Sign In</title>
     </head>
@@ -21,8 +27,11 @@
     <!-- Body of the HTML file -->
     <body>
 
-        <video id="video" autoplay muted playsinline>
-            <source src="../../Assets/Videos/inital_background.mp4" type="video/mp4">
+        <!-- Video -->
+        <video id="video" autoplay muted loop playsinline>
+            
+            <!-- Video Source -->
+            <source src="../../Assets/Videos/InitalBackground.mp4" type="video/mp4">
         </video>
         
         <div class="turnBack" onclick="history.back()"></div>
@@ -47,6 +56,8 @@
                         
                         <!-- Text Username -->
                         <label class="textInput" for="username">Username</label>
+                    
+                        <span class="errorMessage"></span>
                     </div>
 
                     <!-- A Div with a Input -->
@@ -57,6 +68,8 @@
                         
                         <!-- Text E-Mail -->
                         <label class="textInput" for="email">Email</label>
+                    
+                        <span class="errorMessage"></span>
                     </div>
 
                     <!-- A Div with a Input -->
@@ -67,6 +80,8 @@
                         
                         <!-- Text Password -->
                         <label class="textInput" for="password">Password</label>
+                    
+                        <span class="errorMessage"></span>
                     </div>
 
                     <!-- A Button to submit the values -->
@@ -74,8 +89,5 @@
                 </form>   
             </div>
         </div>
-
-        <script src="../../Script/Pages/scriptSignIn.js"></script>
-        <script src="../../Script/Pages/scriptVideo.js"></script>
     </body>
 </html>

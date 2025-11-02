@@ -12,8 +12,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Link to CSS file -->
-        <link rel="stylesheet" href="..\..\Style\Enter\styleLogin.css">
+        <link rel="stylesheet" href="../../Style/Enter/styleLogin.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleInputError.css">
+        <link rel="stylesheet" href="../../Style/Utils/styleVideo.css">
         
+        <!-- Script File -->
+        <script type="module" src="../../Script/Enter/scriptLogin.js" defer></script>
+
         <!-- Title of the HTML file -->
         <title>Log In</title>
     </head>
@@ -21,10 +27,14 @@
     <!-- Body of the HTML file -->
     <body>
 
-        <video id="video" autoplay muted playsinline>
-            <source src="../../Assets/Videos/inital_background.mp4" type="video/mp4">
+        <!-- Video -->
+        <video id="video" autoplay muted loop playsinline>
+            
+            <!-- Video Source -->
+            <source src="../../Assets/Videos/InitalBackground.mp4" type="video/mp4">
         </video>
         
+        <!-- Button to turn back on history -->
         <div class="turnBack" onclick="history.back()"></div>
         
         <!-- A Div with all the informations on the file -->
@@ -47,6 +57,8 @@
                         
                         <!-- Text E-Mail -->
                         <label class="textInput" for="email">Email</label>
+
+                        <span class="errorMessage"></span>
                     </div>
 
                     <!-- A Div with a Input -->
@@ -57,6 +69,8 @@
                         
                         <!-- Text Password -->
                         <label class="textInput" for="password">Password</label>
+
+                        <span class="errorMessage"></span>
                     </div>
 
                     <!-- A Button to submit the values -->
@@ -64,8 +78,5 @@
                 </form>   
             </div>
         </div>
-
-        <script src="../../Script/Pages/scriptLogin.js"></script>
-        <script src="../../Script/Pages/scriptVideo.js"></script>
     </body>
 </html>

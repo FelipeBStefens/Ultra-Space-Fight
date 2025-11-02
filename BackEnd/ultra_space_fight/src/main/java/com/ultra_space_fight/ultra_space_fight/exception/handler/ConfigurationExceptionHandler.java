@@ -18,7 +18,7 @@ public class ConfigurationExceptionHandler {
     
     // Handler to ConfigurationNotFound Exception;
     @ExceptionHandler(ConfigurationNotFoundException.class)
-    public ResponseEntity<ModelException> getConfigurationValues(ConfigurationNotFoundException e) {
+    public ResponseEntity<ModelException> ConfigurationNotFound(ConfigurationNotFoundException e) {
 
         // The Model Exception;
         ModelException configurationException = new ModelException(

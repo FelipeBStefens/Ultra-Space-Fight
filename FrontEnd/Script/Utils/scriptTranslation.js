@@ -1,0 +1,119 @@
+
+// Translations of the Web Page/
+const translations = {
+    
+    // English Translations;
+    English: {
+        score: "Score",
+        scoreMatch: "Score Match",
+        
+        totalButton: "Total Score Ranking",
+        matchButton: "Match Score Ranking",
+        
+        titleText: "Game Rules",
+        controls: "Controls",
+        
+        scoreAchievement: "Score Master",
+        matchAchievement: "Perfect Match",
+        enemiesAchievement: "Enemies Destroyer",
+        eliteAchievement: "Elite Person",
+        bossAchievement: "A Real Boss",
+
+        title: "Configurations",
+        username: "Username",
+        password: "Password",
+        language: "Language",
+        portuguese: "Portuguese",
+        english: "English",
+        soundtrack: "Soundtrack",
+        soundEffects: "Sound Effects",
+        save: "Save new Configurations",
+        logout: "Log Out Account",
+        delete: "Delete Account",
+        confirmDelete: "You really want to delete your Account?",
+        invalidForm: "Invalid username or password!",
+        errors: {
+            usernameTooLong: "Username must be less than 15 characters",
+            passwordInvalid: "Password must be at least 8 characters and contain uppercase, lowercase, and numbers"
+        },
+
+        selectSpaceship: "Select Spaceship",
+        selectedSpaceship: "Selected Spaceship",
+        locked: "Locked: Need",
+        life: "Life",
+        speed: "Speed",
+        damage: "Damage",
+        upgrade: "Upgrade",
+        maxed: "MAXED",
+        cost: "Cost",
+        coins: "Coins",
+
+        pause: "Pause",
+        resume: "Resume",
+        soundEffectsPause: "Sound Effects",
+        soundtrackPause: "Soundtrack",
+        saveSoundsPause: "Save Sounds",
+        leaveMatch: "Leave Match"
+    },
+
+    // Portuguese Translations
+    Portuguese: {
+        score: "Pontos",
+        scoreMatch: "Pontos Partida",
+        
+        totalButton: "Ranking Pontos Totais",
+        matchButton: "Ranking Pontos Partida",
+        
+        titleText: "Regras do Jogo",
+        controls: "Controles",
+
+        scoreAchievement: "Mestre dos Pontos",
+        matchAchievement: "Partida Perfeita",
+        enemiesAchievement: "Destruidor de Inimigos",
+        eliteAchievement: "Pessoa de Elite",
+        bossAchievement: "O Verdadeiro Chefe",
+
+        title: "Configurações",
+        username: "Usuário",
+        password: "Senha",
+        language: "Idioma",
+        portuguese: "Português",
+        english: "Inglês",
+        soundtrack: "Trilha Sonora",
+        soundEffects: "Efeitos Sonoros",
+        save: "Salvar novas configurações",
+        logout: "Sair da conta",
+        delete: "Excluir conta",
+        confirmDelete: "Você realmente quer excluir sua conta?",
+        invalidForm: "Usuário ou senha inválidos!",
+        errors: {
+            usernameTooLong: "Usuário deve ter menos de 15 caracteres",
+            passwordInvalid: "A senha deve ter pelo menos 8 caracteres e conter maiúsculas, minúsculas e números"
+        },
+
+        selectSpaceship: "Selecionar Nave",
+        selectedSpaceship: "Nave Selecionada",
+        locked: "Bloqueada: Precisa de",
+        life: "Vida",
+        speed: "Velocidade",
+        damage: "Dano",
+        upgrade: "Melhorar",
+        maxed: "MÁXIMO",
+        cost: "Custo",
+        coins: "Moedas",
+
+        pause: "Pausa",
+        resume: "Retomar",
+        soundEffectsPause: "Efeitos Sonoros",
+        soundtrackPause: "Trilha Sonora",
+        saveSoundsPause: "Salvar Sons",
+        leaveMatch: "Sair da Partida"
+    }
+};
+
+// Function to get the translations with the selected language;
+export default function getTranslation(language = "English") {
+
+    // Returning the transaltions of the language or the english translations if the other doesn't exist; 
+    return translations[language] || translations["English"];
+}

@@ -1,82 +1,95 @@
-/* Import das variáveis globais */
+/* File with the Style of the Enter Page */
+
+/* Imports variables */
 @import url('../style.css');
 
-/* Corpo da página */
+/* Body of the Page */
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  
+  /* Using FlexBox to configure the position */
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-/* Vídeo de fundo */
-#video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-}
-
-/* Logo do jogo */
+/* Logo Image */
 #logo {
-  image-rendering: pixelated;
+
+  /* Width and Height */
+  width: 700px;
+  height: auto;
+
+  /* Position of the Image */
   position: absolute;
   top: 0px;
-  right: -70px;
-  width: 1000px;
-  height: auto;
+  right: 90px;
 }
 
-/* Contêiner dos botões */
+/* Buttons Container */
 #buttons {
-  display: flex;
-  flex-direction: column;
+  
+  /* Defining the Position */
   gap: 30px;
   padding-top: 80px;
   padding-left: 150px;
+
+  /* Using FlexBox to configure the position */
+  display: flex;
+  flex-direction: column;
 }
 
-/* Botões (hiperlinks) */
+/* Button Style */
 #buttons a {
   
-  background-image: url('../../Assets/Images/Button.png');
+  /* Background Image */
+  background-image: var(--pink-button-image);
   background-repeat: no-repeat;
   background-size: contain; 
   background-position: center;
-  image-rendering: pixelated;
 
+  /* Width and Height */
   width: 350px;   
   height: 150px;   
 
+  /* Font Styles */
   color: var(--text-color);
-  font-size: 50px;
   font-family: var(--pixel-font);
+  font-size: 50px;
+
+  /* Defining the Position */
   text-align: center;
   line-height: 130px; 
   text-decoration: none;
-
-  transition: transform 0.15s ease;
   display: inline-block;
+
+  /* Transition in case of Hover */
+  transition: transform 0.15s ease;
   cursor: pointer;
 }
 
+/* Hover Button */
 #buttons a:hover {
-  background-image: url('../../Assets/Images/ButtonHover.png');
+
+  /* Defining the Background */
+  background-image: var(--pink-button-hover-image);
+
+  /* Scaling it 1.05 times */
   transform: scale(1.05);
 }
 
+/* Clicked Button */
 #buttons a:active {
-  background-image: url('../../Assets/Images/ButtonClicked.png');
+
+  /* Defining the Background */
+  background-image: var(--pink-button-clicked-image);
+  
+  /* Scaling it 0.95 times */
   transform: scale(0.95);
 }
 
+/* Button already clicked */
 #buttons a:focus {
+
+  /* Removing all others standart Styles */
   outline: none;
 }

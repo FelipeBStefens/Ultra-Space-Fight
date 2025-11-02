@@ -100,6 +100,7 @@ public class UserResponseDTO {
         this.spaceshipValues = spaceshipValues;
     }
 
+    // Getter and Setter of Language;
     public String getLanguage() {
         return language;
     }
