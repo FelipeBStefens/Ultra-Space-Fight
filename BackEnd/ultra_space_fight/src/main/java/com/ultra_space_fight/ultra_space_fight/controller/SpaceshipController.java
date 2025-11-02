@@ -19,7 +19,7 @@ import com.ultra_space_fight.ultra_space_fight.service.SpaceshipService;
 // Controller class for the Spaceships;
 @RestController
 @RequestMapping("/spaceship")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "https://felipebstefens.github.io")
 public class SpaceshipController {
     
     // Declaring the Service of the Spaceships;

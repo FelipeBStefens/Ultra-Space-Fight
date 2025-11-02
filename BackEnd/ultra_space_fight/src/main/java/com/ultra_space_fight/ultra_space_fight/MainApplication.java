@@ -5,8 +5,6 @@ package com.ultra_space_fight.ultra_space_fight;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import com.ultra_space_fight.ultra_space_fight.configuration.DotenvInitializer;
-
 // Main Application Class;
 @SpringBootApplication
 public class MainApplication {
@@ -15,8 +13,6 @@ public class MainApplication {
 	public static void main(String[] args) {
 
 		// Starting the Spring Boot with env values;
-		new SpringApplicationBuilder(MainApplication.class)
-            .initializers(new DotenvInitializer())
-            .run(args);
+		new SpringApplicationBuilder(MainApplication.class).run(args);
 	}
 }

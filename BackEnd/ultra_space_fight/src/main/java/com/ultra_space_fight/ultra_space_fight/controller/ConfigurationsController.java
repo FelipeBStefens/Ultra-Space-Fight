@@ -19,7 +19,7 @@ import com.ultra_space_fight.ultra_space_fight.service.ConfigurationService;
 // Controller class for Configurations;
 @RestController
 @RequestMapping("/configuration")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "https://felipebstefens.github.io")
 public class ConfigurationsController {
     
     // Declaring the Service of Configuration;

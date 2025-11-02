@@ -24,7 +24,7 @@ import com.ultra_space_fight.ultra_space_fight.service.DataAchievementsService;
 // Controller classe for Data Achievements;
 @RestController
 @RequestMapping("/data/achievement")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "https://felipebstefens.github.io")
 class DataAchievementsController {
     
     // Declaring the Service of Data Achievements;

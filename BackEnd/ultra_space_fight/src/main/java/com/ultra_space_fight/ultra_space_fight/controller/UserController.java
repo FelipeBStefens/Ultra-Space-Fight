@@ -21,7 +21,7 @@ import com.ultra_space_fight.ultra_space_fight.service.UserService;
 // Controller class for User;
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "https://felipebstefens.github.io")
 public class UserController {
     
     // Declaring the Service of User;
