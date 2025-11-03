@@ -51,7 +51,10 @@ class ScoutEnemy extends Enemy{
 
     // Overrides the base onCollision method to handle specific collision types;
     onCollision(gameObject, startShake) {
-    
+        
+        // Super method to implement damage;
+        super.onCollision(gameObject, startShake);
+
         // Checks if the collision was with the player's spaceship;
         if (gameObject.type === "spaceship") {
 
