@@ -52,7 +52,8 @@ class ScoutEnemy extends Enemy{
 
     onCollision(gameObject, startShake) {
     
-
+        super.onCollision(gameObject, startShake);
+        
         if (gameObject.type === "spaceship") {
 
 
