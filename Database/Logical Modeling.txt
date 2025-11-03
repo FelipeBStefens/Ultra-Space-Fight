@@ -1,0 +1,25 @@
+Logical Modeling
+
+# User Table;
+User(__id_user__; name; e-mail; password; cash; selected_spaceship);
+
+# Configuration Table;
+Configuration(__id_configuration__; #id_user; language; soundtrack; sound-effects);
+
+# Data Achievement Table
+Data_Achievements(__id_data__; #id_user; score; score_match; defeated_enemies; defeated_boss; defeated_elite);
+
+# Standart Ship Table
+Standart_Ship(__id_ship__; #id_user; life; speed; damage);
+
+# Speed Ship Table
+Speed_Ship(__id_ship__; #id_user; life; speed; damage);
+
+# Destroyer Ship Table
+Destroyer_Ship(__id_ship__; #id_user; life; speed; damage);
+
+# Freighter Ship Table
+Freighter_Ship(__id_ship__; #id_user; life; speed; damage);
+
+# Elite Ship Table
+Elite_Ship(__id_ship__; #id_user; life; speed; damage);

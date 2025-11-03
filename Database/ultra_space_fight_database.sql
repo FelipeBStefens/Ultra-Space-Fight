@@ -19,7 +19,7 @@ CREATE TABLE users (
     selected_spaceship VARCHAR(255) NOT NULL DEFAULT 'standart_ship',
 
     -- Checking values of the Columns;
-    CHECK(selected_spaceship IN ('standart_ship', 'speed_ship', 'destroyer_ship', 'freighter_ship', 'elite_ship'))
+    CHECK(selected_spaceship IN ('standart_ship', 'speed_ship', 'destroyer_ship', 'freighter_ship', 'elite_ship')),
     CHECK(email LIKE '%@gmail.com'),
     CHECK(cash >= 0),
     
