@@ -1,183 +1,183 @@
-/* File of the Gameplay page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* The Body of the HTML */
+
 body {
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-/* Canvas of the Game */
+
 #gameCanvas {
 
-    /* Defining the Position */
+    
     position: fixed;
     top: 0;
     left: 0;
 
-    /* Defining the Layer */
+    
     z-index: 10;
     pointer-events: none;  
 }
 
-/* Container with Score Match */
+
 #scoreMatchContainer {
     
-    /* Defining the color */
+    
     color: #f0f0f0;
     text-shadow: 2px 2px 5px #000000;
 
-    /* Defining the Position */
+    
     position: fixed;
     bottom: 20px;
     left: 20px;
 
-    /* Defining the Font */
+    
     font-family: var(--pixel-font);
     font-size: 35px;
     font-weight: bold;
     
-    /* Defining the Layer */
+    
     z-index: 100;
 }
 
-/* Container with the Cash */
+
 #cashContainer {
 
-    /* Defining the Color */
+    
     color: #f0f0f0;
     text-shadow: 2px 2px 5px #000000;
 
-    /* Defining the Position */
+    
     position: fixed;
     bottom: 80px;
     left: 20px;
     
-    /* Defining the Font */
+    
     font-family: var(--pixel-font);
     font-size: 35px;
     font-weight: bold;
     
-    /* Defining the Layer */
+    
     z-index: 100;
 }
 
-/* Image of the Cash */
+
 #cashContainer img {
 
-    /* Width and Height */
+    
     width: 50px;
     height: 50px;
 }
 
-/* Container with Lifes */
+
 #lifeContainer {
     
-    /* Defining the Position */
+    
     position: fixed;
     top: 20px;
     right: 20px;
     gap: 8px;
 
-    /* Display it Flex  */
+    
     display: flex;
     
-    /* Defining the Layer */
+    
     z-index: 100;
 }
 
-/* The Hearts images of the Container */
+
 #lifeContainer img {
 
-    /* Width and Height */
+    
     width: 50px;
     height: 50px;
 }
 
-/* Container of the Boss Life */
+
 #bossLifeContainer {
 
-    /* Background Color */
+    
     background-color: #444444;
     border: 2px solid #fff;
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
 
-    /* Width and Height */
+    
     width: 1000px;
     height: 35px;
 
-    /* Defining the Position */
+    
     position: fixed;
     bottom: 20px;
     right: 20px;
 
-    /* Defining the Border Radius */
+    
     border-radius: 10px;
     
-    /* Defining to not visible as start and hidden */
+    
     overflow: hidden;
     display: none; 
     
-    /* Defining the Layer */
+    
     z-index: 100;
 }
 
-/* The Boss Life */
+
 #bossLifeFill {
 
-    /* Background color */
+    
     background-color: red;
 
-    /* Width and Height */
+    
     height: 100%;
     width: 100%;
 
-    /* Defining the Border Radius */
+    
     border-radius: 8px 0 0 8px;
 
-    /* Defining the Animation */
+    
     transition: width 0.3s ease-in-out;
 }
 
-/* The Boss name */
+
 #bossLifeText {
 
-    /* Defining the Color */
+    
     color: white;
     text-shadow: 2px 2px 5px black;
 
-    /* Defining the Position */
+    
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
     
-    /* Defining the Font */
+    
     font-family: var(--pixel-font);
     font-size: 22px;
 }
 
-/* The button to pause the Game */
+
 #pauseButton {
 
-    /* Defining the Color */
+    
     background-color: transparent;
     background-image: var(--pause-button-image);
     background-repeat: no-repeat;
     background-size: contain;
     box-shadow: 0 2px 6px rgba(0,0,0,0.18);
     
-    /* Width and Height */
+    
     width: 120px;
     height: 120px;
 
-    /* Defining the Position */
+    
     position: fixed;
     top: 10px;
     left: 10px;
@@ -185,36 +185,36 @@ body {
     margin-left: 15px;
     border: none;
 
-    /* Defining the Layer */
+    
     z-index: 1000;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     align-items: center;
     justify-content: center;
 
-    /* Transition in case of Hover */
+    
     cursor: pointer;
     transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
 }
 
-/* Configuration of the button in case of Hover */
+
 #pauseButton:hover {
 
-    /* Altering the Background Color */
+    
     background-image: var(--pause-button-hover-image);
 
-    /* Scaling the button it's value times 1.2 */
+    
     transform: scale(1.2);
 }
 
-/* Configurations of th button when clicked */
+
 #pauseButton.clicked {
 
-    /* Background Image */
+    
     background-image: var(--pause-button-clicked-image);
     opacity: 0.8;
 
-    /* Scaling it 0.95 */
+    
     transform: scale(0.95);
 }

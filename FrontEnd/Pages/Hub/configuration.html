@@ -1,116 +1,116 @@
-<!-- Identify it's a HTML -->
+
 <!DOCTYPE html>
 
-<!-- HTML file -->
+
 <html lang="en">
 
-    <!-- Head of the HTML file -->
+    
     <head>
 
-        <!-- Meta configurations -->
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <!-- Link to CSS file -->
+        
         <link rel="stylesheet" href="../../Style/Hub/styleConfiguration.css">
         <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
         <link rel="stylesheet" href="../../Style/Utils/styleInputError.css">
         
-        <!-- Script File -->
+        
         <script type="module" src="../../Script/Hub/scriptConfiguration.js" defer></script>
         
-        <!-- Title of the HTML file -->
+        
         <title>Configurations</title>
     </head>
 
-    <!-- Body of the HTML file -->
+    
     <body>
         
-        <!-- Button to turn back on history -->
+        
         <div class="turnBack" onclick="history.back()"></div>
 
-        <!-- A Div with all the informations on the file -->
+        
         <div class="container">
 
-            <!-- The text to identify it's a Configuration -->
+            
             <h1 id="titleText"></h1>
 
-            <!-- Text Username to identify the input -->
+            
             <div class="inputContainer">
                 
                 <label for="username" class="textInput" id="usernameText"></label>
                 
                 <input type="text" id="username" class="input" placeholder=" " />
                 
-                <!-- Error Message -->
+                
                 <span class="errorMessage"></span>
             </div>
 
-            <!-- Text Password to identify the input -->
+            
             <div class="inputContainer">
                 
                 <label for="password" class="textInput" id="passwordText"></label>
                 
                 <input type="password" id="password" class="input" placeholder=" " />
                 
-                <!-- Error Message -->
+                
                 <span class="errorMessage"></span>
             </div>
         
 
-            <!-- Text Language to identify the selection -->
+            
             <label for="language" id="languageText"></label>
 
-            <!-- Selection to choose the Language -->
+            
             <select id="language" name="language">
 
-                <!-- Portuguese Language-->
+                
                 <option value="Portuguese" id="portugueseText"></option>
 
-                <!-- English Language-->
+                
                 <option value="English" id="englishText"></option>
             </select>
 
-            <!-- The Container of the Slider -->
+            
             <div class="sliderContainer">
 
-                <!-- Text Soundtrack to alter the soundtrack -->
+                
                 <label for="soundtrack" id="soundtrackText">
 
-                    <!-- The Volume icon Image-->
+                    
                     <img src="..\..\Assets\Icons\Volume.png" alt="volume" class="icon">
                     
                 </label>
 
-                <!-- The Soundtrack input -->
+                
                 <input type="range" id="soundtrack" name="soundtrack" min="0" max="1" step="0.01">
             </div>
 
-            <!-- The Container of the Slider -->
+            
             <div class="sliderContainer">
 
-                <!-- Text Sound Effects to alter the soundtrack -->
+                
                 <label for="soundEffects" id="soundEffectText">
 
-                    <!-- The Volume icon Image-->
+                    
                     <img src="..\..\Assets\Icons\Volume.png" alt="volume" class="icon">
                     
                 </label>
 
-                <!-- The Sound Effects input -->
+                
                 <input type="range" id="soundEffects" name="soundEffects" min="0" max="1" step="0.01">
             </div>
 
-            <!-- The Container of the Buttons -->
+            
             <div class="buttons">
 
-                <!-- A Button to save the configurations -->
+                
                 <button id="save"></button>
 
-                <!-- A Button to Log Out the Account -->
+                
                 <button id="logout"></button>
 
-                <!-- A Button to delete the Account -->
+                
                 <button id="delete"></button>
             </div>
         </div>

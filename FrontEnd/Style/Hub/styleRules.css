@@ -1,40 +1,40 @@
-/* File of the Rules page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* The Body of the HTML */
+
 body {
 
-    /* Putting and configuring the Background image */ 
+     
     background-image: var(--controls-background-image);
     background-size: cover;
     background-position: center;
     background-repeat: repeat-y;
     
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     justify-content: center; 
     align-items: flex-start;
 }
 
-/* The Container class */
+
 .container {
 
-    /* Configure the color */
+    
     background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain;
     color: var(--light-text-color);   
     
-    /* The size and family of the Font */
+    
     font-family: var(--pixel-font);  
     font-size: 25px;
 
-    /* Configure the Padding and Border Radius */ 
+     
     padding: 30px 30px 50px 30px;
     
-    /* Configure the Width and Height */
+    
     width: 700px;     
     height: calc(100vh - 40px);   
     max-width: 90%;    
@@ -42,41 +42,41 @@ body {
     overflow-y: auto;   
     overflow-x: hidden;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-/* Title text Rules */
+
 h1 {
 
-    /* Configure the color */
+    
     color: var(--title-text-color);
 
-    /* Defining the Font Size */
+    
     font-size: 120px;
 
-    /* Configure the Width and Margin */
+    
     width: 100%;
     margin-top: 10px;
 
-    /* Align it with FlexBox */
+    
     text-align: center;
 }
 
-/* Paragraph Style */
+
 pre {
 
-    /* Defining the Font */
+    
     font-family: var(--pixel-font);  
     font-size: 25px;
 
-    /* Width and Height */
+    
     width: 700px;
     height: auto;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     flex-direction: column;
     align-items: flex-start;

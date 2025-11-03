@@ -1,79 +1,79 @@
-<!-- Identify it's a HTML -->
+
 <!DOCTYPE html>
 
-<!-- HTML file -->
+
 <html lang="en">
 
-    <!-- Head of the HTML file -->
+    
     <head>
 
-        <!-- Meta configurations -->
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <!-- Link to CSS file -->
+        
         <link rel="stylesheet" href="../../Style/Enter/styleLogin.css">
         <link rel="stylesheet" href="../../Style/Utils/styleTurnBack.css">
         <link rel="stylesheet" href="../../Style/Utils/styleInputError.css">
         <link rel="stylesheet" href="../../Style/Utils/styleVideo.css">
         
-        <!-- Script File -->
+        
         <script type="module" src="../../Script/Enter/scriptLogin.js" defer></script>
 
-        <!-- Title of the HTML file -->
+        
         <title>Log In</title>
     </head>
 
-    <!-- Body of the HTML file -->
+    
     <body>
 
-        <!-- Video -->
+        
         <video id="video" autoplay muted loop playsinline>
             
-            <!-- Video Source -->
+            
             <source src="../../Assets/Videos/InitalBackground.mp4" type="video/mp4">
         </video>
         
-        <!-- Button to turn back on history -->
+        
         <div class="turnBack" onclick="history.back()"></div>
         
-        <!-- A Div with all the informations on the file -->
+        
         <div id="container">
 
-            <!-- The text to identify it's a Login -->
+            
             <h1 id="loginText">LOG IN</h1>
 
-            <!-- A Div with the forms -->
+            
             <div id="forms">
 
-                <!-- The Forms -->
+                
                 <form action="#" method="POST">
                     
-                    <!-- A Div with a Input -->
+                    
                     <div class="inputContainer">
 
-                        <!-- Input value -->
+                        
                         <input class="input" type="email" id="email" name="email" placeholder=" " required>
                         
-                        <!-- Text E-Mail -->
+                        
                         <label class="textInput" for="email">Email</label>
 
                         <span class="errorMessage"></span>
                     </div>
 
-                    <!-- A Div with a Input -->
+                    
                     <div class="inputContainer">
 
-                        <!-- Input value -->
+                        
                         <input class="input" type="password" id="password" name="password" placeholder=" " required>
                         
-                        <!-- Text Password -->
+                        
                         <label class="textInput" for="password">Password</label>
 
                         <span class="errorMessage"></span>
                     </div>
 
-                    <!-- A Button to submit the values -->
+                    
                     <button type="submit" id="button" disabled>LOG IN</button> 
                 </form>   
             </div>

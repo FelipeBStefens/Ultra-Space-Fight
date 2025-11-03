@@ -1,95 +1,95 @@
-/* File of the credits page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* The Body of the HTML */
+
 body {
   
-  /* Using FlexBox to configure the position */
+  
   display: flex;
   justify-content: center; 
   align-items: flex-start;
 }
 
-/* The Container class */
+
 .container {
 
-  /* Configure the color */
+  
   background-image: var(--black-container-image);
   background-repeat: repeat;
   background-size: contain;
 
-  /* background-color: var(--dark-container-color); */
+  
   color: var(--light-text-color);   
   
-  /* The size and family of the Font */
+  
   font-family: var(--pixel-font);  
   font-size: 25px;
 
-  /* Configure the Padding and Border Radius */ 
+   
   padding: 30px;
   
-  /* Configure the Width and Height */
+  
   width: 400px;       
   max-width: 90%;    
   height: 100vh;      
   overflow-y: auto;   
 
-  /* Using FlexBox to configure the position */
+  
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-/* The credits title text */ 
+ 
 h1 {
 
-  /* Configure the color */
+  
   color: var(--title-text-color);
   
-  /* The size and family of the Font */
+  
   font-family: var(--pixel-font);
   font-size: 100px;
 
-  /* Aligning it to Center */
+  
   margin-top: 10px;
   margin-bottom: 0px;
   text-align: center;
 }
 
-/* The Hiperlinks of the Container */
+
 .container a {
       
-  /* Not decorating the hiperlink text */
+  
   text-decoration: none;
 
-  /* Configure the color */
+  
   color: var(--link-color); 
 
-  /* Aligning it to Center and defining the Gap */
+  
   align-items: center;
   gap: 8px;                   
   
-  /* Configure it with FlexBox */
+  
   display: inline-flex;
 }
 
-/* The Hover of the Container */
+
 .container a:hover {
 
-  /* Configure the color */
+  
   color: var(--link-hover-color);
 
-  /* Scaling the button it's value times 1.2 */
+  
   transform: scale(1.2);
   transition: 0.3s;
 }
 
-/* The Images of the Hiperlink */
+
 .container a img {
 
-  /* Definig the Width and Height */
+  
   width: 27px;   
   height: 27px;
 }

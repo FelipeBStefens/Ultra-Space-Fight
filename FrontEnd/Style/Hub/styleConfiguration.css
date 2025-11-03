@@ -1,39 +1,39 @@
-/* File of the Configuration page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* Main Body Styles */
+
 body {
-    /* Background Configuration: Sets image, size, position, and repeat for a full-screen background. */
+    
     background-image: var(--controls-background-image);
     background-size: cover;
     background-position: center;
     background-repeat: repeat-y;
     
-    /* Layout with Flexbox: Centers the content container horizontally and aligns it to the top. */
+    
     display: flex;
     justify-content: center; 
     align-items: flex-start;
 }
 
-/* Container Styles (Main Content Area) */
+
 .container {
-    /* Background and Color: Sets the dark, tiled background and light text color. */
+    
     background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain;
     color: var(--light-text-color);  
     box-shadow: 0 4px 15px rgba(53, 53, 53, 0.6); 
     
-    /* Typography: Applies custom pixel font and base size. */
+    
     font-family: var(--pixel-font); 
     font-size: 25px;
 
-    /* Spacing: Adds internal padding. */ 
+     
     padding: 30px 30px 50px 30px;
     
-    /* Sizing and Overflow: Defines responsive width, calculates height based on viewport, and enables vertical scrolling. */
+    
     width: 700px;    
     max-width: 90%;  
     height: calc(100vh - 40px);
@@ -41,96 +41,96 @@ body {
     overflow-y: auto;  
     overflow-x: hidden;
 
-    /* Layout with Flexbox: Sets a vertical stack layout. */
+    
     display: flex;
     flex-direction: column;
     align-items: flex-start; 
 }
 
-/* Title Styles */
+
 h1 {
-    /* Color and Size: Sets the title color and a large font size. */
+    
     color: var(--title-text-color);
     font-size: 90px;
 
-    /* Alignment and Spacing: Centers the text and adds top margin. */
+    
     width: 100%;
     margin-top: 30px;
     text-align: center;
 }
 
-/* Label Styles (Base) */
+
 label {
-    /* Color and Font Size: Sets a muted gray color and large font size. */
+    
     color: rgb(148, 148, 148);
     font-size: 35px;
     
-    /* Spacing and Flexbox: Configures gap between elements and aligns them vertically. */
+    
     gap: 12px;
     margin-top: 10px;
     display: flex;
     align-items: center;
 }
 
-/* Input Container Wrapper */
+
 .inputContainer {
-    /* Sizing and Spacing: Full width and bottom margin for separation. */
+    
     width: 100%;
     margin-bottom: 25px;
     
-    /* Layout with Flexbox: Stacks label and input vertically. */
+    
     display: flex;
     flex-direction: column;  
     align-items: flex-start;
 }
 
-/* Label Styles within Input Container */
+
 .inputContainer label {
-    /* Overrides and Spacing: Ensures specific color/size and adds bottom margin to separate from input field. */
+    
     color: rgb(148, 148, 148);
     font-size: 35px;
     margin-bottom: 8px;
 }
 
-/* Common Input/Select Styles */ 
+ 
 .inputContainer input[type="text"],
 .inputContainer input[type="password"],
 #language {
-    /* Background and Color: Sets the light background image and text color. */
+    
     background-image: var(--white-container-image);
     background-repeat: repeat-x;
     background-size: contain;
     color: var(--text-color);
 
-    /* Typography and Sizing: Sets font size, family, full width, and box model. */
+    
     font-size: 25px;
     font-family: var(--pixel-font);
     width: 100%;
     box-sizing: border-box;
     border-radius: 5px;
 
-    /* Padding and Border: Adds internal spacing and removes default border. */
+    
     padding: 20px 10px;
     margin: 5px 0 20px 0;
     border: none;
 }
 
-/* Text/Password Input Hover Effect */
+
 .inputContainer input[type="text"]:hover,
 .inputContainer input[type="password"]:hover {
-    /* Visual Feedback: Applies a slight grayscale filter on hover. */
+    
     filter: grayscale(30%);
 }
 
-/* Language Select Dropdown Specific Styles */
+
 #language {
-    /* Spacing and Appearance: Adds bottom margin and removes default dropdown appearance. */
+    
     margin-bottom: 50px; 
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 
-    /* Custom Dropdown Arrow: Creates a custom pixel-style down arrow using complex background image/positioning. */
+    
     border: 2px solid transparent; 
     position: relative;
     color: var(--text-color);
@@ -149,7 +149,7 @@ label {
     transition: box-shadow 0.2s, background-color 0.2s;
 }
 
-/* Language Select Hover and Focus Effects */
+
 #language:hover {
     filter: grayscale(30%);
 }
@@ -158,36 +158,36 @@ label {
     outline: none;
 }
 
-/* Slider Container Wrapper */
+
 .sliderContainer {
-    /* Sizing and Spacing: Full width and vertical margins. */
+    
     width: 100%;
     margin: 15px 0;
 }
 
-/* Label Spacing within Slider Container */
+
 .sliderContainer label {
-    /* Adjusts vertical spacing. */
+    
     margin-bottom: 5px;
 }
 
-/* Icon Element Size */
+
 .icon {
-    /* Fixed size for image icons. */
+    
     width: 50px;
     height: 50px;
 }
 
-/* Range Input (Track) Base Styles */
+
 input[type="range"] {
-    /* Appearance and Background: Removes default appearance, sets pixelated rendering, and applies track background image. */
+    
     -webkit-appearance: none;
     image-rendering: pixelated;
     background-image: var(--white-container-image);
     background-repeat: repeat-x;
     background-size: contain;
 
-    /* Sizing and Styling: Sets width, height, radius, and removes outline. */
+    
     margin-top: 20px;
     width: 100%;
     height: 40px;
@@ -195,45 +195,45 @@ input[type="range"] {
     outline: none;
 }
 
-/* Range Slider Thumb (Draggable part) - WebKit */
+
 input[type="range"]::-webkit-slider-thumb {
-    /* Appearance and Thumb Image: Removes default styling and sets custom image for the thumb. */
+    
     -webkit-appearance: none;
     background-image: var(--slider-button-image);
     background-repeat: no-repeat;
     background-size: contain;
 
-    /* Sizing and Interactivity: Defines thumb size and cursor. */
+    
     width: 50px;
     height: 80px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-/* Range Slider Thumb (Draggable part) - Firefox */
+
 input[type="range"]::-moz-range-thumb {
-    /* Appearance and Thumb Image: Sets custom image for the thumb. */
+    
     background-image: var(--slider-button-image);
     background-repeat: no-repeat;
     background-size: contain;
 
-    /* Sizing and Interactivity: Defines thumb size and cursor. */
+    
     width: 50px;
     height: 80px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-/* Slider Thumb Hover Effect - WebKit */
+
 input[type="range"]::-webkit-slider-thumb:hover {
-    /* Visual Feedback: Grayscale and slight scaling on hover. */
+    
     filter: grayscale(100%);
     transform: scale(1.15);
 }
 
-/* Buttons Container */
+
 .buttons {
-    /* Layout with Flexbox: Full width, vertical stack, and center alignment. */
+    
     width: 100%;
     gap: 15px;
     display: flex;
@@ -241,9 +241,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
     align-items: center;
 }
 
-/* Common Button Styles */
+
 .buttons button {
-    /* Appearance: Transparent background, custom image background (set individually), pixel font. */
+    
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: contain; 
@@ -251,7 +251,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     font-family: var(--pixel-font);
     font-size: 40px;
 
-    /* Spacing, Border, and Interactivity: Padding, no border, pointer cursor, transition, and positioning for spinner. */
+    
     padding: 20px;
     border: none;
     cursor: pointer;
@@ -260,9 +260,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
     overflow: hidden;
 }
 
-/* Save Button Specific Styles */
+
 #save {
-    /* Image, Sizing, and Color: Pink image, fixed size, light text, and padding adjustment. */
+    
     background-image: var(--pink-button-image);
     width: 330px;
     height: 210px;
@@ -272,16 +272,16 @@ input[type="range"]::-webkit-slider-thumb:hover {
     margin-bottom: 50px;
 }
 
-/* Save Button Hover Effect */
+
 #save:hover {
-    /* Visual Feedback: Changes image and scales slightly. */
+    
     background-image: var(--pink-button-hover-image);
     transform: scale(1.05);
 }
 
-/* Logout Button Specific Styles */
+
 #logout {
-    /* Image, Sizing, and Color: Gray image, fixed size, light text, and padding adjustment. */
+    
     background-image: var(--gray-button-image);
     width: 330px;
     height: 210px;
@@ -289,16 +289,16 @@ input[type="range"]::-webkit-slider-thumb:hover {
     color: var(--light-text-color);
 }
 
-/* Logout Button Hover Effect */
+
 #logout:hover {
-    /* Visual Feedback: Changes image and scales slightly. */
+    
     background-image: var(--gray-button-hover-image);
     transform: scale(1.05);
 }
 
-/* Delete Button Specific Styles */
+
 #delete {
-    /* Image, Sizing, and Color: Red image, fixed size, and white text. */
+    
     background-image: var(--red-button-image);
     width: 330px;
     height: 210px;
@@ -307,16 +307,16 @@ input[type="range"]::-webkit-slider-thumb:hover {
     color: #fff;
 }
 
-/* Delete Button Hover Effect */
+
 #delete:hover {
-    /* Visual Feedback: Changes image and scales slightly. */
+    
     background-image: var(--red-button-hover-image);
     transform: scale(1.05);
 }
 
-/* Loading Spinner (::after pseudo-element) */
+
 .buttons button.loading::after {
-    /* Appearance and Animation: Creates a spinning white circle to indicate loading. */
+    
     content: "";
     position: absolute;
     right: 15px;
@@ -331,49 +331,49 @@ input[type="range"]::-webkit-slider-thumb:hover {
     pointer-events: none;
 }
 
-/* Disabled/Loading Button States */
+
 .buttons button.loading,
 .buttons button.disabledOthers {
-    /* Interactivity and Visual: Disables cursor/events, reduces opacity, and prevents hover effects. */
+    
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.6;
     transform: none !important;
 }
 
-/* Disabled/Loading Button Hover Override */
+
 .buttons button.loading:hover,
 .buttons button.disabledOthers:hover {
-    /* Ensures no scaling on hover for disabled states. */
+    
     transform: none !important;
 }
 
-/* Spinner Animation Keyframes */
+
 @keyframes spin {
-    /* Defines the continuous rotation of the spinner. */
+    
     0% { transform: translateY(-50%) rotate(0deg); }
     100% { transform: translateY(-50%) rotate(360deg); }
 }
 
-/* Error Message Text Styles */
+
 .errorMessage {
-    /* Forces a smaller font size for error messages. */
+    
     font-size: 20px !important;
 }
 
-/* Error Input Field Visuals */
+
 .inputContainer.error input[type="text"],
 .inputContainer.error input[type="password"],
 .inputContainer.error select {
-    /* High-visibility error styling: red border, shadow, and dark background. */
+    
     border: 2px solid #ff4d4d !important;
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
     background-color: #2a0e0e;
 }
 
-/* Save Button Loading State */
+
 #save.loading {
-    /* Static visual feedback for loading: specific image, reduced opacity, and no hover. */
+    
     cursor: not-allowed;
     opacity: 0.6;
     background-image: var(--pink-button-clicked-image);
@@ -381,17 +381,17 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: none !important;
 }
 
-/* Save Button Loading Hover Override */
+
 #save.loading:hover {
-    /* Prevents change on hover while loading. */
+    
     background-image: var(--pink-button-clicked-image);
     filter: grayscale(100%);
     transform: none;
 }
 
-/* Logout Button Loading State */
+
 #logout.loading {
-    /* Static visual feedback for loading: specific image, reduced opacity, and no hover. */
+    
     cursor: not-allowed;
     opacity: 0.6;
     background-image: var(--gray-button-clicked-image);
@@ -399,17 +399,17 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: none !important;
 }
 
-/* Logout Button Loading Hover Override */
+
 #logout.loading:hover {
-    /* Prevents change on hover while loading. */
+    
     background-image: var(--gray-button-clicked-image);
     filter: grayscale(100%);
     transform: none;
 }
 
-/* Delete Button Loading State */
+
 #delete.loading {
-    /* Static visual feedback for loading: specific image, reduced opacity, and no hover. */
+    
     cursor: not-allowed;
     opacity: 0.6;
     background-image: var(--red-button-clicked-image);
@@ -417,9 +417,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: none !important;
 }
 
-/* Delete Button Loading Hover Override */
+
 #delete.loading:hover {
-    /* Prevents change on hover while loading. */
+    
     background-image: var(--red-button-clicked-image);
     filter: grayscale(100%);
     transform: none;

@@ -1,6 +1,2 @@
-
-# STANDARTIZATION
-# This file is used to define attributes for paths in the repository.
-
 /mvnw text eol=lf
 *.cmd text eol=crlf

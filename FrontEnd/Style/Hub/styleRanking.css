@@ -1,198 +1,198 @@
-/* File of the Ranking page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* The Body of the HTML */
+
 body {
 
-    /* Putting and configuring the Background image */ 
+     
     background: var(--trophies-background-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    /* The size and family of the Font */ 
+     
     font-family: var(--pixel-font);
     font-size: 30px;
     
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     justify-content: center;
 }
 
-/* Section of the Container */
+
 section {
 
-    /* Defining the Padding */
+    
     padding-bottom: 30px;
 }
 
-/* The Container Div */
+
 .container {
 
-    /* Defining the Color */
+    
     background-image: var(--black-container-image);
     background-repeat: repeat;
     background-size: contain;
 
-    /* The position of the Container */
+    
     width: 1000px;
     height: 100%;
 
-    /* Configure the Padding */
+    
     padding: 20px;
 
-    /* Align with FlexBox */
+    
     text-align: center;
     overflow-y: auto;
 }
 
-/* The Div of the Buttons */
+
 .buttons {
 
-    /* Setting the margin */
+    
     margin-top: 50px;
     margin-bottom: 70px;
 }
 
-/* The Buttons */
+
 button {
 
-    /* Defining the Color */
+    
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: contain; 
     background-position: center;
     background-image: var(--pink-button-image);
 
-    /* The size and family of the Font */ 
+     
     font-family: var(--pixel-font);
     font-size: 40px;
     color: var(--light-text-color);
 
-    /* Defining the Width and Height */
+    
     width: 350px;
     height: 180px;
 
-    /* Configure the Padding */
+    
     padding: 10px 20px;
     padding-bottom: 30px;
     border: none;
     margin: 0 5px;
 
-    /* Transition in case of Hover */
+    
     cursor: pointer;
     transition: background 0.3s;
 }
 
-/* The button when have already clicked */
+
 button.active {
 
-    /* Altering the Color */
+    
     background-image: var(--pink-button-clicked-image);
 }
 
-/* Configuration of the button in case of Hover */
+
 button:hover {
 
-    /* Altering the Color */
+    
     background-image: var(--pink-button-hover-image);
     transform: scale(1.05);
 }
 
-/* Ranking Container */
+
 .rankingList {
 
-    /* Defining the Gap */
+    
     gap: 15px;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     flex-direction: column;
 }
 
-/* Ranking Item of the List */
+
 .rankingItem {
     
-    /* Defining the Color */
+    
     background-image: var(--red-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
-    /* Configure the Padding and Border Radius */
+    
     padding: 12px 16px;
     border-radius: 5px;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* The position of the Item */
+
 .rankingPosition {
 
-    /* Defining the Color */
+    
     color: var(--text-color);
 
-    /* Defining the Font Weight */
+    
     font-weight: bold;
 }
 
-/* The User of the Item */
+
 .rankingUser {
 
-    /* Defining the Margin */
+    
     margin-left: 20px;
 
-    /* Using FlexBox to configure the position */
+    
     flex: 1;
     text-align: left;
 }
 
-/* The Score of the Item */
+
 .rankingScore {
 
-    /* Defining the Color */
+    
     color: var(--text-color);
 
-    /* Defining the Font Weight */
+    
     font-weight: bold;
 }
 
-/* The Item when it's the first */
+
 .rankingItem.gold {
 
-    /* Defining the Color */
+    
     background-image: var(--gold-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
-    /* Defining the Font Weight */
+    
     font-weight: bold;
 }
 
-/* The Item when it's the second */
+
 .rankingItem.silver {
 
-    /* Defining the Color */
+    
     background-image: var(--white-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
-    /* Defining the Font Weight */
+    
     font-weight: bold;
 }
 
-/* The Item when it's the third */
+
 .rankingItem.bronze {
 
-    /* Defining the Color */
+    
     background-image: var(--bronze-container-image);
     background-size: contain;
     background-repeat: repeat-x;
 
-    /* Defining the Font Weight */
+    
     font-weight: bold;
 }

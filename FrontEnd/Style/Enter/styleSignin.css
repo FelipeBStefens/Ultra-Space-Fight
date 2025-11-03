@@ -1,155 +1,155 @@
-/* File of the sign in page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* Configuring to all HTML Tags */ 
+ 
 * {
 
-    /* Deleting the Margin and Padding */ 
+     
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* The Body of the HTML */
+
 body {
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     justify-content: flex-start; 
     flex-direction: column;      
     align-items: flex-start; 
 }
 
-/* The Container Div */
+
 #container {
 
-    /* The Width in all the page */
+    
     width: 100%;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     flex-direction: column;
     align-items: flex-start; 
 }
 
-/* The Sign In Text */
+
 #signinText {
 
-    /* Defining the Color */
+    
     color: var(--title-text-color);
 
-    /* The size and family of the Font */ 
+     
     font-size: 250px;
     font-family: var(--pixel-font);
     
-    /* Defining the position of the Text */
+    
     position: absolute;
     top: -10px;
     right: 50px;
 }
 
-/* The Forms to input values */
+
 #forms {
 
-    /* Defining the Color */
+    
     background-image: var(--blue-container-image);
     background-repeat: repeat;
     background-size: contain;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
-    /* Configure the Padding and Border Radius */
+    
     padding: 40px;
     
-    /* The Width, Height and Margins */
+    
     width: 350px;
     height: calc(100vh - 150px);
     margin-left: 200px;
     margin-top: 150px;          
     
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     flex-direction: column;
 }
 
-/* The Divs of each Input */
+
 .inputContainer {
 
-    /* The Position */
+    
     position: relative;
     margin-bottom: 25px;
 
-    /* The Width */
+    
     width: 100%;
 }
 
-/* The Input value appearence */
+
 .inputContainer .input {
     
-    /* Background Image */
+    
     background-image: var(--white-container-image);
     background-size: contain;
     background-repeat: repeat-x;
     
-    /* The size and family of the Font */ 
+     
     font-size: 16px;
     font-family: var(--pixel-font);
 
-    /* Configure the Padding and Border */
+    
     padding: 20px 15px 10px 15px; 
     border-radius: 8px;
     border: 2px solid var(--text-color);
     outline: none;
 
-    /* The width */
+    
     width: 100%;
 }
 
-/* The Label Text of the Input */
+
 .inputContainer .textInput {
     
-    /* Defining the Color */
+    
     color: #000000;
     background-color: transparent;
 
-    /* The size and family of the Font */ 
+     
     font-size: 20px; 
     font-family: var(--pixel-font);
     font-weight: bold;
 
-    /* Configure the Position */
+    
     position: absolute;
     left: 15px;
     top: 20px; 
     
-    /* The transition to Animation */
+    
     pointer-events: none;
     transition: 0.3s ease all;
 }
 
-/* The Animation of the Input */
+
 .inputContainer .input:focus + .textInput,
 .inputContainer .input:not(:placeholder-shown) + .textInput {
 
-    /* Defining the Color */
+    
     color: #000000;
     background-color: transparent;
 
-    /* The size and family of the Font */ 
+     
     font-size: 30px;  
     font-family: var(--pixel-font);
 
-    /* Configure the Position and Padding */
+    
     padding: 0 5px;
     top: -30px;        
     left: 10px;
 }
 
-/* The Button to send the informations */
+
 #button {
 
-    /* Defining the Color */
+    
     background-color: transparent;
     background-image: var(--pink-button-image);
     background-repeat: no-repeat;
@@ -158,74 +158,74 @@ body {
     color: var(--text-color);
     box-shadow: none;
 
-    /* The size and family of the Font */
+    
     font-size: 30px;
     font-family: var(--pixel-font);
 
-    /* Width and Height */
+    
     width: 200px;  
     height: 110px;
 
-    /* Defining the Position */
+    
     margin-top: 100px;
     padding-bottom: 15px;
     border: none;
     outline: none;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     align-items: center; 
     justify-content: center;
 
-    /* Transition in case of Hover */
+    
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-/* Configuration of the button in case of Hover */
+
 #button:hover {
 
-    /* Background Image */
+    
     background-image: var(--pink-button-hover-image);
     
-    /* Scaling it 1.05 */
+    
     transform: scale(1.05);
 }
 
-/* Configuration of the button when disabled */
+
 #button:disabled {
 
-    /* Background Image */
+    
     background-image: var(--pink-button-clicked-image);
     filter: grayscale(100%);
 
-    /* Making the cursor cannot click */
+    
     cursor: not-allowed;
   
-    /* Scaling it 0.95 */
+    
     transform: scale(0.95);
     transform: none;
 }
 
-/* Remover o hover quando desativado */
+
 #button:disabled:hover {
 
-    /* Background Image */
+    
     background-image: var(--pink-button-clicked-image);
     transform: none;
 }
 
-/* Button when Loading */
+
 #button.loading {
 
-    /* Background Image */
+    
     background-image: var(--pink-button-clicked-image);
     opacity: 0.7;
   
-    /* Defining the Position */
+    
     position: relative;
     
-    /* Make the cursor cannot click */
+    
     cursor: not-allowed;
     pointer-events: none; 
 }

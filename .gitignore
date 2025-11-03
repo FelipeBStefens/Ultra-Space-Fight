@@ -1,13 +1,9 @@
-
-# Ignoring configuration off all IDEs 
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 .env
-piskel/
 
-# Spring Tool Suite
 .apt_generated
 .classpath
 .factorypath
@@ -16,13 +12,11 @@ piskel/
 .springBeans
 .sts4-cache
 
-# IntelliJ 
 .idea
 *.iws
 *.iml
 *.ipr
 
-# NetBeans 
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -32,5 +26,4 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-# VS Code 
 .vscode/

@@ -1,24 +1,24 @@
-// Package;
+
 package com.ultra_space_fight.ultra_space_fight.dataTransferObjects.configurations;
 
-// Declaring AchievementsDTO class;
+
 public class AchievementsDTO {
     
-    // Attributes of AchievementDTO class;
+
     private int score;
     private int scoreMatch;
     private int defeatedEnemies;
     private int defeatedElite;
     private int defeatedBoss;
 
-    // Empty constructor;
+
     public AchievementsDTO() {}
 
-    // Constructor;
+
     public AchievementsDTO(int score, int scoreMatch, int defeatedEnemies,
         int defeatedElite, int defeatedBoss) {
         
-        // Initializing the Attribute values;
+
         this.score = score;
         this.scoreMatch = scoreMatch;
         this.defeatedEnemies = defeatedEnemies;
@@ -26,7 +26,7 @@ public class AchievementsDTO {
         this.defeatedBoss = defeatedBoss;
     }
 
-    // Getter and Setter of Score;
+
     public int getScore() {
         return score;
     }
@@ -35,7 +35,7 @@ public class AchievementsDTO {
         this.score = score;
     }
 
-    // Getter and Setter of Score Match; 
+
     public int getScoreMatch() {
         return scoreMatch;
     }
@@ -44,7 +44,7 @@ public class AchievementsDTO {
         this.scoreMatch = scoreMatch;
     }
 
-    // Getter and Setter of Defeated Enemies;
+
     public int getDefeatedEnemies() {
         return defeatedEnemies;
     }
@@ -53,7 +53,7 @@ public class AchievementsDTO {
         this.defeatedEnemies = defeatedEnemies;
     }
 
-    // Getter and Setter of Defeated Elite Enemies; 
+
     public int getDefeatedElite() {
         return defeatedElite;
     }
@@ -62,7 +62,7 @@ public class AchievementsDTO {
         this.defeatedElite = defeatedElite;
     }
 
-    // Getter and Setter of Defeated Boss;
+
     public int getDefeatedBoss() {
         return defeatedBoss;
     }

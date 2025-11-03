@@ -1,95 +1,95 @@
-/* File with the Style of the Enter Page */
 
-/* Imports variables */
+
+
 @import url('../style.css');
 
-/* Body of the Page */
+
 body {
   
-  /* Using FlexBox to configure the position */
+  
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-/* Logo Image */
+
 #logo {
 
-  /* Width and Height */
+  
   width: 700px;
   height: auto;
 
-  /* Position of the Image */
+  
   position: absolute;
   top: 0px;
   right: 90px;
 }
 
-/* Buttons Container */
+
 #buttons {
   
-  /* Defining the Position */
+  
   gap: 30px;
   padding-top: 80px;
   padding-left: 150px;
 
-  /* Using FlexBox to configure the position */
+  
   display: flex;
   flex-direction: column;
 }
 
-/* Button Style */
+
 #buttons a {
   
-  /* Background Image */
+  
   background-image: var(--pink-button-image);
   background-repeat: no-repeat;
   background-size: contain; 
   background-position: center;
 
-  /* Width and Height */
+  
   width: 350px;   
   height: 150px;   
 
-  /* Font Styles */
+  
   color: var(--text-color);
   font-family: var(--pixel-font);
   font-size: 50px;
 
-  /* Defining the Position */
+  
   text-align: center;
   line-height: 130px; 
   text-decoration: none;
   display: inline-block;
 
-  /* Transition in case of Hover */
+  
   transition: transform 0.15s ease;
   cursor: pointer;
 }
 
-/* Hover Button */
+
 #buttons a:hover {
 
-  /* Defining the Background */
+  
   background-image: var(--pink-button-hover-image);
 
-  /* Scaling it 1.05 times */
+  
   transform: scale(1.05);
 }
 
-/* Clicked Button */
+
 #buttons a:active {
 
-  /* Defining the Background */
+  
   background-image: var(--pink-button-clicked-image);
   
-  /* Scaling it 0.95 times */
+  
   transform: scale(0.95);
 }
 
-/* Button already clicked */
+
 #buttons a:focus {
 
-  /* Removing all others standart Styles */
+  
   outline: none;
 }

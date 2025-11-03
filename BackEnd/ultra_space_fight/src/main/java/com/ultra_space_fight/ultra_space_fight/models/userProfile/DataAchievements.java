@@ -1,10 +1,10 @@
-// Package;
+
 package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
-// Declaring the DataAchievement class;
+
 public class DataAchievements {
     
-    // Attributes of the DataAchievements class;
+
     private long idDataAchievements;
     private int score;
     private int scoreMatch;
@@ -12,13 +12,13 @@ public class DataAchievements {
     private int defeatedElite;
     private int defeatedBoss;
 
-    // Relation with User class;
+
     private User user;
 
-    // Empty constructor;
+
     public DataAchievements() {
 
-        // Initializing the attributes of the DataAchievements class;
+
         this.score = 0;
         this.scoreMatch = 0;
         this.defeatedEnemies = 0;
@@ -26,10 +26,10 @@ public class DataAchievements {
         this.defeatedBoss = 0;
     };
 
-    // Constructor;
+
     public DataAchievements(int score, int scoreMatch, int defeatedEnemies, int defeatedElite, int defeatedBoss, User user) {
         
-        // Initializing the attributes of the DataAchievements class;
+
         this.score = score;
         this.scoreMatch = scoreMatch;
         this.defeatedEnemies = defeatedEnemies;
@@ -38,10 +38,10 @@ public class DataAchievements {
         this.user = user;
     }
 
-    // Constructor with default values;
+
     public DataAchievements(User user) {
 
-        // Initializing the attributes of the DataAchievements class;
+
         this.score = 0;
         this.scoreMatch = 0;
         this.defeatedEnemies = 0;
@@ -50,7 +50,7 @@ public class DataAchievements {
         this.user = user;
     }
 
-    // Getter and Setter of the idDataAchievements;
+
     public long getIdDataAchievements() {
         return idDataAchievements;
     }
@@ -59,7 +59,7 @@ public class DataAchievements {
         this.idDataAchievements = idDataAchievements;
     }
 
-    // Getter and Setter of the score;
+
     public int getScore() {
         return score;
     }
@@ -68,7 +68,7 @@ public class DataAchievements {
         this.score = score;
     }
 
-    // Getter and Setter of the scoreMatch;
+
     public int getScoreMatch() {
         return scoreMatch;
     }
@@ -77,7 +77,7 @@ public class DataAchievements {
         this.scoreMatch = scoreMatch;
     }
 
-    // Getter and Setter of the defeatedEnemies;
+
     public int getDefeatedEnemies() {
         return defeatedEnemies;
     }
@@ -86,7 +86,7 @@ public class DataAchievements {
         this.defeatedEnemies = defeatedEnemies;
     }
 
-    // Getter and Setter of the defeatedElite;
+
     public int getDefeatedElite() {
         return defeatedElite;
     }
@@ -95,7 +95,7 @@ public class DataAchievements {
         this.defeatedElite = defeatedElite;
     }
 
-    // Getter and Setter of the defeatedBoss;
+
     public int getDefeatedBoss() {
         return defeatedBoss;
     }
@@ -104,7 +104,7 @@ public class DataAchievements {
         this.defeatedBoss = defeatedBoss;
     }
 
-    // Getter and Setter of the User class;
+
     public User getUser() {
         return user;
     }

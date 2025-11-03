@@ -1,396 +1,396 @@
-/* File of the Achievements page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* CSS variables */
+
 :root {
 
-    /* Achievements configrations */
+    
     --achievement-size: 400px;           
     --achievement-size-active: 500px;    
     --achievement-gap: 140px; 
 }
 
-/* Configuring to all HTML Tags */
+
 * {
 
-    /* Defining the Size of each box */
+    
     box-sizing:border-box;
 }
 
-/* The HTML and Body configurations */
+
 html, body {
 
-    /* Defining the Height */
+    
     height:100%;
 }
 
-/* The Body of the HTML */
+
 body{
 
-    /* Defining the Background Color */ 
+     
     background: var(--trophies-background-image);
 
-    /* Defining the Font Family */
+    
     font-family: var(--pixel-font);
     
-    /* Defining the margin and padding */
+    
     padding:32px;
     
-    /* Using FlexBox to configure the position */
+    
     display:flex;
     align-items:center;
     justify-content:center; 
 }
 
-/* Body to Apply grayscale */
+
 body::before {
 
-    /* Content of the HTML */
+    
     content: ""; 
     
-    /* Background Image */
+    
     background: var(--trophies-background-image);
     background-size: cover;
     background-position: center;
     filter: grayscale(50%);
 
-    /* Defining the position */
+    
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
 
-    /* Defining the Layer */
+    
     z-index: -1; 
 }
 
-/* Container with the Achievements and Buttons */
+
 .achievements {
 
-    /* Width and Height */
+    
     width:1000px;
     max-width:100%;
     height: calc(var(--achievement-size-active) + 60px);
 
-    /* Defining the Position */
+    
     position:relative;
     overflow: visible;
 
-    /* Using FlexBox to configure the position */
+    
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
-/* Buttons Style */
+
 .button {
 
-    /* Defining the Color */ 
+     
     background-size: contain;
     background-color: transparent;
     background-repeat: no-repeat;
 
-    /* Defining the Width and Height */ 
+     
     width: 150px;
     height: 150px;
 
-    /* Defining the Position */ 
+     
     position:absolute;
     top:50%;
     z-index:10;
     transform:translateY(-50%);
     
-    /* Defining the Border */ 
+     
     border:none;
     
-    /* Using Grid to display */ 
+     
     display:grid;
     place-items:center;
 
-    /* The transition to Hover */ 
+     
     cursor:pointer;
     transition:all 180ms ease;
 }
 
-/* The Left button */
+
 .button.left {
 
-    /* Background Image */
+    
     background-image: var(--left-button-image);
 
-    /* Defining the position */
+    
     left:0px;
 }
 
-/* The Right button */
+
 .button.right {
 
-    /* Background Image */
+    
     background-image: var(--right-button-image);
 
-    /* Defining the position */
+    
     right:0px;
 }
 
-/* Configuration of the button in case of Hover */
+
 .button:hover {
 
-    /* Scaling the button it's value times 1.08 */
+    
     transform:translateY(-50%) scale(1.08); 
 }
 
-/* Hover in Left Button */
+
 .button.left:hover {
 
-    /* Background Image */
+    
     background-image: var(--left-button-hover-image)
 }
 
-/* Hover in Right Button */
+
 .button.right:hover {
 
-    /* Background Image */
+    
     background-image: var(--right-button-hover-image);
 }
 
-/* Configuration of the button if it's clicked */
+
 .button:active {
 
-    /* Scaling the button it's value times 0.98 */
+    
     transform:translateY(-50%) scale(0.98);
 }
 
-/* When Button Left is clicked */
+
 .button.left:active {
 
-    /* Background Image */
+    
     background-image: var(--left-button-clicked-image);
 }
 
-/* When Button Right is clicked */
+
 .button.right:active {
 
-    /* Background Image */
+    
     background-image: var(--right-button-clicked-image);
 }
 
-/* The Viewport to all Achievements */
+
 .viewport {
 
-    /* Defining the Width and height */
+    
     width:100%;
     height:100%;
 
-    /* Defining the position */
+    
     position:relative;
 }
 
-/* The Container of all Achievements */
+
 .container {
 
-    /* Defining the Width and height */
+    
     width:100%;
     height:100%;
 
-    /* Defining the position */
+    
     position:relative;
 }
 
-/* An Achievement */
+
 .achievement {
 
-    /* Defining the Color */
+    
     opacity:0.5;
 
-    /* Defining the Font Size and Weight */
+    
     font-weight:700;
     font-size:28px;
 
-    /* Defining the Width and Height */
+    
     width: var(--achievement-size);
     height: var(--achievement-size);
     transform: translate(-50%, -50%) scale(0.9);
 
-    /* Defining the Position */
+    
     position: absolute;
     top: 50%;
     left: 50%;
     z-index:0;
 
-    /* Defining the Border Radius to make it a Circle */
+    
     user-select:none;
 
-    /* Use Display Grid to alter the postion */
+    
     display: flex; 
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     
-    /* Transition in case of Animations */
+    
     transition: transform 300ms ease, opacity 300ms ease, z-index 300ms ease;
 }
 
-/* The Frame of the Achievement */
+
 .achievementFrame {
     
-    /* Width and Height */
+    
     width: 100%;
     height: 100%;
 
-    /* Defining the Position */
+    
     position: absolute;
     inset: 0;
     object-fit: contain;
     z-index: 1; 
   
-    /* Removing mouse clicks */
+    
     pointer-events: none;
 }
 
-/* The Text of each Achievement and Stars */
+
 .achievementText,
 .stars {
 
-    /* Defining the Position */
+    
     position: absolute;
     z-index: 3;
 }
 
-/* The stars */
+
 .stars {
 
-    /* Width */
+    
     width: 100%;
 
-    /* Defining the Position */
+    
     gap: 8px;
     bottom: -18%; 
     left: 50%;
     transform: translateX(-50%); 
   
-    /* Use Display Flex to alter the postion */
+    
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Star's Image */
+
 .stars img {
     
-    /* Width and Height */
+    
     width: 80px;
     height: 80px;
     object-fit: contain;
 }
 
-/* The Text of each Achievement */
+
 .achievementText {
 
-    /* Color */
+    
     color: #f8fafc;
 
-    /* Width */
+    
     width: 100%;
 
-    /* Configuring the Fonts */
+    
     font-size: 3rem;
     
-    /* Configuring the Position */
+    
     top: -25%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
 
-    /* Configuring the Padding */
+    
     padding: 0 10px;
     display: none; 
 }
 
-/* All the Images that isn't AchievementFrame */
+
 .achievement img:not(.achievementFrame) {
     
-    /* Defining the Position */
+    
     position: relative; 
     z-index: 3; 
     object-fit: contain;
 
-    /* Defining the Transition */
+    
     transition: opacity 300ms ease;
 }
 
-/* The Text when the Achievement is unlocked */
+
 .achievement.active .achievementText,
 .achievement.unlocked .achievementText {
     
-    /* Display it */
+    
     display: block;
 }
 
-/* The Achievement that is in front */
+
 .achievement.active {
 
-    /* Defining the Font Size */
+    
     font-size:36px;
 
-    /* Defining the Width and Height */
+    
     width: var(--achievement-size-active);
     height: var(--achievement-size-active);
     transform: translate(-50%, -50%) scale(1.05);
 
-    /* Defining the opacity */
+    
     opacity:1;
     z-index:5;
 }
 
-/* The Achievement that is in left */
+
 .achievement.left {
 
-    /* Altering the size and position of Achievement */
+    
     transform: translate(calc(-50% - var(--achievement-gap)), -50%) scale(0.95);
     
-    /* Defining the opacity */
+    
     opacity:0.7;
     z-index:2;
 }
 
-/* The Achievement that is in right */
+
 .achievement.right{
 
-    /* Altering the size and position of Achievement */
+    
     transform: translate(calc(-50% + var(--achievement-gap)), -50%) scale(0.95);
     
-    /* Defining the opacity */
+    
     opacity:0.7;
     z-index:2;
 }
 
-/* Adjustements on small screens */
+
 @media (max-width:640px){
 
-    /* Defining this variables */
+    
     :root {
 
-        /* Achievements configrations */
+        
         --achievement-size:140px;
         --achievement-size-active:200px;
         --achievement-gap:40px;
     }
 
-    /* The Div to all achievements */
+    
     .achievements {
 
-        /* Defining a new Width */
+        
         width:100%;
     }
 
-    /* The buttons */
+    
     .button {
 
-        /* Defining a Font Size */
+        
         font-size:1.5rem;
     }
 }

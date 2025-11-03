@@ -1,18 +1,18 @@
-/* File with the Style of the Background Videos */
 
-/* Video configuration */
+
+
 #video {
 
-  /* Defining the Width and Height */
+  
   min-width: 100%;
   min-height: 100%;
 
-  /* Defining the Position */
+  
   position: fixed;
   right: 0;
   bottom: 0;
   
-  /* Making it in a lower layer */
+  
   object-fit: cover;
   z-index: -1;
 }

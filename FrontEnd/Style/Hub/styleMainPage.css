@@ -1,220 +1,220 @@
-/* File of the Main page style */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* The Body of the HTML */
+
 body {
 
-    /* Putting and configuring the Background image */ 
+     
     background-image: var(--main-page-background-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     justify-content: center; 
     align-items: flex-start;
 }
 
-/* Style of the text */
+
 h1 {
     
-    /* Color */
+    
     color: white;
 
-    /* Defining the Font */
+    
     font-family: var(--pixel-font);
     font-size: 100px;
     
-    /* Defining the Position */
+    
     left: 50px;
     margin: 0;
     position: absolute;
 }
 
-/* Score Match Text */
+
 #scoreMatch {
 
-    /* Defining the Position */
+    
     top: 10px;
 }
 
-/* Score Text */
+
 #score {
 
-    /* Defining the Position */
+    
     top: 100px; 
 }
 
-/* The buttons */
+
 a {
 
-    /* Background Image */
+    
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     text-decoration: none;
 
-    /* Width and Height */
+    
     width: 200px;         
     height: 200px;
 
-    /* Defining the Position */
+    
     position: absolute;
     box-sizing: border-box;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 
-    /* Defining the animation */
+    
     transition: transform 0.2s, background-image 0.15s linear;
 }
 
-/* Ranking button */
+
 #ranking {
     
-    /* Background Image */
+    
     background-image: var(--ranking-button-image);
 
-    /* Defining the Position */
+    
     top: 240px;
     left: 80px;
 }
 
-/* Ranking hover button */
+
 #ranking:hover {
 
-    /* Background Image */
+    
     background-image: var(--ranking-button-image);
 }
 
-/* Configurations button */
+
 #configurations {
 
-    /* Background Image */
+    
     background-image: var(--configuration-button-image);
 
-    /* Defining the Position */
+    
     top: 30px;
     right: 60px;
 }
 
-/* Configuration hover button */
+
 #configurations:hover {
     
-    /* Background Image */
+    
     background-image: var(--configuration-button-hover-image);
 }
 
-/* Rules button */
+
 #rules {
     
-    /* Background Image */
+    
     background-image: var(--rules-button-image);
 
-    /* Defining the Position */
+    
     top: 250px;
     right: 60px;
 }
 
-/* Rules hover button */
+
 #rules:hover {
     
-    /* Background Image */
+    
     background-image: var(--rules-button-hover-image);
 }
 
-/* Achievements button */
+
 #achievements {
     
-    /* Background Image */
+    
     background-image: var(--achievements-button-image);
 
-    /* Defining the Position */
+    
     bottom: 30px;
     left: 80px;
 }
 
-/* Achievements hover button */
+
 #achievements:hover {
     
-    /* Background Image */
+    
     background-image: var(--achievements-button-image);
 }
 
-/* Spaceships button */
+
 #spaceships {
     
-    /* Background Image */
+    
     background-image: var(--spaceship-button-image);
 
-    /* Defining the Position */
+    
     bottom: 60px;
     right: 80px;
 }
 
-/* Spaceships hover button */
+
 #spaceships:hover {
     
-    /* Background Image */
+    
     background-image: var(--spaceship-button-image);
 }
 
-/* Gameplay button */
+
 #gameplay {
     
-    /* Background Image */
+    
     background-image: var(--play-button-image);
 
-    /* Defining the Position */
+    
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-/* Gameplay hover button */
+
 #gameplay:hover {
     
-    /* Background Image */
+    
     background-image: var(--play-button-hover-image);
 }
 
-/* Configuration of the Hiperlink in case of Hover */
+
 a:hover {
 
-    /* Scaling the button it's value times 1.5 */
+    
     transform: scale(1.5);
 }
 
-/* Configurations when the buttons are disabled */
+
 a.disabledOthers {
 
-    /* Color */
+    
     filter: grayscale(100%);
     opacity: 0.6;
     
-    /* Make the cursor cannot clicked */
+    
     cursor: not-allowed;
     pointer-events: none;
 }
 
-/* Button when loading */
+
 a.loading {
 
-    /* Defining the Opacity */
+    
     opacity: 0.8;
     pointer-events: none;
 }
 
-/* Loading button when Hover */
+
 a.loading:hover {
     
-    /* Filter */
+    
     filter: grayscale(100%);
     transform: none;
 }

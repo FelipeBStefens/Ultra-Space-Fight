@@ -1,10 +1,10 @@
-// Package;
+
 package com.ultra_space_fight.ultra_space_fight.models.userProfile;
 
-// Declaring the User class;
+
 public class User {
 
-    // Attributes of the User class;
+
     private long idUser;
     private String username;
     private String email;
@@ -12,18 +12,18 @@ public class User {
     private int cash;
     private String selectedSpaceship;
 
-    // Empty constructor;
+
     public User() {
 
-        // Initializing the attributes of the User class;
+
         this.cash = 0; 
         this.selectedSpaceship = "standart_ship";
     };
 
-    // Constructor of the User class;
+
     public User(String username, String email, String password, int cash, String selectedSpaceship) {
 
-        // Initializing the attributes of the User class;
+
         this.username = username;
         this.email = email;
         this.password = password;
@@ -31,10 +31,10 @@ public class User {
         this.selectedSpaceship = selectedSpaceship;
     }
 
-    // Constructor with default value;
+
     public User(String username, String email, String password) {
         
-        // Initializing the attributes of the User class;
+
         this.username = username;
         this.email = email;
         this.password = password;
@@ -42,7 +42,7 @@ public class User {
         this.selectedSpaceship = "standart_ship";
     }
 
-    // Getter and Setter of the idUser;
+
     public long getIdUser() {
         return idUser;
     }
@@ -51,7 +51,7 @@ public class User {
         this.idUser = idUser;
     }
 
-    // Getter and Setter of the username;
+
     public String getUsername() {
         return username;
     }
@@ -60,7 +60,7 @@ public class User {
         this.username = username;
     }
 
-    // Getter and Setter of the email;
+
     public String getEmail() {
         return email;
     }
@@ -69,7 +69,7 @@ public class User {
         this.email = email;
     }
 
-    // Getter and Setter of the password;
+
     public String getPassword() {
         return password;
     }
@@ -78,7 +78,7 @@ public class User {
         this.password = password;
     }
 
-    // Getter and Setter of the cash;
+
     public int getCash() {
         return cash;
     }
@@ -87,7 +87,7 @@ public class User {
         this.cash = cash;
     }
 
-    // Getter and Setter of the selectedSpaceship;
+
     public String getSelectedSpaceship() {
         return selectedSpaceship;
     }

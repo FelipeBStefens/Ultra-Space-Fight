@@ -1,51 +1,51 @@
-/* File with the Style of the Index components */
 
-/* Import variables */
+
+
 @import url('../style.css');
 
-/* Body of the Page */
+
 body { 
 
-    /* Background Color and Color of it's elements */
+    
     background-color: #f0f0f0;
     color: #f0f0f0;
 
-    /* Using FlexBox to configure the position */
+    
     display: flex; 
     flex-direction: column; 
 }
 
-/* The Soundtrack Container */
+
 #soundtrackContainer {
 
-    /* Width and Height */
+    
     width: 10px; 
     height: 10px;
 
-    /* Defining th Position */
+    
     position: absolute;
     top: -50px; 
     left: 0;
     
-    /* Hidden parts of the container */
+    
     overflow: hidden; 
 }
 
-/* The Background Audio */
+
 #backgroundAudio {
 
-    /* Doesn't display it */
+    
     display: none; 
 }
 
-/* The Web Page that goes inside the Frame */
+
 #contentFrame {
 
-    /* Make the content above this layer */
+    
     flex-grow: 1; 
     border: none; 
 
-    /* Width and Height */
+    
     width: 100%;
     height: 100%; 
 }
