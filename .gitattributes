@@ -1,6 +1,6 @@
 
-# STANDARTIZATION
-# This file is used to define attributes for paths in the repository.
-
+# Define that mvnw final line must be Line Feed;
 /mvnw text eol=lf
+
+# Define that .cmd files final line must be Carriage Return and Line Feed;
 *.cmd text eol=crlf

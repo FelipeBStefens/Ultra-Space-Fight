@@ -1,37 +1,53 @@
+
+# Workflow name;
 name: Deploy FrontEnd to GitHub Pages
 
+# Execute always when happen a push in the main;
 on:
   push:
     branches: [ main ]
 
+# What worflow can alter and do;
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Cancel a new Deploy when another has already been Working;
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
+# Define a new Job (Sequence Steps);
 jobs:
   deploy:
+
+    # Calls GitHub Pages and get Web Page link;
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    
+    # Where the job will run;
     runs-on: ubuntu-latest
 
+    # All the Job Steps;
     steps:
+
+      # Download repository to GitHub Actions environment;
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Prepare GitHub Pages environment;
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # Send all static files to GitHub Actions;
       - name: Upload FrontEnd folder
         uses: actions/upload-pages-artifact@v3
         with:
-          path: FrontEnd  # Web Page Package name
+          path: FrontEnd  # Web Page Package name;
 
+      # Take the files and make the Deploy, getting the URL;
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
