@@ -1,5 +1,7 @@
 # 🚀 Ultra Space Fight
 
+## **[Play Now](http://felipebstefens.github.io/Ultra-Space-Fight)** 
+
 ## 👨‍💻 School Project - Integrative Project
 
 This project, **"Ultra Space Fight"**, was developed as part of the **Integrative Project** curriculum at **IFSul (Federal Institute of Education, Science and Technology of Rio Grande do Sul), Sapucaia do Sul Campus**.
@@ -79,8 +81,8 @@ The tracked achievements include:
 
 This project was a collaborative effort by:
 
-* **Felipe Bianchi Stefens**
-* **Luís Henrique Silva de Souza**
+* **[Felipe Bianchi Stefens](https://github.com/FelipeBStefens)**
+* **[Luís Henrique Silva de Souza](https://github.com/Luis-Henrique-Silva-de-Souza)**
 
 ---
 
