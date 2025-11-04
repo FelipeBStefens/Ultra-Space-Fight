@@ -1,4 +1,4 @@
-// --- Import Manager Classes & Utilities ---
+// Import Manager Classes and Utilities;
 import EnemySpawner from "../Engine/scriptSpawner.js";
 import CollisionManager from "../Engine/scriptCollisionManager.js";
 import AssetLoader from "../Engine/scriptAssetLoader.js";

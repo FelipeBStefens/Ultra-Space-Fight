@@ -27,7 +27,7 @@ public class UserValidation {
         if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
             
             // Throwing Exception;
-            throw new UserInvalidValuesException("Password");
+            throw new UserInvalidValuesException("E-Mail");
         } 
     }
 
@@ -38,7 +38,7 @@ public class UserValidation {
         if (password == null || !PASSWORD_PATTERN.matcher(password).matches()) {
             
             // Throwing Exception;
-            throw new UserInvalidValuesException("E-Mail");
+            throw new UserInvalidValuesException("Password");
         } 
     }
 
